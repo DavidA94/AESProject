@@ -14,12 +14,14 @@ namespace AES.SecuritySvc
 {
     public class Security : ISecurity
     {
-        public bool IsValidUser(UserLoginInfo userInfo)
+        static public readonly string SSNSALT = "1.OMICRON!";
+
+        public UserInfoContract ValidateUser(UserInfoContract userInfo)
         {
             using (var db = new ApplicantDbContext())
             {
                 var crypto = new SimpleCrypto.PBKDF2();
-                var ssn = crypto.Compute(userInfo.SSN, "1.OMICRON!");
+                var ssn = crypto.Compute(userInfo.SSN, SSNSALT);
 
                 var user = db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn);
 
@@ -29,55 +31,54 @@ namespace AES.SecuritySvc
                         user.LastName == userInfo.LastName &&
                         user.DOB == userInfo.DOB)
                     {
-                        return true;
+                        return new UserInfoContract(user);
                     }
                 }
                 else
                 {
-                    var worked = createUser(userInfo, ssn, db);
-                    if (worked)
+                    var newUser = createUser(userInfo, ssn, db);
+                    if (newUser != null)
                     {
-                        var userNew = db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn);
-                        return userNew != null;
+                        // Although we have it, double check it's in the DB
+                        user = db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn);
+                        return new UserInfoContract(user);
                     }
-
-                    return false;
                 }
             }
 
-            return false;
+            return null;
         }
 
-        private bool createUser(UserLoginInfo userInfo, string ssn, ApplicantDbContext db)
+        private UserInfoContract createUser(UserInfoContract userInfo, string ssn, ApplicantDbContext db)
         {
-
             var newUser = new ApplicantUser()
             {
                 DOB = userInfo.DOB,
                 FirstName = userInfo.FirstName,
                 LastName = userInfo.LastName,
                 SSN = ssn,
-                UserInfo = new UserInfo()
+                UserInfo = new Entities.Tables.UserInfo()
             };
 
             db.ApplicantUsers.Add(newUser);
             try {
-                db.Entry(newUser).State = EntityState.Added;
-                return db.SaveChanges() != 0;
+                if(db.SaveChanges() != 0)
+                {
+                    return new UserInfoContract(db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn &&
+                                                          u.FirstName == userInfo.FirstName &&
+                                                          u.LastName == userInfo.LastName &&
+                                                          u.DOB == userInfo.DOB));
+                }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                return false;
+                return null;
             }
 
+            return null;
         }
 
-        public bool LoginUser(UserLoginInfo userInfo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Logout(UserLoginInfo userInfo)
+        public bool Logout(Contracts.UserInfoContract userInfo)
         {
             throw new NotImplementedException();
         }

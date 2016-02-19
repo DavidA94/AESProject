@@ -25,7 +25,7 @@ namespace AES.Entities.Tables
         [StringLength(2)]
         public string State { get; set; }
 
-        [Range(10000, 99999)]
+        [Range(0, 99999)]
         public int Zip { get; set; }
 
         [RegularExpression(@"\d{3}-\d{3}-\d{4}")]

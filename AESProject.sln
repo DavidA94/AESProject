@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AES.SecuritySvc.Tests", "AE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AES.SecuritySvc", "AES.SecuritySvc\AES.SecuritySvc.csproj", "{4166F149-4DC5-4F14-828F-45EBAA9956CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AES.Entities", "AES.Entities\AES.Entities.csproj", "{B7A64050-2F1B-4709-BF04-09B0ED37EA71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AES.Web", "AES.Web\AES.Web.csproj", "{A4BB903F-43DB-4FF9-85DA-C756F355A8D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AES.Web.Tests", "AES.Web.Tests\AES.Web.Tests.csproj", "{4B09B863-E8CA-46CC-BB40-A9D8BB2DFEBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,11 +29,24 @@ Global
 		{4166F149-4DC5-4F14-828F-45EBAA9956CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4166F149-4DC5-4F14-828F-45EBAA9956CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4166F149-4DC5-4F14-828F-45EBAA9956CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7A64050-2F1B-4709-BF04-09B0ED37EA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A64050-2F1B-4709-BF04-09B0ED37EA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7A64050-2F1B-4709-BF04-09B0ED37EA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7A64050-2F1B-4709-BF04-09B0ED37EA71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4BB903F-43DB-4FF9-85DA-C756F355A8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4BB903F-43DB-4FF9-85DA-C756F355A8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4BB903F-43DB-4FF9-85DA-C756F355A8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4BB903F-43DB-4FF9-85DA-C756F355A8D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B09B863-E8CA-46CC-BB40-A9D8BB2DFEBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B09B863-E8CA-46CC-BB40-A9D8BB2DFEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B09B863-E8CA-46CC-BB40-A9D8BB2DFEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B09B863-E8CA-46CC-BB40-A9D8BB2DFEBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{15E23F31-8DB8-4B42-A3B6-743A403AFF24} = {AA1436E3-791B-40BC-B904-3DE592C72986}
+		{4B09B863-E8CA-46CC-BB40-A9D8BB2DFEBB} = {AA1436E3-791B-40BC-B904-3DE592C72986}
 	EndGlobalSection
 EndGlobal

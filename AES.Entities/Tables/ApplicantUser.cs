@@ -18,9 +18,9 @@ namespace AES.Entities.Tables
         [Required]
         public string LastName { get; set; }
 
-        [RegularExpression(@"\d{3}-\d{2}-\d{4}")]
         [Required]
         [Index(IsUnique = true)]
+        [StringLength(88, MinimumLength = 88)]
         public string SSN { get; set; }
 
         [Required]
