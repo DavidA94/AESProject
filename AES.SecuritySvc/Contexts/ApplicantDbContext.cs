@@ -5,7 +5,7 @@ namespace AES.Entities.Contexts
 {
     public class ApplicantDbContext : DbContext
     {
-        public ApplicantDbContext() : base("ApplicantDbContext") {
+        public ApplicantDbContext() : base("DefaultConnection") {
             var ensureDLLIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
 

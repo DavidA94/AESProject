@@ -1,18 +1,20 @@
 namespace AES.SecuritySvc.Migrations
 {
+    using Entities.Contexts;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<AES.Entities.Contexts.ApplicantDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicantDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            
         }
 
-        protected override void Seed(AES.Entities.Contexts.ApplicantDbContext context)
+        protected override void Seed(ApplicantDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

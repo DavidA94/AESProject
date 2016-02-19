@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AES.SecuritySvc.Tests", "AE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AES.SecuritySvc", "AES.SecuritySvc\AES.SecuritySvc.csproj", "{4166F149-4DC5-4F14-828F-45EBAA9956CE}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AES.Database", "AES.Database\AES.Database.sqlproj", "{C435F918-9A91-415B-8A36-F81B209F5021}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,12 +23,6 @@ Global
 		{4166F149-4DC5-4F14-828F-45EBAA9956CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4166F149-4DC5-4F14-828F-45EBAA9956CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4166F149-4DC5-4F14-828F-45EBAA9956CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C435F918-9A91-415B-8A36-F81B209F5021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C435F918-9A91-415B-8A36-F81B209F5021}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C435F918-9A91-415B-8A36-F81B209F5021}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{C435F918-9A91-415B-8A36-F81B209F5021}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C435F918-9A91-415B-8A36-F81B209F5021}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C435F918-9A91-415B-8A36-F81B209F5021}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

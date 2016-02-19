@@ -8,6 +8,7 @@ using System.Text;
 using AES.SecuritySvc.Contracts;
 using AES.Entities.Contexts;
 using AES.Entities.Tables;
+using System.Data.Entity;
 
 namespace AES.SecuritySvc
 {
@@ -18,7 +19,7 @@ namespace AES.SecuritySvc
             using (var db = new ApplicantDbContext())
             {
                 var crypto = new SimpleCrypto.PBKDF2();
-                var ssn = crypto.Compute(userInfo.SSN);
+                var ssn = crypto.Compute(userInfo.SSN, "1.OMICRON!");
 
                 var user = db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn);
 
@@ -33,7 +34,14 @@ namespace AES.SecuritySvc
                 }
                 else
                 {
-                    return createUser(userInfo, ssn, db);
+                    var worked = createUser(userInfo, ssn, db);
+                    if (worked)
+                    {
+                        var userNew = db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn);
+                        return userNew != null;
+                    }
+
+                    return false;
                 }
             }
 
@@ -53,7 +61,14 @@ namespace AES.SecuritySvc
             };
 
             db.ApplicantUsers.Add(newUser);
-            return db.SaveChanges() != 0;
+            try {
+                db.Entry(newUser).State = EntityState.Added;
+                return db.SaveChanges() != 0;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
 
         }
 
