@@ -12,17 +12,17 @@ using System.Web;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 
-namespace AES.Web.UserManagers
+namespace AES.Web.Authorization
 {
     class ApplicantUserManager
     {
         // http://stackoverflow.com/questions/31584506/how-to-implement-custom-authentication-in-asp-net-mvc-5
 
-        public bool LoginUser(ApplicantLoginModel user)
+        public static bool LoginUser(ApplicantLoginModel user)
         {
             Security s = new Security();
 
-            var valid = s.ValidateUser(new UserInfoContract(user.FirstName, user.LastName, user.SSN, user.DOB));
+            var valid = s.ValidateUser(new ApplicantInfoContract(user.FirstName, user.LastName, user.SSN, user.DOB));
 
             if (valid != null)
             {
@@ -30,7 +30,11 @@ namespace AES.Web.UserManagers
                     new[]
                     {
                         // adding following 2 claim just for supporting default antiforgery provider
-                        new Claim(ClaimTypes.NameIdentifier, valid.UserID.ToString()),
+                        new Claim(ClaimTypes.NameIdentifier, valid.FirstName),
+                        new Claim(ClaimTypes.GivenName, valid.LastName),
+                        new Claim(ClaimTypes.DateOfBirth, valid.DOB.ToString()),
+                        new Claim(ClaimTypes.SerialNumber, valid.UserID.ToString()),
+                        // new Claim(ClaimTypes.PrimarySid, valid.SSN),
                         new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
 
                         new Claim(ClaimTypes.Name, valid.UserID.ToString()),
@@ -46,6 +50,25 @@ namespace AES.Web.UserManagers
             }
 
             return false;
+        }
+
+        public static ApplicantLoginModel GetUser()
+        {
+            var claims = ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims;
+            /*
+            foreach(var claim in claims)
+            {
+                claim.s
+            }*/
+
+
+            var user = new ApplicantLoginModel() { 
+                FirstName = claims.First(n => n.Type == ClaimTypes.NameIdentifier).Value,
+                LastName = claims.First(n => n.Type == ClaimTypes.GivenName).Value,
+                DOB = DateTime.Parse(claims.First(n => n.Type == ClaimTypes.DateOfBirth).Value)
+            };
+
+            return user;
         }
     }
 }

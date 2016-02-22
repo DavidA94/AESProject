@@ -17,8 +17,14 @@ namespace AES.Web
 
             routes.MapRoute(
                 name: "Login",
-                url: "Login/",
+                url: "Login",
                 defaults: new { controller = "ApplicantLogin", action = "Login" }
+            );
+
+            routes.MapRoute(
+                name: "Welcome",
+                url: "Welcome",
+                defaults: new { controller = "ApplicantLogin", action = "Welcome" }
             );
 
             routes.MapRoute(

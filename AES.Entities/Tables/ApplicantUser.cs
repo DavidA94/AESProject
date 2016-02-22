@@ -20,7 +20,7 @@ namespace AES.Entities.Tables
 
         [Required]
         [Index(IsUnique = true)]
-        [StringLength(88, MinimumLength = 88)]
+        [StringLength(24, MinimumLength = 24)]
         public string SSN { get; set; }
 
         [Required]

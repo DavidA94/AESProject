@@ -1,6 +1,7 @@
 ﻿using AES.SecuritySvc;
 using AES.SecuritySvc.Contracts;
 using AES.Web.Models;
+using AES.Web.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,23 +27,21 @@ namespace AES.Web.Controllers
                 ModelState.AddModelError("", "Please enter all your information.");
                 return View(user);
             }
+            
 
-            Security s = new Security();
-            var userLogin = new UserInfoContract()
+            if (ApplicantUserManager.LoginUser(user))
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                DOB = user.DOB,
-                SSN = user.SSN
-            };
-
-            if (s.ValidateUser(userLogin) != null)
-            {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Welcome");
             }
 
             ModelState.AddModelError("", "Invalid Login.");
             return View(user);
+        }
+
+        [AESAuthorize]
+        public ActionResult Welcome()
+        {
+            return View(ApplicantUserManager.GetUser());
         }
     }
 }

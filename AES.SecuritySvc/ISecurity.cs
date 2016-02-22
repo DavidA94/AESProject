@@ -15,10 +15,10 @@ namespace AES.SecuritySvc
     {
 
         [OperationContract]
-        UserInfoContract ValidateUser(UserInfoContract userInfo);
+        ApplicantInfoContract ValidateUser(ApplicantInfoContract userInfo);
 
         [OperationContract]
-        bool Logout(UserInfoContract userInfo);
+        bool Logout(ApplicantInfoContract userInfo);
     }
     
 }

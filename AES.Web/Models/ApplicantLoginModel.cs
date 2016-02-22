@@ -9,6 +9,11 @@ namespace AES.Web.Models
 {
     public class ApplicantLoginModel
     {
+        public ApplicantLoginModel()
+        {
+            FirstName = "Annonymous";
+        }
+
         [StringLength(25)]
         [Required]
         [Display(Name = "First Name")]

@@ -167,6 +167,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Authorization\AESAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicantLoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -180,7 +181,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="UserManagers\ApplicantUserManager.cs" />
+    <Compile Include="Authorization\ApplicantUserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -238,8 +239,13 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\ApplicantLogin\Login.cshtml" />
+    <Content Include="Views\ApplicantLogin\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">
+      <Project>{b7a64050-2f1b-4709-bf04-09b0ed37ea71}</Project>
+      <Name>AES.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AES.SecuritySvc\AES.SecuritySvc.csproj">
       <Project>{4166f149-4dc5-4f14-828f-45ebaa9956ce}</Project>
       <Name>AES.SecuritySvc</Name>

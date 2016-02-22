@@ -19,26 +19,107 @@ namespace AES.SecuritySvc.Tests
         public SecurityUnitTest()
         {
             var c = new SimpleCrypto.PBKDF2();
-            SSN_CRYPT = c.Compute(SSN, Security.SSNSALT);
+            SSN_CRYPT = Encryption.Encrypt(SSN);
             DOB = new DateTime(1970, 1, 1);
         }
 
         [TestMethod]
         public void TC3_UserExists()
         {
-
-
             using (var db = new ApplicantDbContext())
             {
                 // Holds the user
                 ApplicantUser user = null;
 
-                // If it doesn't work the first time getting it, then we will add it in and do it again.
-                for (int i = 0; i < 2; ++i)
-                {
-                    user = db.ApplicantUsers.FirstOrDefault(u => u.SSN == SSN_CRYPT);
+                // Ensure the user is in the DB
+                userInDB(ref user, db, true);
 
-                    if (user == null && i == 0)
+                // Try to login via the security module
+                Security s = new Security();
+                var validUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB));
+
+                Assert.AreEqual(user.userID, validUser.UserID);
+            }
+        }
+
+        [TestMethod]
+        public void TC3_NewUser()
+        {
+            // Get the context
+            using (var db = new ApplicantDbContext())
+            {
+                // Holds the user
+                ApplicantUser user = null;
+
+                // Ensure the user is not in the DB
+                userInDB(ref user, db, false);
+
+                // Try to login via the security module
+                Security s = new Security();
+                var newUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB));
+
+                Assert.IsNotNull(newUser);
+                Assert.AreEqual(newUser.FirstName, FIRSTNAME);
+                Assert.AreEqual(newUser.LastName, LASTNAME);
+                Assert.AreEqual(newUser.DOB, DOB);
+            }
+        }
+
+        [TestMethod]
+        public void TC3_BadCredentials()
+        {
+            using (var db = new ApplicantDbContext())
+            {
+
+                // Holds the user
+                ApplicantUser user = null;
+
+                // Ensure the user is in the DB
+                userInDB(ref user, db, true);
+
+                // Try to log in with bad credentials
+                Security s = new Security();
+                var badFName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME.Remove(FIRSTNAME.Length - 2), LASTNAME, SSN, DOB));
+                var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME.Remove(LASTNAME.Length - 2), SSN, DOB));
+                var badDOB = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB.AddDays(1)));
+
+                Assert.IsNull(badFName);
+                Assert.IsNull(badLName);
+                Assert.IsNull(badDOB);
+            }
+        }
+
+        [TestMethod]
+        public void TC3_IncompleteCredentials()
+        {
+            using (var db = new ApplicantDbContext())
+            {
+                // Try to log in with incomplete credentials
+                Security s = new Security();
+                var badFName = s.ValidateUser(new ApplicantInfoContract(null, LASTNAME, SSN, DOB));
+                var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, null, SSN, DOB));
+                var badSSN = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, null, DOB));
+
+                // Can't have null DateTime object
+                // var badDOB = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, null));
+
+                Assert.IsNull(badFName);
+                Assert.IsNull(badLName);
+                Assert.IsNull(badSSN);
+            }
+        }
+
+
+        private void userInDB(ref ApplicantUser user, ApplicantDbContext db, bool isIn)
+        {
+            // If it doesn't work the first time getting it, then we will add it in and do it again.
+            for (int i = 0; i < 2; ++i)
+            {
+                user = db.ApplicantUsers.FirstOrDefault(u => u.SSN == SSN_CRYPT);
+
+                if (user == null && i == 0)
+                {
+                    if (isIn)
                     {
                         db.ApplicantUsers.Add(new ApplicantUser()
                         {
@@ -50,18 +131,32 @@ namespace AES.SecuritySvc.Tests
                         });
                         db.SaveChanges();
                     }
-                    else if(user == null && i != 0)
+                    else
                     {
-                        Assert.IsTrue(false);
+                        return;
                     }
-                    else break;
                 }
-
-                // Try to login via the security module
-                Security s = new Security();
-                var validUser = s.ValidateUser(new UserInfoContract(FIRSTNAME, LASTNAME, SSN, DOB));
-
-                Assert.AreEqual(user.userID, validUser.UserID);
+                else if(user != null && !isIn)
+                {
+                    db.ApplicantUsers.Remove(user);
+                    db.SaveChanges();
+                    
+                    // Do a weird error if they aren't removed
+                    if(db.ApplicantUsers.FirstOrDefault(u => u.SSN == SSN_CRYPT) != null)
+                    {
+                        Assert.IsFalse(true);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                // If we finish the loop, do something weird so we know that the user couldn't be added
+                else if (user == null && i != 0)
+                {
+                    Assert.IsTrue(false);
+                }
+                else break;
             }
         }
     }
