@@ -19,6 +19,8 @@ namespace AES.Web.Authorization
 
             var valid = s.ValidateUser(new ApplicantInfoContract(user.FirstName, user.LastName, user.SSN, user.DOB));
 
+            s.Close();
+
             if (valid != null)
             {
                 var identity = new ClaimsIdentity(

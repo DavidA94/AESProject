@@ -36,6 +36,7 @@ namespace AES.SecuritySvc.Tests
                 // Try to login via the security module
                 var s = new SecurityService.SecuritySvcClient();
                 var validUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB));
+                s.Close();
 
                 Assert.AreEqual(user.userID, validUser.UserID);
             }
@@ -56,6 +57,7 @@ namespace AES.SecuritySvc.Tests
                 // Try to login via the security module
                 var s = new SecurityService.SecuritySvcClient();
                 var newUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB));
+                s.Close();
 
                 Assert.IsNotNull(newUser);
                 Assert.AreEqual(newUser.FirstName, FIRSTNAME);
@@ -81,6 +83,7 @@ namespace AES.SecuritySvc.Tests
                 var badFName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME.Remove(FIRSTNAME.Length - 2), LASTNAME, SSN, DOB));
                 var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME.Remove(LASTNAME.Length - 2), SSN, DOB));
                 var badDOB = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB.AddDays(1)));
+                s.Close();
 
                 Assert.IsNull(badFName);
                 Assert.IsNull(badLName);
@@ -98,6 +101,7 @@ namespace AES.SecuritySvc.Tests
                 var badFName = s.ValidateUser(new ApplicantInfoContract(null, LASTNAME, SSN, DOB));
                 var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, null, SSN, DOB));
                 var badSSN = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, null, DOB));
+                s.Close();
 
                 // Can't have null DateTime object
                 // var badDOB = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, null));
