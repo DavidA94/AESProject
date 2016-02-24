@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AES.SecuritySvc.Contracts;
-using AES.Entities.Contexts;
-using System.Linq;
+﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
+using AES.SecuritySvc.Contracts;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Linq;
 
 namespace AES.SecuritySvc.Tests
 {

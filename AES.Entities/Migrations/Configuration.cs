@@ -1,11 +1,9 @@
 namespace AES.Entities.Migrations
 {
-    using System;
-    using System.Data.Entity;
+    using Contexts;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<AES.Entities.Contexts.ApplicantDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicantDbContext>
     {
         public Configuration()
         {
@@ -13,7 +11,7 @@ namespace AES.Entities.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(AES.Entities.Contexts.ApplicantDbContext context)
+        protected override void Seed(ApplicantDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

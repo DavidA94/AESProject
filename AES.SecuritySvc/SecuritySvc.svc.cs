@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
-using AES.SecuritySvc.Contracts;
-using AES.Entities.Contexts;
+﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
-using System.Data.Entity;
+using AES.SecuritySvc.Contracts;
+using System;
+using System.Linq;
 
 namespace AES.SecuritySvc
 {

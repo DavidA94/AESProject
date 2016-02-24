@@ -1,11 +1,5 @@
-﻿using AES.SecuritySvc;
-using AES.SecuritySvc.Contracts;
+﻿using AES.Web.Authorization;
 using AES.Web.Models;
-using AES.Web.Authorization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AES.Web.Controllers

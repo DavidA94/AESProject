@@ -1,16 +1,11 @@
-﻿using AES.SecuritySvc;
-using AES.SecuritySvc.Contracts;
+﻿using AES.SecuritySvc.Contracts;
 using AES.Web.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
 
 namespace AES.Web.Authorization
 {
