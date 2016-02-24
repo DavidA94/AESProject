@@ -18,7 +18,6 @@ namespace AES.SecuritySvc.Tests
 
         public SecurityUnitTest()
         {
-            var c = new SimpleCrypto.PBKDF2();
             SSN_CRYPT = Encryption.Encrypt(SSN);
             DOB = new DateTime(1970, 1, 1);
         }
@@ -35,7 +34,7 @@ namespace AES.SecuritySvc.Tests
                 userInDB(ref user, db, true);
 
                 // Try to login via the security module
-                Security s = new Security();
+                var s = new SecurityService.SecuritySvcClient();
                 var validUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB));
 
                 Assert.AreEqual(user.userID, validUser.UserID);
@@ -55,7 +54,7 @@ namespace AES.SecuritySvc.Tests
                 userInDB(ref user, db, false);
 
                 // Try to login via the security module
-                Security s = new Security();
+                var s = new SecurityService.SecuritySvcClient();
                 var newUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB));
 
                 Assert.IsNotNull(newUser);
@@ -78,7 +77,7 @@ namespace AES.SecuritySvc.Tests
                 userInDB(ref user, db, true);
 
                 // Try to log in with bad credentials
-                Security s = new Security();
+                var s = new SecurityService.SecuritySvcClient();
                 var badFName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME.Remove(FIRSTNAME.Length - 2), LASTNAME, SSN, DOB));
                 var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME.Remove(LASTNAME.Length - 2), SSN, DOB));
                 var badDOB = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB.AddDays(1)));
@@ -95,7 +94,7 @@ namespace AES.SecuritySvc.Tests
             using (var db = new ApplicantDbContext())
             {
                 // Try to log in with incomplete credentials
-                Security s = new Security();
+                var s = new SecurityService.SecuritySvcClient();
                 var badFName = s.ValidateUser(new ApplicantInfoContract(null, LASTNAME, SSN, DOB));
                 var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, null, SSN, DOB));
                 var badSSN = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, null, DOB));

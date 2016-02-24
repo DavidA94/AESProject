@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fe9c14a7-f0a8-455c-b782-55a57e04536d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:61658/SecuritySvc.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SecuritySvc.xsd" MetadataType="Schema" ID="44aa8674-6fc8-4f49-928c-e5836a4b251f" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?xsd=xsd0" />
+    <MetadataFile FileName="SecuritySvc1.xsd" MetadataType="Schema" ID="191d2bf3-6b51-410f-b0fd-06a3055b566d" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?xsd=xsd2" />
+    <MetadataFile FileName="SecuritySvc.wsdl" MetadataType="Wsdl" ID="f0f86c30-e2bd-4ce8-abaa-ee8eff6b8fcb" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?wsdl" />
+    <MetadataFile FileName="SecuritySvc2.xsd" MetadataType="Schema" ID="fae42973-4a85-4053-91c3-ef5e14256e60" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?xsd=xsd1" />
+    <MetadataFile FileName="SecuritySvc.disco" MetadataType="Disco" ID="270cc428-0f85-4c38-a8e4-52ea1b5bc2ac" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

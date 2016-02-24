@@ -20,7 +20,7 @@ namespace AES.Web.Authorization
 
         public static bool LoginUser(ApplicantLoginModel user)
         {
-            Security s = new Security();
+            var s = new SecurityService.SecuritySvcClient();
 
             var valid = s.ValidateUser(new ApplicantInfoContract(user.FirstName, user.LastName, user.SSN, user.DOB));
 

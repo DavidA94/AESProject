@@ -10,6 +10,7 @@ namespace AES.Entities.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(AES.Entities.Contexts.ApplicantDbContext context)
