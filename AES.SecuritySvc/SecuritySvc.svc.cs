@@ -54,7 +54,7 @@ namespace AES.SecuritySvc
                         // Double check it's in the DB
                         user = db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn);
 
-                        // Then return it
+                        // Then return the user
                         return new ApplicantInfoContract(user);
                     }
                 }
