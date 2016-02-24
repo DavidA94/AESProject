@@ -28,7 +28,6 @@ namespace AES.Web.Controllers
                 return View(user);
             }
             
-
             if (ApplicantUserManager.LoginUser(user))
             {
                 return RedirectToAction("Welcome");
