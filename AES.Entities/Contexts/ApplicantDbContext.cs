@@ -6,9 +6,10 @@ namespace AES.Entities.Contexts
 {
     public class ApplicantDbContext : DbContext
     {
+        /*
         public ApplicantDbContext() : base("ApplicantDbContext") {
-            var ensureDLLIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
-        }
+            // var ensureDLLIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+        }*/
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

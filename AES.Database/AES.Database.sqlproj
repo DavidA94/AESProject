@@ -7,7 +7,7 @@
     <Name>AES.Database</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{c435f918-9a91-415b-8a36-f81b209f5021}</ProjectGuid>
+    <ProjectGuid>{cdb5e445-7e4d-4f16-8f44-4e5cc8c85ee2}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
