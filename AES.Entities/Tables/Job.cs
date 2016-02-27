@@ -8,6 +8,10 @@ namespace AES.Entities.Tables
         [Required]
         public int ID { get; set; }
 
+        [StringLength(128)]
+        [Required]
+        public string title { get; set; }
+
         [StringLength(512)]
         [Required]
         public string descShort { get; set; }
