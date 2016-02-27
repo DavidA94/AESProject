@@ -6,11 +6,6 @@ namespace AES.Entities.Contexts
 {
     public class OpeningDbContext : DbContext
     {
-        /*
-        public ApplicantDbContext() : base("ApplicantDbContext") {
-            // var ensureDLLIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
-        }*/
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicantDbContext, Configuration>());
