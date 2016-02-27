@@ -4,14 +4,17 @@ using System.Data.Entity;
 
 namespace AES.Entities.Contexts
 {
-    public class ApplicantDbContext : DbContext
+    public class OpeningDbContext : DbContext
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicantDbContext, Configuration>());
         }
 
-        public DbSet<ApplicantUser> ApplicantUsers { get; set; }
-        public DbSet<UserInfo> UserInfo { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+
+        public DbSet<JobOpening> JobOpenings { get; set; }
+
+        public DbSet<Store> Stores { get; set; }
     }
 }
