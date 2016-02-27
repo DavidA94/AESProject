@@ -1,12 +1,7 @@
 ﻿using AES.Entities.Tables;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AES.OpeningSvc.Contracts
+namespace AES.OpeningsSvc.Contracts
 {
     [DataContract]
     public class JobOpeningContract

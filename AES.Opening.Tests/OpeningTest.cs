@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AES.Entities.Contexts;
+﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using AES.OpeningsSvc;
 
-namespace AES.Opening.Tests
+namespace AES.OpeningsSvc.Tests
 {
     [TestClass]
     public class OpeningTests
@@ -114,7 +112,7 @@ namespace AES.Opening.Tests
 
                 var gottenOpenings = db.JobOpenings.Where(opening => opening.Store.ID == TestStore1.ID).ToList();
 
-                Openings openingService = new Openings();
+                OpeningSvc openingService = new OpeningSvc();
 
                 var Store1Openings = openingService.GetOpenings(TestStore1.ID);
                 var Store2Openings = openingService.GetOpenings(TestStore2.ID);

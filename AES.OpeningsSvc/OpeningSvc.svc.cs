@@ -1,12 +1,7 @@
 ﻿using AES.Entities.Contexts;
-using AES.OpeningSvc.Contracts;
-using System;
+using AES.OpeningsSvc.Contracts;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 
 namespace AES.OpeningsSvc
 {
