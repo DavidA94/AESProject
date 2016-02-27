@@ -17,7 +17,7 @@ namespace AES.Entities.Tables
         [Required]
         public string descShort { get; set; }
 
-        [StringLength(8000)]
+        [StringLength(4000)]
         [Required]
         public string descLong { get; set; }
 
