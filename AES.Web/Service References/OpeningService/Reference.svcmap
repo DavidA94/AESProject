@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7011e3b4-cad4-4ff5-81e9-823ef46a6b73" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:7437/OpeningSvc.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="OpeningSvc.xsd" MetadataType="Schema" ID="8008008a-467d-4535-a4a9-67788b4e3fcb" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?xsd=xsd0" />
+    <MetadataFile FileName="OpeningSvc.wsdl" MetadataType="Wsdl" ID="234f6dac-ba00-46b0-b041-8bda9f854998" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?wsdl" />
+    <MetadataFile FileName="OpeningSvc.disco" MetadataType="Disco" ID="43ab81ee-217e-45d1-b2db-dd539b27d03b" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?disco" />
+    <MetadataFile FileName="OpeningSvc1.xsd" MetadataType="Schema" ID="4fb4736d-de49-43a5-a366-561add05f3ea" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?xsd=xsd2" />
+    <MetadataFile FileName="OpeningSvc2.xsd" MetadataType="Schema" ID="ea216ea4-da16-43f0-8b63-76c0fa3e68b9" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
