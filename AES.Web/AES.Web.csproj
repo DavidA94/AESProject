@@ -190,6 +190,11 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\OpeningService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\SecurityService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -208,6 +213,19 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\AES.SecuritySvc.Contracts.ApplicantInfoContract.datasource" />
+    <Content Include="Service References\OpeningService\AES.Web.OpeningService.JobOpeningContract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\OpeningService\OpeningSvc.wsdl" />
+    <None Include="Service References\OpeningService\OpeningSvc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OpeningService\OpeningSvc1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OpeningService\OpeningSvc2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -240,6 +258,13 @@
     <None Include="Service References\SecurityService\configuration91.svcinfo" />
     <None Include="Service References\SecurityService\configuration.svcinfo" />
     <None Include="Service References\SecurityService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\OpeningService\OpeningSvc.disco" />
+    <None Include="Service References\OpeningService\configuration91.svcinfo" />
+    <None Include="Service References\OpeningService\configuration.svcinfo" />
+    <None Include="Service References\OpeningService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -319,6 +344,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\OpeningService\" />
     <WCFMetadataStorage Include="Service References\SecurityService\" />
   </ItemGroup>
   <PropertyGroup>
