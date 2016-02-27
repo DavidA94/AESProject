@@ -75,9 +75,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contexts\OpeningDbContext.cs" />
     <Compile Include="Contexts\ApplicantDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Tables\ApplicantUser.cs" />
+    <Compile Include="Tables\Job.cs" />
+    <Compile Include="Tables\JobOpening.cs" />
+    <Compile Include="Tables\Store.cs" />
     <Compile Include="Tables\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
