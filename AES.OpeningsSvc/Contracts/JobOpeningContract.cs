@@ -13,6 +13,7 @@ namespace AES.OpeningsSvc.Contracts
             ID = opening.ID;
             shortDesc = opening.Job.descShort;
             longDesc = opening.Job.descLong;
+            title = opening.Job.title;
         }
 
         [DataMember]
@@ -20,6 +21,9 @@ namespace AES.OpeningsSvc.Contracts
 
         [DataMember]
         public string longDesc { get; set; }
+
+        [DataMember]
+        public string title { get; set; }
 
         [DataMember]
         public int ID { get; set; }

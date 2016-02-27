@@ -23,11 +23,13 @@ namespace AES.OpeningsSvc.Tests
         private const string STORE2_PHONE = "123-456-9780";
         private const int STORE2_ZIP = 23456;
 
-        private const string JOB1_DESC_SHORT = "Test Job 1";
-        private const string JOB1_DESC_LONG = "The long description for test job 1";
+        private const string JOB1_TITLE = "Job 1 Title";
+        private const string JOB1_DESC_SHORT = "Job 1 Short Description";
+        private const string JOB1_DESC_LONG = "The long description for Job 1";
 
-        private const string JOB2_DESC_SHORT = "Test Job 2";
-        private const string JOB2_DESC_LONG = "The long description for test job 2";
+        private const string JOB2_TITLE = "Job 2 Title";
+        private const string JOB2_DESC_SHORT = "Job 2 Short Description";
+        private const string JOB2_DESC_LONG = "The long description for Job 2";
 
         [TestMethod]
         public void TC_Openings()
@@ -58,12 +60,14 @@ namespace AES.OpeningsSvc.Tests
 
                 Job TestJob1 = new Job()
                 {
+                    title = JOB1_TITLE,
                     descLong = JOB1_DESC_LONG,
                     descShort = JOB1_DESC_SHORT
                 };
 
                 Job TestJob2 = new Job()
                 {
+                    title = JOB2_TITLE,
                     descLong = JOB2_DESC_LONG,
                     descShort = JOB2_DESC_SHORT
                 };
@@ -120,11 +124,15 @@ namespace AES.OpeningsSvc.Tests
                 foreach (var opening in Store1Openings)
                 {
                     Assert.AreEqual(TestJob1.descShort, opening.shortDesc);
+                    Assert.AreEqual(TestJob1.descLong, opening.longDesc);
+                    Assert.AreEqual(TestJob1.title, opening.title);
                 }
 
                 foreach (var opening in Store2Openings)
                 {
                     Assert.AreEqual(TestJob2.descShort, opening.shortDesc);
+                    Assert.AreEqual(TestJob2.descLong, opening.longDesc);
+                    Assert.AreEqual(TestJob2.title, opening.title);
                 }
 
             }
