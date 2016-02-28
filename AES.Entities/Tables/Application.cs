@@ -5,6 +5,11 @@ namespace AES.Entities.Tables
 {
     public class Application
     {
+        public Application()
+        {
+            Timestamp = new DateTime(1970, 1, 1);
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }

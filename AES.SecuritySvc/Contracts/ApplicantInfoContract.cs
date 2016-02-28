@@ -15,6 +15,11 @@ namespace AES.SecuritySvc.Contracts
 
         public ApplicantInfoContract(string first, string last, string ssn, DateTime dob, DateTime startCall, DateTime endCall)
         {
+            if(dob.Year < 1970)
+            {
+                throw new ArgumentException("DOB Year cannot be before 1970.");
+            }
+
             FirstName = first;
             LastName = last;
             SSN = ssn;

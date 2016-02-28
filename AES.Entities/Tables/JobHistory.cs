@@ -5,6 +5,12 @@ namespace AES.Entities.Tables
 {
     public class JobHistory
     {
+        public JobHistory()
+        {
+            StartDate = new DateTime(1970, 1, 1);
+            EndDate = new DateTime(1970, 1, 1);
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }

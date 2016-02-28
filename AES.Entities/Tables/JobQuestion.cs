@@ -6,12 +6,7 @@ namespace AES.Entities.Tables
     class JobQuestion
     {
 
-        public enum QuestionType
-        {
-            SHORT = 1,
-            RADIO,
-            CHECKBOX
-        }
+        public enum QuestionType { SHORT, RADIO, CHECKBOX }
 
         [Key]
         [Required]
