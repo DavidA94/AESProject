@@ -21,7 +21,7 @@ namespace AES.SecuritySvc.Tests
         public SecurityUnitTest()
         {
             SSN_CRYPT = Encryption.Encrypt(SSN);
-            DOB = new DateTime(1964, 6, 2);
+            DOB = new DateTime(1970, 6, 2);
             START_CALL = new DateTime(1970, 1, 1, 17, 0, 0);
             END_CALL = new DateTime(1970, 1, 1, 20, 0, 0);
         }
