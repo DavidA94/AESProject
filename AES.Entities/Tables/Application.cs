@@ -9,15 +9,21 @@ namespace AES.Entities.Tables
         [Required]
         public int ID { get; set; }
 
-        // Which job the application is for
+        /// <summary>
+        /// Which job the application is for
+        /// </summary>
         [Required]
         public Job Job { get; set; }
 
-        // The applicant this application is for
+        /// <summary>
+        /// The applicant this application is for
+        /// </summary>
         [Required]
         public ApplicantUser Applicant { get; set; }
 
-        // The date this application was submitted
+        /// <summary>
+        /// The date this application was submitted
+        /// </summary>
         public DateTime Timestamp { get; set; }
 
     }

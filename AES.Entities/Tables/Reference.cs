@@ -14,19 +14,19 @@ namespace AES.Entities.Tables
         public ApplicantUser Applicant { get; set; }
 
         [Required]
-        [StringLength(128)]
+        [StringLength(64)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(32)]
+        [RegularExpression(@"\d{3}-\d{3}-\d{4}")]
         public string Phone { get; set; }
 
         [Required]
-        [StringLength(128)]
+        [StringLength(64)]
         public string Company { get; set; }
 
         [Required]
-        [StringLength(128)]
+        [StringLength(64)]
         public string Title { get; set; }
     }
 }

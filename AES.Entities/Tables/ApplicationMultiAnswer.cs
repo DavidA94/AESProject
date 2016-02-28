@@ -9,11 +9,15 @@ namespace AES.Entities.Tables
         [Required]
         public int ID { get; set; }
 
-        // Which question this is answering
+        /// <summary>
+        /// Which question this is answering
+        /// </summary>
         [Required]
         public JobQuestion Question { get; set; }
 
-        // Which application this answer is in
+        /// <summary>
+        /// Which application this answer is in
+        /// </summary>
         [Required]
         public Application Application { get; set; }
 

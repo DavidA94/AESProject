@@ -6,6 +6,13 @@ namespace AES.Entities.Tables
 {
     public class ApplicantUser
     {
+
+        public ApplicantUser()
+        {
+            CallStartTime = new DateTime(1970, 1, 1, 0, 0, 0);
+            CallEndTime = new DateTime(1970, 1, 1, 0, 0, 0);
+        }
+
         [Key]
         [Required]
         public int userID { get; set; }
@@ -28,10 +35,12 @@ namespace AES.Entities.Tables
 
         public virtual UserInfo UserInfo { get; set; }
 
-        // Only one per applicant
         public virtual Availability Availability { get; set; }
 
-        public DateTime? CallStartTime { get; set; }
-        public DateTime? CallEndTime { get; set; }
+        [Required]
+        public DateTime CallStartTime { get; set; }
+
+        [Required]
+        public DateTime CallEndTime { get; set; }
     }
 }

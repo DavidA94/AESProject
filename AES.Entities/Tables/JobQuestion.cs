@@ -6,18 +6,25 @@ namespace AES.Entities.Tables
     class JobQuestion
     {
 
+        public enum QuestionType
+        {
+            SHORT = 1,
+            RADIO,
+            CHECKBOX
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }
 
-        // Which job this question is for
+        /// <summary>
+        /// Which job this question is for
+        /// </summary>
         [Required]
         public Job Job { get; set; }
 
-        // 1 for short answer, 2 for radio multi choice, 3 for checkbox multi choice
         [Required]
-        [Range(1, 3)]
-        public int Type { get; set; }
+        public QuestionType Type { get; set; }
 
         [Required]
         [StringLength(4000)]
@@ -35,12 +42,17 @@ namespace AES.Entities.Tables
         [StringLength(128)]
         public string Option4 { get; set; }
 
-        // Can be things like "12", "14", "1", 3", "123", "21"
+        /// <summary>
+        /// A list, in any order, of the numbers corresponding to correct answers (1 through 4)
+        /// Can be things like "12", "14", "1", 3", "123", "21"
+        /// </summary>
         [Required]
         [StringLength(4)]
         public string CorrectAnswers { get; set; }
 
-        // How many answers must be correct
+        /// <summary>
+        /// How many answers must be correct
+        /// </summary>
         [Required]
         [Range(0, 4)]
         public int CorrectAnswerThreshold { get; set; }

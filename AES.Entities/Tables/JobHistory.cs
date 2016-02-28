@@ -9,6 +9,9 @@ namespace AES.Entities.Tables
         [Required]
         public int ID { get; set; }
 
+        /// <summary>
+        /// The Applicant this history is for
+        /// </summary>
         [Required]
         public ApplicantUser Applicant { get; set; }
 
@@ -17,40 +20,47 @@ namespace AES.Entities.Tables
         public string EmployerName { get; set; }
 
         // Not required, since the applicant may not know
-        [StringLength(128)]
+        [StringLength(50)]
         public string EmployerAddress { get; set; }
 
         [Required]
-        [StringLength(128)]
+        [StringLength(30)]
         public string EmployerCity { get; set; }
 
-        // Not required, since the applicant may not know, or it may be irrelevant
-        [StringLength(64)]
+        /// <summary>
+        /// Not required, since the applicant may not know, or it may be irrelevant
+        /// </summary>
+        [StringLength(2)]
         public string EmployerState { get; set; }
 
-        // Not required, since the applicant may not know, or it may be irrelevant
-        [StringLength(16)]
-        public string EmployerZip { get; set; }
+        /// <summary>
+        /// Not required as the applicant may not know or it may not be relevant
+        /// </summary>
+        [Range(0, 99999)]
+        public int EmployerZip { get; set; }
 
         [Required]
-        [StringLength(128)]
+        [StringLength(32)]
         public string EmployerCountry { get; set; }
 
-        // Not required, since the applicant may not know
-        [StringLength(32)]
+        [RegularExpression(@"\d{3}-\d{3}-\d{4}")]
         public string EmployerPhone { get; set; }
 
         [Required]
         [StringLength(128)]
         public string SupervisorName { get; set; }
 
-        // Not Required
+        /// <summary>
+        /// Not Required
+        /// </summary>
         [StringLength(128)]
-        public string StartingSalary { get; set; }
+        public decimal StartingSalary { get; set; }
 
-        // Not Required
+        /// <summary>
+        /// Not Required
+        /// </summary>
         [StringLength(128)]
-        public string EndingSalary { get; set; }
+        public decimal EndingSalary { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }

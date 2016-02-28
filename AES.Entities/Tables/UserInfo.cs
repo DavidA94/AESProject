@@ -26,6 +26,6 @@ namespace AES.Entities.Tables
         [RegularExpression(@"\d{3}-\d{3}-\d{4}")]
         public string Phone { get; set; }
 
-        public double SalaryExpectation { get; set; }
+        public decimal SalaryExpectation { get; set; }
     }
 }
