@@ -15,11 +15,15 @@ namespace AES.SecuritySvc.Tests
         private const string SSN = "11-22-3344";
         private readonly string SSN_CRYPT;
         private readonly DateTime DOB;
+        private readonly DateTime START_CALL;
+        private readonly DateTime END_CALL;
 
         public SecurityUnitTest()
         {
             SSN_CRYPT = Encryption.Encrypt(SSN);
-            DOB = new DateTime(1970, 1, 1);
+            DOB = new DateTime(1964, 6, 2);
+            START_CALL = new DateTime(1970, 1, 1, 17, 0, 0);
+            END_CALL = new DateTime(1970, 1, 1, 20, 0, 0);
         }
 
         [TestMethod]
@@ -35,7 +39,7 @@ namespace AES.SecuritySvc.Tests
 
                 // Try to login via the security module
                 var s = new SecuritySvc();
-                var validUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB));
+                var validUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB, START_CALL, END_CALL));
 
                 Assert.AreEqual(user.userID, validUser.UserID);
             }
@@ -55,7 +59,7 @@ namespace AES.SecuritySvc.Tests
 
                 // Try to login via the security module
                 var s = new SecuritySvc();
-                var newUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB));
+                var newUser = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB, START_CALL, END_CALL));
 
                 Assert.IsNotNull(newUser);
                 Assert.AreEqual(newUser.FirstName, FIRSTNAME);
@@ -78,9 +82,9 @@ namespace AES.SecuritySvc.Tests
 
                 // Try to log in with bad credentials
                 var s = new SecuritySvc();
-                var badFName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME.Remove(FIRSTNAME.Length - 2), LASTNAME, SSN, DOB));
-                var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME.Remove(LASTNAME.Length - 2), SSN, DOB));
-                var badDOB = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB.AddDays(1)));
+                var badFName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME.Remove(FIRSTNAME.Length - 2), LASTNAME, SSN, DOB, START_CALL, END_CALL));
+                var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME.Remove(LASTNAME.Length - 2), SSN, DOB, START_CALL, END_CALL));
+                var badDOB = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, DOB.AddDays(1), START_CALL, END_CALL));
 
                 Assert.IsNull(badFName);
                 Assert.IsNull(badLName);
@@ -95,9 +99,9 @@ namespace AES.SecuritySvc.Tests
             {
                 // Try to log in with incomplete credentials
                 var s = new SecuritySvc();
-                var badFName = s.ValidateUser(new ApplicantInfoContract(null, LASTNAME, SSN, DOB));
-                var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, null, SSN, DOB));
-                var badSSN = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, null, DOB));
+                var badFName = s.ValidateUser(new ApplicantInfoContract(null, LASTNAME, SSN, DOB, START_CALL, END_CALL));
+                var badLName = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, null, SSN, DOB, START_CALL, END_CALL));
+                var badSSN = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, null, DOB, START_CALL, END_CALL));
 
                 // Can't have null DateTime object
                 // var badDOB = s.ValidateUser(new ApplicantInfoContract(FIRSTNAME, LASTNAME, SSN, null));
@@ -126,7 +130,10 @@ namespace AES.SecuritySvc.Tests
                             LastName = LASTNAME,
                             DOB = DOB,
                             SSN = SSN_CRYPT,
-                            UserInfo = new UserInfo()
+                            UserInfo = new UserInfo(),
+                            Availability = new Availability(),
+                            CallStartTime = START_CALL,
+                            CallEndTime = END_CALL
                         });
                         db.SaveChanges();
                     }

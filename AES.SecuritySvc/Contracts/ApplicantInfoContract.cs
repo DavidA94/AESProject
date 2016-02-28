@@ -13,12 +13,14 @@ namespace AES.SecuritySvc.Contracts
     {
         public ApplicantInfoContract() { }
 
-        public ApplicantInfoContract(string first, string last, string ssn, DateTime dob)
+        public ApplicantInfoContract(string first, string last, string ssn, DateTime dob, DateTime startCall, DateTime endCall)
         {
             FirstName = first;
             LastName = last;
             SSN = ssn;
             DOB = dob;
+            StartCallTime = startCall;
+            EndCallTime = endCall;
         }
 
         public ApplicantInfoContract(ApplicantUser user)
@@ -27,6 +29,8 @@ namespace AES.SecuritySvc.Contracts
             LastName = user.LastName;
             UserID = user.userID;
             DOB = user.DOB;
+            StartCallTime = user.CallStartTime;
+            EndCallTime = user.CallEndTime;
         }
 
         [DataMember]
@@ -43,6 +47,14 @@ namespace AES.SecuritySvc.Contracts
 
         [DataMember]
         public DateTime DOB { get; set; }
+
+        [DataMember]
+        public DateTime StartCallTime { get; set; }
+
+
+        [DataMember]
+        public DateTime EndCallTime { get; set; }
+
 
         public UserInfoContract UserInfo { get; set; }
     }
