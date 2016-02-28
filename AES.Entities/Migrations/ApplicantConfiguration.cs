@@ -3,9 +3,9 @@ namespace AES.Entities.Migrations
     using Contexts;
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicantDbContext>
+    internal sealed class ApplicantConfiguration : DbMigrationsConfiguration<ApplicantDbContext>
     {
-        public Configuration()
+        public ApplicantConfiguration()
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;

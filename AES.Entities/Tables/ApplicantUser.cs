@@ -27,5 +27,8 @@ namespace AES.Entities.Tables
         public DateTime DOB { get; set; }
 
         public virtual UserInfo UserInfo { get; set; }
+
+        // Only one per applicant
+        public virtual Availability Availability { get; set; }
     }
 }
