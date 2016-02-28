@@ -30,5 +30,8 @@ namespace AES.Entities.Tables
 
         // Only one per applicant
         public virtual Availability Availability { get; set; }
+
+        public DateTime CallStartTime { get; set; }
+        public DateTime CallEndTime { get; set; }
     }
 }

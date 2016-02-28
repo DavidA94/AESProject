@@ -23,10 +23,8 @@ namespace AES.Entities.Tables
         [Required]
         public bool Answer2 { get; set; }
 
-        [Required]
         public bool Answer3 { get; set; }
 
-        [Required]
         public bool Answer4 { get; set; }
 
     }

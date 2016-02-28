@@ -75,14 +75,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\ApplicationDbContext.cs" />
     <Compile Include="Contexts\OpeningDbContext.cs" />
     <Compile Include="Contexts\ApplicantDbContext.cs" />
-    <Compile Include="Migrations\ApplicationConfiguration.cs" />
     <Compile Include="Migrations\OpeningConfiguration.cs" />
     <Compile Include="Migrations\ApplicantConfiguration.cs" />
     <Compile Include="Tables\ApplicantUser.cs" />
-    <Compile Include="Tables\ApplicationQuestion.cs" />
+    <Compile Include="Tables\JobQuestion.cs" />
     <Compile Include="Tables\ApplicationMultiAnswer.cs" />
     <Compile Include="Tables\ApplicationShortAnswer.cs" />
     <Compile Include="Tables\Application.cs" />

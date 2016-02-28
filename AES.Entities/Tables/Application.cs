@@ -15,10 +15,9 @@ namespace AES.Entities.Tables
 
         // The applicant this application is for
         [Required]
-        public ApplicantUser User { get; set; }
+        public ApplicantUser Applicant { get; set; }
 
         // The date this application was submitted
-        [Required]
         public DateTime Timestamp { get; set; }
 
     }

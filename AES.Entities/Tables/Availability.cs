@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
 {
@@ -8,34 +9,33 @@ namespace AES.Entities.Tables
         [Required]
         public int ID { get; set; }
 
-        [Required]
-        [StringLength(128)]
-        public string Sunday { get; set; }
+        public DateTime SundayStart { get; set; }
 
-        [Required]
-        [StringLength(128)]
-        public string Monday { get; set; }
+        public DateTime MondayStart { get; set; }
 
-        [Required]
-        [StringLength(128)]
-        public string Tuesday { get; set; }
+        public DateTime TuesdayStart { get; set; }
 
-        [Required]
-        [StringLength(128)]
-        public string Wednesday { get; set; }
+        public DateTime WednesdayStart { get; set; }
 
-        [Required]
-        [StringLength(128)]
-        public string Thursday { get; set; }
+        public DateTime ThursdayStart { get; set; }
 
-        [Required]
-        [StringLength(128)]
-        public string Friday { get; set; }
+        public DateTime FridayStart { get; set; }
 
-        [Required]
-        [StringLength(128)]
-        public string Saturday { get; set; }
+        public DateTime SaturdayStart { get; set; }
 
+        public DateTime SundayEnd { get; set; }
+
+        public DateTime MondayEnd { get; set; }
+
+        public DateTime TuesdayEnd { get; set; }
+
+        public DateTime WednesdayEnd { get; set; }
+
+        public DateTime ThursdayEnd { get; set; }
+
+        public DateTime FridayEnd { get; set; }
+
+        public DateTime SaturdayEnd { get; set; }
 
     }
 }

@@ -17,11 +17,11 @@ namespace AES.Entities.Tables
         // 1 for short answer, 2 for radio multi choice, 3 for checkbox multi choice
         [Required]
         [Range(1, 3)]
-        public int QuestionType { get; set; }
+        public int Type { get; set; }
 
         [Required]
         [StringLength(4000)]
-        public string QuestionText { get; set; }
+        public string Text { get; set; }
 
         [StringLength(128)]
         public string Option1 { get; set; }
