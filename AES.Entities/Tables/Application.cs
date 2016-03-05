@@ -1,25 +1,20 @@
-﻿using System;
 using System.Collections.Generic;
+﻿using AES.Shared;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
 {
     public class Application
     {
+        public Application()
+        {
+            Timestamp = new DateTime(1970, 1, 1);
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }
-
-        public enum AppStatus
-        {
-            PARTIAL,
-            AUTO_REJECT,
-            WAITING_CALL,
-            WAITING_INTERVIEW,
-            CALL_DENIED,
-            APPROVED,
-            DENIED
-        }
 
         /// <summary>
         /// Which job the application is for
@@ -41,5 +36,9 @@ namespace AES.Entities.Tables
         public virtual ICollection<ApplicationMultiAnswer> MultiAnswers { get; set; }
         public virtual ICollection<ApplicationShortAnswer> ShortAnswers { get; set; }
 
+        /// <summary>
+        /// Where the application is at in the process
+        /// </summary>
+        public AppStatus Status { get; set; }
     }
 }

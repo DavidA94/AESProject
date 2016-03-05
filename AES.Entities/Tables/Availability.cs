@@ -5,6 +5,12 @@ namespace AES.Entities.Tables
 {
     public class Availability
     {
+        public Availability()
+        {
+            SundayStart = SundayEnd = MondayStart = MondayEnd = TuesdayStart = TuesdayEnd = WednesdayStart = WednesdayEnd =
+                ThursdayStart = ThursdayEnd = FridayStart = FridayEnd = SaturdayStart = SaturdayEnd = new DateTime(1970, 1, 1);
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }

@@ -10,8 +10,8 @@ namespace AES.Entities.Tables
 
         public ApplicantUser()
         {
-            CallStartTime = new DateTime(1970, 1, 1, 0, 0, 0);
-            CallEndTime = new DateTime(1970, 1, 1, 0, 0, 0);
+            CallStartTime = new DateTime(1970, 1, 1);
+            CallEndTime = new DateTime(1970, 1, 1);
         }
 
         [Key]

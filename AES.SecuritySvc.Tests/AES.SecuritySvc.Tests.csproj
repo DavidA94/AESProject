@@ -82,6 +82,10 @@
       <Project>{e23b1cab-7e31-4d89-8c33-049ab86299e1}</Project>
       <Name>AES.SecuritySvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AES.Shared\AES.Shared.csproj">
+      <Project>{bb832eda-ff67-4abb-a5c0-e11382577d5a}</Project>
+      <Name>AES.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
