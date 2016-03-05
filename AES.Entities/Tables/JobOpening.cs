@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
 {
@@ -13,5 +14,8 @@ namespace AES.Entities.Tables
 
         [Required]
         public virtual Store Store { get; set; }
+
+        public virtual ICollection<Application> Applications { get; set; }
+
     }
 }

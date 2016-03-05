@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
 {
@@ -31,6 +32,8 @@ namespace AES.Entities.Tables
         [RegularExpression(@"\d{3}-\d{3}-\d{4}")]
         [Required]
         public string Phone { get; set; }
+
+        public virtual ICollection<JobOpening> Openings { get; set; }
 
     }
 }

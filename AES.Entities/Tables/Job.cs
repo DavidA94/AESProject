@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
 {
@@ -19,6 +20,10 @@ namespace AES.Entities.Tables
         [StringLength(4000)]
         [Required]
         public string descLong { get; set; }
+
+        public virtual ICollection<JobOpening> Openings { get; set; }
+
+        public virtual ICollection<JobQuestion> Questions { get; set; }
 
     }
 }

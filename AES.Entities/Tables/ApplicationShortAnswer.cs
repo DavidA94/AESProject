@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
 {
-    class ApplicationShortAnswer
+    public class ApplicationShortAnswer
     {
         [Key]
         [Required]
@@ -13,13 +13,7 @@ namespace AES.Entities.Tables
         /// Which question this is answering
         /// </summary>
         [Required]
-        public JobQuestion Question { get; set; }
-
-        /// <summary>
-        /// Which application this answer is in
-        /// </summary>
-        [Required]
-        public Application Application { get; set; }
+        public virtual JobQuestion Question { get; set; }
 
         [Required]
         [StringLength(4000)]

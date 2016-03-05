@@ -9,8 +9,11 @@ namespace AES.Entities.Tables
         [Required]
         public int ID { get; set; }
 
+        /// <summary>
+        /// The applicant this history is for
+        /// </summary>
         [Required]
-        public ApplicantUser Applicant { get; set; }
+        public virtual ApplicantUser Applicant { get; set; }
 
         [Required]
         [StringLength(64)]

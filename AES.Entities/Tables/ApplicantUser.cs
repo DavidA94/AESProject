@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -42,5 +43,14 @@ namespace AES.Entities.Tables
 
         [Required]
         public DateTime CallEndTime { get; set; }
+
+        public virtual ICollection<Reference> References { get; set; }
+
+        public virtual ICollection<EducationHistory> EducationHistory { get; set; }
+
+        public virtual ICollection<JobHistory> EmploymentHistory { get; set; }
+
+        public virtual ICollection<Application> Applications { get; set; }
+
     }
 }
