@@ -1,6 +1,6 @@
 ﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
-using AES.SecuritySvc.Contracts;
+using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;

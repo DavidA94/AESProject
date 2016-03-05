@@ -1,6 +1,6 @@
 ﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
-using AES.SecuritySvc.Contracts;
+using AES.Shared.Contracts;
 using System;
 using System.Linq;
 
@@ -11,7 +11,7 @@ namespace AES.SecuritySvc
         public ApplicantInfoContract ValidateUser(ApplicantInfoContract userInfo)
         {
             // If we get any null data, just return (DateTime cannot be null)
-            if(userInfo.FirstName == null || userInfo.LastName == null || userInfo.SSN == null)
+            if (userInfo.FirstName == null || userInfo.LastName == null || userInfo.SSN == null)
             {
                 return null;
             }
@@ -21,12 +21,12 @@ namespace AES.SecuritySvc
             {
                 // Get the encrypted SSN
                 var ssn = Encryption.Encrypt(userInfo.SSN);
-                
+
                 // Get the user from the database
                 var user = db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn);
 
                 // If we get a user
-                if(user != null)
+                if (user != null)
                 {
                     // Ensure the data is correct
                     if (user.FirstName == userInfo.FirstName &&
@@ -34,7 +34,7 @@ namespace AES.SecuritySvc
                         user.DOB == userInfo.DOB)
                     {
                         // If it is, return the user
-                        return new ApplicantInfoContract(user);
+                        return makeAppInfoContract(user);
                     }
                 }
                 else
@@ -49,7 +49,7 @@ namespace AES.SecuritySvc
                         user = db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn);
 
                         // Then return the user
-                        return new ApplicantInfoContract(user);
+                        return makeAppInfoContract(user);
                     }
                 }
             }
@@ -68,9 +68,9 @@ namespace AES.SecuritySvc
                                                               u.LastName == user.LastName &&
                                                               u.DOB == user.DOB);
 
-                if(dbUser != null)
+                if (dbUser != null)
                 {
-                    return new ApplicantInfoContract(dbUser);
+                    return makeAppInfoContract(dbUser);
                 }
             }
 
@@ -91,24 +91,38 @@ namespace AES.SecuritySvc
 
             // Add them to the database
             db.ApplicantUsers.Add(newUser);
-            try {
+            try
+            {
                 // Try to save the changes
-                if(db.SaveChanges() != 0)
+                if (db.SaveChanges() != 0)
                 {
                     // If that worked, return the user
-                    return new ApplicantInfoContract(db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn &&
-                                                          u.FirstName == userInfo.FirstName &&
-                                                          u.LastName == userInfo.LastName &&
-                                                          u.DOB == userInfo.DOB));
+                    return makeAppInfoContract(db.ApplicantUsers.FirstOrDefault(u => u.SSN == ssn &&
+                                                                                     u.FirstName == userInfo.FirstName &&
+                                                                                     u.LastName == userInfo.LastName &&
+                    /**/                                                             u.DOB == userInfo.DOB));
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 // Many things could go wrong, but nothing needs to happen, we will fail out below.
             }
 
             // If we make it to here, we can't create them
             return null;
+        }
+
+        private ApplicantInfoContract makeAppInfoContract(ApplicantUser user)
+        {
+            return new ApplicantInfoContract()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserID = user.userID,
+                DOB = user.DOB,
+                StartCallTime = user.CallStartTime,
+                EndCallTime = user.CallEndTime
+            };
         }
     }
 }
