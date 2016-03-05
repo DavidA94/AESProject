@@ -1,13 +1,11 @@
-﻿using System;
+﻿using AES.Shared;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
 {
     class JobQuestion
     {
-
-        public enum QuestionType { SHORT, RADIO, CHECKBOX }
-
         [Key]
         [Required]
         public int ID { get; set; }

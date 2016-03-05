@@ -1,12 +1,8 @@
-﻿using AES.Entities.Tables;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AES.SecuritySvc.Contracts
+namespace AES.Shared.Contracts
 {
     [DataContract]
     public class ApplicantInfoContract
@@ -26,16 +22,6 @@ namespace AES.SecuritySvc.Contracts
             DOB = dob;
             StartCallTime = startCall;
             EndCallTime = endCall;
-        }
-
-        public ApplicantInfoContract(ApplicantUser user)
-        {
-            FirstName = user.FirstName;
-            LastName = user.LastName;
-            UserID = user.userID;
-            DOB = user.DOB;
-            StartCallTime = user.CallStartTime;
-            EndCallTime = user.CallEndTime;
         }
 
         [DataMember]
@@ -60,7 +46,11 @@ namespace AES.SecuritySvc.Contracts
         [DataMember]
         public DateTime EndCallTime { get; set; }
 
-
+        [DataMember]
         public UserInfoContract UserInfo { get; set; }
+        public AvailabilityContract Availability { get; set; }
+        public List<EducationHistory> Education { get; set; }
+        public List<ReferenceContract> References { get; set; }
+        public List<JobHistoryContract> PastJobs { get; set; }
     }
 }

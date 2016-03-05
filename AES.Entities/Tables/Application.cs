@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AES.Shared;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
@@ -31,5 +32,9 @@ namespace AES.Entities.Tables
         /// </summary>
         public DateTime Timestamp { get; set; }
 
+        /// <summary>
+        /// Where the application is at in the process
+        /// </summary>
+        public AppStatus Status { get; set; }
     }
 }
