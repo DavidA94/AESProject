@@ -12,6 +12,10 @@ namespace AES.Entities.Tables
         {
             CallStartTime = new DateTime(1970, 1, 1);
             CallEndTime = new DateTime(1970, 1, 1);
+            References = new HashSet<Reference>();
+            EducationHistory = new HashSet<EducationHistory>();
+            EmploymentHistory = new HashSet<JobHistory>();
+            Applications = new HashSet<Application>();
         }
 
         [Key]

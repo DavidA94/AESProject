@@ -5,6 +5,13 @@ namespace AES.Entities.Tables
 {
     public class Job
     {
+
+        public Job()
+        {
+            Openings = new HashSet<JobOpening>();
+            Questions = new HashSet<JobQuestion>();
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }
