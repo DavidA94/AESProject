@@ -19,7 +19,7 @@ namespace AES.Entities.Tables
         /// The Applicant this history is for
         /// </summary>
         [Required]
-        public ApplicantUser Applicant { get; set; }
+        public virtual ApplicantUser Applicant { get; set; }
 
         [Required]
         [StringLength(128)]
@@ -59,13 +59,11 @@ namespace AES.Entities.Tables
         /// <summary>
         /// Not Required
         /// </summary>
-        [StringLength(128)]
         public decimal StartingSalary { get; set; }
 
         /// <summary>
         /// Not Required
         /// </summary>
-        [StringLength(128)]
         public decimal EndingSalary { get; set; }
 
         [Required]

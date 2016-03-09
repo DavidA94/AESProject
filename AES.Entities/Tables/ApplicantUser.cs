@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,6 +12,10 @@ namespace AES.Entities.Tables
         {
             CallStartTime = new DateTime(1970, 1, 1);
             CallEndTime = new DateTime(1970, 1, 1);
+            References = new HashSet<Reference>();
+            EducationHistory = new HashSet<EducationHistory>();
+            EmploymentHistory = new HashSet<JobHistory>();
+            Applications = new HashSet<Application>();
         }
 
         [Key]
@@ -42,5 +47,14 @@ namespace AES.Entities.Tables
 
         [Required]
         public DateTime CallEndTime { get; set; }
+
+        public virtual ICollection<Reference> References { get; set; }
+
+        public virtual ICollection<EducationHistory> EducationHistory { get; set; }
+
+        public virtual ICollection<JobHistory> EmploymentHistory { get; set; }
+
+        public virtual ICollection<Application> Applications { get; set; }
+
     }
 }

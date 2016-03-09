@@ -15,7 +15,7 @@ namespace AES.Web.OpeningService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="JobOpeningContract", Namespace="http://schemas.datacontract.org/2004/07/AES.OpeningSvc.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="JobOpeningContract", Namespace="http://schemas.datacontract.org/2004/07/AES.OpeningsSvc.Contracts")]
     [System.SerializableAttribute()]
     public partial class JobOpeningContract : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -30,6 +30,9 @@ namespace AES.Web.OpeningService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string shortDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string titleField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -76,6 +79,19 @@ namespace AES.Web.OpeningService {
                 if ((object.ReferenceEquals(this.shortDescField, value) != true)) {
                     this.shortDescField = value;
                     this.RaisePropertyChanged("shortDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string title {
+            get {
+                return this.titleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.titleField, value) != true)) {
+                    this.titleField = value;
+                    this.RaisePropertyChanged("title");
                 }
             }
         }
