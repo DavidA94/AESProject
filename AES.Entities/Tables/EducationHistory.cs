@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AES.Shared;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
@@ -45,11 +46,9 @@ namespace AES.Entities.Tables
         [StringLength(32)]
         public string SchoolCountry { get; set; }
 
-        [RegularExpression(@"\d{3}-\d{3}-\d{4}")]
-        public string SchoolPhone { get; set; }
-
+        
         [Required]
-        public double YearsAddented { get; set; }
+        public double YearsAttended { get; set; }
 
         /// <summary>
         /// Can be used to determine if the applicant has graduated or will graduate (it would be a future date)
@@ -62,7 +61,7 @@ namespace AES.Entities.Tables
 
         [Required]
         [StringLength(64)]
-        public string Degree { get; set; }
+        public DegreeType Degree { get; set; }
 
     }
 }

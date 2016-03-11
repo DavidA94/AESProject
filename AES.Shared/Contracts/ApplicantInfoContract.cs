@@ -55,7 +55,7 @@ namespace AES.Shared.Contracts
         public AvailabilityContract Availability { get; set; }
 
         [DataMember]
-        public List<EducationHistory> Education { get; set; }
+        public List<EducationHistoryContract> Education { get; set; }
 
         [DataMember]
         public List<ReferenceContract> References { get; set; }

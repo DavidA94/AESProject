@@ -65,4 +65,11 @@ namespace AES.Shared
         /// </summary>
         CHECKBOX
     }
+
+    /// <summary>
+    /// The type of degree obtained from a school
+    /// </summary>
+    public enum DegreeType { NONE, HS_DIPLOMA, AA, BA, MA, PHD, MD, CERTIFICATE };
+
+    public enum AppSvcResponse { GOOD, BAD_USER, BAD_JOB, BAD_QUESTION, ERROR };
 }

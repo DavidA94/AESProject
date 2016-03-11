@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contexts\ApplicationDbContext.cs" />
     <Compile Include="Contexts\OpeningDbContext.cs" />
     <Compile Include="Contexts\ApplicantDbContext.cs" />
     <Compile Include="Migrations\OpeningConfiguration.cs" />
