@@ -13,7 +13,7 @@ namespace AES.ApplicationSvc.Tests
         {
             using (var db = new ApplicationDbContext())
             {
-                db.Applications.FirstOrDefault(a => a.)
+                //db.Applications.FirstOrDefault(a => a.)
             }
         }
     }

@@ -9,7 +9,7 @@ namespace AES.Shared.Contracts
     {
         public ApplicantInfoContract() { }
 
-        public ApplicantInfoContract(string first, string last, string ssn, DateTime dob, DateTime startCall, DateTime endCall)
+        public ApplicantInfoContract(string first, string last, string ssn, DateTime dob, TimeSpan startCall, TimeSpan endCall)
         {
             if(dob.Year < 1970)
             {

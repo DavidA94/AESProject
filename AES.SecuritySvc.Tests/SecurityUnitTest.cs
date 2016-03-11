@@ -15,15 +15,15 @@ namespace AES.SecuritySvc.Tests
         private const string SSN = "11-22-3344";
         private readonly string SSN_CRYPT;
         private readonly DateTime DOB;
-        private readonly DateTime START_CALL;
-        private readonly DateTime END_CALL;
+        private readonly TimeSpan START_CALL;
+        private readonly TimeSpan END_CALL;
 
         public SecurityUnitTest()
         {
             SSN_CRYPT = Encryption.Encrypt(SSN);
             DOB = new DateTime(1970, 6, 2);
-            START_CALL = new DateTime(1970, 1, 1, 17, 0, 0);
-            END_CALL = new DateTime(1970, 1, 1, 20, 0, 0);
+            START_CALL = new TimeSpan(17, 0, 0);
+            END_CALL = new TimeSpan(20, 0, 0);
         }
 
         [TestMethod]
