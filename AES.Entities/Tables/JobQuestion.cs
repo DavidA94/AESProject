@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
 {
-    class JobQuestion
+    public class JobQuestion
     {
         [Key]
         [Required]
@@ -14,7 +14,7 @@ namespace AES.Entities.Tables
         /// Which job this question is for
         /// </summary>
         [Required]
-        public Job Job { get; set; }
+        public virtual Job Job { get; set; }
 
         [Required]
         public QuestionType Type { get; set; }

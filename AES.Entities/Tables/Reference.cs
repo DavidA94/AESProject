@@ -11,7 +11,7 @@ namespace AES.Entities.Tables
 
         // The applicant who this reference is for
         [Required]
-        public ApplicantUser Applicant { get; set; }
+        public virtual ApplicantUser Applicant { get; set; }
 
         [Required]
         [StringLength(64)]

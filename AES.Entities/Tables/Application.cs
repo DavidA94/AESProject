@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 ﻿using AES.Shared;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -19,18 +20,21 @@ namespace AES.Entities.Tables
         /// Which job the application is for
         /// </summary>
         [Required]
-        public Job Job { get; set; }
+        public virtual Job Job { get; set; }
 
         /// <summary>
         /// The applicant this application is for
         /// </summary>
         [Required]
-        public ApplicantUser Applicant { get; set; }
+        public virtual ApplicantUser Applicant { get; set; }
 
         /// <summary>
         /// The date this application was submitted
         /// </summary>
         public DateTime Timestamp { get; set; }
+
+        public virtual ICollection<ApplicationMultiAnswer> MultiAnswers { get; set; }
+        public virtual ICollection<ApplicationShortAnswer> ShortAnswers { get; set; }
 
         /// <summary>
         /// Where the application is at in the process
