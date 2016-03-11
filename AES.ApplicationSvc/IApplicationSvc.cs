@@ -36,7 +36,7 @@ namespace AES.ApplicationSvc
         bool PullApplicantFromCallQueue(UserInfoContract user);
 
         [OperationContract]
-        bool SavePartialApplication(ApplicationInfoContract app);
+        AppSvcResponse SavePartialApplication(ApplicationInfoContract app);
 
         [OperationContract]
         bool SetApplicationStatus(ApplicationInfoContract app, AppStatus status);

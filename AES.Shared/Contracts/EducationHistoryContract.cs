@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AES.Shared.Contracts
 {
-    public class EducationHistory
+    public class EducationHistoryContract
     {
         public string SchoolName { get; set; }
         public string SchoolAddress { get; set; }
@@ -16,6 +16,7 @@ namespace AES.Shared.Contracts
         public string SchoolCountry { get; set; }
         public double YearsAttended { get; set; }
         public DateTime Graduated { get; set; }
-        public string Degree { get; set; }
+        public DegreeType Degree { get; set; }
+        public string Major { get; set; }
     }
 }

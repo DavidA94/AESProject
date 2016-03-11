@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-﻿using AES.Shared;
+using AES.Shared;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AES.Entities.Tables
 {
@@ -21,6 +22,9 @@ namespace AES.Entities.Tables
         /// </summary>
         [Required]
         public virtual Job Job { get; set; }
+
+        [ForeignKey("Applicant")]
+        public int ApplicantID { get; set; }
 
         /// <summary>
         /// The applicant this application is for

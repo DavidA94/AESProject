@@ -10,8 +10,6 @@ namespace AES.Entities.Tables
 
         public ApplicantUser()
         {
-            CallStartTime = new DateTime(1970, 1, 1);
-            CallEndTime = new DateTime(1970, 1, 1);
             References = new HashSet<Reference>();
             EducationHistory = new HashSet<EducationHistory>();
             EmploymentHistory = new HashSet<JobHistory>();
@@ -43,10 +41,10 @@ namespace AES.Entities.Tables
         public virtual Availability Availability { get; set; }
 
         [Required]
-        public DateTime CallStartTime { get; set; }
+        public TimeSpan CallStartTime { get; set; }
 
         [Required]
-        public DateTime CallEndTime { get; set; }
+        public TimeSpan CallEndTime { get; set; }
 
         public virtual ICollection<Reference> References { get; set; }
 

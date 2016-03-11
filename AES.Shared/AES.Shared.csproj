@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Contracts\ApplicantInfoContract.cs" />
     <Compile Include="Contracts\AvailabilityContract.cs" />
-    <Compile Include="Contracts\EducationHistory.cs" />
+    <Compile Include="Contracts\EducationHistoryContract.cs" />
     <Compile Include="Contracts\JobHistoryContract.cs" />
     <Compile Include="Contracts\ReferenceContract.cs" />
     <Compile Include="Contracts\UserInfoContract.cs" />
