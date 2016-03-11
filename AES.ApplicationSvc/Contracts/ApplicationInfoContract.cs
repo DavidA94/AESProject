@@ -14,5 +14,6 @@ namespace AES.ApplicationSvc.Contracts
         public ApplicantInfoContract Applicant { get; set; }
         public List<QuestionContract> Questions { get; set; }
         public List<AnswerContract> Answers { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }
