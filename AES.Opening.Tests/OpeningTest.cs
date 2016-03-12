@@ -35,7 +35,7 @@ namespace AES.OpeningsSvc.Tests
         public void TC_Openings()
         {
 
-            using (var db = new OpeningDbContext())
+            using (var db = new AESDbContext())
             {
 
                 Store TestStore1 = new Store()
