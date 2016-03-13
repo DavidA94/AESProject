@@ -17,7 +17,7 @@ namespace AES.SecuritySvc
             }
 
             // Get the Context
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
                 // Get the encrypted SSN
                 var ssn = Encryption.Encrypt(userInfo.SSN);
@@ -61,7 +61,7 @@ namespace AES.SecuritySvc
         public ApplicantInfoContract GetUser(ApplicantInfoContract user)
         {
             // Get the user if possible
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
                 var dbUser = db.ApplicantUsers.FirstOrDefault(u => u.userID == user.UserID &&
                                                               u.FirstName == user.FirstName &&
@@ -77,7 +77,7 @@ namespace AES.SecuritySvc
             return null;
         }
 
-        private ApplicantInfoContract createUser(ApplicantInfoContract userInfo, string ssn, ApplicantDbContext db)
+        private ApplicantInfoContract createUser(ApplicantInfoContract userInfo, string ssn, AESDbContext db)
         {
             // Create a new user
             var newUser = new ApplicantUser()

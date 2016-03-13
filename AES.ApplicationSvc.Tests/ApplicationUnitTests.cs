@@ -11,7 +11,7 @@ namespace AES.ApplicationSvc.Tests
         [TestMethod]
         public void TC10_SaveSinglePartialApplication()
         {
-            using (var db = new ApplicationDbContext())
+            using (var db = new AESDbContext())
             {
                 //db.Applications.FirstOrDefault(a => a.)
             }

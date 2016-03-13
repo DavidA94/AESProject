@@ -1,6 +1,7 @@
 ﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace AES.OpeningsSvc.Tests
@@ -35,7 +36,7 @@ namespace AES.OpeningsSvc.Tests
         public void TC_Openings()
         {
 
-            using (var db = new OpeningDbContext())
+            using (var db = new AESDbContext())
             {
 
                 Store TestStore1 = new Store()
@@ -72,15 +73,11 @@ namespace AES.OpeningsSvc.Tests
                     descShort = JOB2_DESC_SHORT
                 };
 
-                db.JobOpenings.RemoveRange(db.JobOpenings);
-                db.Stores.RemoveRange(db.Stores);
-                db.Jobs.RemoveRange(db.Jobs);
-
-                db.Stores.Add(TestStore1);
-                db.Stores.Add(TestStore2);
-                db.Jobs.Add(TestJob1);
-                db.Jobs.Add(TestJob2);
-                db.JobOpenings.Add
+                db.Stores.AddOrUpdate(TestStore1);
+                db.Stores.AddOrUpdate(TestStore2);
+                db.Jobs.AddOrUpdate(TestJob1);
+                db.Jobs.AddOrUpdate(TestJob2);
+                db.JobOpenings.AddOrUpdate
                 (
                     new JobOpening()
                     {
@@ -88,7 +85,7 @@ namespace AES.OpeningsSvc.Tests
                         Job = TestJob1
                     }    
                 );
-                db.JobOpenings.Add
+                db.JobOpenings.AddOrUpdate
                 (
                     new JobOpening()
                     {
@@ -96,7 +93,7 @@ namespace AES.OpeningsSvc.Tests
                         Job = TestJob2
                     }
                 );
-                db.JobOpenings.Add
+                db.JobOpenings.AddOrUpdate
                 (
                     new JobOpening()
                     {
@@ -104,7 +101,7 @@ namespace AES.OpeningsSvc.Tests
                         Job = TestJob1
                     }
                 );
-                db.JobOpenings.Add
+                db.JobOpenings.AddOrUpdate
                 (
                     new JobOpening()
                     {

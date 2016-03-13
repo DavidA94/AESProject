@@ -18,16 +18,16 @@ namespace AES.Web.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class AESDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public AESDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static AESDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new AESDbContext();
         }
     }
 }

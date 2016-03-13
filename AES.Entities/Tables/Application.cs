@@ -23,9 +23,6 @@ namespace AES.Entities.Tables
         [Required]
         public virtual Job Job { get; set; }
 
-        [ForeignKey("Applicant")]
-        public int ApplicantID { get; set; }
-
         /// <summary>
         /// The applicant this application is for
         /// </summary>

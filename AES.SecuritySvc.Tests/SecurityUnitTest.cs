@@ -29,7 +29,7 @@ namespace AES.SecuritySvc.Tests
         [TestMethod]
         public void TC3_UserExists()
         {
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
                 // Holds the user
                 ApplicantUser user = null;
@@ -49,7 +49,7 @@ namespace AES.SecuritySvc.Tests
         public void TC3_NewUser()
         {
             // Get the context
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
                 // Holds the user
                 ApplicantUser user = null;
@@ -71,7 +71,7 @@ namespace AES.SecuritySvc.Tests
         [TestMethod]
         public void TC3_BadCredentials()
         {
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
 
                 // Holds the user
@@ -95,7 +95,7 @@ namespace AES.SecuritySvc.Tests
         [TestMethod]
         public void TC3_IncompleteCredentials()
         {
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
                 // Try to log in with incomplete credentials
                 var s = new SecuritySvc();
@@ -113,7 +113,7 @@ namespace AES.SecuritySvc.Tests
         }
 
 
-        private void userInDB(ref ApplicantUser user, ApplicantDbContext db, bool isIn)
+        private void userInDB(ref ApplicantUser user, AESDbContext db, bool isIn)
         {
             // If it doesn't work the first time getting it, then we will add it in and do it again.
             for (int i = 0; i < 2; ++i)
@@ -144,6 +144,7 @@ namespace AES.SecuritySvc.Tests
                 }
                 else if(user != null && !isIn)
                 {
+
                     db.ApplicantUsers.Remove(user);
                     db.SaveChanges();
                     

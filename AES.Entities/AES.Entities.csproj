@@ -48,6 +48,10 @@
     <ProjectConfigFileName>App.config</ProjectConfigFileName>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dotMemory.Unit, Version=103.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.dotMemoryUnit.2.1.20150828.125449\Lib\dotMemory.Unit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -75,11 +79,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\ApplicationDbContext.cs" />
-    <Compile Include="Contexts\OpeningDbContext.cs" />
-    <Compile Include="Contexts\ApplicantDbContext.cs" />
-    <Compile Include="Migrations\OpeningConfiguration.cs" />
-    <Compile Include="Migrations\ApplicantConfiguration.cs" />
+    <Compile Include="Contexts\AESDbContext.cs" />
+    <Compile Include="DateTimeHelper.cs" />
+    <Compile Include="Migrations\AESDbConfiguration.cs" />
     <Compile Include="Tables\ApplicantUser.cs" />
     <Compile Include="Tables\JobQuestion.cs" />
     <Compile Include="Tables\ApplicationMultiAnswer.cs" />
@@ -92,7 +94,6 @@
     <Compile Include="Tables\JobOpening.cs" />
     <Compile Include="Tables\Reference.cs" />
     <Compile Include="Tables\Store.cs" />
-    <Compile Include="Tables\SubmittedApplications.cs" />
     <Compile Include="Tables\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

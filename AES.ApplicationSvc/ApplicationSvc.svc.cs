@@ -57,7 +57,7 @@ namespace AES.ApplicationSvc
                 return AppSvcResponse.BAD_USER;
             }
 
-            using (var db = new ApplicationDbContext())
+            using (var db = new AESDbContext())
             {
                 foreach (var job in app.AppliedJobs)
                 {
@@ -69,7 +69,7 @@ namespace AES.ApplicationSvc
 
                     var application = new Application();
                     application.Job = new Job() { ID = job };
-                    application.ApplicantID = (int)app.Applicant.UserID;
+                    //application.Applicant = app.Applicant;
                     application.Status = AppStatus.PARTIAL;
                     application.Timestamp = DateTime.Now;
 

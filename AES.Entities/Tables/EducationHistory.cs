@@ -60,7 +60,6 @@ namespace AES.Entities.Tables
         public string Major { get; set; }
 
         [Required]
-        [StringLength(64)]
         public DegreeType Degree { get; set; }
 
     }
