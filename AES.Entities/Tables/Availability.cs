@@ -32,9 +32,6 @@ namespace AES.Entities.Tables
         [Required]
         public int ID { get; set; }
 
-        [Required]
-        public virtual ApplicantUser Applicant { get; set; }
-
         public DateTime DTSundayStart { get; set; }
 
         [NotMapped]

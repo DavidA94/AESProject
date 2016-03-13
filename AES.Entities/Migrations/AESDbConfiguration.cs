@@ -70,10 +70,14 @@ namespace AES.Entities.Migrations
                 tualatinStore
             );
 
+            context.SaveChanges();
+
             context.Jobs.AddOrUpdate(
                 salesAssociateJob,
                 janitorJob
             );
+
+            context.SaveChanges();
 
             var tualatinJanitorOpening = new JobOpening
             {
@@ -106,6 +110,8 @@ namespace AES.Entities.Migrations
                 portlandSalesOpening
             );
 
+            context.SaveChanges();
+
             var userInfo = new UserInfo()
             {
                 State = "OR",
@@ -119,34 +125,10 @@ namespace AES.Entities.Migrations
 
             context.UserInfo.AddOrUpdate(userInfo);
 
-            var applicantUser = new ApplicantUser()
-            {
-                UserInfo = userInfo,
-                Availability = null,
-                CallEndTime = new TimeSpan(10, 0, 0),
-                DOB = new DateTime(1989, 3, 14),
-                CallStartTime = new TimeSpan(6, 0, 0),
-                FirstName = "Joseph",
-                LastName = "Morgan",
-                SSN = Encryption.Encrypt("123-45-6789")
-            };
-
-            context.ApplicantUsers.AddOrUpdate(applicantUser);
-
-            var reference = new Reference
-            {
-                Applicant = applicantUser,
-                Company = "Walgreen's",
-                Name = "Raymond Hammond",
-                Phone = "503-444-5555",
-                Title = "Floor Supervisor"
-            };
-
-            context.References.AddOrUpdate(reference);
+            context.SaveChanges();
 
             var availability = new Availability
             {
-                Applicant = applicantUser,
                 MondayStart = new TimeSpan(7, 0, 0),
                 MondayEnd = new TimeSpan(20, 0, 0),
                 TuesdayStart = new TimeSpan(7, 0, 0),
@@ -160,6 +142,37 @@ namespace AES.Entities.Migrations
             };
 
             context.Availabilities.AddOrUpdate(availability);
+
+            context.SaveChanges();
+
+            var applicantUser = new ApplicantUser()
+            {
+                UserInfo = userInfo,
+                Availability = availability,
+                CallEndTime = new TimeSpan(10, 0, 0),
+                DOB = new DateTime(1989, 3, 14),
+                CallStartTime = new TimeSpan(6, 0, 0),
+                FirstName = "Joseph",
+                LastName = "Morgan",
+                SSN = Encryption.Encrypt("123-45-6789")
+            };
+
+            context.ApplicantUsers.AddOrUpdate(applicantUser);
+
+            context.SaveChanges();
+
+            var reference = new Reference
+            {
+                Applicant = applicantUser,
+                Company = "Walgreen's",
+                Name = "Raymond Hammond",
+                Phone = "503-444-5555",
+                Title = "Floor Supervisor"
+            };
+
+            context.References.AddOrUpdate(reference);
+
+            context.SaveChanges();
 
             var employmentHistory = new JobHistory()
             {
@@ -182,6 +195,8 @@ namespace AES.Entities.Migrations
 
             context.JobHistories.AddOrUpdate(employmentHistory);
 
+            context.SaveChanges();
+
             var educationHistory = new EducationHistory()
             {
                 Applicant = applicantUser,
@@ -199,12 +214,18 @@ namespace AES.Entities.Migrations
 
             context.EducationHistories.AddOrUpdate(educationHistory);
 
+            context.SaveChanges();
+
             var shortQuestion = new JobQuestion()
             {
                 Job = janitorJob,
                 Type = QuestionType.SHORT,
                 Text = "What do you feel you can bring to the job?"
             };
+
+            context.Questions.AddOrUpdate(shortQuestion);
+
+            context.SaveChanges();
 
             var radioQuestion = new JobQuestion()
             {
@@ -216,6 +237,10 @@ namespace AES.Entities.Migrations
                 CorrectAnswerThreshold = 1,
                 CorrectAnswers = "1"
             };
+
+            context.Questions.AddOrUpdate(radioQuestion);
+
+            context.SaveChanges();
 
             var checkQuestion = new JobQuestion()
             {
@@ -230,7 +255,9 @@ namespace AES.Entities.Migrations
                 CorrectAnswers = "13"
             };
 
-            context.Questions.AddOrUpdate(shortQuestion, radioQuestion, checkQuestion);
+            context.Questions.AddOrUpdate(checkQuestion);
+
+            context.SaveChanges();
 
             var application = new Application()
             {
@@ -242,6 +269,8 @@ namespace AES.Entities.Migrations
 
             context.Applications.AddOrUpdate(application);
 
+            context.SaveChanges();
+
             var shortAnswer = new ApplicationShortAnswer
             {
                 Answer = "My mop, my bucket, and my experience",
@@ -249,6 +278,8 @@ namespace AES.Entities.Migrations
             };
 
             context.ShortAnswers.AddOrUpdate(shortAnswer);
+
+            context.SaveChanges();
 
             var radioAnswer = new ApplicationMultiAnswer
             {

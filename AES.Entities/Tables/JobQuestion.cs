@@ -39,14 +39,12 @@ namespace AES.Entities.Tables
         /// A list, in any order, of the numbers corresponding to correct answers (1 through 4)
         /// Can be things like "12", "14", "1", 3", "123", "21"
         /// </summary>
-        [Required]
         [StringLength(4)]
         public string CorrectAnswers { get; set; }
 
         /// <summary>
         /// How many answers must be correct
         /// </summary>
-        [Required]
         [Range(0, 4)]
         public int CorrectAnswerThreshold { get; set; }
 

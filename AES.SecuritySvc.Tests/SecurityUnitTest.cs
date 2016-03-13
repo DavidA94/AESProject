@@ -144,6 +144,7 @@ namespace AES.SecuritySvc.Tests
                 }
                 else if(user != null && !isIn)
                 {
+
                     db.ApplicantUsers.Remove(user);
                     db.SaveChanges();
                     
