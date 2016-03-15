@@ -12,9 +12,9 @@ namespace AES.OpeningsSvc
         public List<JobOpeningContract> GetOpenings(int StoreID)
         {
             List<JobOpeningContract> returnedList = new List<JobOpeningContract>();
-            using (var db = new OpeningDbContext())
+            using (var db = new AESDbContext())
             {
-                var gottenOpenings = db.JobOpenings.Where(o => o.Store.ID == StoreID).ToList();
+                var gottenOpenings = db.JobOpenings.Where(o => o.Stores.FirstOrDefault(s => s.ID == StoreID) != null).ToList();
 
                 foreach (var opening in gottenOpenings)
                 {

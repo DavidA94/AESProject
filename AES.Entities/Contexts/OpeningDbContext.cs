@@ -8,7 +8,7 @@ namespace AES.Entities.Contexts
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicantDbContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<OpeningDbContext, OpeningConfiguration>());
         }
 
         public DbSet<Job> Jobs { get; set; }

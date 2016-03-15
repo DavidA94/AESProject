@@ -99,9 +99,6 @@
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\ApplicantInfoContract.cs" />
-    <Compile Include="Contracts\UserInfoContract.cs" />
-    <Compile Include="Encryption.cs" />
     <Compile Include="SecuritySvc.svc.cs">
       <DependentUpon>SecuritySvc.svc</DependentUpon>
     </Compile>
@@ -125,6 +122,10 @@
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">
       <Project>{b7a64050-2f1b-4709-bf04-09b0ed37ea71}</Project>
       <Name>AES.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AES.Shared\AES.Shared.csproj">
+      <Project>{bb832eda-ff67-4abb-a5c0-e11382577d5a}</Project>
+      <Name>AES.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

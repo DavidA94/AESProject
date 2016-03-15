@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AES.Entities.Tables
 {
     public class JobOpening
     {
+
+        public JobOpening()
+        {
+            Applications = new HashSet<Application>();
+            Stores = new HashSet<Store>();
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }
@@ -17,6 +20,9 @@ namespace AES.Entities.Tables
         public virtual Job Job { get; set; }
 
         [Required]
-        public virtual Store Store { get; set; }
+        public virtual ICollection<Store> Stores { get; set; }
+
+        public virtual ICollection<Application> Applications { get; set; }
+
     }
 }

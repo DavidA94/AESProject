@@ -16,16 +16,16 @@ namespace AES.Web.SecurityService {
     public interface ISecuritySvc {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/ValidateUser", ReplyAction="http://tempuri.org/ISecuritySvc/ValidateUserResponse")]
-        AES.SecuritySvc.Contracts.ApplicantInfoContract ValidateUser(AES.SecuritySvc.Contracts.ApplicantInfoContract userInfo);
+        AES.Shared.Contracts.ApplicantInfoContract ValidateUser(AES.Shared.Contracts.ApplicantInfoContract userInfo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/ValidateUser", ReplyAction="http://tempuri.org/ISecuritySvc/ValidateUserResponse")]
-        System.Threading.Tasks.Task<AES.SecuritySvc.Contracts.ApplicantInfoContract> ValidateUserAsync(AES.SecuritySvc.Contracts.ApplicantInfoContract userInfo);
+        System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract> ValidateUserAsync(AES.Shared.Contracts.ApplicantInfoContract userInfo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/GetUser", ReplyAction="http://tempuri.org/ISecuritySvc/GetUserResponse")]
-        AES.SecuritySvc.Contracts.ApplicantInfoContract GetUser(AES.SecuritySvc.Contracts.ApplicantInfoContract user);
+        AES.Shared.Contracts.ApplicantInfoContract GetUser(AES.Shared.Contracts.ApplicantInfoContract user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/GetUser", ReplyAction="http://tempuri.org/ISecuritySvc/GetUserResponse")]
-        System.Threading.Tasks.Task<AES.SecuritySvc.Contracts.ApplicantInfoContract> GetUserAsync(AES.SecuritySvc.Contracts.ApplicantInfoContract user);
+        System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract> GetUserAsync(AES.Shared.Contracts.ApplicantInfoContract user);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,19 +55,19 @@ namespace AES.Web.SecurityService {
                 base(binding, remoteAddress) {
         }
         
-        public AES.SecuritySvc.Contracts.ApplicantInfoContract ValidateUser(AES.SecuritySvc.Contracts.ApplicantInfoContract userInfo) {
+        public AES.Shared.Contracts.ApplicantInfoContract ValidateUser(AES.Shared.Contracts.ApplicantInfoContract userInfo) {
             return base.Channel.ValidateUser(userInfo);
         }
         
-        public System.Threading.Tasks.Task<AES.SecuritySvc.Contracts.ApplicantInfoContract> ValidateUserAsync(AES.SecuritySvc.Contracts.ApplicantInfoContract userInfo) {
+        public System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract> ValidateUserAsync(AES.Shared.Contracts.ApplicantInfoContract userInfo) {
             return base.Channel.ValidateUserAsync(userInfo);
         }
         
-        public AES.SecuritySvc.Contracts.ApplicantInfoContract GetUser(AES.SecuritySvc.Contracts.ApplicantInfoContract user) {
+        public AES.Shared.Contracts.ApplicantInfoContract GetUser(AES.Shared.Contracts.ApplicantInfoContract user) {
             return base.Channel.GetUser(user);
         }
         
-        public System.Threading.Tasks.Task<AES.SecuritySvc.Contracts.ApplicantInfoContract> GetUserAsync(AES.SecuritySvc.Contracts.ApplicantInfoContract user) {
+        public System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract> GetUserAsync(AES.Shared.Contracts.ApplicantInfoContract user) {
             return base.Channel.GetUserAsync(user);
         }
     }

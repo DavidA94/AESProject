@@ -1,9 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AES.Entities.Tables
 {
     public class Job
     {
+
+        public Job()
+        {
+            Openings = new HashSet<JobOpening>();
+            Questions = new HashSet<JobQuestion>();
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }
@@ -19,6 +27,10 @@ namespace AES.Entities.Tables
         [StringLength(4000)]
         [Required]
         public string descLong { get; set; }
+
+        public virtual ICollection<JobOpening> Openings { get; set; }
+
+        public virtual ICollection<JobQuestion> Questions { get; set; }
 
     }
 }

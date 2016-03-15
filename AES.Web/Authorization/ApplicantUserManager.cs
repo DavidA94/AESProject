@@ -1,4 +1,4 @@
-﻿using AES.SecuritySvc.Contracts;
+﻿using AES.Shared.Contracts;
 using AES.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;

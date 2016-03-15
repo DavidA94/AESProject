@@ -1,6 +1,7 @@
 ﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
-using AES.SecuritySvc.Contracts;
+using AES.Shared;
+using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
@@ -19,13 +20,13 @@ namespace AES.SecuritySvc.Tests
         public SecurityUnitTest()
         {
             SSN_CRYPT = Encryption.Encrypt(SSN);
-            DOB = new DateTime(1970, 1, 1);
+            DOB = new DateTime(1970, 6, 2);
         }
 
         [TestMethod]
         public void TC3_UserExists()
         {
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
                 // Holds the user
                 ApplicantUser user = null;
@@ -45,7 +46,7 @@ namespace AES.SecuritySvc.Tests
         public void TC3_NewUser()
         {
             // Get the context
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
                 // Holds the user
                 ApplicantUser user = null;
@@ -67,7 +68,7 @@ namespace AES.SecuritySvc.Tests
         [TestMethod]
         public void TC3_BadCredentials()
         {
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
 
                 // Holds the user
@@ -91,7 +92,7 @@ namespace AES.SecuritySvc.Tests
         [TestMethod]
         public void TC3_IncompleteCredentials()
         {
-            using (var db = new ApplicantDbContext())
+            using (var db = new AESDbContext())
             {
                 // Try to log in with incomplete credentials
                 var s = new SecuritySvc();
@@ -109,7 +110,7 @@ namespace AES.SecuritySvc.Tests
         }
 
 
-        private void userInDB(ref ApplicantUser user, ApplicantDbContext db, bool isIn)
+        private void userInDB(ref ApplicantUser user, AESDbContext db, bool isIn)
         {
             // If it doesn't work the first time getting it, then we will add it in and do it again.
             for (int i = 0; i < 2; ++i)
@@ -126,7 +127,8 @@ namespace AES.SecuritySvc.Tests
                             LastName = LASTNAME,
                             DOB = DOB,
                             SSN = SSN_CRYPT,
-                            UserInfo = new UserInfo()
+                            UserInfo = new UserInfo(),
+                            Availability = new Availability()
                         });
                         db.SaveChanges();
                     }
@@ -137,6 +139,7 @@ namespace AES.SecuritySvc.Tests
                 }
                 else if(user != null && !isIn)
                 {
+
                     db.ApplicantUsers.Remove(user);
                     db.SaveChanges();
                     

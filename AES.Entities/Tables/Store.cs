@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AES.Entities.Tables
 {
     public class Store
     {
+
+        public Store()
+        {
+            Openings = new HashSet<JobOpening>();
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }
@@ -36,6 +38,8 @@ namespace AES.Entities.Tables
         [RegularExpression(@"\d{3}-\d{3}-\d{4}")]
         [Required]
         public string Phone { get; set; }
+
+        public virtual ICollection<JobOpening> Openings { get; set; }
 
     }
 }

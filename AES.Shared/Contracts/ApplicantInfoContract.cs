@@ -1,12 +1,8 @@
-﻿using AES.Entities.Tables;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AES.SecuritySvc.Contracts
+namespace AES.Shared.Contracts
 {
     [DataContract]
     public class ApplicantInfoContract
@@ -15,18 +11,15 @@ namespace AES.SecuritySvc.Contracts
 
         public ApplicantInfoContract(string first, string last, string ssn, DateTime dob)
         {
+            if(dob.Year < 1970)
+            {
+                throw new ArgumentException("DOB Year cannot be before 1970.");
+            }
+
             FirstName = first;
             LastName = last;
             SSN = ssn;
             DOB = dob;
-        }
-
-        public ApplicantInfoContract(ApplicantUser user)
-        {
-            FirstName = user.FirstName;
-            LastName = user.LastName;
-            UserID = user.userID;
-            DOB = user.DOB;
         }
 
         [DataMember]
@@ -44,6 +37,22 @@ namespace AES.SecuritySvc.Contracts
         [DataMember]
         public DateTime DOB { get; set; }
 
+        [DataMember]
         public UserInfoContract UserInfo { get; set; }
+
+        [DataMember]
+        public List<ApplicantInfoContract> Applications { get; set; }
+
+        [DataMember]
+        public AvailabilityContract Availability { get; set; }
+
+        [DataMember]
+        public List<EducationHistoryContract> Education { get; set; }
+
+        [DataMember]
+        public List<ReferenceContract> References { get; set; }
+
+        [DataMember]
+        public List<JobHistoryContract> PastJobs { get; set; }
     }
 }
