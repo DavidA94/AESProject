@@ -1,0 +1,55 @@
+﻿@model IEnumerable<AES.Web.Models.JobOpeningsViewModel>
+
+@{
+    ViewBag.Title = "Job Openings";
+}
+
+<h2>Job Openings</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Applicant Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Please select the jobs you wish to apply for.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @* Checkbox for the jobs *@
+                    @Html.LabelFor(m => m.JobCheckbox, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-1">
+                            @Html.CheckBoxFor(m => m.JobCheckbox, new { @checked = "checked" })
+                            @Html.ValidationMessageFor(m => m.JobCheckbox, "", new { @class = "text-danger" })
+                        </div>
+                    @* Display Job Title *@
+                    @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @* Display Short Description *@
+                    @Html.LabelFor(m => m.ShortDesc, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.ShortDesc, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ShortDesc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="bottom-left">
+                        @*@Html.ActionLink("Next Section", "NextSection", "Application", new { @class = "beginButton" })*@
+                        <input type="submit" value="Proceed To Login" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

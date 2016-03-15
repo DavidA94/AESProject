@@ -1,0 +1,172 @@
+﻿@model AES.Web.Models.AvailabilityViewModel
+
+@{
+    ViewBag.Title = "Availability";
+}
+
+<h2>Availability</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Availability", "Application", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Enter your availability information.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @* Checkbox for the monday slot *@
+                    @*@Html.LabelFor(m => m.MondayCheckBox, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-1">
+                        @Html.CheckBoxFor(m => m.MondayCheckBox, new { @checked = "checked" })
+                        @Html.ValidationMessageFor(m => m.MondayCheckBox, "", new { @class = "text-danger" })
+                    </div>*@
+                    @*Monday Start time *@
+                    @Html.LabelFor(m => m.MondayStartTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.MondayStartTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.MondayStartTime, "", new { @class = "text-danger" })
+                    </div>
+                    @* Monday end time *@
+                    @Html.LabelFor(m => m.MondayEndTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.MondayEndTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.MondayEndTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @* Checkbox for the tuesday slot *@
+                    @*@Html.LabelFor(m => m.TuesdayCheckBox, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-1">
+                        @Html.CheckBox("Tuesday", new { @class = "chk-style" })
+                        @Html.ValidationMessageFor(m => m.TuesdayCheckBox, "", new { @class = "text-danger" })
+                    </div>*@
+                    @*Tuesday Start time *@
+                    @Html.LabelFor(m => m.TuesdayStartTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.TuesdayStartTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.TuesdayStartTime, "", new { @class = "text-danger" })
+                    </div>
+                    @* Tuesday end time *@
+                    @Html.LabelFor(m => m.TuesdayEndTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.TuesdayEndTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.TuesdayEndTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @* Checkbox for the Wednesday slot *@
+                    @*@Html.LabelFor(m => m.WednesdayCheckBox, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-1">
+                        @Html.CheckBox("Wednesday", new { @class = "chk-style" })
+                        @Html.ValidationMessageFor(m => m.WednesdayCheckBox, "", new { @class = "text-danger" })
+                    </div>*@
+                    @*Wednesday Start time *@
+                    @Html.LabelFor(m => m.WednesdayStartTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.WednesdayStartTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.WednesdayStartTime, "", new { @class = "text-danger" })
+                    </div>
+                    @* Wednesday end time *@
+                    @Html.LabelFor(m => m.WednesdayEndTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.WednesdayEndTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.WednesdayEndTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @* Checkbox for the Thursday slot *@
+                    @*@Html.LabelFor(m => m.ThursdayCheckBox, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-1">
+                        @Html.CheckBox("Thursday", new { @class = "chk-style" })
+                        @Html.ValidationMessageFor(m => m.ThursdayCheckBox, "", new { @class = "text-danger" })
+                    </div>*@
+                    @*Thursday Start time *@
+                    @Html.LabelFor(m => m.ThursdayStartTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.ThursdayStartTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ThursdayStartTime, "", new { @class = "text-danger" })
+                    </div>
+                    @* Thursday end time *@
+                    @Html.LabelFor(m => m.ThursdayEndTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.ThursdayEndTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ThursdayEndTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @* Checkbox for the Friday slot *@
+                    @*@Html.LabelFor(m => m.FridayCheckBox, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-1">
+                        @Html.CheckBox("Friday", new { @class = "chk-style" })
+                        @Html.ValidationMessageFor(m => m.FridayCheckBox, "", new { @class = "text-danger" })
+                    </div>*@
+                    @*Friday Start time *@
+                    @Html.LabelFor(m => m.FridayStartTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.FridayStartTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FridayStartTime, "", new { @class = "text-danger" })
+                    </div>
+                    @* Friday end time *@
+                    @Html.LabelFor(m => m.FridayEndTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.FridayEndTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FridayEndTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @* Checkbox for the Saturday slot *@
+                    @*@Html.LabelFor(m => m.SaturdayCheckBox, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-1">
+                        @Html.CheckBox("Saturday", new { @class = "chk-style" })
+                        @Html.ValidationMessageFor(m => m.SaturdayCheckBox, "", new { @class = "text-danger" })
+                    </div>*@
+                    @*Saturday Start time *@
+                    @Html.LabelFor(m => m.SaturdayStartTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.SaturdayStartTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.SaturdayStartTime, "", new { @class = "text-danger" })
+                    </div>
+                    @* Saturday end time *@
+                    @Html.LabelFor(m => m.SaturdayEndTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.SaturdayEndTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.SaturdayEndTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @* Checkbox for the Sunday slot *@
+                    @*@Html.LabelFor(m => m.SundayCheckBox, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-1">
+                        @Html.CheckBox("Sunday", new { @class = "chk-style" })
+                        @Html.ValidationMessageFor(m => m.SundayCheckBox, "", new { @class = "text-danger" })
+                    </div>*@
+                    @*Sunday Start time *@
+                    @Html.LabelFor(m => m.SundayStartTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.SundayStartTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.SundayStartTime, "", new { @class = "text-danger" })
+                    </div>
+                    @* Sunday end time *@
+                    @Html.LabelFor(m => m.SundayEndTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.SundayEndTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.SundayEndTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="bottom-left">
+                        @*@Html.ActionLink("Next Section", "NextSection", "Application", new { @class = "beginButton" })*@
+                        <input type="submit" value="Proceed To Work History" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

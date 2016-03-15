@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7011e3b4-cad4-4ff5-81e9-823ef46a6b73" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="42cbf65b-e85c-41f0-9f5e-3100f3c5b2b4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:7437/OpeningSvc.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="OpeningSvc.xsd" MetadataType="Schema" ID="8008008a-467d-4535-a4a9-67788b4e3fcb" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?xsd=xsd0" />
-    <MetadataFile FileName="OpeningSvc.wsdl" MetadataType="Wsdl" ID="234f6dac-ba00-46b0-b041-8bda9f854998" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?wsdl" />
-    <MetadataFile FileName="OpeningSvc.disco" MetadataType="Disco" ID="43ab81ee-217e-45d1-b2db-dd539b27d03b" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?disco" />
-    <MetadataFile FileName="OpeningSvc1.xsd" MetadataType="Schema" ID="4fb4736d-de49-43a5-a366-561add05f3ea" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?xsd=xsd2" />
-    <MetadataFile FileName="OpeningSvc2.xsd" MetadataType="Schema" ID="ea216ea4-da16-43f0-8b63-76c0fa3e68b9" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?xsd=xsd1" />
+    <MetadataFile FileName="OpeningSvc.xsd" MetadataType="Schema" ID="64253180-6728-4366-b041-d682564dd820" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?xsd=xsd0" />
+    <MetadataFile FileName="OpeningSvc.wsdl" MetadataType="Wsdl" ID="807d8033-ec29-48ca-9065-4f52f0d3e20a" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?wsdl" />
+    <MetadataFile FileName="OpeningSvc.disco" MetadataType="Disco" ID="fabe24fd-da67-45ca-97a7-9ca7e623a9e5" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?disco" />
+    <MetadataFile FileName="OpeningSvc1.xsd" MetadataType="Schema" ID="7e88010d-10ef-4918-9f5b-d0385b897454" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?xsd=xsd2" />
+    <MetadataFile FileName="OpeningSvc2.xsd" MetadataType="Schema" ID="2761e799-cc86-4dd1-9229-dbcbb16fa220" SourceId="1" SourceUrl="http://localhost:7437/OpeningSvc.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -180,14 +180,19 @@
     <Compile Include="Authorization\AESAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicantLoginController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobOpeningsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\CookieManager.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicantLoginModel.cs" />
+    <Compile Include="Models\ApplicationModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobOpeningsModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\OpeningService\Reference.cs">
@@ -213,9 +218,18 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\AES.SecuritySvc.Contracts.ApplicantInfoContract.datasource" />
+    <Content Include="Properties\DataSources\AES.OpeningsSvc.Contracts.JobOpeningContract.datasource" />
     <Content Include="Service References\OpeningService\AES.Web.OpeningService.JobOpeningContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <None Include="Service References\OpeningService\OpeningSvc.disco" />
+    <None Include="Service References\OpeningService\configuration91.svcinfo" />
+    <None Include="Service References\OpeningService\configuration.svcinfo" />
+    <None Include="Service References\OpeningService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\JobOpenings\Index.cshtml" />
     <None Include="Service References\OpeningService\OpeningSvc.wsdl" />
     <None Include="Service References\OpeningService\OpeningSvc.xsd">
       <SubType>Designer</SubType>
@@ -226,6 +240,13 @@
     <None Include="Service References\OpeningService\OpeningSvc2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Application\Profile.cshtml" />
+    <Content Include="Views\Application\NextSection.cshtml" />
+    <Content Include="Views\Application\Availability.cshtml" />
+    <Content Include="Views\Application\WorkHistory.cshtml" />
+    <Content Include="Views\Application\Education.cshtml" />
+    <Content Include="Views\Application\References.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -258,13 +279,6 @@
     <None Include="Service References\SecurityService\configuration91.svcinfo" />
     <None Include="Service References\SecurityService\configuration.svcinfo" />
     <None Include="Service References\SecurityService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\OpeningService\OpeningSvc.disco" />
-    <None Include="Service References\OpeningService\configuration91.svcinfo" />
-    <None Include="Service References\OpeningService\configuration.svcinfo" />
-    <None Include="Service References\OpeningService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -323,6 +337,10 @@
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">
       <Project>{b7a64050-2f1b-4709-bf04-09b0ed37ea71}</Project>
       <Name>AES.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AES.OpeningsSvc\AES.OpeningsSvc.csproj">
+      <Project>{d74cbfa8-02d0-437f-8f06-00bf2883a6e2}</Project>
+      <Name>AES.OpeningsSvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\AES.SecuritySvc\AES.SecuritySvc.csproj">
       <Project>{e23b1cab-7e31-4d89-8c33-049ab86299e1}</Project>
