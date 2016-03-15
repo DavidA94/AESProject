@@ -9,7 +9,7 @@ namespace AES.Shared.Contracts
     {
         public ApplicantInfoContract() { }
 
-        public ApplicantInfoContract(string first, string last, string ssn, DateTime dob, TimeSpan startCall, TimeSpan endCall)
+        public ApplicantInfoContract(string first, string last, string ssn, DateTime dob)
         {
             if(dob.Year < 1970)
             {
@@ -20,8 +20,6 @@ namespace AES.Shared.Contracts
             LastName = last;
             SSN = ssn;
             DOB = dob;
-            StartCallTime = startCall;
-            EndCallTime = endCall;
         }
 
         [DataMember]
@@ -38,12 +36,6 @@ namespace AES.Shared.Contracts
 
         [DataMember]
         public DateTime DOB { get; set; }
-
-        [DataMember]
-        public TimeSpan StartCallTime { get; set; }
-
-        [DataMember]
-        public TimeSpan EndCallTime { get; set; }
 
         [DataMember]
         public UserInfoContract UserInfo { get; set; }

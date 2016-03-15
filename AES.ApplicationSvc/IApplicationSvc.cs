@@ -24,7 +24,7 @@ namespace AES.ApplicationSvc
         UserInfoContract GetApplicantsAwaitingInterview(int storeID);
 
         [OperationContract]
-        ApplicationInfoContract GetApplication(UserInfoContract user);
+        ApplicationInfoContract GetApplication(ApplicantInfoContract user);
 
         [OperationContract]
         ApplicationInfoContract GetCallApplication(UserInfoContract user);

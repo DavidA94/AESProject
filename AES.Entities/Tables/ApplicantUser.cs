@@ -14,8 +14,6 @@ namespace AES.Entities.Tables
             EducationHistory = new HashSet<EducationHistory>();
             EmploymentHistory = new HashSet<JobHistory>();
             Applications = new HashSet<Application>();
-            DTCallStartTime = new DateTime(1970, 1, 1);
-            DTCallEndTime = new DateTime(1970, 1, 1);
         }
 
         [Key]
@@ -41,24 +39,6 @@ namespace AES.Entities.Tables
         public virtual UserInfo UserInfo { get; set; }
 
         public virtual Availability Availability { get; set; }
-
-        [NotMapped]
-        public TimeSpan CallStartTime
-        {
-            get { return DateTimeHelper.ConvertDateTime(DTCallStartTime); }
-            set { DTCallStartTime = DateTimeHelper.ConvertTimeSpan(value); }
-        }
-
-        [NotMapped]
-        public TimeSpan CallEndTime
-        {
-            get { return DateTimeHelper.ConvertDateTime(DTCallEndTime); }
-            set { DTCallEndTime = DateTimeHelper.ConvertTimeSpan(value); }
-        }
-
-        public DateTime DTCallStartTime { get; set; }
-
-        public DateTime DTCallEndTime { get; set; }
 
         public virtual ICollection<Reference> References { get; set; }
 

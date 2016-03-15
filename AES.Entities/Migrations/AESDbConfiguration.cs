@@ -81,27 +81,27 @@ namespace AES.Entities.Migrations
 
             var tualatinJanitorOpening = new JobOpening
             {
-                Store = tualatinStore,
                 Job = janitorJob
             };
+            tualatinJanitorOpening.Stores.Add(tualatinStore);
 
             var portlandJanitorOpening = new JobOpening
             {
-                Store = portlandStore,
                 Job = janitorJob
             };
+            portlandJanitorOpening.Stores.Add(portlandStore);
 
             var tualatinSalesOpening = new JobOpening
             {
-                    Store = tualatinStore,
                     Job = salesAssociateJob
             };
+            tualatinSalesOpening.Stores.Add(tualatinStore);
 
             var portlandSalesOpening = new JobOpening
             {
-                Store = portlandStore,
                 Job = salesAssociateJob
             };
+            portlandSalesOpening.Stores.Add(portlandStore);
 
             context.JobOpenings.AddOrUpdate(
                 tualatinJanitorOpening,
@@ -114,6 +114,8 @@ namespace AES.Entities.Migrations
 
             var userInfo = new UserInfo()
             {
+                CallEndTime = new TimeSpan(10, 0, 0),
+                CallStartTime = new TimeSpan(6, 0, 0),
                 State = "OR",
                 Address = "1200 SW 185th Ave.",
                 City = "Beaverton",
@@ -149,9 +151,8 @@ namespace AES.Entities.Migrations
             {
                 UserInfo = userInfo,
                 Availability = availability,
-                CallEndTime = new TimeSpan(10, 0, 0),
+                
                 DOB = new DateTime(1989, 3, 14),
-                CallStartTime = new TimeSpan(6, 0, 0),
                 FirstName = "Joseph",
                 LastName = "Morgan",
                 SSN = Encryption.Encrypt("123-45-6789")
@@ -218,10 +219,10 @@ namespace AES.Entities.Migrations
 
             var shortQuestion = new JobQuestion()
             {
-                Job = janitorJob,
                 Type = QuestionType.SHORT,
                 Text = "What do you feel you can bring to the job?"
             };
+            shortQuestion.Jobs.Add(janitorJob);
 
             context.Questions.AddOrUpdate(shortQuestion);
 
@@ -229,7 +230,6 @@ namespace AES.Entities.Migrations
 
             var radioQuestion = new JobQuestion()
             {
-                Job = janitorJob,
                 Type = QuestionType.RADIO,
                 Text = "Can you lift more than 50 pounds?",
                 Option1 = "Yes",
@@ -237,6 +237,7 @@ namespace AES.Entities.Migrations
                 CorrectAnswerThreshold = 1,
                 CorrectAnswers = "1"
             };
+            radioQuestion.Jobs.Add(janitorJob);
 
             context.Questions.AddOrUpdate(radioQuestion);
 
@@ -244,7 +245,6 @@ namespace AES.Entities.Migrations
 
             var checkQuestion = new JobQuestion()
             {
-                Job = janitorJob,
                 Type = QuestionType.CHECKBOX,
                 Text = "Which of the following are cleaning products? (Check all that apply)",
                 Option1 = "Mop",
@@ -254,6 +254,7 @@ namespace AES.Entities.Migrations
                 CorrectAnswerThreshold = 1,
                 CorrectAnswers = "13"
             };
+            checkQuestion.Jobs.Add(janitorJob);
 
             context.Questions.AddOrUpdate(checkQuestion);
 

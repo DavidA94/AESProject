@@ -30,9 +30,72 @@ namespace AES.ApplicationSvc
             throw new NotImplementedException();
         }
 
-        public ApplicationInfoContract GetApplication(UserInfoContract user)
+        public ApplicationInfoContract GetApplication(ApplicantInfoContract user)
         {
-            throw new NotImplementedException();
+            if (user.UserID == null)
+            {
+                return null;
+            }
+
+            var retApp = new ApplicationInfoContract()
+            {
+                ApplicantID = (int)user.UserID
+            };
+
+            using (var db = new AESDbContext())
+            {
+                var applications = db.Applications.Where(a => a.Applicant.userID == user.UserID &&
+                                                              a.Status == AppStatus.PARTIAL);
+
+                foreach(var app in applications)
+                {
+                    retApp.AppliedJobs.Add(app.Job.ID);
+
+                    retApp.Availability = ConvertTableToContract(app.Applicant.Availability);
+                    retApp.Educations = ConvertTableToContract(app.Applicant.EducationHistory).ToList();
+                    retApp.Jobs = ConvertTableToContract(app.Applicant.EmploymentHistory).ToList();
+                    retApp.References = ConvertTableToContract(app.Applicant.References).ToList();
+                    retApp.UserInfo = ConvertTableToContract(app.Applicant.UserInfo);
+
+                    foreach(var a in app.MultiAnswers)
+                    {
+                        // Don't add the same Q&A twice
+                        if(retApp.QA.FirstOrDefault(qa => qa.QuestionID == a.Question.ID) != null)
+                        {
+                            continue;
+                        }
+
+                        retApp.QA.Add(new QAContract()
+                        {
+                            MC_Answers = new List<bool> { a.Answer1, a.Answer2, a.Answer3, a.Answer4 },
+                            Options = new List<string> { a.Question.Option1, a.Question.Option2,
+                                                         a.Question.Option3, a.Question.Option4 },
+                            Question = a.Question.Text,
+                            QuestionID = a.Question.ID,
+                            Type = a.Question.Type
+                        });
+                    }
+
+                    foreach(var a in app.ShortAnswers)
+                    {
+                        // Don't add the same Q&A twice
+                        if (retApp.QA.FirstOrDefault(qa => qa.QuestionID == a.Question.ID) != null)
+                        {
+                            continue;
+                        }
+
+                        retApp.QA.Add(new QAContract()
+                        {
+                            Question = a.Question.Text,
+                            QuestionID = a.Question.ID,
+                            ShortAnswer = a.Answer,
+                            Type = a.Question.Type,
+                        });
+                    }
+                }
+            }
+
+            return retApp;
         }
 
         public ApplicationInfoContract GetCallApplication(UserInfoContract user)
@@ -52,65 +115,181 @@ namespace AES.ApplicationSvc
 
         public AppSvcResponse SavePartialApplication(ApplicationInfoContract app)
         {
-            if(app.Applicant.UserID == null)
-            {
-                return AppSvcResponse.BAD_USER;
-            }
-
             using (var db = new AESDbContext())
             {
+                // Get the user for this application
+                var user = db.ApplicantUsers.FirstOrDefault(u => u.userID == app.ApplicantID);
+
+                // If the user is not found, return BAD_USER
+                if (user == null)
+                {
+                    return AppSvcResponse.BAD_USER;
+                }
+
+                // Loop through all the jobs the user is applying for
                 foreach (var job in app.AppliedJobs)
                 {
-                    var appliedJob = db.Applications.FirstOrDefault(a => a.Job.ID == job);
+                    // Get the job
+                    var appliedJob = db.Jobs.FirstOrDefault(a => a.ID == job);
+
+                    // If it doens't exist, return BAD_JOB
                     if (appliedJob == null)
                     {
                         return AppSvcResponse.BAD_JOB;
                     }
 
-                    var application = new Application();
-                    application.Job = new Job() { ID = job };
-                    //application.Applicant = app.Applicant;
-                    application.Status = AppStatus.PARTIAL;
+                    // Try to get a partial application for this user for this job
+                    var application = db.Applications.FirstOrDefault(a => a.Status == AppStatus.PARTIAL &&
+                    /**/                                                  a.Job.ID == job &&
+                    /**/                                                  a.Applicant.userID == user.userID);
+                    bool isNewApp = application == null;
+
+                    // If we didn't get one, then make a new one
+                    if (application == null)
+                    {
+                        application = new Application();
+
+                        // Assign it's Job and Status
+                        application.Job = appliedJob;
+                        application.Status = AppStatus.PARTIAL;
+                        application.Applicant = user;
+                    }
+
+                    // Update the TimeStamp
                     application.Timestamp = DateTime.Now;
 
-                    foreach(var q in app.Questions)
+                    #region Answers
+
+                    // Loop through all the questions we've gotten
+                    foreach (var q in app.QA)
                     {
+                        // Get the question from the DB
                         var dbQ = db.Questions.FirstOrDefault(question => question.ID == q.QuestionID);
-                        if(dbQ == null)
+
+                        // If we didn't get a question back, return BAD_QUESTION
+                        if (dbQ == null)
                         {
                             return AppSvcResponse.BAD_QUESTION;
                         }
-                        else if(dbQ.Job.ID != job)
+                        // If the ID of the job for this question is not the job we're on, then skip it
+                        else if (dbQ.Jobs.FirstOrDefault(j => j.ID == job) == null)
                         {
                             continue;
                         }
 
+                        // Enter the QA Data based on the question type
                         switch (q.Type)
                         {
                             case QuestionType.CHECKBOX:
                             case QuestionType.RADIO:
-                                application.MultiAnswers.Add(new ApplicationMultiAnswer()
+                                var answer = application.MultiAnswers.FirstOrDefault(a => a.Question == dbQ);
+
+                                // See if this answer has already been added
+                                if (answer != null)
                                 {
-                                    Answer1 = app.Answers.FirstOrDefault(a => a.QuestionId == dbQ.ID).MC_Answer1,
-                                    Answer2 = app.Answers.FirstOrDefault(a => a.QuestionId == dbQ.ID).MC_Answer2,
-                                    Answer3 = app.Answers.FirstOrDefault(a => a.QuestionId == dbQ.ID).MC_Answer3,
-                                    Answer4 = app.Answers.FirstOrDefault(a => a.QuestionId == dbQ.ID).MC_Answer4,
-                                    Question = dbQ,
-                                });
+                                    answer.Answer1 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(0);
+                                    answer.Answer2 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(1);
+                                    answer.Answer3 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(2);
+                                    answer.Answer4 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(3);
+                                }
+                                // Otherwise, add it
+                                else {
+                                    application.MultiAnswers.Add(new ApplicationMultiAnswer()
+                                    {
+                                        Answer1 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(0),
+                                        Answer2 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(1),
+                                        Answer3 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(2),
+                                        Answer4 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(3),
+                                        Question = dbQ
+                                    });
+                                }
                                 break;
                             case QuestionType.SHORT:
                                 application.ShortAnswers.Add(new ApplicationShortAnswer()
                                 {
-                                    Answer = app.Answers.FirstOrDefault(a => a.QuestionId == dbQ.ID).ShortAnswer,
+                                    Answer = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).ShortAnswer,
                                     Question = dbQ
                                 });
                                 break;
                         }
                     }
-                    db.Applications.Add(application);
+
+                    #endregion
+
+                    #region Availability
+
+                    // Just reset the entire row
+                    user.Availability = ConvertContractToTable(app.Availability);
+
+                    #endregion
+
+                    #region Education
+
+                    /// This is a bit dirty, and heavy on the DB, but since everything is very light as it is, that won't matter.
+
+                    // Clear out any old education information
+                    db.EducationHistories.RemoveRange(user.EducationHistory);
+
+                    // Loop through our passed in education information, and add each one to the user's list
+                    foreach (var e in ConvertContractToTable(app.Educations))
+                    {
+                        e.Applicant = user;
+                        user.EducationHistory.Add(e);
+
+                    }
+
+                    #endregion
+
+                    #region Employment
+
+                    /// Ditto from Education
+
+                    db.JobHistories.RemoveRange(user.EmploymentHistory);
+
+                    foreach (var e in ConvertContractToTable(app.Jobs))
+                    {
+                        e.Applicant = user;
+                        user.EmploymentHistory.Add(e);
+                    }
+
+                    #endregion
+
+                    #region References
+
+                    /// Ditto from Education
+
+                    db.References.RemoveRange(user.References);
+
+                    foreach (var r in ConvertContractToTable(app.References))
+                    {
+                        r.Applicant = user;
+                        user.References.Add(r);
+                    }
+
+                    #endregion
+
+                    #region User Info
+
+                    user.UserInfo.Address = app.UserInfo.Address;
+                    user.UserInfo.CallEndTime = app.UserInfo.EndCallTime;
+                    user.UserInfo.CallStartTime = app.UserInfo.StartCallTime;
+                    user.UserInfo.City = app.UserInfo.City;
+                    user.UserInfo.Nickname = app.UserInfo.Nickname;
+                    user.UserInfo.Phone = app.UserInfo.Phone;
+                    user.UserInfo.SalaryExpectation = app.UserInfo.SalaryExpectation;
+                    user.UserInfo.State = app.UserInfo.State;
+                    user.UserInfo.Zip = app.UserInfo.Zip;
+
+                    #endregion
+
+                    // If this is a new application, then we need to add it
+                    if (isNewApp)
+                    {
+                        db.Applications.Add(application);
+                    }
                 }
 
-                if(db.SaveChanges() == app.AppliedJobs.Count)
+                if (db.SaveChanges() != 0)
                 {
                     return AppSvcResponse.GOOD;
                 }
@@ -185,8 +364,6 @@ namespace AES.ApplicationSvc
             return new ApplicantUser()
             {
                 Availability = ConvertContractToTable(applicant.Availability),
-                CallEndTime = applicant.EndCallTime,
-                CallStartTime = applicant.StartCallTime,
                 DOB = applicant.DOB,
                 EducationHistory = ConvertContractToTable(applicant.Education),
                 EmploymentHistory = ConvertContractToTable(applicant.PastJobs),
@@ -195,7 +372,7 @@ namespace AES.ApplicationSvc
                 References = ConvertContractToTable(applicant.References),
                 userID = applicant.UserID ?? -1,
                 UserInfo = ConvertContractToTable(applicant.UserInfo),
-                
+
             };
         }
 
@@ -204,8 +381,6 @@ namespace AES.ApplicationSvc
             return new ApplicantInfoContract()
             {
                 Availability = ConvertTableToContract(applicant.Availability),
-                EndCallTime = applicant.CallEndTime,
-                StartCallTime = applicant.CallStartTime,
                 DOB = applicant.DOB,
                 Education = ConvertTableToContract(applicant.EducationHistory).ToList(),
                 PastJobs = ConvertTableToContract(applicant.EmploymentHistory).ToList(),
@@ -224,7 +399,7 @@ namespace AES.ApplicationSvc
         private ICollection<EducationHistory> ConvertContractToTable(ICollection<EducationHistoryContract> eHist)
         {
             var schools = new List<EducationHistory>();
-            foreach(var school in eHist)
+            foreach (var school in eHist)
             {
                 schools.Add(new EducationHistory()
                 {
@@ -275,7 +450,7 @@ namespace AES.ApplicationSvc
         {
             var retJobs = new List<JobHistory>();
 
-            foreach(var job in jobs)
+            foreach (var job in jobs)
             {
                 retJobs.Add(new JobHistory()
                 {
@@ -334,7 +509,7 @@ namespace AES.ApplicationSvc
         private ICollection<Reference> ConvertContractToTable(ICollection<ReferenceContract> refs)
         {
             var references = new List<Reference>();
-            foreach(var r in refs)
+            foreach (var r in refs)
             {
                 references.Add(new Reference()
                 {
@@ -374,12 +549,14 @@ namespace AES.ApplicationSvc
             return new UserInfo()
             {
                 Address = info.Address,
+                CallEndTime = info.EndCallTime,
+                CallStartTime = info.StartCallTime,
                 City = info.City,
                 Nickname = info.Nickname,
                 Phone = info.Phone,
                 SalaryExpectation = info.SalaryExpectation,
                 State = info.State,
-                Zip = info.Zip
+                Zip = info.Zip,
             };
         }
 
@@ -389,9 +566,11 @@ namespace AES.ApplicationSvc
             {
                 Address = info.Address,
                 City = info.City,
+                EndCallTime = info.CallEndTime,
                 Nickname = info.Nickname,
                 Phone = info.Phone,
                 SalaryExpectation = info.SalaryExpectation,
+                StartCallTime = info.CallStartTime,
                 State = info.State,
                 Zip = info.Zip
             };

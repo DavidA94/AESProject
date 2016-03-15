@@ -17,9 +17,7 @@ namespace AES.Web.Authorization
         {
             var s = new SecurityService.SecuritySvcClient();
 
-            var valid = s.ValidateUser(
-                new ApplicantInfoContract(user.FirstName, user.LastName, user.SSN, user.DOB, new TimeSpan(), new TimeSpan())
-                );
+            var valid = s.ValidateUser(new ApplicantInfoContract(user.FirstName, user.LastName, user.SSN, user.DOB));
 
             s.Close();
 

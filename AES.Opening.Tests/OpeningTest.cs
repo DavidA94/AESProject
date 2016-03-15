@@ -73,45 +73,26 @@ namespace AES.OpeningsSvc.Tests
                     descShort = JOB2_DESC_SHORT
                 };
 
+                var testJob1 = new JobOpening()
+                {
+                    Job = TestJob1
+                };
+                testJob1.Stores.Add(TestStore1);
+                var testJob2 = new JobOpening()
+                {
+                    Job = TestJob2
+                };
+                testJob2.Stores.Add(TestStore2);
+
                 db.Stores.AddOrUpdate(TestStore1);
                 db.Stores.AddOrUpdate(TestStore2);
                 db.Jobs.AddOrUpdate(TestJob1);
                 db.Jobs.AddOrUpdate(TestJob2);
-                db.JobOpenings.AddOrUpdate
-                (
-                    new JobOpening()
-                    {
-                        Store = TestStore1,
-                        Job = TestJob1
-                    }    
-                );
-                db.JobOpenings.AddOrUpdate
-                (
-                    new JobOpening()
-                    {
-                        Store = TestStore2,
-                        Job = TestJob2
-                    }
-                );
-                db.JobOpenings.AddOrUpdate
-                (
-                    new JobOpening()
-                    {
-                        Store = TestStore1,
-                        Job = TestJob1
-                    }
-                );
-                db.JobOpenings.AddOrUpdate
-                (
-                    new JobOpening()
-                    {
-                        Store = TestStore2,
-                        Job = TestJob2
-                    }
-                );
+                db.JobOpenings.AddOrUpdate(testJob1);
+                db.JobOpenings.AddOrUpdate(testJob2);
                 db.SaveChanges();
 
-                var gottenOpenings = db.JobOpenings.Where(opening => opening.Store.ID == TestStore1.ID).ToList();
+                var gottenOpenings = db.JobOpenings.Where(opening => opening.Stores.FirstOrDefault(s => s.ID == TestStore1.ID) != null).ToList();
 
                 OpeningSvc openingService = new OpeningSvc();
 

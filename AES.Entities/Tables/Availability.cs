@@ -10,28 +10,16 @@ namespace AES.Entities.Tables
         public Availability()
         {
 
-            DTSundayStart =
-                DTSundayEnd =
-                    DTSaturdayStart =
-                        DTSundayEnd =
-                            DTMondayStart =
-                                DTMondayEnd =
-                                    DTTuesdayStart =
-                                        DTTuesdayEnd =
-                                            DTWednesdayStart =
-                                                DTWednesdayEnd =
-                                                    DTThursdayStart =
-                                                        DTThursdayEnd =
-                                                            DTFridayStart =
-                                                                DTFridayEnd =
-                                                                    DTSaturdayStart =
-                                                                        DTSaturdayEnd = new DateTime(1970, 1, 1);
+            DTSundayStart = DTSundayEnd = DTSaturdayStart = DTSundayEnd = DTMondayStart = DTMondayEnd = DTTuesdayStart = DTTuesdayEnd = 
+                DTWednesdayStart = DTWednesdayEnd = DTThursdayStart = DTThursdayEnd = DTFridayStart = DTFridayEnd = 
+                DTSaturdayStart = DTSaturdayEnd = new DateTime(1970, 1, 1);
         }
 
         [Key]
         [Required]
         public int ID { get; set; }
 
+        [Required]
         public DateTime DTSundayStart { get; set; }
 
         [NotMapped]
@@ -41,6 +29,7 @@ namespace AES.Entities.Tables
             set { DTSundayStart = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTMondayStart { get; set; }
 
         [NotMapped]
@@ -50,6 +39,7 @@ namespace AES.Entities.Tables
             set { DTMondayStart = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTTuesdayStart { get; set; }
 
         [NotMapped]
@@ -59,6 +49,7 @@ namespace AES.Entities.Tables
             set { DTTuesdayStart = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTWednesdayStart { get; set; }
 
         [NotMapped]
@@ -68,6 +59,7 @@ namespace AES.Entities.Tables
             set { DTWednesdayStart = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTThursdayStart { get; set; }
 
         [NotMapped]
@@ -77,6 +69,7 @@ namespace AES.Entities.Tables
             set { DTThursdayStart = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTFridayStart { get; set; }
 
         [NotMapped]
@@ -86,6 +79,7 @@ namespace AES.Entities.Tables
             set { DTFridayStart = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTSaturdayStart { get; set; }
 
         [NotMapped]
@@ -95,6 +89,7 @@ namespace AES.Entities.Tables
             set { DTSaturdayStart = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTSundayEnd { get; set; }
 
         [NotMapped]
@@ -104,6 +99,7 @@ namespace AES.Entities.Tables
             set { DTSundayEnd = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTMondayEnd { get; set; }
 
         [NotMapped]
@@ -113,6 +109,7 @@ namespace AES.Entities.Tables
             set { DTMondayEnd = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTTuesdayEnd { get; set; }
 
         [NotMapped]
@@ -122,6 +119,7 @@ namespace AES.Entities.Tables
             set { DTTuesdayEnd = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTWednesdayEnd { get; set; }
 
         [NotMapped]
@@ -131,6 +129,7 @@ namespace AES.Entities.Tables
             set { DTWednesdayEnd = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTThursdayEnd { get; set; }
 
         [NotMapped]
@@ -140,6 +139,7 @@ namespace AES.Entities.Tables
             set { DTThursdayEnd = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTFridayEnd { get; set; }
 
         [NotMapped]
@@ -149,6 +149,7 @@ namespace AES.Entities.Tables
             set { DTFridayEnd = DateTimeHelper.ConvertTimeSpan(value); }
         }
 
+        [Required]
         public DateTime DTSaturdayEnd { get; set; }
 
         [NotMapped]
