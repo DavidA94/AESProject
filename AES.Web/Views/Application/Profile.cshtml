@@ -1,0 +1,74 @@
+﻿@model AES.Web.Models.ProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Profile", "Application", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Enter your profile information.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control",  @readonly="readonly" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SSN, new { @class = "col-md-2 control-label"})
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.SSN, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(m => m.SSN, "", new { @class = "text-danger" })
+                        @*<input type="text" value="xxx-xx-xxxx"/>*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.DOB, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @type = "Date" })
+                        @Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="bottom-left">
+                        <input type="submit" value="Proceed to Availability" class="btn btn-default" />
+                    </div>
+                </div>
+
+                @*<div class="navbar navbar-inverse navbar-fixed-bottom">
+                    <div class="container">
+                        <div class="navbar-footer">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                                <input type="submit" value="Next Section" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>*@
+            }
+
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -16,7 +16,6 @@ namespace AES.OpeningsSvc
             {
                 var gottenOpenings = db.JobOpenings.Where(o => o.Stores.FirstOrDefault(s => s.ID == StoreID) != null).ToList();
 
-
                 foreach (var opening in gottenOpenings)
                 {
                     returnedList.Add(new JobOpeningContract(opening));
