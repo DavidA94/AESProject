@@ -32,19 +32,11 @@ namespace AES.Shared
                     dir = dir.Parent;
                 }
 
-                // Go into AES.Web
-                dir = dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web");
-
                 // Create a sub-directory so the file doesn't mess with the main DB, IFF this is a test
-                try
+                if (isTest)
                 {
-                    if (isTest)
-                    {
-                        dir = dir.CreateSubdirectory("TestDB");
-                    }
+                    dir = dir.CreateSubdirectory("TestDB");
                 }
-                // If we can't make the directories, too bad
-                catch { }
 
                 // Set the DataDirectory
                 AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
