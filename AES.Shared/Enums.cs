@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AES.Shared
 {
@@ -26,9 +23,19 @@ namespace AES.Shared
         WAITING_CALL,
 
         /// <summary>
+        /// Inidcates that the user is currently in a call
+        /// </summary>
+        IN_CALL,
+
+        /// <summary>
         /// When the applicant has passed the phone screening, and is waiting for an interview
         /// </summary>
         WAITING_INTERVIEW,
+
+        /// <summary>
+        /// Indicates that an interview with this person has been completed
+        /// </summary>
+        INTERVIEW_COMPLETE,
 
         /// <summary>
         /// When the applicant was denied during the phone interview
@@ -69,7 +76,16 @@ namespace AES.Shared
     /// <summary>
     /// The type of degree obtained from a school
     /// </summary>
-    public enum DegreeType { NONE, HS_DIPLOMA, AA, BA, MA, PHD, MD, CERTIFICATE };
+    public enum DegreeType {
+        [Display(Name = "No Degree")] NONE,
+        [Display(Name = "High School Diploma")] HS_DIPLOMA,
+        [Display(Name = "Associates")] AA,
+        [Display(Name = "Batchelors")] BA,
+        [Display(Name = "Masters")] MA,
+        [Display(Name = "Doctorate")] PHD,
+        [Display(Name = "Medical Doctor")] MD,
+        [Display(Name = "Certificate")] CERTIFICATE
+    };
 
     public enum AppSvcResponse { GOOD, BAD_USER, BAD_JOB, BAD_QUESTION, ERROR };
 }

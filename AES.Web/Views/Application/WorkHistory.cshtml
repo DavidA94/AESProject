@@ -1,159 +1,37 @@
-﻿@model AES.Web.Models.WorkHistoryViewModel
+﻿@using AES.Web.Models
+@model IEnumerable<WorkHistoryViewModel>
 
 @{
-    ViewBag.Title = "WorkHistory";
+    ViewBag.Title = "Work History";
 }
 
 <h2>WorkHistory</h2>
 
 <div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("WorkHistory", "Application", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Enter your work history information.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                
-                <div class="form-group">
-                    @* Employer's Name *@
-                    @Html.LabelFor(m => m.Employer, new { @class = "col-md-2 control-label" })
-                    <div class="col-lg-4">
-                        @Html.TextBoxFor(m => m.Employer, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Employer, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    <div class="col-md-12">
+        @using (Html.BeginForm("WorkHistory", "Application", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+            new { @class = "form-horizontal", role = "form", @id = "enumForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Where have you worked before?</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="form-group">
-                    @* Employer's Address *@
-                    <h4>Address</h4>
-                    @* Street *@
-                    @Html.LabelFor(m => m.Street, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-6">
-                        @Html.TextBoxFor(m => m.Street, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Street, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    @* City *@
-                    @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
-                    </div>
-                    @* State *@
-                    @Html.LabelFor(m => m.State, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
-                    </div>
-                    @* Zip *@
-                    @Html.LabelFor(m => m.Zip, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Zip, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+            <div id="list">
+                @foreach (WorkHistoryViewModel job in Model)
+                {
+                    Html.RenderPartial("PartialWorkHistory", job);
+                }
+            </div>
+            <div class="form-group">
+                <a href="@Url.Action("GetWorkHistoryItem")" id="addItem" class="control-label col-md-2">Add another company</a>
+            </div>
 
-                <div class="form-group">
-                    @* Position *@
-                    @Html.LabelFor(m => m.Position, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-4">
-                        @Html.TextBoxFor(m => m.Position, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Position, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @* Reason for Leaving *@
-                    @Html.LabelFor(m => m.ReasonForLeaving, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => m.ReasonForLeaving, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.ReasonForLeaving, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @* Responsibilities *@
-                    @Html.LabelFor(m => m.Responsibilities, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => m.Responsibilities, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Responsibilities, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @* Worked From *@
-                    @Html.LabelFor(m => m.WorkedFrom, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.WorkedFrom, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.WorkedFrom, "", new { @class = "text-danger" })
-                    </div>
-             
-                    @* Worked To *@
-                    @Html.LabelFor(m => m.WorkedTo, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.WorkedTo, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.WorkedTo, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @* Phone *@
-                    @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-3">
-                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @* Supervisor *@
-                    @Html.LabelFor(m => m.Supervisor, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-4">
-                        @Html.TextBoxFor(m => m.Supervisor, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Supervisor, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @* Starting Salary *@
-                    @Html.LabelFor(m => m.StartingSalary, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.StartingSalary, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.StartingSalary, "", new { @class = "text-danger" })
-                    </div>
-
-                    @* Ending Salary *@
-                    @Html.LabelFor(m => m.EndingSalary, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.EndingSalary, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.EndingSalary, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @* Contacting Employer Checkbox *@
-                    @Html.LabelFor(m => m.ContactEmployerCheckBox, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-1">
-                        @Html.CheckBox("May we contact your employer?", new { @class = "chk-style" })
-                        @Html.ValidationMessageFor(m => m.ContactEmployerCheckBox, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-   
-                <div class="form-group">
-                    <div class="bottom-left">
-                        <input type="submit" value="Proceed to Education" class="btn btn-default" />
-                    </div>
-                </div>
-            }
-
-        </section>
+            Html.RenderPartial("_Navigation");
+        }
     </div>
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/AddDynamicRow.js")
 }

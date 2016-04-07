@@ -1,7 +1,9 @@
 ﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 
 namespace AES.OpeningsSvc.Tests
@@ -31,6 +33,17 @@ namespace AES.OpeningsSvc.Tests
         private const string JOB2_TITLE = "Job 2 Title";
         private const string JOB2_DESC_SHORT = "Job 2 Short Description";
         private const string JOB2_DESC_LONG = "The long description for Job 2";
+
+        public OpeningTests()
+        {
+            DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            while (dir.Name != "AESProject")
+            {
+                dir = dir.Parent;
+            }
+            dir = dir.CreateSubdirectory("TestDB");
+            AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
+        }
 
         [TestMethod]
         public void TC_Openings()
@@ -77,12 +90,12 @@ namespace AES.OpeningsSvc.Tests
                 {
                     Job = TestJob1
                 };
-                testJob1.Stores.Add(TestStore1);
+                testJob1.Store = TestStore1;
                 var testJob2 = new JobOpening()
                 {
                     Job = TestJob2
                 };
-                testJob2.Stores.Add(TestStore2);
+                testJob2.Store = TestStore2;
 
                 db.Stores.AddOrUpdate(TestStore1);
                 db.Stores.AddOrUpdate(TestStore2);
@@ -92,7 +105,7 @@ namespace AES.OpeningsSvc.Tests
                 db.JobOpenings.AddOrUpdate(testJob2);
                 db.SaveChanges();
 
-                var gottenOpenings = db.JobOpenings.Where(opening => opening.Stores.FirstOrDefault(s => s.ID == TestStore1.ID) != null).ToList();
+                var gottenOpenings = db.JobOpenings.Where(opening => opening.Store.ID == TestStore1.ID).ToList();
 
                 OpeningSvc openingService = new OpeningSvc();
 

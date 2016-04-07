@@ -1,17 +1,30 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AES.ApplicationSvc.Contracts;
 using AES.Entities.Contexts;
-using System.Linq;
-using AES.ApplicationSvc.Contracts;
 using AES.Entities.Tables;
+using AES.Shared;
 using AES.Shared.Contracts;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace AES.ApplicationSvc.Tests
 {
     [TestClass]
     public class ApplicationSvcUnitTests
     {
+        public ApplicationSvcUnitTests()
+        {
+            DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            while (dir.Name != "AESProject")
+            {
+                dir = dir.Parent;
+            }
+            dir = dir.CreateSubdirectory("TestDB");
+            AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
+        }
+
         private static bool hasSaveRun = false;
 
         [TestMethod]
@@ -34,6 +47,8 @@ namespace AES.ApplicationSvc.Tests
                 var app = PartialApp1();
 
                 // Ensure this user doesn't have any current apps
+                db.MultiAnswers.RemoveRange(db.MultiAnswers.Where(ma => true));
+                db.ShortAnswers.RemoveRange(db.ShortAnswers.Where(sa => true));
                 db.Applications.RemoveRange(db.Applications.Where(apps => apps.Applicant.userID == app.ApplicantID));
                 db.SaveChanges();
 
@@ -60,7 +75,7 @@ namespace AES.ApplicationSvc.Tests
                 var app = PartialApp4();
                 a.SavePartialApplication(app);
                 var user = db.ApplicantUsers.FirstOrDefault(u => u.userID == app.ApplicantID);
-                AssertPartialApp4(user, app);
+                AssertPartialApp4_Pass1(user, app);
             }
         }
 
@@ -160,6 +175,41 @@ namespace AES.ApplicationSvc.Tests
             }
         }
 
+        [TestMethod]
+        public void TC10_SubmitApplication()
+        {
+            var appSvc = new ApplicationSvc();
+            
+            // Get the application
+            var app = PartialApp4_BadAnswers();
+
+            using (var db = new AESDbContext())
+            {
+                // Remove any old applications for this user
+                db.Applications.RemoveRange(db.Applications.Where(apps => apps.Applicant.userID == app.ApplicantID));
+
+                // Save/Submit the application
+                appSvc.SavePartialApplication(app);
+                appSvc.SubmitApplication(new ApplicantInfoContract() { UserID = app.ApplicantID });
+            }
+
+            // Refresh the context
+            using (var db = new AESDbContext())
+            { 
+                // Get the status of both jobs submitted
+                int job1 = app.AppliedJobs[0];
+                int job2 = app.AppliedJobs[1];
+                AppStatus status1 = db.Applications.FirstOrDefault(a => a.Applicant.userID == app.ApplicantID &&
+                                                                        a.JobID == job1).Status;
+                AppStatus status2 = db.Applications.FirstOrDefault(a => a.Applicant.userID == app.ApplicantID &&
+                                                                        a.JobID == job2).Status;
+
+                // Asure one was moved alone while the other was accepted
+                Assert.IsTrue((status1 == AppStatus.WAITING_CALL && status2 == AppStatus.AUTO_REJECT) ||
+                              (status2 == AppStatus.WAITING_CALL && status1 == AppStatus.AUTO_REJECT));
+            }
+        }
+
         private ApplicationInfoContract PartialApp1()
         {
             const string FIRST_NAME = "Application";
@@ -175,7 +225,7 @@ namespace AES.ApplicationSvc.Tests
                 return new ApplicationInfoContract()
                 {
                     ApplicantID = userID,
-                    AppliedJobs = db.Jobs.Select(j => j.ID).ToList(),
+                    AppliedJobs = db.Jobs.Select(j => j.ID).Take(2).ToList(),
                     Availability = new AvailabilityContract()
                     {
                         MondayStart = new TimeSpan(8, 0, 0),
@@ -352,19 +402,19 @@ namespace AES.ApplicationSvc.Tests
                     new QAContract()
                     {
                         QuestionID = db.Questions.FirstOrDefault(q => q.Text == "What do you feel you can bring to the job?").ID,
-                        Type = Shared.QuestionType.SHORT,
+                        Type = QuestionType.SHORT,
                         ShortAnswer = "Cleaning skills"
                     },
                     new QAContract()
                     {
                         QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Can you lift more than 50 pounds?").ID,
-                        Type = Shared.QuestionType.RADIO,
+                        Type = QuestionType.RADIO,
                         MC_Answers = new List<bool> { true, false, false, false }
                     },
                     new QAContract()
                     {
                         QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Which of the following are cleaning products? (Check all that apply)").ID,
-                        Type = Shared.QuestionType.CHECKBOX,
+                        Type = QuestionType.CHECKBOX,
                         MC_Answers = new List<bool> { true, true, false, false }
                     }
                 };
@@ -372,7 +422,7 @@ namespace AES.ApplicationSvc.Tests
 
             return app;
         }
-        private void AssertPartialApp4(ApplicantUser user, ApplicationInfoContract app)
+        private void AssertPartialApp4_Pass1(ApplicantUser user, ApplicationInfoContract app)
         {
             AssertPartialApp3(user, app);
 
@@ -395,6 +445,38 @@ namespace AES.ApplicationSvc.Tests
 
             var sanswer = application.ShortAnswers.FirstOrDefault(a => a.Question.Text == "What do you feel you can bring to the job?");
             Assert.AreEqual(sanswer.Answer, "Cleaning skills");
+        }
+
+        private ApplicationInfoContract PartialApp4_BadAnswers()
+        {
+            var app = PartialApp3();
+
+            using (var db = new AESDbContext())
+            {
+                app.QA = new List<QAContract>()
+                {
+                    new QAContract()
+                    {
+                        QuestionID = db.Questions.FirstOrDefault(q => q.Text == "What do you feel you can bring to the job?").ID,
+                        Type = QuestionType.SHORT,
+                        ShortAnswer = "Cleaning skills"
+                    },
+                    new QAContract()
+                    {
+                        QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Can you lift more than 50 pounds?").ID,
+                        Type = QuestionType.RADIO,
+                        MC_Answers = new List<bool> { true, false, false, false }
+                    },
+                    new QAContract()
+                    {
+                        QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Which of the following are cleaning products? (Check all that apply)").ID,
+                        Type = QuestionType.CHECKBOX,
+                        MC_Answers = new List<bool> { false, true, false, false }
+                    }
+                };
+            }
+
+            return app;
         }
     }
 }

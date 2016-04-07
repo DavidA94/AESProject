@@ -8,17 +8,16 @@ namespace AES.Web.Models
 {
     public class JobOpeningsViewModel
     {
-        [Required]
         [Display(Name = "Job Checkbox")]
         public bool JobCheckbox { get; set; }
 
         [StringLength(25)]
         [Required]
-        [Display(Name = "Title")]
         public string Title { get; set; }
 
-        [Required]
-        [Display(Name = "ID")]
+        /// <summary>
+        /// Not shown to user
+        /// </summary>
         public int ID { get; set; }
 
         [StringLength(512)]

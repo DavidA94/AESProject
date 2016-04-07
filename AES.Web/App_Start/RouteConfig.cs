@@ -22,9 +22,9 @@ namespace AES.Web
             );
 
             routes.MapRoute(
-                name: "Welcome",
-                url: "Welcome",
-                defaults: new { controller = "ApplicantLogin", action = "Welcome" }
+                name: "AvailableJobs",
+                url: "AvailableJobs",
+                defaults: new { controller = "JobOpenings", action = "AvailableJobs" }
             );
 
             routes.MapRoute(

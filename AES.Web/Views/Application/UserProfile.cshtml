@@ -1,0 +1,113 @@
+﻿@model AES.Web.Models.ProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <section id="loginForm">
+            @using (Html.BeginForm("UserProfile", "Application", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Tell us about yourself.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-8 staticText">
+                        <p><span>Name:</span> @Model.FirstName @Model.LastName</p>
+                        <p><span>Date of Birth:</span> @Model.DOB.ToString("MM-dd-yyyy")</p>
+                        @Html.HiddenFor(m => m.FirstName)
+                        @Html.HiddenFor(m => m.LastName)
+                        @Html.HiddenFor(m => m.DOB)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Nickname, new { @class = "col-md-1 control-label" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Nickname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Nickname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Address, new { @class = "col-md-1 control-label" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.City, new { @class = "col-md-1 control-label" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.State, new { @class = "col-md-1 control-label" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Zip, new { @class = "col-md-1 control-label" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Zip, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Phone, new { @class = "col-md-1 control-label" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SalaryExpectation, new { @class = "col-md-1 control-label" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(m => m.SalaryExpectation, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.SalaryExpectation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group"></div>
+                <div>
+                    <p>When are you available for a phone interview?</p>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1">
+                        @Html.LabelFor(m => m.StartCallTime, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.EditorFor(m => m.StartCallTime, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-1">
+                        @Html.LabelFor(m => m.EndCallTime, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.EditorFor(m => m.EndCallTime, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                Html.RenderPartial("_Navigation");
+            }
+
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

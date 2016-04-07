@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Web;
 
@@ -27,14 +28,14 @@ namespace AES.Web.Authorization
                     new[]
                     {
                         // adding following 2 claim just for supporting default antiforgery provider
-                        new Claim(ClaimTypes.NameIdentifier, valid.FirstName),
+                        new Claim(ClaimTypes.Name, valid.FirstName),
                         new Claim(ClaimTypes.GivenName, valid.LastName),
                         new Claim(ClaimTypes.DateOfBirth, valid.DOB.ToString()),
                         new Claim(ClaimTypes.SerialNumber, valid.UserID.ToString()),
                         // new Claim(ClaimTypes.PrimarySid, valid.SSN),
                         new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
 
-                        new Claim(ClaimTypes.Name, valid.UserID.ToString()),
+                        new Claim(ClaimTypes.NameIdentifier, valid.UserID.ToString()),
                         // new Claim(ClaimTypes.Role, "Applicant")
                     },
                     DefaultAuthenticationTypes.ApplicationCookie
@@ -52,20 +53,24 @@ namespace AES.Web.Authorization
         public static ApplicantLoginModel GetUser()
         {
             var claims = ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims;
-            /*
-            foreach(var claim in claims)
-            {
-                claim.s
-            }*/
-
 
             var user = new ApplicantLoginModel() { 
-                FirstName = claims.First(n => n.Type == ClaimTypes.NameIdentifier).Value,
+                FirstName = claims.First(n => n.Type == ClaimTypes.Name).Value,
                 LastName = claims.First(n => n.Type == ClaimTypes.GivenName).Value,
                 DOB = DateTime.Parse(claims.First(n => n.Type == ClaimTypes.DateOfBirth).Value)
             };
 
             return user;
+        }
+
+        public static int GetUserID()
+        {
+            return Convert.ToInt32(((ClaimsIdentity)HttpContext.Current.User.Identity).Claims.First(id => id.Type == ClaimTypes.NameIdentifier).Value);
+        }
+
+        public static void Logout()
+        {
+            HttpContext.Current.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
     }
 }

@@ -1,0 +1,40 @@
+﻿@using AES.Shared;
+@model AES.Web.Models.QuestionnaireViewModel
+
+<div class="enumItem">
+    <div class="form-group">
+        @* Question Text *@
+        @Html.HiddenFor(m => m.Question)
+        @Html.HiddenFor(m => m.QuestionID)
+        @Html.HiddenFor(m => m.Type)
+        @Html.DisplayFor(m => m.Question)
+    </div>
+
+    <div class="form-group inset">
+        @{string id = ""; }
+        @if (Model.Type == QuestionType.SHORT)
+        {
+            @Html.TextAreaFor(m => m.ShortAnswer, new { @class = "col-md-4" })
+        }
+        else
+        {
+            for (int i = 0; i < Model.Options.Count; ++i)
+            {
+                <div>
+                    @if (Model.Type == QuestionType.RADIO)
+                    {
+                        id = "i" + Model.QuestionID.ToString() + i.ToString();
+                        @Html.RadioButtonFor(m => m.RadioOption[Model.QuestionID], Model.Options[i], new { @id = @id })
+                        <label for="@id">@Model.Options[i]</label>
+                    }
+                    else
+                    {
+                        @Html.CheckBoxFor(m => m.MC_Answers[i]);
+                        @Html.LabelFor(m => m.MC_Answers[i], Model.Options[i])
+                    }
+                </div>
+                @Html.HiddenFor(m => m.Options[i]);
+            }
+        }
+    </div>
+</div>

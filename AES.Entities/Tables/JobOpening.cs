@@ -9,7 +9,6 @@ namespace AES.Entities.Tables
         public JobOpening()
         {
             Applications = new HashSet<Application>();
-            Stores = new HashSet<Store>();
         }
 
         [Key]
@@ -20,7 +19,7 @@ namespace AES.Entities.Tables
         public virtual Job Job { get; set; }
 
         [Required]
-        public virtual ICollection<Store> Stores { get; set; }
+        public virtual Store Store { get; set; }
 
         public virtual ICollection<Application> Applications { get; set; }
 

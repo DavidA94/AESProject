@@ -31,6 +31,17 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="AESDbContext-Deployment" Order="1">
+          <Destination Path="Server=tcp:aesserver.database.windows.net,1433%3bDatabase=AESProject%3bUser ID=davida%40aesserver%3bPassword=AESPr0ject%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Server=tcp:aesserver.database.windows.net,1433%3bDatabase=AESProject%3bUser ID=davida%40aesserver%3bPassword=AESPr0ject%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\AESDbContext-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

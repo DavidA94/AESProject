@@ -4,6 +4,7 @@ using AES.Shared;
 using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace AES.SecuritySvc.Tests
@@ -21,6 +22,14 @@ namespace AES.SecuritySvc.Tests
         {
             SSN_CRYPT = Encryption.Encrypt(SSN);
             DOB = new DateTime(1970, 6, 2);
+
+            DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            while (dir.Name != "AESProject")
+            {
+                dir = dir.Parent;
+            }
+            dir = dir.CreateSubdirectory("TestDB");
+            AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
         }
 
         [TestMethod]

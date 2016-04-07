@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using AES.Shared;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,6 +11,8 @@ namespace AES.Entities.Tables
         public Application()
         {
             Timestamp = new DateTime(1970, 1, 1);
+            MultiAnswers = new List<ApplicationMultiAnswer>();
+            ShortAnswers = new List<ApplicationShortAnswer>();
         }
 
         [Key]
@@ -20,8 +22,14 @@ namespace AES.Entities.Tables
         /// <summary>
         /// Which job the application is for
         /// </summary>
-        [Required]
+        [ForeignKey("JobID")]
         public virtual Job Job { get; set; }
+
+        /// <summary>
+        /// Which job the application is for
+        /// </summary>
+        [Required]
+        public int JobID { get; set; }
 
         /// <summary>
         /// The applicant this application is for

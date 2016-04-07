@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AES.Web.Models.JobOpeningsViewModel>
+
+@{
+    ViewBag.Title = "Job Openings";
+}
+
+<h2>Job Openings</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <section id="loginForm">
+            @using (Html.BeginForm("AvailableJobs", "JobOpenings", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, 
+                new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Please select the jobs you wish to apply for.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                for (int i = 0; i < Model.Count(); ++i) {
+                    <div class="bottom-spacing">
+                        @* Checkbox for the jobs *@
+                        <div class="pull-left">
+                            @Html.EditorFor(m => m.ToArray()[i].JobCheckbox, new { @checked = "checked" })
+                            @Html.HiddenFor(m => m.ToArray()[i].ID)
+                        </div>
+                        <div class="no-overflow padLeft">
+                            @* Display Job Title *@
+                            <div class="h3">
+                                @Html.DisplayFor(m => m.ToArray()[i].Title)
+                                @Html.HiddenFor(m => m.ToArray()[i].Title)
+                            </div>
+                            <div>
+                                @Html.DisplayFor(m => m.ToArray()[i].ShortDesc)
+                                @Html.HiddenFor(m => m.ToArray()[i].ShortDesc)
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="bottom-left">
+                    @*@Html.ActionLink("Next Section", "NextSection", "Application", new { @class = "beginButton" })*@
+                    <input type="submit" value="Apply for Job(s)" class="btn btn-default" />
+                </div>
+            }
+
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

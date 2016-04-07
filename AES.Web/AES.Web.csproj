@@ -180,16 +180,25 @@
     <Compile Include="Authorization\AESAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicantLoginController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobOpeningsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicantLoginModel.cs" />
+    <Compile Include="Models\ApplicationModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobOpeningsModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ApplicationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\OpeningService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -206,18 +215,50 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\thanks.jpeg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\AddDynamicRow.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\AES.SecuritySvc.Contracts.ApplicantInfoContract.datasource" />
+    <Content Include="Properties\DataSources\AES.Shared.Contracts.UserInfoContract.datasource" />
+    <Content Include="Service References\ApplicationService\AES.Web.ApplicationService.ApplicationInfoContract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationService\ApplicationSvc.disco" />
+    <None Include="Service References\ApplicationService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\OpeningService\AES.Web.OpeningService.JobOpeningContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Properties\DataSources\AES.SecuritySvc.Contracts.ApplicantInfoContract1.datasource" />
     <Content Include="Properties\DataSources\AES.Shared.Contracts.ApplicantInfoContract.datasource" />
+    <None Include="Service References\ApplicationService\ApplicationSvc.wsdl" />
+    <None Include="Service References\ApplicationService\ApplicationSvc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationService\ApplicationSvc1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationService\ApplicationSvc2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationService\ApplicationSvc3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationService\ApplicationSvc4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationService\ApplicationSvc5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\OpeningService\OpeningSvc.wsdl" />
     <None Include="Service References\OpeningService\OpeningSvc.xsd">
       <SubType>Designer</SubType>
@@ -228,6 +269,20 @@
     <None Include="Service References\OpeningService\OpeningSvc2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Application\Availability.cshtml" />
+    <Content Include="Views\Application\Education.cshtml" />
+    <Content Include="Views\Application\UserProfile.cshtml" />
+    <Content Include="Views\Application\References.cshtml" />
+    <Content Include="Views\Application\WorkHistory.cshtml" />
+    <Content Include="Views\JobOpenings\AvailableJobs.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Application\PartialWorkHistory.cshtml" />
+    <Content Include="Views\Application\PartialEducationHistory.cshtml" />
+    <Content Include="Views\Application\PartialReference.cshtml" />
+    <Content Include="Views\Application\Questionaire.cshtml" />
+    <Content Include="Views\Application\PartialQuestionaire.cshtml" />
+    <Content Include="Views\Application\ApplicationSubmitted.cshtml" />
+    <Content Include="Views\Application\_Navigation.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -350,6 +405,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ApplicationService\" />
     <WCFMetadataStorage Include="Service References\OpeningService\" />
     <WCFMetadataStorage Include="Service References\SecurityService\" />
   </ItemGroup>
@@ -367,7 +423,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49345</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

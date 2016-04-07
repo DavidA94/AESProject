@@ -3,12 +3,27 @@ using AES.Entities.Tables;
 using AES.Shared;
 using AES.Shared.Contracts;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace AES.SecuritySvc
 {
     public class SecuritySvc : ISecuritySvc
     {
+        public SecuritySvc()
+        {
+            string data = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            if (data.Contains("bin") || data.ToLower().Contains("app_data"))
+            {
+                DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+                while (dir.Name != "AESProject")
+                {
+                    dir = dir.Parent;
+                }
+                AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
+            }
+        }
+
         public ApplicantInfoContract ValidateUser(ApplicantInfoContract userInfo)
         {
             // If we get any null data, just return (DateTime cannot be null)

@@ -6,7 +6,7 @@ namespace AES.Entities.Migrations
 {
     using Contexts;
     using System.Data.Entity.Migrations;
-
+    using System.Linq;
     internal sealed class AESDbConfiguration : DbMigrationsConfiguration<AESDbContext>
     {
         public AESDbConfiguration()
@@ -17,19 +17,26 @@ namespace AES.Entities.Migrations
 
         protected override void Seed(AESDbContext context)
         {
-            context.Applications.RemoveRange(context.Applications);
-            context.ApplicantUsers.RemoveRange(context.ApplicantUsers);
-            context.Questions.RemoveRange(context.Questions);
-            context.Jobs.RemoveRange(context.Jobs);
-            context.JobOpenings.RemoveRange(context.JobOpenings);
-            context.UserInfo.RemoveRange(context.UserInfo);
-            context.Stores.RemoveRange(context.Stores);
-            context.Availabilities.RemoveRange(context.Availabilities);
-            context.EducationHistories.RemoveRange(context.EducationHistories);
-            context.MultiAnswers.RemoveRange(context.MultiAnswers);
-            context.ShortAnswers.RemoveRange(context.ShortAnswers);
-            context.JobHistories.RemoveRange(context.JobHistories);
-            context.References.RemoveRange(context.References);
+            //context.Applications.RemoveRange(context.Applications);
+            //context.ApplicantUsers.RemoveRange(context.ApplicantUsers);
+            //context.Questions.RemoveRange(context.Questions);
+            //context.Jobs.RemoveRange(context.Jobs);
+            //context.JobOpenings.RemoveRange(context.JobOpenings);
+            //context.UserInfo.RemoveRange(context.UserInfo);
+            //context.Stores.RemoveRange(context.Stores);
+            //context.Availabilities.RemoveRange(context.Availabilities);
+            //context.EducationHistories.RemoveRange(context.EducationHistories);
+            //context.MultiAnswers.RemoveRange(context.MultiAnswers);
+            //context.ShortAnswers.RemoveRange(context.ShortAnswers);
+            //context.JobHistories.RemoveRange(context.JobHistories);
+            //context.References.RemoveRange(context.References);
+
+            // If this user exists, assume we're already seeded
+            var SSN = Encryption.Encrypt("123-45-6789");
+            if(context.ApplicantUsers.FirstOrDefault(a => a.SSN == SSN) != null)
+            {
+                return;
+            }
 
             var portlandStore = new Store
             {
@@ -83,25 +90,25 @@ namespace AES.Entities.Migrations
             {
                 Job = janitorJob
             };
-            tualatinJanitorOpening.Stores.Add(tualatinStore);
+            tualatinJanitorOpening.Store = tualatinStore;
 
             var portlandJanitorOpening = new JobOpening
             {
                 Job = janitorJob
             };
-            portlandJanitorOpening.Stores.Add(portlandStore);
+            portlandJanitorOpening.Store = portlandStore;
 
             var tualatinSalesOpening = new JobOpening
             {
                     Job = salesAssociateJob
             };
-            tualatinSalesOpening.Stores.Add(tualatinStore);
+            tualatinSalesOpening.Store = tualatinStore;
 
             var portlandSalesOpening = new JobOpening
             {
                 Job = salesAssociateJob
             };
-            portlandSalesOpening.Stores.Add(portlandStore);
+            portlandSalesOpening.Store = portlandStore;
 
             context.JobOpenings.AddOrUpdate(
                 tualatinJanitorOpening,
@@ -149,9 +156,9 @@ namespace AES.Entities.Migrations
 
             var applicantUser = new ApplicantUser()
             {
+                userID = 1,
                 UserInfo = userInfo,
                 Availability = availability,
-                
                 DOB = new DateTime(1989, 3, 14),
                 FirstName = "Joseph",
                 LastName = "Morgan",
