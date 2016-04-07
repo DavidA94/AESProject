@@ -8,42 +8,48 @@ namespace AES.Shared
     {
         private static bool m_hasBeenCalled = false;
 
+        /// <summary>
+        /// Sets the DataDirectory so all services will use the same file
+        /// </summary>
+        /// <param name="isTest">Indicates if this is setting the directory for a *.Tests project</param>
         public static void SetDataDirectory(bool isTest = false)
         {
-            if (m_hasBeenCalled)
-            {
-                return;
-            }
-            m_hasBeenCalled = true;
-
-            // Get the directory we're starting in
-            DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-
-            // Loop until we find the folder that holds AES.Web
-            while (dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web") == null)
-            {
-                dir = dir.Parent;
-            }
-
-            // Go into AES.Web
-            dir = dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web");
-
-            // Create a sub-directory is possible for App_Data
+            // If this doesn't work, we're probably on AppHabor, and it is running tests which don't require this
             try
             {
-                dir = dir.CreateSubdirectory("App_Data");
-
-                // If we're on a test, make another directory
-                if (isTest)
+                if (m_hasBeenCalled)
                 {
-                    dir = dir.CreateSubdirectory("TestDB");
+                    return;
                 }
-            }
-            // If we can't make the directories, too bad
-            catch { }
+                m_hasBeenCalled = true;
 
-            // Set the DataDirectory
-            AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
+                // Get the directory we're starting in
+                DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+
+                // Loop until we find the folder that holds AES.Web
+                while (dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web") == null)
+                {
+                    dir = dir.Parent;
+                }
+
+                // Go into AES.Web
+                dir = dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web");
+
+                // Create a sub-directory so the file doesn't mess with the main DB, IFF this is a test
+                try
+                {
+                    if (isTest)
+                    {
+                        dir = dir.CreateSubdirectory("TestDB");
+                    }
+                }
+                // If we can't make the directories, too bad
+                catch { }
+
+                // Set the DataDirectory
+                AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
+            }
+            catch { }
         }
     }
 }
