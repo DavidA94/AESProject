@@ -23,11 +23,16 @@ namespace AES.SecuritySvc.Tests
             SSN_CRYPT = Encryption.Encrypt(SSN);
             DOB = new DateTime(1970, 6, 2);
 
+            // Get the directory we're starting in
             DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            while (dir.Name != "AESProject")
+
+            // Loop until we find the folder that holds AES.Web
+            while (dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web") == null)
             {
                 dir = dir.Parent;
             }
+
+            // Create a new sub directory and then set the DataDirectory
             dir = dir.CreateSubdirectory("TestDB");
             AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
         }

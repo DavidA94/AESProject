@@ -15,11 +15,16 @@ namespace AES.SecuritySvc
             string data = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             if (data.Contains("bin") || data.ToLower().Contains("app_data"))
             {
+                // Get the directory we're starting in
                 DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-                while (dir.Name != "AESProject")
+
+                // Loop until we find the folder that holds AES.Web
+                while (dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web") == null)
                 {
                     dir = dir.Parent;
                 }
+
+                // Set the DataDirectory
                 AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
             }
         }

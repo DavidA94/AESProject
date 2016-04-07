@@ -1,8 +1,6 @@
-﻿using AES.Entities.Contexts;
-using System;
-using System.Data.Entity;
+﻿using System;
 using System.IO;
-using System.Threading;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -13,11 +11,16 @@ namespace AES.Web
     {
         protected void Application_Start()
         {
+            // Get the directory we're starting in
             DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            while (dir.Name != "AESProject")
+
+            // Loop until we find the folder that holds AES.Web
+            while (dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web") == null)
             {
                 dir = dir.Parent;
             }
+
+            // Set the DataDirectory
             AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
 
             AreaRegistration.RegisterAllAreas();
