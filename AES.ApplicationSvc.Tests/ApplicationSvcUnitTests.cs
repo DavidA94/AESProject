@@ -26,7 +26,11 @@ namespace AES.ApplicationSvc.Tests
             }
 
             // Create a new sub directory and then set the DataDirectory
-            dir = dir.CreateSubdirectory("TestDB");
+            try
+            {
+                dir = dir.CreateSubdirectory("TestDB");
+            }
+            catch { }
             AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
         }
 
