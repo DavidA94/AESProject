@@ -5,7 +5,6 @@ using AES.Shared;
 using AES.Shared.Contracts;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace AES.ApplicationSvc
@@ -14,21 +13,7 @@ namespace AES.ApplicationSvc
     {
         public ApplicationSvc()
         {
-            string data = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-            if (data.Contains("bin") || data.ToLower().Contains("app_data"))
-            {
-                // Get the directory we're starting in
-                DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-
-                // Loop until we find the folder that holds AES.Web
-                while (dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web") == null)
-                {
-                    dir = dir.Parent;
-                }
-
-                // Set the DataDirectory
-                AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
-            }
+            DBFileManager.SetDataDirectory();
         }
 
         public bool CancelApplication(ApplicationInfoContract app)
@@ -342,15 +327,9 @@ namespace AES.ApplicationSvc
                     }
                 }
 
-                try {
-                    if (db.SaveChanges() != 0)
-                    {
-                        return AppSvcResponse.GOOD;
-                    }
-                }
-                catch(Exception ex)
+                if (db.SaveChanges() != 0)
                 {
-                    return AppSvcResponse.ERROR;
+                    return AppSvcResponse.GOOD;
                 }
             }
 

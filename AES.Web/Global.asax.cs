@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using AES.Shared;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -11,17 +9,7 @@ namespace AES.Web
     {
         protected void Application_Start()
         {
-            // Get the directory we're starting in
-            DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-
-            // Loop until we find the folder that holds AES.Web
-            while (dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web") == null)
-            {
-                dir = dir.Parent;
-            }
-
-            // Set the DataDirectory
-            AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
+            DBFileManager.SetDataDirectory();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

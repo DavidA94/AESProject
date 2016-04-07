@@ -1,8 +1,7 @@
 ﻿using AES.Entities.Contexts;
 using AES.OpeningsSvc.Contracts;
-using System;
+using AES.Shared;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace AES.OpeningsSvc
@@ -13,21 +12,7 @@ namespace AES.OpeningsSvc
     {
         public OpeningSvc()
         {
-            string data = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-            if (data.Contains("bin") || data.ToLower().Contains("app_data"))
-            {
-                // Get the directory we're starting in
-                DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-
-                // Loop until we find the folder that holds AES.Web
-                while (dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web") == null)
-                {
-                    dir = dir.Parent;
-                }
-
-                // Set the DataDirectory
-                AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
-            }
+            DBFileManager.SetDataDirectory();
         }
 
         public List<JobOpeningContract> GetOpenings(int StoreID)

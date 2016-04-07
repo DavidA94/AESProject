@@ -16,22 +16,7 @@ namespace AES.ApplicationSvc.Tests
     {
         public ApplicationSvcUnitTests()
         {
-            // Get the directory we're starting in
-            DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-
-            // Loop until we find the folder that holds AES.Web
-            while (dir.GetDirectories().FirstOrDefault(d => d.Name == "AES.Web") == null)
-            {
-                dir = dir.Parent;
-            }
-
-            // Create a new sub directory and then set the DataDirectory
-            try
-            {
-                dir = dir.CreateSubdirectory("TestDB");
-            }
-            catch { }
-            AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
+            DBFileManager.SetDataDirectory(true);
         }
 
         private static bool hasSaveRun = false;

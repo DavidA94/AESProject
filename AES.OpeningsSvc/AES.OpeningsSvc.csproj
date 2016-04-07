@@ -98,6 +98,10 @@
       <Project>{b7a64050-2f1b-4709-bf04-09b0ed37ea71}</Project>
       <Name>AES.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AES.Shared\AES.Shared.csproj">
+      <Project>{bb832eda-ff67-4abb-a5c0-e11382577d5a}</Project>
+      <Name>AES.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

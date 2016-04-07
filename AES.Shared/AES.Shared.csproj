@@ -48,6 +48,7 @@
     <Compile Include="Contracts\JobHistoryContract.cs" />
     <Compile Include="Contracts\ReferenceContract.cs" />
     <Compile Include="Contracts\UserInfoContract.cs" />
+    <Compile Include="DBFileManager.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
