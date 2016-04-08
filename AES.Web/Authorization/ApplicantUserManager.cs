@@ -65,7 +65,13 @@ namespace AES.Web.Authorization
 
         public static int GetUserID()
         {
-            return Convert.ToInt32(((ClaimsIdentity)HttpContext.Current.User.Identity).Claims.First(id => id.Type == ClaimTypes.NameIdentifier).Value);
+            try {
+                return Convert.ToInt32(((ClaimsIdentity)HttpContext.Current.User.Identity).Claims.First(id => id.Type == ClaimTypes.NameIdentifier).Value);
+            }
+            catch(Exception ex)
+            {
+                return -1;
+            }
         }
 
         public static void Logout()

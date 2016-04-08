@@ -1,14 +1,12 @@
-﻿using System;
+﻿using AES.Shared;
+using AES.Shared.Contracts;
+using AES.Web.ApplicationService;
+using AES.Web.Authorization;
+using AES.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using AES.Web.Models;
-using AES.Web.Authorization;
-using AES.Web.ApplicationService;
-using AES.Shared;
-using AES.Shared.Contracts;
-using System.Collections;
 
 namespace AES.Web.Controllers
 {
@@ -19,25 +17,31 @@ namespace AES.Web.Controllers
         {
             // Get the seleceted jobs from the session
             int[] selectedJobs = (int[])Session["SelectedJobs"];
+            int userID = ApplicantUserManager.GetUserID();
+
+            if(userID < 0)
+            {
+                return RedirectToAction("AvailableJobs", "JobOpenings");
+            }
 
             // Save the new application
             IApplicationSvc appSvc = new ApplicationSvcClient();
             var response = appSvc.SavePartialApplication(new ApplicationInfoContract()
             {
-                ApplicantID = ApplicantUserManager.GetUserID(),
+                ApplicantID = userID,
                 AppliedJobs = selectedJobs
             });
 
             // If we didn't get a good application back, go to the job openings page
             if (response != AppSvcResponse.GOOD)
             {
-                return RedirectToAction("Index", "AvailableJobs");
+                return RedirectToAction("AvailableJobs", "JobOpenings");
             }
 
             // Get the application (will come back with historical data)
             ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
             {
-                UserID = ApplicantUserManager.GetUserID()
+                UserID = userID
             });
 
             // Get the user that is logged in
@@ -72,11 +76,18 @@ namespace AES.Web.Controllers
 
         public ActionResult Availability()
         {
+            int userID = ApplicantUserManager.GetUserID();
+
+            if (userID < 0)
+            {
+                return RedirectToActionPermanent("AvailableJobs", "JobOpenings");
+            }
+
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
             ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
             {
-                UserID = ApplicantUserManager.GetUserID()
+                UserID = userID
             });
 
             if(app == null || app.UserInfo == null)
@@ -118,7 +129,7 @@ namespace AES.Web.Controllers
         }
 
 
-
+        
         public PartialViewResult GetWorkHistoryItem()
         {
             return PartialView("PartialWorkHistory", new WorkHistoryViewModel());
@@ -126,11 +137,18 @@ namespace AES.Web.Controllers
 
         public ActionResult WorkHistory()
         {
+            int userID = ApplicantUserManager.GetUserID();
+
+            if (userID < 0)
+            {
+                return RedirectToActionPermanent("AvailableJobs", "JobOpenings");
+            }
+
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
             ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
             {
-                UserID = ApplicantUserManager.GetUserID()
+                UserID = userID
             });
 
             if (app == null || app.UserInfo == null)
@@ -185,11 +203,18 @@ namespace AES.Web.Controllers
 
         public ActionResult Education()
         {
+            int userID = ApplicantUserManager.GetUserID();
+
+            if (userID < 0)
+            {
+                return RedirectToActionPermanent("AvailableJobs", "JobOpenings");
+            }
+
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
             ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
             {
-                UserID = ApplicantUserManager.GetUserID()
+                UserID = userID
             });
 
             if (app == null || app.UserInfo == null)
@@ -241,11 +266,18 @@ namespace AES.Web.Controllers
 
         public ActionResult References()
         {
+            int userID = ApplicantUserManager.GetUserID();
+
+            if (userID < 0)
+            {
+                return RedirectToActionPermanent("AvailableJobs", "JobOpenings");
+            }
+
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
             ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
             {
-                UserID = ApplicantUserManager.GetUserID()
+                UserID = userID
             });
 
             if (app == null || app.UserInfo == null)
@@ -285,11 +317,18 @@ namespace AES.Web.Controllers
 
         public ActionResult Questionaire()
         {
+            int userID = ApplicantUserManager.GetUserID();
+
+            if (userID < 0)
+            {
+                return RedirectToActionPermanent("AvailableJobs", "JobOpenings");
+            }
+
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
             ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
             {
-                UserID = ApplicantUserManager.GetUserID()
+                UserID = userID
             });
 
             if (app == null || app.UserInfo == null)
@@ -342,9 +381,16 @@ namespace AES.Web.Controllers
                 return View(info);
             }
 
+            int userID = ApplicantUserManager.GetUserID();
+
+            if (userID < 0)
+            {
+                return RedirectToActionPermanent("AvailableJobs", "JobOpenings");
+            }
+
             // Call out and get the current application
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            var app = appSvc.GetApplication(new ApplicantInfoContract() { UserID = ApplicantUserManager.GetUserID() });
+            var app = appSvc.GetApplication(new ApplicantInfoContract() { UserID = userID });
 
             // Attempt to save the application
             var result = appSvc.SubmitApplication(new ApplicantInfoContract() { UserID = app.ApplicantID });
@@ -398,9 +444,16 @@ namespace AES.Web.Controllers
                 return View(info);
             }
 
+            int userID = ApplicantUserManager.GetUserID();
+
+            if (userID < 0)
+            {
+                return RedirectToActionPermanent("AvailableJobs", "JobOpenings");
+            }
+
             // Call out and get the current application
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            var app = appSvc.GetApplication(new ApplicantInfoContract() { UserID = ApplicantUserManager.GetUserID() });
+            var app = appSvc.GetApplication(new ApplicantInfoContract() { UserID = userID });
 
             // Add the data to the app
             info.First().AddData(info, ref app);
@@ -411,5 +464,6 @@ namespace AES.Web.Controllers
             // Go to the next page
             return RedirectToAction(nextView, "Application");
         }
+
     }
 }
