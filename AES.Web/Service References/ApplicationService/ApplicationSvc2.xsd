@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" />
+  <xs:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" />
+  <xs:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/AES.Shared" />
+  <xs:element name="CancelApplication">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="app" nillable="true" type="q1:ApplicationInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelApplicationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CancelApplicationResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetApplicantsAwaitingCalls">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetApplicantsAwaitingCallsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="GetApplicantsAwaitingCallsResult" nillable="true" type="q2:UserInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetApplicantsAwaitingInterview">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="storeID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetApplicantsAwaitingInterviewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="GetApplicantsAwaitingInterviewResult" nillable="true" type="q3:UserInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetApplication">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="user" nillable="true" type="q4:ApplicantInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetApplicationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="GetApplicationResult" nillable="true" type="q5:ApplicationInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCallApplication">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="user" nillable="true" type="q6:UserInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCallApplicationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="GetCallApplicationResult" nillable="true" type="q7:ApplicationInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInterviewApplication">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="user" nillable="true" type="q8:UserInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInterviewApplicationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="GetInterviewApplicationResult" nillable="true" type="q9:ApplicationInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PullApplicantFromCallQueue">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="user" nillable="true" type="q10:UserInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PullApplicantFromCallQueueResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PullApplicantFromCallQueueResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SavePartialApplication">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="app" nillable="true" type="q11:ApplicationInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SavePartialApplicationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="SavePartialApplicationResult" type="q12:AppSvcResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetApplicationStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="app" nillable="true" type="q13:ApplicationInfoContract" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="status" type="q14:AppStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetApplicationStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetApplicationStatusResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitApplication">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="user" nillable="true" type="q15:ApplicantInfoContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitApplicationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SubmitApplicationResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

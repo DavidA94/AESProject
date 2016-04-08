@@ -99,7 +99,6 @@
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Encryption.cs" />
     <Compile Include="SecuritySvc.svc.cs">
       <DependentUpon>SecuritySvc.svc</DependentUpon>
     </Compile>

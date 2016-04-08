@@ -24,7 +24,7 @@ namespace AES.ApplicationSvc
         UserInfoContract GetApplicantsAwaitingInterview(int storeID);
 
         [OperationContract]
-        ApplicationInfoContract GetApplication(UserInfoContract user);
+        ApplicationInfoContract GetApplication(ApplicantInfoContract user);
 
         [OperationContract]
         ApplicationInfoContract GetCallApplication(UserInfoContract user);
@@ -42,7 +42,7 @@ namespace AES.ApplicationSvc
         bool SetApplicationStatus(ApplicationInfoContract app, AppStatus status);
 
         [OperationContract]
-        bool SubmitApplication(ApplicationInfoContract app);
+        bool SubmitApplication(ApplicantInfoContract user);
         
     }
 }

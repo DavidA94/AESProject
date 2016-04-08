@@ -1,5 +1,6 @@
 ﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
+using AES.Shared;
 using AES.Shared.Contracts;
 using System;
 using System.Linq;
@@ -8,6 +9,11 @@ namespace AES.SecuritySvc
 {
     public class SecuritySvc : ISecuritySvc
     {
+        public SecuritySvc()
+        {
+            DBFileManager.SetDataDirectory();
+        }
+
         public ApplicantInfoContract ValidateUser(ApplicantInfoContract userInfo)
         {
             // If we get any null data, just return (DateTime cannot be null)
@@ -119,9 +125,7 @@ namespace AES.SecuritySvc
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 UserID = user.userID,
-                DOB = user.DOB,
-                StartCallTime = user.CallStartTime,
-                EndCallTime = user.CallEndTime
+                DOB = user.DOB
             };
         }
     }

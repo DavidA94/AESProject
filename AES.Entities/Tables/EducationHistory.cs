@@ -6,6 +6,11 @@ namespace AES.Entities.Tables
 {
     public class EducationHistory
     {
+        public EducationHistory()
+        {
+            GraduationDate = new DateTime(1970, 1, 1);
+        }
+
         [Key]
         [Required]
         public int ID { get; set; }

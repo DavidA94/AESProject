@@ -30,5 +30,11 @@ namespace AES.Shared.Contracts
 
         [DataMember]
         public decimal SalaryExpectation { get; set; }
+
+        [DataMember]
+        public TimeSpan StartCallTime { get; set; }
+
+        [DataMember]
+        public TimeSpan EndCallTime { get; set; }
     }
 }

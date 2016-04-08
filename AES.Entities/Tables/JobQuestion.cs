@@ -1,26 +1,33 @@
 ﻿using AES.Shared;
-using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AES.Entities.Tables
 {
     public class JobQuestion
     {
-        [Key]
+        public JobQuestion()
+        {
+            Jobs = new HashSet<Job>();
+        }
+
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         /// <summary>
         /// Which job this question is for
         /// </summary>
         [Required]
-        public virtual Job Job { get; set; }
+        public virtual ICollection<Job> Jobs { get; set; }
 
         [Required]
         public QuestionType Type { get; set; }
 
         [Required]
         [StringLength(4000)]
+        [Key]
         public string Text { get; set; }
 
         [StringLength(128)]

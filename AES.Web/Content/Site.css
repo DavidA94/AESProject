@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    counter-reset: itemCounter;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -16,9 +17,33 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
 textarea {
-    max-width: 280px;
+    padding:2px!important;
 }
+
+#appSubmitted {
+    background: url("/Content/Images/thanks.jpeg") no-repeat center center;
+    color:white;
+    text-align:center;
+    padding:3em 0;
+    margin:2em 0;
+}
+
+.padLeft {padding-left:1em;}
+.appTitle {padding:0 0 .5em .5em;}
+.no-overflow {overflow:hidden;}
+.bottom-spacing {margin-bottom:1em;}
+
+.staticText {font-size:1.2em;}
+.staticText span {font-weight:bold;}
+
+#list .enumItem + .enumItem h3 {margin-top:2em;}
+#list h3::after {
+    counter-increment: itemCounter;
+    content:' ' counter(itemCounter);
+}
+
+.enumSectionHeader {position:relative;}
+.enumSectionHeader a {position:absolute;bottom:0;}
+
+.inset {padding-left:2em;}

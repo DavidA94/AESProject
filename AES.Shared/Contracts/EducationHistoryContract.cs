@@ -8,6 +8,11 @@ namespace AES.Shared.Contracts
 {
     public class EducationHistoryContract
     {
+        public EducationHistoryContract()
+        {
+            Graduated = new DateTime(1970, 1, 1);
+        }
+
         public string SchoolName { get; set; }
         public string SchoolAddress { get; set; }
         public string SchoolCity { get; set; }

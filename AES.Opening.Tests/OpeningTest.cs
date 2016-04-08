@@ -1,5 +1,6 @@
 ﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
+using AES.Shared;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -31,6 +32,11 @@ namespace AES.OpeningsSvc.Tests
         private const string JOB2_TITLE = "Job 2 Title";
         private const string JOB2_DESC_SHORT = "Job 2 Short Description";
         private const string JOB2_DESC_LONG = "The long description for Job 2";
+
+        public OpeningTests()
+        {
+            DBFileManager.SetDataDirectory(true);
+        }
 
         [TestMethod]
         public void TC_Openings()
@@ -73,42 +79,23 @@ namespace AES.OpeningsSvc.Tests
                     descShort = JOB2_DESC_SHORT
                 };
 
+                var testJob1 = new JobOpening()
+                {
+                    Job = TestJob1
+                };
+                testJob1.Store = TestStore1;
+                var testJob2 = new JobOpening()
+                {
+                    Job = TestJob2
+                };
+                testJob2.Store = TestStore2;
+
                 db.Stores.AddOrUpdate(TestStore1);
                 db.Stores.AddOrUpdate(TestStore2);
                 db.Jobs.AddOrUpdate(TestJob1);
                 db.Jobs.AddOrUpdate(TestJob2);
-                db.JobOpenings.AddOrUpdate
-                (
-                    new JobOpening()
-                    {
-                        Store = TestStore1,
-                        Job = TestJob1
-                    }    
-                );
-                db.JobOpenings.AddOrUpdate
-                (
-                    new JobOpening()
-                    {
-                        Store = TestStore2,
-                        Job = TestJob2
-                    }
-                );
-                db.JobOpenings.AddOrUpdate
-                (
-                    new JobOpening()
-                    {
-                        Store = TestStore1,
-                        Job = TestJob1
-                    }
-                );
-                db.JobOpenings.AddOrUpdate
-                (
-                    new JobOpening()
-                    {
-                        Store = TestStore2,
-                        Job = TestJob2
-                    }
-                );
+                db.JobOpenings.AddOrUpdate(testJob1);
+                db.JobOpenings.AddOrUpdate(testJob2);
                 db.SaveChanges();
 
                 var gottenOpenings = db.JobOpenings.Where(opening => opening.Store.ID == TestStore1.ID).ToList();

@@ -24,7 +24,7 @@ namespace AES.Web.Controllers
             
             if (ApplicantUserManager.LoginUser(user))
             {
-                return RedirectToAction("Welcome");
+                return RedirectToAction("UserProfile", "Application");
             }
 
             ModelState.AddModelError("", "Invalid Login.");

@@ -21,11 +21,9 @@ namespace AES.Entities.Tables
         [RegularExpression(@"\d{3}-\d{3}-\d{4}")]
         public string Phone { get; set; }
 
-        [Required]
         [StringLength(64)]
         public string Company { get; set; }
 
-        [Required]
         [StringLength(64)]
         public string Title { get; set; }
     }

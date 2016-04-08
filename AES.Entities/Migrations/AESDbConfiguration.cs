@@ -6,7 +6,7 @@ namespace AES.Entities.Migrations
 {
     using Contexts;
     using System.Data.Entity.Migrations;
-
+    using System.Linq;
     internal sealed class AESDbConfiguration : DbMigrationsConfiguration<AESDbContext>
     {
         public AESDbConfiguration()
@@ -17,19 +17,26 @@ namespace AES.Entities.Migrations
 
         protected override void Seed(AESDbContext context)
         {
-            context.Applications.RemoveRange(context.Applications);
-            context.ApplicantUsers.RemoveRange(context.ApplicantUsers);
-            context.Questions.RemoveRange(context.Questions);
-            context.Jobs.RemoveRange(context.Jobs);
-            context.JobOpenings.RemoveRange(context.JobOpenings);
-            context.UserInfo.RemoveRange(context.UserInfo);
-            context.Stores.RemoveRange(context.Stores);
-            context.Availabilities.RemoveRange(context.Availabilities);
-            context.EducationHistories.RemoveRange(context.EducationHistories);
-            context.MultiAnswers.RemoveRange(context.MultiAnswers);
-            context.ShortAnswers.RemoveRange(context.ShortAnswers);
-            context.JobHistories.RemoveRange(context.JobHistories);
-            context.References.RemoveRange(context.References);
+            //context.Applications.RemoveRange(context.Applications);
+            //context.ApplicantUsers.RemoveRange(context.ApplicantUsers);
+            //context.Questions.RemoveRange(context.Questions);
+            //context.Jobs.RemoveRange(context.Jobs);
+            //context.JobOpenings.RemoveRange(context.JobOpenings);
+            //context.UserInfo.RemoveRange(context.UserInfo);
+            //context.Stores.RemoveRange(context.Stores);
+            //context.Availabilities.RemoveRange(context.Availabilities);
+            //context.EducationHistories.RemoveRange(context.EducationHistories);
+            //context.MultiAnswers.RemoveRange(context.MultiAnswers);
+            //context.ShortAnswers.RemoveRange(context.ShortAnswers);
+            //context.JobHistories.RemoveRange(context.JobHistories);
+            //context.References.RemoveRange(context.References);
+
+            // If this user exists, assume we're already seeded
+            var SSN = Encryption.Encrypt("123-45-6789");
+            if(context.ApplicantUsers.FirstOrDefault(a => a.SSN == SSN) != null)
+            {
+                return;
+            }
 
             var portlandStore = new Store
             {
@@ -81,27 +88,27 @@ namespace AES.Entities.Migrations
 
             var tualatinJanitorOpening = new JobOpening
             {
-                Store = tualatinStore,
                 Job = janitorJob
             };
+            tualatinJanitorOpening.Store = tualatinStore;
 
             var portlandJanitorOpening = new JobOpening
             {
-                Store = portlandStore,
                 Job = janitorJob
             };
+            portlandJanitorOpening.Store = portlandStore;
 
             var tualatinSalesOpening = new JobOpening
             {
-                    Store = tualatinStore,
                     Job = salesAssociateJob
             };
+            tualatinSalesOpening.Store = tualatinStore;
 
             var portlandSalesOpening = new JobOpening
             {
-                Store = portlandStore,
                 Job = salesAssociateJob
             };
+            portlandSalesOpening.Store = portlandStore;
 
             context.JobOpenings.AddOrUpdate(
                 tualatinJanitorOpening,
@@ -114,6 +121,8 @@ namespace AES.Entities.Migrations
 
             var userInfo = new UserInfo()
             {
+                CallEndTime = new TimeSpan(10, 0, 0),
+                CallStartTime = new TimeSpan(6, 0, 0),
                 State = "OR",
                 Address = "1200 SW 185th Ave.",
                 City = "Beaverton",
@@ -147,11 +156,10 @@ namespace AES.Entities.Migrations
 
             var applicantUser = new ApplicantUser()
             {
+                userID = 1,
                 UserInfo = userInfo,
                 Availability = availability,
-                CallEndTime = new TimeSpan(10, 0, 0),
                 DOB = new DateTime(1989, 3, 14),
-                CallStartTime = new TimeSpan(6, 0, 0),
                 FirstName = "Joseph",
                 LastName = "Morgan",
                 SSN = Encryption.Encrypt("123-45-6789")
@@ -218,10 +226,10 @@ namespace AES.Entities.Migrations
 
             var shortQuestion = new JobQuestion()
             {
-                Job = janitorJob,
                 Type = QuestionType.SHORT,
                 Text = "What do you feel you can bring to the job?"
             };
+            shortQuestion.Jobs.Add(janitorJob);
 
             context.Questions.AddOrUpdate(shortQuestion);
 
@@ -229,7 +237,6 @@ namespace AES.Entities.Migrations
 
             var radioQuestion = new JobQuestion()
             {
-                Job = janitorJob,
                 Type = QuestionType.RADIO,
                 Text = "Can you lift more than 50 pounds?",
                 Option1 = "Yes",
@@ -237,6 +244,7 @@ namespace AES.Entities.Migrations
                 CorrectAnswerThreshold = 1,
                 CorrectAnswers = "1"
             };
+            radioQuestion.Jobs.Add(janitorJob);
 
             context.Questions.AddOrUpdate(radioQuestion);
 
@@ -244,7 +252,6 @@ namespace AES.Entities.Migrations
 
             var checkQuestion = new JobQuestion()
             {
-                Job = janitorJob,
                 Type = QuestionType.CHECKBOX,
                 Text = "Which of the following are cleaning products? (Check all that apply)",
                 Option1 = "Mop",
@@ -254,6 +261,7 @@ namespace AES.Entities.Migrations
                 CorrectAnswerThreshold = 1,
                 CorrectAnswers = "13"
             };
+            checkQuestion.Jobs.Add(janitorJob);
 
             context.Questions.AddOrUpdate(checkQuestion);
 
