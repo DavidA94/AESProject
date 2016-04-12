@@ -6,7 +6,7 @@ using AES.Shared;
 
 namespace AES.Entities.Tables
 {
-    class EmployeeUser
+    public class EmployeeUser
     {
         [Key]
         [StringLength(50)]

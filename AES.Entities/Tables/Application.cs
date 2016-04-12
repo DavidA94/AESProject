@@ -50,10 +50,10 @@ namespace AES.Entities.Tables
         /// </summary>
         public AppStatus Status { get; set; }
 
-        [StringLength(8192)]
+        [StringLength(4000)]
         public string ScreeningNotes { get; set; }
 
-        [StringLength(8192)]
+        [StringLength(4000)]
         public string InterviewNotes { get; set; }
     }
 }
