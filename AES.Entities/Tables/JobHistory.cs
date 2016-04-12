@@ -33,9 +33,7 @@ namespace AES.Entities.Tables
         [StringLength(30)]
         public string EmployerCity { get; set; }
 
-        /// <summary>
-        /// Not required, since the applicant may not know, or it may be irrelevant
-        /// </summary>
+        [Required]
         [StringLength(2)]
         public string EmployerState { get; set; }
 

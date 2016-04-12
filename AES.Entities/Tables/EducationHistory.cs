@@ -35,9 +35,7 @@ namespace AES.Entities.Tables
         [StringLength(30)]
         public string SchoolCity { get; set; }
 
-        /// <summary>
-        /// Not required as the applicant may not know or it may not be relevant
-        /// </summary>
+        [Required]
         [StringLength(2)]
         public string SchoolState { get; set; }
 

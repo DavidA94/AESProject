@@ -20,48 +20,43 @@ namespace AES.Web.Models
     {
         #region Data
 
-        [StringLength(25)]
-        [Required]
-        [Display(Name = "First Name")]
         public string FirstName { get; set; }
-
-        [StringLength(25)]
-        [Required]
-        [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
-        [Required]
-        [Display(Name = "Date of Birth")]
-        [DataType(DataType.Date)]
         public DateTime DOB { get; set; }
+
 
         [Display(Name = "Nickname")]
         [StringLength(25)]
         public string Nickname { get; set; }
 
+        [Required]
         [Display(Name = "Address")]
         [StringLength(50)]
         public string Address { get; set; }
 
+        [Required]
         [Display(Name = "City")]
         [StringLength(30)]
         public string City { get; set; }
 
+        [Required]
         [Display(Name = "State")]
         [StringLength(2)]
         public string State { get; set; }
 
+        [Required]
         [Display(Name = "ZIP")]
         [Range(0, 99999)]
         public int? Zip { get; set; }
 
+        [Required]
         [Display(Name = "Phone")]
         [RegularExpression(@"\d{3}-\d{3}-\d{4}", ErrorMessage = "Phone number must be in the format ###-###-####")]
         [DisplayFormat(DataFormatString = "{0:###-###-####", ApplyFormatInEditMode = true)]
         public string Phone { get; set; }
 
         [Display(Name = "Salary")]
-        [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = true)]
+        // [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = true)]
         public decimal? SalaryExpectation { get; set; }
 
         [Display(Name = "From")]
@@ -103,64 +98,78 @@ namespace AES.Web.Models
     {
         #region Data
 
+        [Required]
         [Display(Name = "Sunday From")]
         [DataType(DataType.Time)]
         public TimeSpan SundayStart { get; set; }
 
+        [Required]
         [Display(Name = "To")]
         [DataType(DataType.Time)]
         public TimeSpan SundayEnd { get; set; }
 
 
+        [Required]
         [Display(Name = "Monday From")]
         [DataType(DataType.Time)]
         public TimeSpan MondayStart { get; set; }
 
+        [Required]
         [Display(Name = "To")]
         [DataType(DataType.Time)]
         public TimeSpan MondayEnd { get; set; }
 
-        
+
+        [Required]
         [Display(Name = "Tuesday From")]
         [DataType(DataType.Time)]
         public TimeSpan TuesdayStart { get; set; }
 
+        [Required]
         [Display(Name = "To")]
         [DataType(DataType.Time)]
         public TimeSpan TuesdayEnd { get; set; }
 
 
+        [Required]
         [Display(Name = "Wednesday From")]
         [DataType(DataType.Time)]
         public TimeSpan WednesdayStart { get; set; }
 
+        [Required]
         [Display(Name = "To")]
         [DataType(DataType.Time)]
         public TimeSpan WednesdayEnd { get; set; }
 
 
+        [Required]
         [Display(Name = "Thursday From")]
         [DataType(DataType.Time)]
         public TimeSpan ThursdayStart { get; set; }
 
+        [Required]
         [Display(Name = "To")]
         [DataType(DataType.Time)]
         public TimeSpan ThursdayEnd { get; set; }
-        
 
+
+        [Required]
         [Display(Name = "Friday From")]
         [DataType(DataType.Time)]
         public TimeSpan FridayStart { get; set; }
 
+        [Required]
         [Display(Name = "To")]
         [DataType(DataType.Time)]
         public TimeSpan FridayEnd { get; set; }
 
 
+        [Required]
         [Display(Name = "Saturday From")]
         [DataType(DataType.Time)]
         public TimeSpan SaturdayStart { get; set; }
 
+        [Required]
         [Display(Name = "To")]
         [DataType(DataType.Time)]
         public TimeSpan SaturdayEnd { get; set; }
@@ -201,40 +210,51 @@ namespace AES.Web.Models
     {
         #region Data
 
-        [StringLength(25)]
         [Required]
+        [StringLength(128)]
         [Display(Name = "Employer")]
-        public string Employer { get; set; }
+        public string EmployerName { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        [Display(Name = "Supervisor", Description = "Supervisor's Name")]
+        public string SupervisorName { get; set; }
+
+        [Display(Name = "Phone", Description = "Phone Number")]
+        [RegularExpression(@"\d{3}-\d{3}-\d{4}", ErrorMessage = "Phone number must be in the format ###-###-####")]
+        [DisplayFormat(DataFormatString = "{0:###-###-####", ApplyFormatInEditMode = true)]
+        public string EmployerPhone { get; set; }
 
         [StringLength(50)]
-        [Required]
         [Display(Name = "Address")]
-        public string Address { get; set; }
+        public string EmployerAddress { get; set; }
 
-        [StringLength(25)]
         [Required]
+        [StringLength(30)]
         [Display(Name = "City")]
-        public string City { get; set; }
+        public string EmployerCity { get; set; }
 
-        [StringLength(25)]
         [Required]
+        [StringLength(2)]
         [Display(Name = "State")]
-        public string State { get; set; }
+        public string EmployerState { get; set; }
 
-        [Required]
         [Display(Name = "Zip Code")]
-        public int? Zip { get; set; }
+        [Range(0, 99999)]
+        public int? EmployerZip { get; set; }
 
         [Required]
         [StringLength(32)]
         [Display(Name = "Employer Country")]
         public string EmployerCountry { get; set; }
 
-        [StringLength(200)]
+        [Required]
+        [StringLength(512)]
         [Display(Name = "Reason For Leaving")]
         public string ReasonForLeaving { get; set; }
 
-        [StringLength(200)]
+        [Required]
+        [StringLength(512)]
         [Display(Name = "Responsibilities")]
         public string Responsibilities { get; set; }
 
@@ -250,24 +270,13 @@ namespace AES.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? WorkedTo { get; set; }
 
-        [Required]
-        [Display(Name = "Phone", Description = "Phone Number")]
-        [RegularExpression(@"\d{3}-\d{3}-\d{4}", ErrorMessage = "Phone number must be in the format ###-###-####")]
-        [DisplayFormat(DataFormatString = "{0:###-###-####", ApplyFormatInEditMode = true)]
-        public string Phone { get; set; }
-
-        [StringLength(25)]
-        [Required]
-        [Display(Name = "Supervisor", Description = "Supervisor's Name")]
-        public string Supervisor { get; set; }
-
         [Display(Name = "Starting Salary")]
-        [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Currency)]
         public decimal? StartingSalary { get; set; }
 
         [Display(Name = "Ending Salary")]
-        [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Currency)]
         public decimal? EndingSalary { get; set; }
 
@@ -286,20 +295,20 @@ namespace AES.Web.Models
             {
                 jobs.Add(new JobHistoryContract()
                 {
-                    EmployerAddress = job.Address,
-                    EmployerCity = job.City,
+                    EmployerAddress = job.EmployerAddress ?? "",
+                    EmployerCity = job.EmployerCity,
                     EmployerCountry = job.EmployerCountry,
-                    EmployerName = job.Employer,
-                    EmployerPhone = job.Phone,
-                    EmployerState = job.State,
-                    EmployerZip = (int)job.Zip,
+                    EmployerName = job.EmployerName,
+                    EmployerPhone = job.EmployerPhone,
+                    EmployerState = job.EmployerState,
+                    EmployerZip = job.EmployerZip != null ? (int)job.EmployerZip : 0,
                     EndDate = job.WorkedTo == null ? new DateTime(1970, 1, 1) : (DateTime)job.WorkedTo,
                     EndingSalary = Convert.ToDecimal(job.EndingSalary),
                     ReasonForLeaving = job.ReasonForLeaving,
                     Responsibilities = job.Responsibilities,
                     StartDate = job.WorkedFrom == null ? new DateTime(1970, 1, 1) : (DateTime)job.WorkedFrom,
                     StartingSalary = Convert.ToDecimal(job.StartingSalary),
-                    SupervisorName = job.Supervisor
+                    SupervisorName = job.SupervisorName
                 });
             }
 
@@ -311,34 +320,33 @@ namespace AES.Web.Models
     {
         #region Data
 
-        [StringLength(50)]
+        [StringLength(64)]
         [Required]
         [Display(Name = "Institution Name")]
-        public string InstitutionName { get; set; }
+        public string SchoolName { get; set; }
 
         [StringLength(50)]
-        [Required]
         [Display(Name = "Street")]
-        public string Address { get; set; }
+        public string SchoolAddress { get; set; }
 
-        [StringLength(25)]
+        [StringLength(30)]
         [Required]
         [Display(Name = "City")]
-        public string City { get; set; }
+        public string SchoolCity { get; set; }
 
-        [StringLength(25)]
+        [StringLength(2)]
         [Required]
         [Display(Name = "State")]
-        public string State { get; set; }
+        public string SchoolState { get; set; }
 
-        [Required]
         [Display(Name = "Zip Code")]
-        public int? Zip { get; set; }
+        public int? SchoolZip { get; set; }
 
         [Required]
         [StringLength(32)]
-        public string Country { get; set; }
+        public string SchoolCountry { get; set; }
 
+        [Required]
         [Display(Name = "Years Attended")]
         public double? YearAttended { get; set; }
         
@@ -346,7 +354,7 @@ namespace AES.Web.Models
         [Display(Name = "Degree")]
         public DegreeType Degree { get; set; }
 
-        [StringLength(50)]
+        [StringLength(64)]
         [Required]
         [Display(Name = "Major")]
         public string Major { get; set; }
@@ -373,12 +381,12 @@ namespace AES.Web.Models
                     Degree = ed.Degree,
                     Graduated = ed.GraduationDate != null ? (DateTime)ed.GraduationDate : new DateTime(1970, 1, 1),
                     Major = ed.Major,
-                    SchoolAddress = ed.Address,
-                    SchoolCity = ed.City,
-                    SchoolCountry = ed.Country,
-                    SchoolName = ed.InstitutionName,
-                    SchoolState = ed.State,
-                    SchoolZIP = (int)ed.Zip,
+                    SchoolAddress = ed.SchoolAddress ?? "",
+                    SchoolCity = ed.SchoolCity,
+                    SchoolCountry = ed.SchoolCountry,
+                    SchoolName = ed.SchoolName,
+                    SchoolState = ed.SchoolState,
+                    SchoolZIP = ed.SchoolZip != null ? (int)ed.SchoolZip : 0,
                     YearsAttended = Convert.ToDouble(ed.YearAttended)
                 });
             }
@@ -391,21 +399,21 @@ namespace AES.Web.Models
     {
         #region Data
 
-        [StringLength(50)]
+        [StringLength(64)]
         [Required]
         [Display(Name = "Name", Description = "Name of the person reference")]
-        public string ReferenceName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [Display(Name = "Phone", Description = "Phone Number")]
         [RegularExpression(@"\d{3}-\d{3}-\d{4}", ErrorMessage = "Phone number must be in the format ###-###-####")]
         public string Phone { get; set; }
 
-        [StringLength(50)]
+        [StringLength(64)]
         [Display(Name = "Company", Description = "Company Name")]
         public string Company { get; set; }
 
-        [StringLength(50)]
+        [StringLength(64)]
         [Display(Name = "Title")]
         public string Title { get; set; }
 
@@ -423,10 +431,10 @@ namespace AES.Web.Models
             foreach(ReferencesViewModel r in data){
                 refs.Add(new ReferenceContract()
                 {
-                    Company = r.Company == null ? "" : r.Company,
-                    Name = r.ReferenceName,
+                    Company = r.Company ?? "",
+                    Name = r.Name,
                     Phone = r.Phone,
-                    Title = r.Title
+                    Title = r.Title ?? ""
                 });
             }
 

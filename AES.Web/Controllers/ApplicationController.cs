@@ -24,18 +24,23 @@ namespace AES.Web.Controllers
                 return RedirectToAction("AvailableJobs", "JobOpenings");
             }
 
-            // Save the new application
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            var response = appSvc.SavePartialApplication(new ApplicationInfoContract()
-            {
-                ApplicantID = userID,
-                AppliedJobs = selectedJobs
-            });
 
-            // If we didn't get a good application back, go to the job openings page
-            if (response != AppSvcResponse.GOOD)
+            // If we have jobs, start a new app, otherwise, assume the user is continuing a previous application
+            if (selectedJobs != null && selectedJobs.Length > 0)
             {
-                return RedirectToAction("AvailableJobs", "JobOpenings");
+                // Save the new application
+                var response = appSvc.SavePartialApplication(new ApplicationInfoContract()
+                {
+                    ApplicantID = userID,
+                    AppliedJobs = selectedJobs
+                });
+
+                // If we didn't get a good application back, go to the job openings page
+                if (response != AppSvcResponse.GOOD)
+                {
+                    return RedirectToAction("AvailableJobs", "JobOpenings");
+                }
             }
 
             // Get the application (will come back with historical data)
@@ -164,20 +169,20 @@ namespace AES.Web.Controllers
                 {
                     pastJobs.Add(new WorkHistoryViewModel()
                     {
-                        Address = job.EmployerAddress,
-                        City = job.EmployerCity,
-                        Employer = job.EmployerName,
+                        EmployerAddress = job.EmployerAddress,
+                        EmployerCity = job.EmployerCity,
+                        EmployerName = job.EmployerName,
                         EmployerCountry = job.EmployerCountry,
                         EndingSalary = job.EndingSalary > 0 ? job.EndingSalary : (decimal?)null,
-                        Phone = job.EmployerPhone,
+                        EmployerPhone = job.EmployerPhone,
                         ReasonForLeaving = job.ReasonForLeaving,
                         Responsibilities = job.Responsibilities,
                         StartingSalary = job.StartingSalary > 0 ? job.StartingSalary : (decimal?)null,
-                        State = job.EmployerState,
-                        Supervisor = job.SupervisorName,
+                        EmployerState = job.EmployerState,
+                        SupervisorName = job.SupervisorName,
                         WorkedFrom = job.StartDate != new DateTime(1970, 1, 1) ? job.StartDate : (DateTime?)null,
                         WorkedTo = job.EndDate != new DateTime(1970, 1, 1) ? job.EndDate : (DateTime?)null,
-                        Zip = job.EmployerZip < 100 ? (int?)null : job.EmployerZip
+                        EmployerZip = job.EmployerZip < 100 ? (int?)null : job.EmployerZip
                     });
                 }
 
@@ -230,17 +235,17 @@ namespace AES.Web.Controllers
                 {
                     pastEds.Add(new EducationViewModel()
                     {
-                        Address = ed.SchoolAddress,
+                        SchoolAddress = ed.SchoolAddress,
 
-                        City = ed.SchoolCity,
+                        SchoolCity = ed.SchoolCity,
                         Degree = ed.Degree,
-                        Country = ed.SchoolCountry,
+                        SchoolCountry = ed.SchoolCountry,
                         GraduationDate = ed.Graduated != new DateTime(1970, 1, 1) ? ed.Graduated : (DateTime?)null,
-                        InstitutionName = ed.SchoolName,
+                        SchoolName = ed.SchoolName,
                         Major = ed.Major,
-                        State = ed.SchoolState,
+                        SchoolState = ed.SchoolState,
                         YearAttended = ed.YearsAttended > 0 ? ed.YearsAttended : (double?)null,
-                        Zip = ed.SchoolZIP > 0 ? ed.SchoolZIP : (int?)null
+                        SchoolZip = ed.SchoolZIP > 0 ? ed.SchoolZIP : (int?)null
                     });
                 }
 
@@ -295,7 +300,7 @@ namespace AES.Web.Controllers
                     {
                         Company = r.Company,
                         Phone = r.Phone,
-                        ReferenceName = r.Name,
+                        Name = r.Name,
                         Title = r.Title
                     });
                 }
@@ -348,6 +353,7 @@ namespace AES.Web.Controllers
                         Options = q.Options.ToList(),
                         Question = q.Question,
                         QuestionID = q.QuestionID,
+                        RadioOption = q.Type == QuestionType.RADIO ? "i" + q.QuestionID.ToString() + (questions.Count - 1).ToString() : "",
                         ShortAnswer = q.ShortAnswer,
                         Type = q.Type
                     });
@@ -370,7 +376,7 @@ namespace AES.Web.Controllers
                 radio.MC_Answers = new List<bool>() { false, false, false, false };
                 if (radio.RadioOption != null)
                 {
-                    radio.MC_Answers[Convert.ToInt32(radio.RadioOption.Last())] = true;
+                    radio.MC_Answers[Convert.ToInt32(radio.RadioOption.Last().ToString())] = true;
                 }
             }
 

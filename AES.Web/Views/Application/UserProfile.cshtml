@@ -16,6 +16,8 @@
                 <h4>Tell us about yourself.</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                
+                // Name & DOB
                 <div class="form-group">
                     <div class="col-md-8 staticText">
                         <p><span>Name:</span> @Model.FirstName @Model.LastName</p>
@@ -26,14 +28,15 @@
                     </div>
                 </div>
 
+                // Nickname
                 <div class="form-group">
                     @Html.LabelFor(m => m.Nickname, new { @class = "col-md-1 control-label" })
                     <div class="col-md-4">
                         @Html.TextBoxFor(m => m.Nickname, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Nickname, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
+                // Address
                 <div class="form-group">
                     @Html.LabelFor(m => m.Address, new { @class = "col-md-1 control-label" })
                     <div class="col-md-4">
@@ -42,6 +45,7 @@
                     </div>
                 </div>
 
+                // City
                 <div class="form-group">
                     @Html.LabelFor(m => m.City, new { @class = "col-md-1 control-label" })
                     <div class="col-md-4">
@@ -50,6 +54,7 @@
                     </div>
                 </div>
 
+                // State
                 <div class="form-group">
                     @Html.LabelFor(m => m.State, new { @class = "col-md-1 control-label" })
                     <div class="col-md-4">
@@ -58,6 +63,7 @@
                     </div>
                 </div>
 
+                // ZIP
                 <div class="form-group">
                     @Html.LabelFor(m => m.Zip, new { @class = "col-md-1 control-label" })
                     <div class="col-md-2">
@@ -66,6 +72,7 @@
                     </div>
                 </div>
 
+                // Phone
                 <div class="form-group">
                     @Html.LabelFor(m => m.Phone, new { @class = "col-md-1 control-label" })
                     <div class="col-md-4">
@@ -74,14 +81,15 @@
                     </div>
                 </div>
 
+                // Salary
                 <div class="form-group">
                     @Html.LabelFor(m => m.SalaryExpectation, new { @class = "col-md-1 control-label" })
                     <div class="col-md-4">
                         @Html.EditorFor(m => m.SalaryExpectation, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(m => m.SalaryExpectation, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
+                // Call Times
                 <div class="form-group"></div>
                 <div>
                     <p>When are you available for a phone interview?</p>

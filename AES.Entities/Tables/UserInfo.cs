@@ -19,18 +19,23 @@ namespace AES.Entities.Tables
         [StringLength(25)]
         public string Nickname { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Address { get; set; }
 
+        [Required]
         [StringLength(30)]
         public string City { get; set; }
 
+        [Required]
         [StringLength(2)]
         public string State { get; set; }
 
+        [Required]
         [Range(0, 99999)]
         public int Zip { get; set; }
 
+        [Required]
         [RegularExpression(@"\d{3}-\d{3}-\d{4}")]
         public string Phone { get; set; }
 

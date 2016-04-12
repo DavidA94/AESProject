@@ -6,54 +6,53 @@
         <a href="#" class="deleteGroup" onclick="deleteEnumItem(event)">Delete</a>
     </div>
 
+    @* School Name *@
     <div class="form-group">
-        @* Institution Name *@
-        @Html.LabelFor(m => m.InstitutionName, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SchoolName, new { @class = "col-md-2 control-label" })
         <div class="col-md-5">
-            @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.InstitutionName, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.SchoolName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SchoolName, "", new { @class = "text-danger" })
         </div>
     </div>
 
+    @* School Address *@
     <div class="form-group">
-        @* Street *@
-        @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SchoolAddress, new { @class = "col-md-2 control-label" })
         <div class="col-md-5">
-            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.SchoolAddress, new { @class = "form-control" })
         </div>
     </div>
 
+    @* School City/State/ZIP *@
     <div class="form-group">
-        @* City *@
-        @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SchoolCity, new { @class = "col-md-2 control-label" })
         <div class="col-md-3">
-            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.SchoolCity, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SchoolCity, "", new { @class = "text-danger" })
         </div>
         @* State *@
-        @Html.LabelFor(m => m.State, new { @class = "col-md-1 control-label" })
+        @Html.LabelFor(m => m.SchoolState, new { @class = "col-md-1 control-label" })
         <div class="col-md-1">
-            @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.SchoolState, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SchoolState, "", new { @class = "text-danger" })
         </div>
         @* Zip *@
-        @Html.LabelFor(m => m.Zip, new { @class = "col-md-1 control-label" })
+        @Html.LabelFor(m => m.SchoolZip, new { @class = "col-md-1 control-label" })
         <div class="col-md-1">
-            @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Zip, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.SchoolZip, new { @class = "form-control" })
         </div>
     </div>
 
+    @* School Country *@
     <div class="form-group">
-        @* Country *@
-        @Html.LabelFor(m => m.Country, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SchoolCountry, new { @class = "col-md-2 control-label" })
         <div class="col-md-5">
-            @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.SchoolCountry, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SchoolCountry, "", new { @class = "text-danger" })
         </div>
     </div>
 
+    @* Degree and Major *@
     <div class="form-group">
         @* Degree *@
         @Html.LabelFor(m => m.Degree, new { @class = "col-md-2 control-label" })
@@ -61,6 +60,7 @@
             @Html.EnumDropDownListFor(m => m.Degree, new { @class = "form-control" })
         </div>
 
+        @* Major *@
         @Html.LabelFor(m => m.Major, new { @class = "col-md-1 control-label" })
         <div class="col-md-3">
             @Html.TextBoxFor(m => m.Major, new { @class = "form-control" })
@@ -71,18 +71,15 @@
         </div>
     </div>
 
+    @* Years Attended and Graduation Date *@
     <div class="form-group">
-        @* Major *@
-
-    </div>
-
-    <div class="form-group">
-        @* Graduation Date *@
+        @* Years Attended *@
         @Html.LabelFor(m => m.YearAttended, new { @class = "col-md-2 control-label" })
         <div class="col-md-2">
             @Html.TextBoxFor(m => m.YearAttended, new { @class = "form-control" })
         </div>
 
+        @* Graduation Date *@
         @Html.LabelFor(m => m.GraduationDate, new { @class = "col-md-2 control-label" })
         <div class="col-md-2">
             @Html.EditorFor(m => m.GraduationDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -90,7 +87,6 @@
 
         <div>
             @Html.ValidationMessageFor(m => m.YearAttended, "", new { @class = "text-danger" })
-            @Html.ValidationMessageFor(m => m.GraduationDate, "", new { @class = "text-danger" })
         </div>
     </div>
 </div>
