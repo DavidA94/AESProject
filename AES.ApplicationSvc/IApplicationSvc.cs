@@ -48,7 +48,7 @@ namespace AES.ApplicationSvc
         bool ApplicantDidNotAnswer(ApplicantInfoContract user);
 
         [OperationContract]
-        bool ScreenApproveRejectApplicant(ApplicantInfoContract user, ApplicationInfoContract , bool approved);
+        bool ScreenApproveRejectApplicant(ApplicantInfoContract user, ApplicationInfoContract application, bool approved);
 
         [OperationContract]
         bool SubmitApplication(ApplicantInfoContract user);
