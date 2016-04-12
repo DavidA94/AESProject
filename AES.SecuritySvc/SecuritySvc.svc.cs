@@ -4,6 +4,8 @@ using AES.Shared;
 using AES.Shared.Contracts;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AES.SecuritySvc
 {
@@ -127,6 +129,32 @@ namespace AES.SecuritySvc
                 UserID = user.userID,
                 DOB = user.DOB
             };
+        }
+
+        public static string ComputeHash(string input, HashAlgorithm algorithm, string salt)
+        {
+            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            Byte[] saltBytes = Encoding.UTF8.GetBytes(salt);
+
+            // Combine salt and input bytes
+            Byte[] saltedInput = new Byte[salt.Length + inputBytes.Length];
+            saltBytes.CopyTo(saltedInput, 0);
+            inputBytes.CopyTo(saltedInput, saltBytes.Length);
+
+            Byte[] hashedBytes = algorithm.ComputeHash(saltedInput);
+
+            return BitConverter.ToString(hashedBytes);
+        }
+
+        private static byte[] GetSalt()
+        {
+            var salt = new byte[Encryption.saltLengthLimit];
+            using (var random = new RNGCryptoServiceProvider())
+            {
+                random.GetNonZeroBytes(salt);
+            }
+
+            return salt;
         }
     }
 }

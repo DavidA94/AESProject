@@ -5,8 +5,12 @@ using System.Text;
 
 namespace AES.Shared
 {
+    
     public class Encryption
     {
+
+        public const int saltLengthLimit = 32;
+
         private static string secret = "AES_OMICRON_PROJECT";
 
         public static string Encrypt(string data)

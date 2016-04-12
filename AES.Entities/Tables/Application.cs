@@ -49,5 +49,11 @@ namespace AES.Entities.Tables
         /// Where the application is at in the process
         /// </summary>
         public AppStatus Status { get; set; }
+
+        [StringLength(8192)]
+        public string ScreeningNotes { get; set; }
+
+        [StringLength(8192)]
+        public string InterviewNotes { get; set; }
     }
 }

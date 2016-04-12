@@ -68,7 +68,17 @@ namespace AES.ApplicationSvc.Contracts
         [DataMember]
         public UserInfoContract UserInfo { get; set; }
 
+        /// <summary>
+        /// [In/Out] The screening notes
+        /// </summary>
+        [DataMember]
+        public string ScreeningNotes { get; set; }
 
-        
+        /// <summary>
+        /// [In/Out] The interview notes
+        /// </summary>
+        [DataMember]
+        public string InterviewNotes { get; set; }
+
     }
 }

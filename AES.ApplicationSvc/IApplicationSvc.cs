@@ -18,28 +18,37 @@ namespace AES.ApplicationSvc
         bool CancelApplication(ApplicationInfoContract app);
 
         [OperationContract]
-        UserInfoContract GetApplicantsAwaitingCalls();
+        List<ApplicantInfoContract> GetApplicantsAwaitingCalls();
 
         [OperationContract]
-        UserInfoContract GetApplicantsAwaitingInterview(int storeID);
+        List<ApplicantInfoContract> GetApplicantsAwaitingInterview(int storeID);
 
         [OperationContract]
         ApplicationInfoContract GetApplication(ApplicantInfoContract user);
 
         [OperationContract]
-        ApplicationInfoContract GetCallApplication(UserInfoContract user);
+        ApplicationInfoContract GetCallApplication(ApplicantInfoContract user);
 
         [OperationContract]
         ApplicationInfoContract GetInterviewApplication(UserInfoContract user);
-
-        [OperationContract]
-        bool PullApplicantFromCallQueue(UserInfoContract user);
 
         [OperationContract]
         AppSvcResponse SavePartialApplication(ApplicationInfoContract app);
 
         [OperationContract]
         bool SetApplicationStatus(ApplicationInfoContract app, AppStatus status);
+
+        [OperationContract]
+        bool SetApplicationStatus(ApplicantInfoContract user, AppStatus expectedStatus, AppStatus setStatus);
+
+        [OperationContract]
+        bool CallApplicant(ApplicantInfoContract user);
+
+        [OperationContract]
+        bool ApplicantDidNotAnswer(ApplicantInfoContract user);
+
+        [OperationContract]
+        bool ScreenApproveRejectApplicant(ApplicantInfoContract user, ApplicationInfoContract , bool approved);
 
         [OperationContract]
         bool SubmitApplication(ApplicantInfoContract user);

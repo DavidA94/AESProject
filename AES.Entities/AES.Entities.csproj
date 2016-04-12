@@ -83,6 +83,7 @@
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="Migrations\AESDbConfiguration.cs" />
     <Compile Include="Tables\ApplicantUser.cs" />
+    <Compile Include="Tables\EmployeeUser.cs" />
     <Compile Include="Tables\JobQuestion.cs" />
     <Compile Include="Tables\ApplicationMultiAnswer.cs" />
     <Compile Include="Tables\ApplicationShortAnswer.cs" />
