@@ -22,6 +22,9 @@ namespace AES.Entities.Tables
         [StringLength(Encryption.saltLengthLimit)]
         public string Salt { get; set; }
 
+        [Required]
+        public EmployeeRole Role { get; set; }
+
         public virtual UserInfo UserInfo { get; set; }
     }
 }
