@@ -5,6 +5,7 @@ using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace AES.SecuritySvc.Tests
 {
@@ -109,6 +110,70 @@ namespace AES.SecuritySvc.Tests
                 Assert.IsNull(badLName);
                 Assert.IsNull(badSSN);
             }
+        }
+
+        [TestMethod]
+        public void TC_CreateEmployee()
+        {
+            //db.Stores.AddOrUpdate(TestStore1);
+
+            using (var db = new AESDbContext())
+            {
+                var s = new SecuritySvc();
+                string blankPass = "";
+                string nullPass = null;
+
+                var CryptRandom = new RNGCryptoServiceProvider();
+                var intRandom = new Random(Guid.NewGuid().GetHashCode());
+
+                Byte[] randomBytes;
+
+                for (int i = 0; i < 20; i++)
+                {
+                    randomBytes = new byte[intRandom.Next(1, 30)];
+                    CryptRandom.GetNonZeroBytes(randomBytes);
+                    string normalPass = Convert.ToBase64String(randomBytes);
+                    var newValidEmployee = GenerateRandomEmployee(intRandom, CryptRandom);
+                    Assert.IsTrue(s.CreateEmployee(newValidEmployee, normalPass));
+                }
+            }
+        }
+
+        private EmployeeUserContract GenerateRandomEmployee(Random intRandom, RNGCryptoServiceProvider CryptRandom)
+        {
+
+
+            Byte[] randomBytes = new byte[intRandom.Next(1, 30)];
+
+            CryptRandom.GetNonZeroBytes(randomBytes);
+
+            string email = Convert.ToBase64String(randomBytes) + "@gmail.com";
+
+            randomBytes = new byte[intRandom.Next(1, 30)];
+
+            CryptRandom.GetNonZeroBytes(randomBytes);
+
+            string firstName = Convert.ToBase64String(randomBytes);
+
+            randomBytes = new byte[intRandom.Next(1, 30)];
+
+            CryptRandom.GetNonZeroBytes(randomBytes);
+
+            string lastName = Convert.ToBase64String(randomBytes);
+
+            var roles = Enum.GetValues(typeof(EmployeeRole));
+
+            var randomRole = (EmployeeRole)roles.GetValue(intRandom.Next(roles.Length));
+
+            var newValidEmployee = new EmployeeUserContract()
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                Role = randomRole
+            };
+
+            return newValidEmployee;
         }
 
 

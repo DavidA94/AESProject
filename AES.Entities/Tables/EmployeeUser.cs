@@ -14,17 +14,22 @@ namespace AES.Entities.Tables
         public string Email { get; set; }
 
         [Required]
-        [Index(IsUnique = true)]
-        [StringLength(100)]
-        public string PasswordHash { get; set; }
+        [MaxLength(200)]
+        public virtual byte[] PasswordHash { get; set; }
 
         [Required]
-        [StringLength(Encryption.saltLengthLimit)]
-        public string Salt { get; set; }
+        [MaxLength(Encryption.saltLengthLimit)]
+        public virtual byte[] Salt { get; set; }
 
         [Required]
         public EmployeeRole Role { get; set; }
 
-        public virtual UserInfo UserInfo { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string LastName { get; set; }
     }
 }

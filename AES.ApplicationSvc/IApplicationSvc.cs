@@ -39,16 +39,14 @@ namespace AES.ApplicationSvc
         bool SetApplicationStatus(ApplicationInfoContract app, AppStatus status);
 
         [OperationContract]
-        bool SetApplicationStatus(ApplicantInfoContract user, AppStatus expectedStatus, AppStatus setStatus);
-
-        [OperationContract]
         bool CallApplicant(ApplicantInfoContract user);
 
         [OperationContract]
         bool ApplicantDidNotAnswer(ApplicantInfoContract user);
 
         [OperationContract]
-        bool ScreenApproveRejectApplicant(ApplicantInfoContract user, ApplicationInfoContract application, bool approved);
+
+        bool SavePhoneInterview(ApplicationInfoContract application, bool approved);
 
         [OperationContract]
         bool SubmitApplication(ApplicantInfoContract user);

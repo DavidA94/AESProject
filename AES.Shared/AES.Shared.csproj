@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\EmployeeCredentialsContract.cs" />
     <Compile Include="Contracts\EmployeeUserContract.cs" />
     <Compile Include="Contracts\ApplicantInfoContract.cs" />
     <Compile Include="Contracts\AvailabilityContract.cs" />
