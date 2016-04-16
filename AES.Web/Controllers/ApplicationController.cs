@@ -353,7 +353,7 @@ namespace AES.Web.Controllers
                         Options = q.Options.ToList(),
                         Question = q.Question,
                         QuestionID = q.QuestionID,
-                        RadioOption = q.Type == QuestionType.RADIO ? "i" + q.QuestionID.ToString() + (questions.Count - 1).ToString() : "",
+                        RadioOption = q.Type == QuestionType.RADIO ? "i" + q.QuestionID.ToString() + q.MC_Answers.ToList().IndexOf(true).ToString() : "",
                         ShortAnswer = q.ShortAnswer,
                         Type = q.Type
                     });

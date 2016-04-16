@@ -6,6 +6,10 @@ using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -17,9 +21,13 @@ namespace AES.ApplicationSvc.Tests
         public ApplicationSvcUnitTests()
         {
             DBFileManager.SetDataDirectory(true);
+
+            //SetScreeningData();
         }
 
         private static bool hasSaveRun = false;
+        private string applicantFirstName = "Joseph";
+        private string applicantLastName = "Morgan";
 
         [TestMethod]
         public void TC10_SavePartialApplication()
@@ -203,6 +211,10 @@ namespace AES.ApplicationSvc.Tests
                               (status2 == AppStatus.WAITING_CALL && status1 == AppStatus.AUTO_REJECT));
             }
         }
+
+        
+
+        
 
         private ApplicationInfoContract PartialApp1()
         {
@@ -471,6 +483,216 @@ namespace AES.ApplicationSvc.Tests
             }
 
             return app;
+        }
+
+        [TestMethod]
+        public void TC_GetApplicantsAwaitingScreening()
+        {
+            var applicationService = new ApplicationSvc();
+
+            SetupValidWaitingCallApp();
+
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 6, 30, 0, 0));
+            var foundTestApplicant = false;
+            foreach (var applicant in applicantsAwaitingCalls)
+            {
+                if (applicant.FirstName == applicantFirstName && applicant.LastName == applicantLastName)
+                {
+                    foundTestApplicant = true;
+                    break;
+                }
+            }
+
+            Assert.IsTrue(foundTestApplicant);
+
+            var applicantsAwaitingCallsTooEarly = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 5, 30, 0, 0));
+            foundTestApplicant = false;
+
+            foreach (var applicant in applicantsAwaitingCallsTooEarly)
+            {
+                if (applicant.FirstName == applicantFirstName && applicant.LastName == applicantLastName)
+                {
+                    foundTestApplicant = true;
+                    break;
+                }
+            }
+
+            Assert.IsFalse(foundTestApplicant);
+
+            var applicantsAwaitingCallsTooLate = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 11, 30, 0, 0));
+            foundTestApplicant = false;
+
+            foreach (var applicant in applicantsAwaitingCallsTooLate)
+            {
+                if (applicant.FirstName == applicantFirstName && applicant.LastName == applicantLastName)
+                {
+                    foundTestApplicant = true;
+                    break;
+                }
+            }
+
+            Assert.IsFalse(foundTestApplicant);
+
+        }
+
+        [TestMethod]
+        public void TC_CallApplicant()
+        {
+            var applicationService = new ApplicationSvc();
+
+            SetupValidWaitingCallApp();
+
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 6, 30, 0, 0));
+
+            ApplicantInfoContract applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == applicantFirstName);
+
+            Assert.IsNotNull(applicant);
+
+            Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.IN_CALL).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.CallApplicant((int)applicant.UserID));
+
+            Assert.IsTrue(applicationService.ApplicantDidNotAnswer((int)applicant.UserID));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.WAITING_CALL && a.ApplicantID == (int)applicant.UserID).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.ApplicantDidNotAnswer((int)applicant.UserID));
+        }
+
+        [TestMethod]
+        public void TC_DenyApplicant()
+        {
+            var testNotes = "Failure";
+
+            var applicationService = new ApplicationSvc();
+
+            SetupValidWaitingCallApp();
+
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 6, 30, 0, 0));
+
+            ApplicantInfoContract applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == applicantFirstName);
+
+            Assert.IsNotNull(applicant);
+
+            Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
+
+            Assert.IsTrue(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.CALL_DENIED).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.CALL_DENIED).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.CALL_DENIED).Count(), 1);
+            }
+        }
+
+        [TestMethod]
+        public void TC_ApproveApplicant()
+        {
+            var testNotes = "Test Notes 123";
+
+            var applicationService = new ApplicationSvc();
+
+            SetupValidWaitingCallApp();
+
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 6, 30, 0, 0));
+
+            ApplicantInfoContract applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == applicantFirstName);
+
+            Assert.IsNotNull(applicant);
+
+            Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
+
+            Assert.IsTrue(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.IsTrue(db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW && a.ScreeningNotes == testNotes).Any());
+            }
+
+            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.IsTrue(db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW).Any());
+            }
+
+            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.IsTrue(db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW).Any());
+            }
+
+        }
+
+        private void SetupValidWaitingCallApp()
+        {
+            using (var db = new AESDbContext())
+            {
+                foreach (var applications in db.ApplicantUsers.Where(a => a.FirstName == applicantFirstName).Select(a => a.Applications).ToList())
+                {
+                    foreach (var app in applications)
+                    {
+                        app.ScreeningNotes = null;
+                        app.Status = AppStatus.WAITING_CALL;
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+        private int saveDb(AESDbContext context)
+        {
+            int changes = 0;
+
+            try
+            {
+                // Try to save the changes
+                changes = context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            catch (DbUpdateException e1)
+            {
+                Debug.WriteLine(e1.InnerException.ToString());
+                throw;
+            }
+
+            return changes;
         }
     }
 }

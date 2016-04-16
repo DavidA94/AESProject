@@ -156,7 +156,6 @@ namespace AES.Entities.Migrations
 
             var applicantUser = new ApplicantUser()
             {
-                userID = 1,
                 UserInfo = userInfo,
                 Availability = availability,
                 DOB = new DateTime(1989, 3, 14),

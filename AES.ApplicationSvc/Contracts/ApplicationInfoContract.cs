@@ -1,4 +1,5 @@
 ﻿using AES.Shared.Contracts;
+using AES.ApplicationSvc.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +69,17 @@ namespace AES.ApplicationSvc.Contracts
         [DataMember]
         public UserInfoContract UserInfo { get; set; }
 
+        /// <summary>
+        /// [In/Out] The screening notes
+        /// </summary>
+        [DataMember]
+        public string ScreeningNotes { get; set; }
 
-        
+        /// <summary>
+        /// [In/Out] The interview notes
+        /// </summary>
+        [DataMember]
+        public string InterviewNotes { get; set; }
+
     }
 }

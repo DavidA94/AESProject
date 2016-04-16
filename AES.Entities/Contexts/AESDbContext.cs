@@ -12,6 +12,7 @@ namespace AES.Entities.Contexts
         }
 
         public DbSet<ApplicantUser> ApplicantUsers { get; set; }
+        public DbSet<EmployeeUser> EmployeeUsers { get; set; }
         public DbSet<UserInfo> UserInfo { get; set; }
         public DbSet<Application> Applications { get; set; }
         public DbSet<JobQuestion> Questions { get; set; }

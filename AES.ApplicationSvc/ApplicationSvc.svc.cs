@@ -5,6 +5,8 @@ using AES.Shared;
 using AES.Shared.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 
 namespace AES.ApplicationSvc
@@ -16,17 +18,46 @@ namespace AES.ApplicationSvc
             DBFileManager.SetDataDirectory();
         }
 
+        public bool ApplicantDidNotAnswer(int applicantID)
+        {
+            return SetApplicationStatus(applicantID, AppStatus.IN_CALL, AppStatus.WAITING_CALL);
+        }
+
+        public bool CallApplicant(int applicantID)
+        {
+            return SetApplicationStatus(applicantID, AppStatus.WAITING_CALL, AppStatus.IN_CALL);
+        }
+
         public bool CancelApplication(ApplicationInfoContract app)
         {
             throw new NotImplementedException();
         }
 
-        public UserInfoContract GetApplicantsAwaitingCalls()
+        public List<ApplicantInfoContract> GetApplicantsAwaitingCalls(DateTime currentDateTime)
         {
-            throw new NotImplementedException();
+            TimeSpan currentTime = new TimeSpan(currentDateTime.Hour, currentDateTime.Minute, currentDateTime.Second);
+            List<ApplicantInfoContract> returnedApplicants = new List<ApplicantInfoContract>();
+
+            using (var db = new AESDbContext())
+            {
+                var apps = db.Applications.Where(aa => aa.Status == AppStatus.WAITING_CALL);
+
+                foreach (var au in apps.Select(a => a.Applicant))
+                {
+                    var callStart = au.UserInfo.CallStartTime;
+                    var callEnd = au.UserInfo.CallEndTime;
+
+                    if ((currentTime > callStart) && (currentTime < callEnd))
+                    {
+                        returnedApplicants.Add(ConvertTableToContract(au));
+                    }
+                }
+            }
+
+            return returnedApplicants.Distinct().ToList();
         }
 
-        public UserInfoContract GetApplicantsAwaitingInterview(int storeID)
+        public List<ApplicantInfoContract> GetApplicantsAwaitingInterview(int storeID)
         {
             throw new NotImplementedException();
         }
@@ -133,17 +164,12 @@ namespace AES.ApplicationSvc
             return retApp;
         }
 
-        public ApplicationInfoContract GetCallApplication(UserInfoContract user)
+        public ApplicationInfoContract GetCallApplication(ApplicantInfoContract user)
         {
-            throw new NotImplementedException();
+            return GetApplication(user);
         }
 
         public ApplicationInfoContract GetInterviewApplication(UserInfoContract user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool PullApplicantFromCallQueue(UserInfoContract user)
         {
             throw new NotImplementedException();
         }
@@ -184,7 +210,7 @@ namespace AES.ApplicationSvc
                     {
                         application = new Application();
 
-                        // Assign it's Job and Status
+                        // Assign its Job and Status
                         application.Job = appliedJob;
                         application.Status = AppStatus.PARTIAL;
                         application.Applicant = user;
@@ -347,6 +373,37 @@ namespace AES.ApplicationSvc
             return AppSvcResponse.ERROR;
         }
 
+        public bool SavePhoneInterview(int applicantID, string notes, bool approved)
+        {
+            AppStatus setStatus = approved ? AppStatus.WAITING_INTERVIEW : AppStatus.CALL_DENIED;
+
+            if (!SetApplicationStatus(applicantID, AppStatus.IN_CALL, setStatus))
+            {
+                return false;
+            }
+            using (var db = new AESDbContext())
+            {
+                var apps = db.Applications.Where(a => a.Applicant.userID == applicantID && a.Status == setStatus);
+
+                if (!apps.Any())
+                {
+                    return false;
+                }
+
+                foreach (var app in apps)
+                {
+                    app.ScreeningNotes = notes;
+                }
+
+                if (db.SaveChanges() == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public bool SetApplicationStatus(ApplicationInfoContract app, AppStatus status)
         {
             throw new NotImplementedException();
@@ -381,6 +438,48 @@ namespace AES.ApplicationSvc
             }
 
             return true;
+        }
+
+        private bool SetApplicationStatus(int applicantID, AppStatus expectedStatus, AppStatus setStatus)
+        {
+            using (var db = new AESDbContext())
+            {
+                var changes = 0;
+
+                foreach (var app in db.Applications.Where(a => a.Applicant.userID == applicantID && a.Status == expectedStatus))
+                {
+                    //app.Applicant = db.ApplicantUsers.Where(a => a.userID == applicantID).FirstOrDefault();
+                    app.Status = setStatus;
+                }
+
+                try
+                {
+                    // Try to save the changes
+                    changes = db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
+
+                if (changes == 1)
+                {
+                    return true;
+                }
+
+                // Changes could not be saved
+                return false;
+            }
         }
 
         private AppStatus analyzeApp(Application app, AESDbContext db)
@@ -497,7 +596,7 @@ namespace AES.ApplicationSvc
                 LastName = applicant.LastName,
                 References = ConvertTableToContract(applicant.References).ToList(),
                 UserID = applicant.userID,
-                UserInfo = ConvertTableToContract(applicant.UserInfo),
+                UserInfo = ConvertTableToContract(applicant.UserInfo)
             };
         }
 

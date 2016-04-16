@@ -3,7 +3,11 @@ using AES.Entities.Tables;
 using AES.Shared;
 using AES.Shared.Contracts;
 using System;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AES.SecuritySvc
 {
@@ -64,23 +68,98 @@ namespace AES.SecuritySvc
             return null;
         }
 
-        public ApplicantInfoContract GetUser(ApplicantInfoContract user)
+        public EmployeeUserContract ValidateEmployeeUser(EmployeeCredentialsContract credentials)
         {
-            // Get the user if possible
+            if (string.IsNullOrEmpty(credentials.Password) || credentials.Password.Length < 1 || credentials.Email == null || credentials.Email.Length < 6)
+            {
+                return null;
+            }
+
             using (var db = new AESDbContext())
             {
-                var dbUser = db.ApplicantUsers.FirstOrDefault(u => u.userID == user.UserID &&
-                                                              u.FirstName == user.FirstName &&
-                                                              u.LastName == user.LastName &&
-                                                              u.DOB == user.DOB);
+                var dbUser = db.EmployeeUsers.FirstOrDefault(u => u.Email.ToLower() == credentials.Email.ToLower());
 
                 if (dbUser != null)
                 {
-                    return makeAppInfoContract(dbUser);
+                    var passHash = ComputeHash(credentials.Password, new SHA256CryptoServiceProvider(), dbUser.Salt);
+
+                    if (passHash.SequenceEqual(dbUser.PasswordHash))
+                    {
+                        return MakeEmployeeUserContract(dbUser);
+                    }
                 }
             }
 
             return null;
+        }
+
+        public bool CreateEmployee(EmployeeUserContract employeeInfo, string password)
+        {
+
+            if (string.IsNullOrEmpty(password) || password.Length < 1 || string.IsNullOrEmpty(employeeInfo.Email) || employeeInfo.Email.Length < 6 || string.IsNullOrEmpty(employeeInfo.FirstName) || string.IsNullOrEmpty(employeeInfo.LastName) || employeeInfo.UserInfo == null)
+            {
+                return false;
+            }
+
+            var newEmployeeUser = new EmployeeUser()
+            {
+                FirstName = employeeInfo.FirstName,
+                LastName = employeeInfo.LastName,
+                Email = employeeInfo.Email,
+                Role = employeeInfo.Role
+            };
+
+            newEmployeeUser.UserInfo = new UserInfo()
+            {
+                Address = employeeInfo.UserInfo.Address,
+                City = employeeInfo.UserInfo.City,
+                Nickname = employeeInfo.UserInfo.Nickname,
+                Phone = employeeInfo.UserInfo.Phone,
+                State = employeeInfo.UserInfo.State,
+                Zip = employeeInfo.UserInfo.Zip
+            };
+
+
+            var salt = GetSalt();
+            var passwordHash = ComputeHash(password, new SHA256CryptoServiceProvider(), salt);
+
+            newEmployeeUser.PasswordHash = passwordHash;
+            newEmployeeUser.Salt = salt;
+
+            using (var db = new AESDbContext())
+            {
+                db.EmployeeUsers.Add(newEmployeeUser);
+
+                var changes = 0;
+
+                try
+                {
+                    // Try to save the changes
+                    changes = db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
+
+                if (changes != 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+
         }
 
         private ApplicantInfoContract createUser(ApplicantInfoContract userInfo, string ssn, AESDbContext db)
@@ -127,6 +206,50 @@ namespace AES.SecuritySvc
                 UserID = user.userID,
                 DOB = user.DOB
             };
+        }
+
+        private EmployeeUserContract MakeEmployeeUserContract(EmployeeUser user)
+        {
+
+            return new EmployeeUserContract()
+            {
+                Email = user.Email,
+                Role = user.Role,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserInfo = new UserInfoContract()
+                {
+                    Address = user.UserInfo.Address,
+                    City = user.UserInfo.City,
+                    Nickname = user.UserInfo.Nickname,
+                    Phone = user.UserInfo.Phone,
+                    State = user.UserInfo.State,
+                    Zip = user.UserInfo.Zip
+                }
+            };
+        }
+
+        public static byte[] ComputeHash(string input, HashAlgorithm algorithm, byte[] saltBytes)
+        {
+            var inputBytes = Encoding.UTF8.GetBytes(input);
+
+            // Combine salt and input bytes
+            var saltedInput = new byte[saltBytes.Length + inputBytes.Length];
+            saltBytes.CopyTo(saltedInput, 0);
+            inputBytes.CopyTo(saltedInput, saltBytes.Length);
+
+            return algorithm.ComputeHash(saltedInput);
+        }
+
+        private static byte[] GetSalt()
+        {
+            var salt = new byte[Encryption.saltLengthLimit];
+            using (var random = new RNGCryptoServiceProvider())
+            {
+                random.GetNonZeroBytes(salt);
+            }
+
+            return salt;
         }
     }
 }
