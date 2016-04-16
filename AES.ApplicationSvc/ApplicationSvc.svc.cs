@@ -18,19 +18,29 @@ namespace AES.ApplicationSvc
             DBFileManager.SetDataDirectory();
         }
 
+        public bool ApplicantDidNotAnswer(int applicantID)
+        {
+            return SetApplicationStatus(applicantID, AppStatus.IN_CALL, AppStatus.WAITING_CALL);
+        }
+
+        public bool CallApplicant(int applicantID)
+        {
+            return SetApplicationStatus(applicantID, AppStatus.WAITING_CALL, AppStatus.IN_CALL);
+        }
+
         public bool CancelApplication(ApplicationInfoContract app)
         {
             throw new NotImplementedException();
         }
 
-        public List<ApplicantInfoContract> GetApplicantsAwaitingCalls(TimeSpan currentTime)
+        public List<ApplicantInfoContract> GetApplicantsAwaitingCalls(DateTime currentDateTime)
         {
+            TimeSpan currentTime = new TimeSpan(currentDateTime.Hour, currentDateTime.Minute, currentDateTime.Second);
             List<ApplicantInfoContract> returnedApplicants = new List<ApplicantInfoContract>();
 
             using (var db = new AESDbContext())
             {
                 var apps = db.Applications.Where(aa => aa.Status == AppStatus.WAITING_CALL);
-                //var appusers = db.ApplicantUsers.SelectMany(appuser => db.Applications, (appuser, application) => new { appuser, application }).Where(item => item.application.Applicant.userID == item.appuser.userID).Select(item => item.appuser).ToList();
 
                 foreach (var au in apps.Select(a => a.Applicant))
                 {
@@ -41,19 +51,6 @@ namespace AES.ApplicationSvc
                     {
                         returnedApplicants.Add(ConvertTableToContract(au));
                     }
-                    
-                    /*returnedApplicants.Add(new ApplicantInfoContract()
-                    {
-                        FirstName = au.FirstName,
-                        LastName = au.LastName,
-                        UserID = au.userID,
-                        UserInfo = new UserInfoContract()
-                        {
-                            Phone = au.UserInfo.Phone,
-                            StartCallTime = au.UserInfo.CallStartTime,
-                            EndCallTime = au.UserInfo.CallEndTime
-                        }
-                    });*/
                 }
             }
 
@@ -217,16 +214,6 @@ namespace AES.ApplicationSvc
                 // Changes could not be saved
                 return false;
             }
-        }
-
-        public bool CallApplicant(int applicantID)
-        {
-            return SetApplicationStatus(applicantID, AppStatus.WAITING_CALL, AppStatus.IN_CALL);
-        }
-
-        public bool ApplicantDidNotAnswer(int applicantID)
-        {
-            return SetApplicationStatus(applicantID, AppStatus.IN_CALL, AppStatus.WAITING_CALL);
         }
 
         public AppSvcResponse SavePartialApplication(ApplicationInfoContract app)
@@ -428,6 +415,37 @@ namespace AES.ApplicationSvc
             return AppSvcResponse.ERROR;
         }
 
+        public bool SavePhoneInterview(int applicantID, string notes, bool approved)
+        {
+            AppStatus setStatus = approved ? AppStatus.WAITING_INTERVIEW : AppStatus.CALL_DENIED;
+
+            if (!SetApplicationStatus(applicantID, AppStatus.IN_CALL, setStatus))
+            {
+                return false;
+            }
+            using (var db = new AESDbContext())
+            {
+                var apps = db.Applications.Where(a => a.Applicant.userID == applicantID && a.Status == setStatus);
+
+                if (!apps.Any())
+                {
+                    return false;
+                }
+
+                foreach (var app in apps)
+                {
+                    app.ScreeningNotes = notes;
+                }
+
+                if (db.SaveChanges() == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public bool SetApplicationStatus(ApplicationInfoContract app, AppStatus status)
         {
             throw new NotImplementedException();
@@ -461,37 +479,6 @@ namespace AES.ApplicationSvc
                 }
             }
 
-            return true;
-        }
-
-        public bool SavePhoneInterview(int applicantID, string notes, bool approved)
-        {
-            AppStatus setStatus = approved ? AppStatus.WAITING_INTERVIEW : AppStatus.CALL_DENIED;
-
-            if (!SetApplicationStatus(applicantID, AppStatus.IN_CALL, setStatus))
-            {
-                return false;
-            }
-            using (var db = new AESDbContext())
-            {
-                var apps = db.Applications.Where(a => a.Applicant.userID == applicantID && a.Status == setStatus);
-
-                if (!apps.Any())
-                {
-                    return false;
-                }
-
-                foreach (var app in apps)
-                {
-                    app.ScreeningNotes = notes;
-                }
-
-                if (db.SaveChanges() == 0)
-                {
-                    return false;
-                }
-            }
-                
             return true;
         }
 

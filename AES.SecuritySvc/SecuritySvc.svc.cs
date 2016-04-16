@@ -211,25 +211,22 @@ namespace AES.SecuritySvc
         private EmployeeUserContract MakeEmployeeUserContract(EmployeeUser user)
         {
 
-            var contract = new EmployeeUserContract()
+            return new EmployeeUserContract()
             {
                 Email = user.Email,
                 Role = user.Role,
                 FirstName = user.FirstName,
-                LastName = user.LastName
+                LastName = user.LastName,
+                UserInfo = new UserInfoContract()
+                {
+                    Address = user.UserInfo.Address,
+                    City = user.UserInfo.City,
+                    Nickname = user.UserInfo.Nickname,
+                    Phone = user.UserInfo.Phone,
+                    State = user.UserInfo.State,
+                    Zip = user.UserInfo.Zip
+                }
             };
-
-            contract.UserInfo = new UserInfoContract()
-            {
-                Address = user.UserInfo.Address,
-                City = user.UserInfo.City,
-                Nickname = user.UserInfo.Nickname,
-                Phone = user.UserInfo.Phone,
-                State = user.UserInfo.State,
-                Zip = user.UserInfo.Zip
-            };
-
-            return contract;
         }
 
         public static byte[] ComputeHash(string input, HashAlgorithm algorithm, byte[] saltBytes)

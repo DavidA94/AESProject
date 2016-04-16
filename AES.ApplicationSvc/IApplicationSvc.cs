@@ -18,7 +18,7 @@ namespace AES.ApplicationSvc
         bool CancelApplication(ApplicationInfoContract app);
 
         [OperationContract]
-        List<ApplicantInfoContract> GetApplicantsAwaitingCalls(TimeSpan currentTime);
+        List<ApplicantInfoContract> GetApplicantsAwaitingCalls(DateTime currentDateTime);
 
         [OperationContract]
         List<ApplicantInfoContract> GetApplicantsAwaitingInterview(int storeID);
