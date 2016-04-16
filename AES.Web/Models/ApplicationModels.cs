@@ -344,6 +344,7 @@ namespace AES.Web.Models
 
         [Required]
         [StringLength(32)]
+        [Display(Name = "Country")]
         public string SchoolCountry { get; set; }
 
         [Required]
