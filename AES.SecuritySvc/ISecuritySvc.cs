@@ -12,10 +12,7 @@ namespace AES.SecuritySvc
         ApplicantInfoContract ValidateUser(ApplicantInfoContract userInfo);
 
         [OperationContract]
-        ApplicantInfoContract GetUser(ApplicantInfoContract user);
-
-        [OperationContract]
-        EmployeeUserContract GetEmployeeUser(EmployeeCredentialsContract credentials);
+        EmployeeUserContract ValidateEmployeeUser(EmployeeCredentialsContract credentials);
 
         [OperationContract]
         bool CreateEmployee(EmployeeUserContract employeeInfo, string password);

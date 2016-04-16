@@ -181,20 +181,13 @@ namespace AES.ApplicationSvc
         {
             using (var db = new AESDbContext())
             {
-                var apps = db.Applications.Where(a => a.Applicant.userID == applicantID && a.Status == expectedStatus);
-
-                if (!apps.Any())
-                {
-                    // Expected status not found
-                    return false;
-                }
-
-                foreach (var application in apps)
-                {
-                    application.Status = setStatus;
-                }
-
                 var changes = 0;
+
+                foreach (var app in db.Applications.Where(a => a.Applicant.userID == applicantID && a.Status == expectedStatus))
+                {
+                    //app.Applicant = db.ApplicantUsers.Where(a => a.userID == applicantID).FirstOrDefault();
+                    app.Status = setStatus;
+                }
 
                 try
                 {
@@ -228,12 +221,12 @@ namespace AES.ApplicationSvc
 
         public bool CallApplicant(int applicantID)
         {
-            return SetApplicationStatus(Convert.ToInt32(applicantID), AppStatus.WAITING_CALL, AppStatus.IN_CALL);
+            return SetApplicationStatus(applicantID, AppStatus.WAITING_CALL, AppStatus.IN_CALL);
         }
 
         public bool ApplicantDidNotAnswer(int applicantID)
         {
-            return SetApplicationStatus(Convert.ToInt32(applicantID), AppStatus.IN_CALL, AppStatus.WAITING_CALL);
+            return SetApplicationStatus(applicantID, AppStatus.IN_CALL, AppStatus.WAITING_CALL);
         }
 
         public AppSvcResponse SavePartialApplication(ApplicationInfoContract app)

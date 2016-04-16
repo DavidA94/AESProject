@@ -141,10 +141,19 @@ namespace AES.SecuritySvc.Tests
                     randomBytes = new byte[intRandom.Next(1, 30)];
                     CryptRandom.GetNonZeroBytes(randomBytes);
                     string normalPass = Convert.ToBase64String(randomBytes);
-                    var newValidEmployee = GenerateRandomEmployee(intRandom, CryptRandom);
+                    var newValidEmployee = new EmployeeUserContract()
+                    {
+                        FirstName = "TestFirst",
+                        LastName = "TestLast",
+                        Role = EmployeeRole.HqQStaffingExpert
+                    };
+                    newValidEmployee.UserInfo = new UserInfoContract();
+                    randomBytes = new byte[intRandom.Next(1, 30)];
+                    CryptRandom.GetNonZeroBytes(randomBytes);
+                    newValidEmployee.Email = Convert.ToBase64String(randomBytes) + "@gmail.com";
                     Assert.IsTrue(s.CreateEmployee(newValidEmployee, normalPass));
                     var credentials = new EmployeeCredentialsContract() { Email = newValidEmployee.Email, Password = normalPass };
-                    var gottenEmployee = s.GetEmployeeUser(credentials);
+                    var gottenEmployee = s.ValidateEmployeeUser(credentials);
                     Assert.IsNotNull(gottenEmployee);
                     Assert.AreEqual(gottenEmployee.FirstName, newValidEmployee.FirstName);
                     Assert.AreEqual(gottenEmployee.LastName, newValidEmployee.LastName);
@@ -158,45 +167,6 @@ namespace AES.SecuritySvc.Tests
                 invalidPassEmployee.Email = "a@a.a";
                 Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, nullPass));
             }
-        }
-
-        private EmployeeUserContract GenerateRandomEmployee(Random intRandom, RNGCryptoServiceProvider CryptRandom)
-        {
-
-
-            Byte[] randomBytes = new byte[intRandom.Next(1, 30)];
-
-            CryptRandom.GetNonZeroBytes(randomBytes);
-
-            string email = Convert.ToBase64String(randomBytes) + "@gmail.com";
-
-            randomBytes = new byte[intRandom.Next(1, 30)];
-
-            CryptRandom.GetNonZeroBytes(randomBytes);
-
-            string firstName = Convert.ToBase64String(randomBytes);
-
-            randomBytes = new byte[intRandom.Next(1, 30)];
-
-            CryptRandom.GetNonZeroBytes(randomBytes);
-
-            string lastName = Convert.ToBase64String(randomBytes);
-
-            var roles = Enum.GetValues(typeof(EmployeeRole));
-
-            var randomRole = (EmployeeRole)roles.GetValue(intRandom.Next(roles.Length));
-
-            var newValidEmployee = new EmployeeUserContract()
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
-                Role = randomRole
-            };
-
-            newValidEmployee.UserInfo = new UserInfoContract();
-
-            return newValidEmployee;
         }
 
 

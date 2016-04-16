@@ -34,8 +34,11 @@ namespace AES.Entities.Tables
         /// <summary>
         /// The applicant this application is for
         /// </summary>
-        [Required]
+        [ForeignKey("ApplicantID")]
         public virtual ApplicantUser Applicant { get; set; }
+
+        [Required]
+        public int ApplicantID { get; set; }
 
         /// <summary>
         /// The date this application was submitted

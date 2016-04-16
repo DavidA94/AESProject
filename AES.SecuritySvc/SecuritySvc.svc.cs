@@ -68,26 +68,7 @@ namespace AES.SecuritySvc
             return null;
         }
 
-        public ApplicantInfoContract GetUser(ApplicantInfoContract user)
-        {
-            // Get the user if possible
-            using (var db = new AESDbContext())
-            {
-                var dbUser = db.ApplicantUsers.FirstOrDefault(u => u.userID == user.UserID &&
-                                                              u.FirstName == user.FirstName &&
-                                                              u.LastName == user.LastName &&
-                                                              u.DOB == user.DOB);
-
-                if (dbUser != null)
-                {
-                    return makeAppInfoContract(dbUser);
-                }
-            }
-
-            return null;
-        }
-
-        public EmployeeUserContract GetEmployeeUser(EmployeeCredentialsContract credentials)
+        public EmployeeUserContract ValidateEmployeeUser(EmployeeCredentialsContract credentials)
         {
             if (string.IsNullOrEmpty(credentials.Password) || credentials.Password.Length < 1 || credentials.Email == null || credentials.Email.Length < 6)
             {
@@ -115,7 +96,7 @@ namespace AES.SecuritySvc
         public bool CreateEmployee(EmployeeUserContract employeeInfo, string password)
         {
 
-            if (string.IsNullOrEmpty(password) || password.Length < 1 || string.IsNullOrEmpty(employeeInfo.Email) || employeeInfo.Email.Length < 6 || string.IsNullOrEmpty(employeeInfo.FirstName) || string.IsNullOrEmpty(employeeInfo.LastName))
+            if (string.IsNullOrEmpty(password) || password.Length < 1 || string.IsNullOrEmpty(employeeInfo.Email) || employeeInfo.Email.Length < 6 || string.IsNullOrEmpty(employeeInfo.FirstName) || string.IsNullOrEmpty(employeeInfo.LastName) || employeeInfo.UserInfo == null)
             {
                 return false;
             }

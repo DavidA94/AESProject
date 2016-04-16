@@ -25,7 +25,6 @@ namespace AES.ApplicationSvc.Tests
         }
 
         private static bool hasSaveRun = false;
-        private static int? screenApplicantID = null;
 
         [TestMethod]
         public void TC10_SavePartialApplication()
@@ -538,24 +537,13 @@ namespace AES.ApplicationSvc.Tests
         [TestMethod]
         public void TC_CallApplicant()
         {
-            clearDb();
-
             var applicationService = new ApplicationSvc();
 
             SetupValidWaitingCallApp();
 
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
 
-            ApplicantInfoContract applicant = null;
-
-            foreach (var appl in applicantsAwaitingCalls)
-            {
-                if (appl.UserID == (int)screenApplicantID)
-                {
-                    applicant = appl;
-                    break;
-                }
-            }
+            ApplicantInfoContract applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == "Robert");
 
             Assert.IsNotNull(applicant);
 
@@ -572,7 +560,7 @@ namespace AES.ApplicationSvc.Tests
 
             using (var db = new AESDbContext())
             {
-                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.WAITING_CALL).Count(), 1);
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.WAITING_CALL && a.ApplicantID == (int)applicant.UserID).Count(), 1);
             }
 
             Assert.IsFalse(applicationService.ApplicantDidNotAnswer((int)applicant.UserID));
@@ -591,16 +579,7 @@ namespace AES.ApplicationSvc.Tests
 
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
 
-            ApplicantInfoContract applicant = null;
-
-            foreach (var appl in applicantsAwaitingCalls)
-            {
-                if (appl.UserID == (int)screenApplicantID)
-                {
-                    applicant = appl;
-                    break;
-                }
-            }
+            ApplicantInfoContract applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == "Robert");
 
             Assert.IsNotNull(applicant);
 
@@ -641,16 +620,7 @@ namespace AES.ApplicationSvc.Tests
 
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
 
-            ApplicantInfoContract applicant = null;
-
-            foreach (var appl in applicantsAwaitingCalls)
-            {
-                if (appl.UserID == (int)screenApplicantID)
-                {
-                    applicant = appl;
-                    break;
-                }
-            }
+            ApplicantInfoContract applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == "Robert");
 
             Assert.IsNotNull(applicant);
 
@@ -705,7 +675,7 @@ namespace AES.ApplicationSvc.Tests
         {
             using (var db = new AESDbContext())
             {
-                foreach (var applications in db.ApplicantUsers.Where(a => a.userID == (int)screenApplicantID).Select(a => a.Applications).ToList())
+                foreach (var applications in db.ApplicantUsers.Where(a => a.FirstName == "Robert").Select(a => a.Applications).ToList())
                 {
                     foreach (var app in applications)
                     {
@@ -713,6 +683,17 @@ namespace AES.ApplicationSvc.Tests
                         app.Status = AppStatus.WAITING_CALL;
                     }
                 }
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
+                
             }
         }
 
@@ -758,7 +739,6 @@ namespace AES.ApplicationSvc.Tests
 
                 if (existingApplicant != null)
                 {
-                    screenApplicantID = existingApplicant.userID;
                     return;
                 }
 
@@ -801,14 +781,10 @@ namespace AES.ApplicationSvc.Tests
                     store2
                 );
 
-                saveDb(context);
-
                 context.Jobs.AddOrUpdate(
                     testJob1,
                     testJob2
                 );
-
-                saveDb(context);
 
                 var store2TestJob1Opening = new JobOpening
                 {
@@ -842,8 +818,6 @@ namespace AES.ApplicationSvc.Tests
                     store1TestJob2Opening
                 );
 
-                saveDb(context);
-
                 var userInfo = new UserInfo()
                 {
                     CallEndTime = new TimeSpan(10, 0, 0),
@@ -858,8 +832,6 @@ namespace AES.ApplicationSvc.Tests
                 };
 
                 context.UserInfo.AddOrUpdate(userInfo);
-
-                saveDb(context);
 
                 var availability = new Availability
                 {
@@ -877,8 +849,6 @@ namespace AES.ApplicationSvc.Tests
 
                 context.Availabilities.AddOrUpdate(availability);
 
-                saveDb(context);
-
                 var applicantUser = new ApplicantUser()
                 {
                     UserInfo = userInfo,
@@ -891,8 +861,6 @@ namespace AES.ApplicationSvc.Tests
 
                 context.ApplicantUsers.AddOrUpdate(applicantUser);
 
-                saveDb(context);
-
                 var reference = new Reference
                 {
                     Applicant = applicantUser,
@@ -903,8 +871,6 @@ namespace AES.ApplicationSvc.Tests
                 };
 
                 context.References.AddOrUpdate(reference);
-
-                saveDb(context);
 
                 var employmentHistory = new JobHistory()
                 {
@@ -927,8 +893,6 @@ namespace AES.ApplicationSvc.Tests
 
                 context.JobHistories.AddOrUpdate(employmentHistory);
 
-                saveDb(context);
-
                 var educationHistory = new EducationHistory()
                 {
                     Applicant = applicantUser,
@@ -945,9 +909,7 @@ namespace AES.ApplicationSvc.Tests
                 };
 
                 context.EducationHistories.AddOrUpdate(educationHistory);
-
-                saveDb(context);
-
+                /*
                 var shortQuestion = new JobQuestion()
                 {
                     Type = QuestionType.SHORT,
@@ -956,8 +918,6 @@ namespace AES.ApplicationSvc.Tests
                 shortQuestion.Jobs.Add(testJob1);
 
                 context.Questions.AddOrUpdate(shortQuestion);
-
-                saveDb(context);
 
                 var radioQuestion = new JobQuestion()
                 {
@@ -971,8 +931,6 @@ namespace AES.ApplicationSvc.Tests
                 radioQuestion.Jobs.Add(testJob1);
 
                 context.Questions.AddOrUpdate(radioQuestion);
-
-                saveDb(context);
 
                 var checkQuestion = new JobQuestion()
                 {
@@ -988,9 +946,7 @@ namespace AES.ApplicationSvc.Tests
                 checkQuestion.Jobs.Add(testJob1);
 
                 context.Questions.AddOrUpdate(checkQuestion);
-
-                saveDb(context);
-
+                */
                 var application = new Application()
                 {
                     Status = AppStatus.WAITING_CALL,
@@ -998,11 +954,9 @@ namespace AES.ApplicationSvc.Tests
                     Job = testJob1,
                     Timestamp = new DateTime(2016, 4, 15)
                 };
-
+                
                 context.Applications.AddOrUpdate(application);
-
-                saveDb(context);
-
+                /*
                 var shortAnswer = new ApplicationShortAnswer
                 {
                     Answer = "I don't think so",
@@ -1010,8 +964,6 @@ namespace AES.ApplicationSvc.Tests
                 };
 
                 context.ShortAnswers.AddOrUpdate(shortAnswer);
-
-                saveDb(context);
 
                 var radioAnswer = new ApplicationMultiAnswer
                 {
@@ -1030,6 +982,7 @@ namespace AES.ApplicationSvc.Tests
                 };
 
                 context.MultiAnswers.AddOrUpdate(radioAnswer, checkAnswer);
+                */
 
                 saveDb(context);
             }
