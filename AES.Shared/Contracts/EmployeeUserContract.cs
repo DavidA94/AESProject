@@ -18,5 +18,8 @@ namespace AES.Shared.Contracts
 
         [DataMember]
         public string LastName { get; set; }
+
+        [DataMember]
+        public UserInfoContract UserInfo { get; set; }
     }
 }

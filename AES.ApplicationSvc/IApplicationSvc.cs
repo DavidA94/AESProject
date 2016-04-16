@@ -1,4 +1,5 @@
-﻿using AES.Shared;
+﻿using AES.ApplicationSvc.Contracts;
+using AES.Shared;
 using AES.Shared.Contracts;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace AES.ApplicationSvc
         bool CancelApplication(ApplicationInfoContract app);
 
         [OperationContract]
-        List<ApplicantInfoContract> GetApplicantsAwaitingCalls();
+        List<ApplicantInfoContract> GetApplicantsAwaitingCalls(TimeSpan currentTime);
 
         [OperationContract]
         List<ApplicantInfoContract> GetApplicantsAwaitingInterview(int storeID);
@@ -45,7 +46,7 @@ namespace AES.ApplicationSvc
 
         [OperationContract]
 
-        bool SavePhoneInterview(ApplicationInfoContract application, bool approved);
+        bool SavePhoneInterview(int applicantID, string notes, bool approved);
 
         [OperationContract]
         bool SubmitApplication(ApplicantInfoContract user);

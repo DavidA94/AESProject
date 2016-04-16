@@ -31,5 +31,7 @@ namespace AES.Entities.Tables
         [Required]
         [StringLength(50)]
         public string LastName { get; set; }
+
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

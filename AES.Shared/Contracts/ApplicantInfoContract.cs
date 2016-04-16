@@ -40,8 +40,8 @@ namespace AES.Shared.Contracts
         [DataMember]
         public UserInfoContract UserInfo { get; set; }
 
-        [DataMember]
-        public List<ApplicationInfoContract> Applications { get; set; }
+        //[DataMember]
+        //public List<ApplicationInfoContract> Applications { get; set; }
 
         [DataMember]
         public AvailabilityContract Availability { get; set; }

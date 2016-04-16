@@ -1,10 +1,15 @@
-﻿using AES.Entities.Contexts;
+﻿using AES.ApplicationSvc.Contracts;
+using AES.Entities.Contexts;
 using AES.Entities.Tables;
 using AES.Shared;
 using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -16,9 +21,23 @@ namespace AES.ApplicationSvc.Tests
         public ApplicationSvcUnitTests()
         {
             DBFileManager.SetDataDirectory(true);
+
+            var random = new Random(Guid.NewGuid().GetHashCode());
+
+            var firstSectionSSN = random.Next(100, 999);
+            var secondSectionSSN = random.Next(10, 99);
+            var lastSectionSSN = random.Next(1000, 9999);
+
+            var SSNString = firstSectionSSN.ToString() + "-" + secondSectionSSN.ToString() + "-" + lastSectionSSN.ToString();
+
+            var SSN = Encryption.Encrypt(SSNString);
+
+            SetScreeningData();
+            set_SSN = SSN;
         }
 
         private static bool hasSaveRun = false;
+        private static string set_SSN;
 
         [TestMethod]
         public void TC10_SavePartialApplication()
@@ -203,18 +222,9 @@ namespace AES.ApplicationSvc.Tests
             }
         }
 
-        [TestMethod]
-        public void TC_GetApplicantsAwaitingScreening()
-        {
-            
+        
 
-            var applicationService = new ApplicationSvc();
-
-            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls();
-
-            Assert.IsFalse(true); // delete when test done
-
-        }
+        
 
         private ApplicationInfoContract PartialApp1()
         {
@@ -484,5 +494,522 @@ namespace AES.ApplicationSvc.Tests
 
             return app;
         }
+
+        [TestMethod]
+        public void TC_GetApplicantsAwaitingScreening()
+        {
+            clearDb();
+
+            var applicationService = new ApplicationSvc();
+
+            SetupValidWaitingCallApp();
+
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
+            var foundTestApplicant = false;
+            foreach (var applicant in applicantsAwaitingCalls)
+            {
+                if (applicant.FirstName == "Robert" && applicant.LastName == "Millerson")
+                {
+                    foundTestApplicant = true;
+                    break;
+                }
+            }
+
+            Assert.IsTrue(foundTestApplicant);
+
+            var applicantsAwaitingCallsTooEarly = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(5, 30, 0));
+            foundTestApplicant = false;
+
+            foreach (var applicant in applicantsAwaitingCallsTooEarly)
+            {
+                if (applicant.FirstName == "Robert" && applicant.LastName == "Millerson")
+                {
+                    foundTestApplicant = true;
+                    break;
+                }
+            }
+
+            Assert.IsFalse(foundTestApplicant);
+
+            var applicantsAwaitingCallsTooLate = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(11, 30, 0));
+            foundTestApplicant = false;
+
+            foreach (var applicant in applicantsAwaitingCallsTooLate)
+            {
+                if (applicant.FirstName == "Robert" && applicant.LastName == "Millerson")
+                {
+                    foundTestApplicant = true;
+                    break;
+                }
+            }
+
+            Assert.IsFalse(foundTestApplicant);
+
+        }
+
+        [TestMethod]
+        public void TC_CallApplicant()
+        {
+            clearDb();
+
+            var applicationService = new ApplicationSvc();
+
+            SetupValidWaitingCallApp();
+
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
+
+            ApplicantInfoContract applicant = applicantsAwaitingCalls[0];
+
+            Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.IN_CALL).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.CallApplicant((int)applicant.UserID));
+
+            Assert.IsTrue(applicationService.ApplicantDidNotAnswer((int)applicant.UserID));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.WAITING_CALL).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.ApplicantDidNotAnswer((int)applicant.UserID));
+        }
+
+        [TestMethod]
+        public void TC_DenyApplicant()
+        {
+            clearDb();
+
+            var testNotes = "Failure";
+
+            var applicationService = new ApplicationSvc();
+
+            SetupValidWaitingCallApp();
+
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
+
+            ApplicantInfoContract applicant = applicantsAwaitingCalls[0];
+
+            Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
+
+            Assert.IsTrue(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.CALL_DENIED).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.CALL_DENIED).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.CALL_DENIED).Count(), 1);
+            }
+        }
+
+        [TestMethod]
+        public void TC_ApproveApplicant()
+        {
+            clearDb();
+
+            var testNotes = "Test Notes 123";
+
+            var applicationService = new ApplicationSvc();
+
+            SetupValidWaitingCallApp();
+
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
+
+            ApplicantInfoContract applicant = applicantsAwaitingCalls[0];
+
+            Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
+
+            Assert.IsTrue(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW && a.ScreeningNotes == testNotes).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW).Count(), 1);
+            }
+
+            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
+
+            using (var db = new AESDbContext())
+            {
+                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW).Count(), 1);
+            }
+
+        }
+
+        private void clearDb()
+        {
+            /*using (var context = new AESDbContext())
+            {
+                context.Applications.RemoveRange(context.Applications);
+                context.ApplicantUsers.RemoveRange(context.ApplicantUsers);
+                context.Questions.RemoveRange(context.Questions);
+                context.Jobs.RemoveRange(context.Jobs);
+                context.JobOpenings.RemoveRange(context.JobOpenings);
+                context.UserInfo.RemoveRange(context.UserInfo);
+                context.Stores.RemoveRange(context.Stores);
+                context.Availabilities.RemoveRange(context.Availabilities);
+                context.EducationHistories.RemoveRange(context.EducationHistories);
+                context.MultiAnswers.RemoveRange(context.MultiAnswers);
+                context.ShortAnswers.RemoveRange(context.ShortAnswers);
+                context.JobHistories.RemoveRange(context.JobHistories);
+                context.References.RemoveRange(context.References);
+                context.EmployeeUsers.RemoveRange(context.EmployeeUsers);
+                context.SaveChanges();
+            }*/
+        }
+
+        private void SetupValidWaitingCallApp()
+        {
+            using (var db = new AESDbContext())
+            {
+                foreach (var applications in db.ApplicantUsers.Where(a => a.SSN == set_SSN).Select(a => a.Applications).ToList())
+                {
+                    foreach (var app in applications)
+                    {
+                        app.ScreeningNotes = null;
+                        app.Status = AppStatus.WAITING_CALL;
+                    }
+                }
+            }
+        }
+
+        private int saveDb(AESDbContext context)
+        {
+            int changes = 0;
+
+            try
+            {
+                // Try to save the changes
+                changes = context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            catch (DbUpdateException e1)
+            {
+                Debug.WriteLine(e1.InnerException.ToString());
+                throw;
+            }
+
+            return changes;
+        }
+
+        private void SetScreeningData()
+        {
+            using (var context = new AESDbContext())
+            {
+                string SSN = Encryption.Encrypt("123-45-6798");
+
+                if (context.ApplicantUsers.FirstOrDefault(a => a.SSN == SSN) != null)
+                {
+                    return;
+                }
+
+                var store1 = new Store
+                {
+                    Address = "8000 SW Store1 St.",
+                    City = "Store1Town",
+                    State = "OR",
+                    Name = "AES Electronics Store1",
+                    Phone = "503-555-1111",
+                    Zip = 97219
+                };
+
+                var store2 = new Store
+                {
+                    Address = "2700 SW Store2 Rd.",
+                    City = "Store2Town",
+                    State = "OR",
+                    Name = "AES Electronics Store2",
+                    Phone = "503-656-6565",
+                    Zip = 97062
+                };
+
+                var testJob1 = new Job
+                {
+                    title = "Test Job 1",
+                    descShort = "Test Job 1 Short Desc",
+                    descLong = "Test Job 1 Long Desc"
+                };
+
+                var testJob2 = new Job
+                {
+                    title = "Test Job 2",
+                    descShort = "Test Job 2 Short Desc",
+                    descLong = "Test Job 2 Long Desc"
+                };
+
+                context.Stores.AddOrUpdate(
+                    store1,
+                    store2
+                );
+
+                saveDb(context);
+
+                context.Jobs.AddOrUpdate(
+                    testJob1,
+                    testJob2
+                );
+
+                saveDb(context);
+
+                var store2TestJob1Opening = new JobOpening
+                {
+                    Job = testJob1
+                };
+
+                store2TestJob1Opening.Store = store2;
+
+                var store1TestJob1Opening = new JobOpening
+                {
+                    Job = testJob1
+                };
+                store1TestJob1Opening.Store = store1;
+
+                var store2TestJob2Opening = new JobOpening
+                {
+                    Job = testJob2
+                };
+                store2TestJob2Opening.Store = store2;
+
+                var store1TestJob2Opening = new JobOpening
+                {
+                    Job = testJob2
+                };
+                store1TestJob2Opening.Store = store1;
+
+                context.JobOpenings.AddOrUpdate(
+                    store2TestJob1Opening,
+                    store1TestJob1Opening,
+                    store2TestJob2Opening,
+                    store1TestJob2Opening
+                );
+
+                saveDb(context);
+
+                var userInfo = new UserInfo()
+                {
+                    CallEndTime = new TimeSpan(10, 0, 0),
+                    CallStartTime = new TimeSpan(6, 0, 0),
+                    State = "OR",
+                    Address = "103 SW Dirt Ln.",
+                    City = "Tygh Valley",
+                    Phone = "503-555-2345",
+                    Nickname = "Bob",
+                    SalaryExpectation = 7.5M,
+                    Zip = 97063
+                };
+
+                context.UserInfo.AddOrUpdate(userInfo);
+
+                saveDb(context);
+
+                var availability = new Availability
+                {
+                    MondayStart = new TimeSpan(7, 0, 0),
+                    MondayEnd = new TimeSpan(20, 0, 0),
+                    TuesdayStart = new TimeSpan(7, 0, 0),
+                    TuesdayEnd = new TimeSpan(20, 0, 0),
+                    WednesdayStart = new TimeSpan(7, 0, 0),
+                    WednesdayEnd = new TimeSpan(20, 0, 0),
+                    ThursdayStart = new TimeSpan(7, 0, 0),
+                    ThursdayEnd = new TimeSpan(20, 0, 0),
+                    FridayStart = new TimeSpan(7, 0, 0),
+                    FridayEnd = new TimeSpan(20, 0, 0)
+                };
+
+                context.Availabilities.AddOrUpdate(availability);
+
+                saveDb(context);
+
+                var applicantUser = new ApplicantUser()
+                {
+                    UserInfo = userInfo,
+                    Availability = availability,
+                    DOB = new DateTime(1988, 4, 20),
+                    FirstName = "Robert",
+                    LastName = "Millerson",
+                    SSN = SSN
+                };
+
+                context.ApplicantUsers.AddOrUpdate(applicantUser);
+
+                saveDb(context);
+
+                var reference = new Reference
+                {
+                    Applicant = applicantUser,
+                    Company = "Applebee's",
+                    Name = "Albert Barley",
+                    Phone = "503-444-9999",
+                    Title = "Shift Leader"
+                };
+
+                context.References.AddOrUpdate(reference);
+
+                saveDb(context);
+
+                var employmentHistory = new JobHistory()
+                {
+                    Applicant = applicantUser,
+                    EmployerAddress = "2345 Apple Ave.",
+                    EmployerCity = "Wilsonville",
+                    EmployerCountry = "USA",
+                    EmployerName = "Chicken Grill",
+                    EmployerPhone = "503-333-2233",
+                    EmployerState = "OR",
+                    EmployerZip = 98123,
+                    EndDate = new DateTime(2015, 10, 7),
+                    EndingSalary = 8.5M,
+                    StartDate = new DateTime(2010, 2, 15),
+                    StartingSalary = 6,
+                    SupervisorName = "Steven Stevens",
+                    Responsibilities = "Grillmaster",
+                    ReasonForLeaving = "Became Vegan"
+                };
+
+                context.JobHistories.AddOrUpdate(employmentHistory);
+
+                saveDb(context);
+
+                var educationHistory = new EducationHistory()
+                {
+                    Applicant = applicantUser,
+                    Degree = DegreeType.HS_DIPLOMA,
+                    GraduationDate = new DateTime(2009, 5, 26),
+                    Major = "General Studies",
+                    SchoolAddress = "2 School Ln.",
+                    SchoolCity = "Tygh Valley",
+                    SchoolCountry = "USA",
+                    SchoolName = "Tygh High",
+                    SchoolState = "OR",
+                    SchoolZip = 96423,
+                    YearsAttended = 4
+                };
+
+                context.EducationHistories.AddOrUpdate(educationHistory);
+
+                saveDb(context);
+
+                var shortQuestion = new JobQuestion()
+                {
+                    Type = QuestionType.SHORT,
+                    Text = "Do you have anything to declare?"
+                };
+                shortQuestion.Jobs.Add(testJob1);
+
+                context.Questions.AddOrUpdate(shortQuestion);
+
+                saveDb(context);
+
+                var radioQuestion = new JobQuestion()
+                {
+                    Type = QuestionType.RADIO,
+                    Text = "Can you read?",
+                    Option1 = "What?",
+                    Option2 = "Yes",
+                    CorrectAnswerThreshold = 1,
+                    CorrectAnswers = "2"
+                };
+                radioQuestion.Jobs.Add(testJob1);
+
+                context.Questions.AddOrUpdate(radioQuestion);
+
+                saveDb(context);
+
+                var checkQuestion = new JobQuestion()
+                {
+                    Type = QuestionType.CHECKBOX,
+                    Text = "Check all items labeled \"Not Test\" ",
+                    Option1 = "Test",
+                    Option2 = "Not Test",
+                    Option3 = "Test",
+                    Option4 = "Not Test",
+                    CorrectAnswerThreshold = 1,
+                    CorrectAnswers = "24"
+                };
+                checkQuestion.Jobs.Add(testJob1);
+
+                context.Questions.AddOrUpdate(checkQuestion);
+
+                saveDb(context);
+
+                var application = new Application()
+                {
+                    Status = AppStatus.WAITING_CALL,
+                    Applicant = applicantUser,
+                    Job = testJob1,
+                    Timestamp = new DateTime(2016, 4, 15)
+                };
+
+                context.Applications.AddOrUpdate(application);
+
+                saveDb(context);
+
+                var shortAnswer = new ApplicationShortAnswer
+                {
+                    Answer = "I don't think so",
+                    Question = shortQuestion
+                };
+
+                context.ShortAnswers.AddOrUpdate(shortAnswer);
+
+                saveDb(context);
+
+                var radioAnswer = new ApplicationMultiAnswer
+                {
+                    Question = radioQuestion,
+                    Answer1 = false,
+                    Answer2 = true
+                };
+
+                var checkAnswer = new ApplicationMultiAnswer
+                {
+                    Question = checkQuestion,
+                    Answer1 = false,
+                    Answer2 = true,
+                    Answer3 = false,
+                    Answer4 = true
+                };
+
+                context.MultiAnswers.AddOrUpdate(radioAnswer, checkAnswer);
+
+                saveDb(context);
+            }
+        }
+
     }
 }

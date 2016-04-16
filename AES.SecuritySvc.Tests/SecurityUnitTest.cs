@@ -194,6 +194,8 @@ namespace AES.SecuritySvc.Tests
                 Role = randomRole
             };
 
+            newValidEmployee.UserInfo = new UserInfoContract();
+
             return newValidEmployee;
         }
 

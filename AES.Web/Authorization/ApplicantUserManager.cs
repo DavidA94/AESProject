@@ -68,7 +68,7 @@ namespace AES.Web.Authorization
             try {
                 return Convert.ToInt32(((ClaimsIdentity)HttpContext.Current.User.Identity).Claims.First(id => id.Type == ClaimTypes.NameIdentifier).Value);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return -1;
             }

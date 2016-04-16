@@ -128,6 +128,17 @@ namespace AES.SecuritySvc
                 Role = employeeInfo.Role
             };
 
+            newEmployeeUser.UserInfo = new UserInfo()
+            {
+                Address = employeeInfo.UserInfo.Address,
+                City = employeeInfo.UserInfo.City,
+                Nickname = employeeInfo.UserInfo.Nickname,
+                Phone = employeeInfo.UserInfo.Phone,
+                State = employeeInfo.UserInfo.State,
+                Zip = employeeInfo.UserInfo.Zip
+            };
+
+
             var salt = GetSalt();
             var passwordHash = ComputeHash(password, new SHA256CryptoServiceProvider(), salt);
 
@@ -225,6 +236,16 @@ namespace AES.SecuritySvc
                 Role = user.Role,
                 FirstName = user.FirstName,
                 LastName = user.LastName
+            };
+
+            contract.UserInfo = new UserInfoContract()
+            {
+                Address = user.UserInfo.Address,
+                City = user.UserInfo.City,
+                Nickname = user.UserInfo.Nickname,
+                Phone = user.UserInfo.Phone,
+                State = user.UserInfo.State,
+                Zip = user.UserInfo.Zip
             };
 
             return contract;
