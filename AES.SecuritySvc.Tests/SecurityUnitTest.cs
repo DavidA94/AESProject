@@ -5,6 +5,7 @@ using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace AES.SecuritySvc.Tests
 {
@@ -108,6 +109,63 @@ namespace AES.SecuritySvc.Tests
                 Assert.IsNull(badFName);
                 Assert.IsNull(badLName);
                 Assert.IsNull(badSSN);
+            }
+        }
+
+        [TestMethod]
+        public void TC_CreateEmployee()
+        {
+            //db.Stores.AddOrUpdate(TestStore1);
+
+            using (var db = new AESDbContext())
+            {
+                var s = new SecuritySvc();
+                string blankPass = "";
+                string nullPass = null;
+
+                var CryptRandom = new RNGCryptoServiceProvider();
+                var intRandom = new Random(Guid.NewGuid().GetHashCode());
+
+                byte[] randomBytes;
+
+                var invalidPassEmployee = new EmployeeUserContract()
+                {
+                    FirstName = "Random",
+                    LastName = "Davis",
+                    Email = "random.davis@gmail.com",
+                    Role = EmployeeRole.StoreManager
+                };
+
+                for (int i = 0; i < 20; i++)
+                {
+                    randomBytes = new byte[intRandom.Next(1, 30)];
+                    CryptRandom.GetNonZeroBytes(randomBytes);
+                    string normalPass = Convert.ToBase64String(randomBytes);
+                    var newValidEmployee = new EmployeeUserContract()
+                    {
+                        FirstName = "TestFirst",
+                        LastName = "TestLast",
+                        Role = EmployeeRole.HqQStaffingExpert
+                    };
+                    newValidEmployee.UserInfo = new UserInfoContract();
+                    randomBytes = new byte[intRandom.Next(1, 30)];
+                    CryptRandom.GetNonZeroBytes(randomBytes);
+                    newValidEmployee.Email = Convert.ToBase64String(randomBytes) + "@gmail.com";
+                    Assert.IsTrue(s.CreateEmployee(newValidEmployee, normalPass));
+                    var credentials = new EmployeeCredentialsContract() { Email = newValidEmployee.Email, Password = normalPass };
+                    var gottenEmployee = s.ValidateEmployeeUser(credentials);
+                    Assert.IsNotNull(gottenEmployee);
+                    Assert.AreEqual(gottenEmployee.FirstName, newValidEmployee.FirstName);
+                    Assert.AreEqual(gottenEmployee.LastName, newValidEmployee.LastName);
+                    Assert.AreEqual(gottenEmployee.Email, newValidEmployee.Email);
+                    Assert.AreEqual(gottenEmployee.Role, newValidEmployee.Role);
+                }
+
+                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, blankPass));
+                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, nullPass));
+
+                invalidPassEmployee.Email = "a@a.a";
+                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, nullPass));
             }
         }
 

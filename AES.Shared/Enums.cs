@@ -88,4 +88,12 @@ namespace AES.Shared
     };
 
     public enum AppSvcResponse { GOOD, BAD_USER, BAD_JOB, BAD_QUESTION, ERROR };
+
+    public enum EmployeeRole
+    {
+        HiringManager,
+        HqQStaffingExpert,
+        HqHiringSpecialist,
+        StoreManager
+    }
 }
