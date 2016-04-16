@@ -174,48 +174,6 @@ namespace AES.ApplicationSvc
             throw new NotImplementedException();
         }
 
-        private bool SetApplicationStatus(int applicantID, AppStatus expectedStatus, AppStatus setStatus)
-        {
-            using (var db = new AESDbContext())
-            {
-                var changes = 0;
-
-                foreach (var app in db.Applications.Where(a => a.Applicant.userID == applicantID && a.Status == expectedStatus))
-                {
-                    //app.Applicant = db.ApplicantUsers.Where(a => a.userID == applicantID).FirstOrDefault();
-                    app.Status = setStatus;
-                }
-
-                try
-                {
-                    // Try to save the changes
-                    changes = db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
-                }
-
-                if (changes == 1)
-                {
-                    return true;
-                }
-
-                // Changes could not be saved
-                return false;
-            }
-        }
-
         public AppSvcResponse SavePartialApplication(ApplicationInfoContract app)
         {
             using (var db = new AESDbContext())
@@ -480,6 +438,48 @@ namespace AES.ApplicationSvc
             }
 
             return true;
+        }
+
+        private bool SetApplicationStatus(int applicantID, AppStatus expectedStatus, AppStatus setStatus)
+        {
+            using (var db = new AESDbContext())
+            {
+                var changes = 0;
+
+                foreach (var app in db.Applications.Where(a => a.Applicant.userID == applicantID && a.Status == expectedStatus))
+                {
+                    //app.Applicant = db.ApplicantUsers.Where(a => a.userID == applicantID).FirstOrDefault();
+                    app.Status = setStatus;
+                }
+
+                try
+                {
+                    // Try to save the changes
+                    changes = db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
+
+                if (changes == 1)
+                {
+                    return true;
+                }
+
+                // Changes could not be saved
+                return false;
+            }
         }
 
         private AppStatus analyzeApp(Application app, AESDbContext db)
