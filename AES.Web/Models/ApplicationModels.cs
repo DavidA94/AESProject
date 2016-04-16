@@ -487,5 +487,4 @@ namespace AES.Web.Models
             info.QA = QAs.ToArray();
         }
     }
-
 }

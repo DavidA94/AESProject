@@ -26,19 +26,53 @@ namespace AES.Web.Controllers
             //    UserID = userID
             //});
         }
-           
-        public HiringSpecialistModel FillHSData()
+        
+        // Hardcoded HiringSpecialistViewModel
+        public List<HiringSpecialistModel> FillHSData()
         {
-            HiringSpecialistModel tempHSData = new HiringSpecialistModel();
+            return new List<HiringSpecialistModel>()
+            {
+                new HiringSpecialistModel()
+                {
+                    ETA = new TimeSpan(12,12,12),
+                    FirstName = "John",
+                    LastName = "Smith",
+                },
 
-            tempHSData.FirstName = "Awesome";
-            tempHSData.LastName = "Fun";
-
-            tempHSData.ETA = new TimeSpan(12,12,12);
-
-            return tempHSData;
+                new HiringSpecialistModel()
+                {
+                    ETA = new TimeSpan(11,11,11),
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                }
+            };
         }
             
+        //List<ApplicantInfoContract> testList = new List<ApplicantInfoContract>();
+
+        //testList.Add(new ApplicantInfoContract()
+        //{
+
+        //    UserInfo = new UserInfoContract()
+        //    {
+        //        Nickname = "John Smith";
+        //        EndCallTime = new TimeSpan(12,12,12); 
+        //    }
+        //});
+
+        //List<ApplicantInfoModel> models = new List<ApplicantInfoModel>();
+
+        //foreach (var applicant in testList)
+        //{
+        //    models.Add(new ApplicantInfoModel()
+        //    {
+        //        FirstName = applicant.FirstName,
+        //        LastName = applicant.FirstName,
+        //        ETA = yadadadad
+        //    }
+        //    );
+        //}
+
         public ActionResult CallPage()
         {
             return View();

@@ -22,6 +22,7 @@ namespace AES.Web.Models
         [DataType(DataType.Time)]
         public TimeSpan ETA { get; set; }
 
-
+        [Display(Name = "Applicant ID")]
+        public int ApplicantID { get; set; }
     }
 }

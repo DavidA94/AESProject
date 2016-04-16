@@ -182,6 +182,7 @@
     <Compile Include="Controllers\ApplicantLoginController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\EmployeeLoginController.cs" />
+    <Compile Include="Controllers\FullApplicationController.cs" />
     <Compile Include="Controllers\HiringSpecialistController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobOpeningsController.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Models\ApplicantLoginModel.cs" />
     <Compile Include="Models\ApplicationModels.cs" />
     <Compile Include="Models\EmployeeLoginModel.cs" />
+    <Compile Include="Models\FullApplicationModel.cs" />
     <Compile Include="Models\HiringSpecialistModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobOpeningsModel.cs" />
@@ -410,6 +412,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\FullApplication\" />
     <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
