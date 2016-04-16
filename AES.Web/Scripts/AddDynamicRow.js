@@ -19,6 +19,9 @@ $("#enumForm").submit(function (event) {
         var elems = items[i].getElementsByTagName("*");
         for (var j = 0; j < elems.length; ++j) {
             if (elems[j].hasAttribute("name")) {
+                if (elems[j].type.toLowerCase() == "radio") {
+                    elems[j].name = elems[j].name.replace(/\[\d+\]/, "");
+                }
                 elems[j].name = "[" + i + "]." + elems[j].name;
             }
         }

@@ -321,11 +321,22 @@ namespace AES.ApplicationSvc
                                 }
                                 break;
                             case QuestionType.SHORT:
-                                application.ShortAnswers.Add(new ApplicationShortAnswer()
+                                // Get the last answer
+                                var sAnswer = application.ShortAnswers.FirstOrDefault(a => a.Question == dbQ);
+
+                                // If it already had an answer, update it
+                                if (sAnswer != null)
                                 {
-                                    Answer = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).ShortAnswer,
-                                    Question = dbQ
-                                });
+                                    sAnswer.Answer = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).ShortAnswer;
+                                }
+                                // Otherwise, add it
+                                else {
+                                    application.ShortAnswers.Add(new ApplicationShortAnswer()
+                                    {
+                                        Answer = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).ShortAnswer,
+                                        Question = dbQ
+                                    });
+                                }
                                 break;
                         }
                     }
@@ -489,7 +500,7 @@ namespace AES.ApplicationSvc
             foreach (var q in app.MultiAnswers)
             {
                 // Get the question from the database
-                var dbQuestion = db.Questions.FirstOrDefault(qa => qa.ID == q.ID);
+                var dbQuestion = db.Questions.FirstOrDefault(qa => qa.ID == q.Question.ID);
 
                 // If we can't find the question, reject the application
                 if (dbQuestion == null)
@@ -508,7 +519,10 @@ namespace AES.ApplicationSvc
                 if (q.Answer4 && dbQuestion.CorrectAnswers.Contains("4")) ++amtRight;
 
                 // If we didn't get enough, reject the application
-                return AppStatus.AUTO_REJECT;
+                if (amtRight < neededRight)
+                {
+                    return AppStatus.AUTO_REJECT;
+                }
             }
 
             // If we make it this far, move the application to the next stage

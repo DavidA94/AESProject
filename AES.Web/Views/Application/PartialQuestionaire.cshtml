@@ -24,7 +24,14 @@
                     @if (Model.Type == QuestionType.RADIO)
                     {
                         id = "i" + Model.QuestionID.ToString() + i.ToString();
-                        @Html.RadioButtonFor(m => m.RadioOption[Model.QuestionID], Model.Options[i], new { @id = @id })
+                        if (Model.RadioOption == id)
+                        {
+                            @Html.RadioButtonFor(m => m.RadioOption[Model.QuestionID], @id, new { @id = @id, @checked="checked" })
+                        }
+                        else
+                        {
+                            @Html.RadioButtonFor(m => m.RadioOption[Model.QuestionID], @id, new { @id = @id })
+                        }
                         <label for="@id">@Model.Options[i]</label>
                     }
                     else

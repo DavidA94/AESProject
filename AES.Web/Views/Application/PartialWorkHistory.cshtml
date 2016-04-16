@@ -6,63 +6,60 @@
         <a href="#" class="deleteGroup" onclick="deleteEnumItem(event)">Delete</a>
     </div>
 
+    @* Employer's Name *@
     <div class="form-group">
-        @* Employer's Name *@
-        @Html.LabelFor(m => m.Employer, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.EmployerName, new { @class = "col-md-2 control-label" })
         <div class="col-md-3">
-            @Html.TextBoxFor(m => m.Employer, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Employer, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.EmployerName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.EmployerName, "", new { @class = "text-danger" })
         </div>
     </div>
 
+    @* Supervisor and Phone *@
     <div class="form-group">
-        @* Supervisor *@
-        @Html.LabelFor(m => m.Supervisor, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SupervisorName, new { @class = "col-md-2 control-label" })
         <div class="col-md-3">
-            @Html.TextBoxFor(m => m.Supervisor, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Supervisor, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.SupervisorName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SupervisorName, "", new { @class = "text-danger" })
         </div>
         @* Phone *@
-        @Html.LabelFor(m => m.Phone, new { @class = "col-md-1 control-label" })
+        @Html.LabelFor(m => m.EmployerPhone, new { @class = "col-md-1 control-label" })
         <div class="col-md-2">
-            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.EmployerPhone, new { @class = "form-control" })
         </div>
     </div>
 
+    @* Employer's Address *@
     <div class="form-group">
-        @* Employer's Address *@
-        @* Street *@
-        @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.EmployerAddress, new { @class = "col-md-2 control-label" })
         <div class="col-md-5">
-            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.EmployerAddress, new { @class = "form-control" })
         </div>
     </div>
 
+    @* City, State, ZIP *@
     <div class="form-group">
         @* City *@
-        @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.EmployerCity, new { @class = "col-md-2 control-label" })
         <div class="col-md-3">
-            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.EmployerCity, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.EmployerCity, "", new { @class = "text-danger" })
         </div>
         @* State *@
-        @Html.LabelFor(m => m.State, new { @class = "col-md-1 control-label" })
+        @Html.LabelFor(m => m.EmployerState, new { @class = "col-md-1 control-label" })
         <div class="col-md-1">
-            @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.EmployerState, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.EmployerState, "", new { @class = "text-danger" })
         </div>
         @* Zip *@
-        @Html.LabelFor(m => m.Zip, new { @class = "col-md-1 control-label" })
+        @Html.LabelFor(m => m.EmployerZip, new { @class = "col-md-1 control-label" })
         <div class="col-md-1">
-            @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Zip, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.EmployerZip, new { @class = "form-control" })
         </div>
     </div>
 
+    @* Country *@
     <div class="form-group">
-        @* Country *@
         @Html.LabelFor(m => m.EmployerCountry, new { @class = "col-md-2 control-label" })
         <div class="col-md-5">
             @Html.TextBoxFor(m => m.EmployerCountry, new { @class = "form-control" })
@@ -70,8 +67,8 @@
         </div>
     </div>
 
+    @* Reason for Leaving *@
     <div class="form-group">
-        @* Reason for Leaving *@
         @Html.LabelFor(m => m.ReasonForLeaving, new { @class = "col-md-2 control-label" })
         <div class="col-md-5">
             @Html.TextBoxFor(m => m.ReasonForLeaving, new { @class = "form-control" })
@@ -79,8 +76,8 @@
         </div>
     </div>
 
+    @* Responsibilities *@
     <div class="form-group">
-        @* Responsibilities *@
         @Html.LabelFor(m => m.Responsibilities, new { @class = "col-md-2 control-label" })
         <div class="col-md-6">
             @Html.TextAreaFor(m => m.Responsibilities, new { @class = "form-control" })
@@ -88,6 +85,7 @@
         </div>
     </div>
 
+    @* Start/End Date *@
     <div class="form-group">
         <div>
             @Html.ValidationMessageFor(m => m.WorkedFrom, "", new { @class = "text-danger" })
@@ -106,11 +104,8 @@
         </div>
     </div>
 
+    @* Start/End Salary *@
     <div class="form-group">
-        <div>
-            @Html.ValidationMessageFor(m => m.StartingSalary, "", new { @class = "text-danger" })
-            @Html.ValidationMessageFor(m => m.EndingSalary, "", new { @class = "text-danger" })
-        </div>
         @* Starting Salary *@
         @Html.LabelFor(m => m.StartingSalary, new { @class = "col-md-2 control-label" })
         <div class="col-md-2">

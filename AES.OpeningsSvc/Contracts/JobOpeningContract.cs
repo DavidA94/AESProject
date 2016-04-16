@@ -10,7 +10,7 @@ namespace AES.OpeningsSvc.Contracts
 
         public JobOpeningContract(JobOpening opening)
         {
-            ID = opening.ID;
+            ID = opening.Job.ID;
             shortDesc = opening.Job.descShort;
             longDesc = opening.Job.descLong;
             title = opening.Job.title;

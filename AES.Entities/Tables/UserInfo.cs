@@ -19,18 +19,23 @@ namespace AES.Entities.Tables
         [StringLength(25)]
         public string Nickname { get; set; }
 
+        // [Required] Should be, but will mess up creating a new user -- Force in front end
         [StringLength(50)]
         public string Address { get; set; }
 
+        // [Required] Should be, but will mess up creating a new user -- Force in front end
         [StringLength(30)]
         public string City { get; set; }
 
+        // [Required] Should be, but will mess up creating a new user -- Force in front end
         [StringLength(2)]
         public string State { get; set; }
 
+        // [Required] Should be, but will mess up creating a new user -- Force in front end
         [Range(0, 99999)]
         public int Zip { get; set; }
 
+        // [Required] Should be, but will mess up creating a new user -- Force in front end
         [RegularExpression(@"\d{3}-\d{3}-\d{4}")]
         public string Phone { get; set; }
 

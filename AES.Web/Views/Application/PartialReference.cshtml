@@ -6,11 +6,12 @@
         <a href="#" class="deleteGroup padLeft" onclick="deleteEnumItem(event)">Delete</a>
     </div>
 
+    @* Name and Phone *@
     <div class="form-group">
         @* Reference Name *@
-        @Html.LabelFor(m => m.ReferenceName, new { @class = "col-md-1 control-label" })
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-1 control-label" })
         <div class="col-md-3">
-            @Html.TextBoxFor(m => m.ReferenceName, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
         </div>
 
         @* Phone Number *@
@@ -20,11 +21,12 @@
         </div>
 
         <div>
-            @Html.ValidationMessageFor(m => m.ReferenceName, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
             @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
         </div>
     </div>
 
+    @* Company and Title *@
     <div class="form-group">
         @* Company *@
         @Html.LabelFor(m => m.Company, new { @class = "col-md-1 control-label" })
@@ -36,11 +38,6 @@
         @Html.LabelFor(m => m.Title, new { @class = "col-md-1 control-label" })
         <div class="col-md-2">
             @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-        </div>
-
-        <div>
-            @Html.ValidationMessageFor(m => m.Company, "", new { @class = "text-danger" })
-            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
         </div>
     </div>
 </div>

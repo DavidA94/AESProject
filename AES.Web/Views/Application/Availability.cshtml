@@ -15,6 +15,8 @@
                 <h4>When are you available to work?</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                
+                // Sunday
                 <div class="form-group">
                     <div>
                         @Html.ValidationMessageFor(m => m.SundayStart, "", new { @class = "text-danger" })
@@ -32,6 +34,7 @@
                     </div>
                 </div>
 
+                // Monday
                 <div class="form-group">
                     <div>
                         @Html.ValidationMessageFor(m => m.MondayStart, "", new { @class = "text-danger" })
@@ -49,6 +52,7 @@
                     </div>
                 </div>
 
+                // Tuesday
                 <div class="form-group">
                     <div>
                         @Html.ValidationMessageFor(m => m.TuesdayStart, "", new { @class = "text-danger" })
@@ -66,6 +70,7 @@
                     </div>
                 </div>
 
+                // Wednesday
                 <div class="form-group">
                     <div>
                         @Html.ValidationMessageFor(m => m.WednesdayStart, "", new { @class = "text-danger" })
@@ -83,6 +88,7 @@
                     </div>
                 </div>
 
+                // Thursday
                 <div class="form-group">
                     <div>
                         @Html.ValidationMessageFor(m => m.ThursdayStart, "", new { @class = "text-danger" })
@@ -100,6 +106,7 @@
                     </div>
                 </div>
 
+                // Friday
                 <div class="form-group">
                     <div>
                         @Html.ValidationMessageFor(m => m.FridayStart, "", new { @class = "text-danger" })
@@ -117,6 +124,7 @@
                     </div>
                 </div>
 
+                // Saturday
                 <div class="form-group">
                     <div>
                         @Html.ValidationMessageFor(m => m.SaturdayStart, "", new { @class = "text-danger" })
