@@ -102,7 +102,7 @@ namespace AES.SecuritySvc
                 {
                     var passHash = ComputeHash(credentials.Password, new SHA256CryptoServiceProvider(), dbUser.Salt);
 
-                    if (passHash == dbUser.PasswordHash)
+                    if (passHash.SequenceEqual(dbUser.PasswordHash))
                     {
                         return MakeEmployeeUserContract(dbUser);
                     }

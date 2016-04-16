@@ -1,5 +1,4 @@
-﻿using AES.ApplicationSvc.Contracts;
-using AES.Entities.Contexts;
+﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
 using AES.Shared;
 using AES.Shared.Contracts;
@@ -202,6 +201,19 @@ namespace AES.ApplicationSvc.Tests
                 Assert.IsTrue((status1 == AppStatus.WAITING_CALL && status2 == AppStatus.AUTO_REJECT) ||
                               (status2 == AppStatus.WAITING_CALL && status1 == AppStatus.AUTO_REJECT));
             }
+        }
+
+        [TestMethod]
+        public void TC_GetApplicantsAwaitingScreening()
+        {
+            
+
+            var applicationService = new ApplicationSvc();
+
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls();
+
+            Assert.IsFalse(true); // delete when test done
+
         }
 
         private ApplicationInfoContract PartialApp1()

@@ -1,5 +1,4 @@
-﻿using AES.ApplicationSvc.Contracts;
-using AES.Entities.Contexts;
+﻿using AES.Entities.Contexts;
 using AES.Entities.Tables;
 using AES.Shared;
 using AES.Shared.Contracts;
@@ -32,7 +31,8 @@ namespace AES.ApplicationSvc
 
                 foreach (var au in apps.Select(a => a.Applicant))
                 {
-                    returnedApplicants.Add(new ApplicantInfoContract()
+                    returnedApplicants.Add(ConvertTableToContract(au));
+                    /*returnedApplicants.Add(new ApplicantInfoContract()
                     {
                         FirstName = au.FirstName,
                         LastName = au.LastName,
@@ -43,7 +43,7 @@ namespace AES.ApplicationSvc
                             StartCallTime = au.UserInfo.CallStartTime,
                             EndCallTime = au.UserInfo.CallEndTime
                         }
-                    });
+                    });*/
                 }
             }
 
@@ -194,22 +194,14 @@ namespace AES.ApplicationSvc
             }
         }
 
-        public bool CallApplicant(ApplicantInfoContract user)
+        public bool CallApplicant(int applicantID)
         {
-            if (user.UserID == null)
-            {
-                return false;
-            }
-            return SetApplicationStatus(Convert.ToInt32(user.UserID), AppStatus.WAITING_CALL, AppStatus.IN_CALL);
+            return SetApplicationStatus(Convert.ToInt32(applicantID), AppStatus.WAITING_CALL, AppStatus.IN_CALL);
         }
 
-        public bool ApplicantDidNotAnswer(ApplicantInfoContract user)
+        public bool ApplicantDidNotAnswer(int applicantID)
         {
-            if (user.UserID == null)
-            {
-                return false;
-            }
-            return SetApplicationStatus(Convert.ToInt32(user.UserID), AppStatus.IN_CALL, AppStatus.WAITING_CALL);
+            return SetApplicationStatus(Convert.ToInt32(applicantID), AppStatus.IN_CALL, AppStatus.WAITING_CALL);
         }
 
         public AppSvcResponse SavePartialApplication(ApplicationInfoContract app)
@@ -568,6 +560,9 @@ namespace AES.ApplicationSvc
 
         private ApplicantInfoContract ConvertTableToContract(ApplicantUser applicant)
         {
+
+            var applications = new List<ApplicationInfoContract>();
+
             return new ApplicantInfoContract()
             {
                 Availability = ConvertTableToContract(applicant.Availability),
@@ -579,6 +574,7 @@ namespace AES.ApplicationSvc
                 References = ConvertTableToContract(applicant.References).ToList(),
                 UserID = applicant.userID,
                 UserInfo = ConvertTableToContract(applicant.UserInfo),
+                Applications = applications
             };
         }
 

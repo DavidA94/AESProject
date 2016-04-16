@@ -41,7 +41,7 @@ namespace AES.Shared.Contracts
         public UserInfoContract UserInfo { get; set; }
 
         [DataMember]
-        public List<ApplicantInfoContract> Applications { get; set; }
+        public List<ApplicationInfoContract> Applications { get; set; }
 
         [DataMember]
         public AvailabilityContract Availability { get; set; }

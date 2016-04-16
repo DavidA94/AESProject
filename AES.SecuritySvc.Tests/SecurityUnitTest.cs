@@ -126,7 +126,15 @@ namespace AES.SecuritySvc.Tests
                 var CryptRandom = new RNGCryptoServiceProvider();
                 var intRandom = new Random(Guid.NewGuid().GetHashCode());
 
-                Byte[] randomBytes;
+                byte[] randomBytes;
+
+                var invalidPassEmployee = new EmployeeUserContract()
+                {
+                    FirstName = "Random",
+                    LastName = "Davis",
+                    Email = "random.davis@gmail.com",
+                    Role = EmployeeRole.StoreManager
+                };
 
                 for (int i = 0; i < 20; i++)
                 {
@@ -135,7 +143,20 @@ namespace AES.SecuritySvc.Tests
                     string normalPass = Convert.ToBase64String(randomBytes);
                     var newValidEmployee = GenerateRandomEmployee(intRandom, CryptRandom);
                     Assert.IsTrue(s.CreateEmployee(newValidEmployee, normalPass));
+                    var credentials = new EmployeeCredentialsContract() { Email = newValidEmployee.Email, Password = normalPass };
+                    var gottenEmployee = s.GetEmployeeUser(credentials);
+                    Assert.IsNotNull(gottenEmployee);
+                    Assert.AreEqual(gottenEmployee.FirstName, newValidEmployee.FirstName);
+                    Assert.AreEqual(gottenEmployee.LastName, newValidEmployee.LastName);
+                    Assert.AreEqual(gottenEmployee.Email, newValidEmployee.Email);
+                    Assert.AreEqual(gottenEmployee.Role, newValidEmployee.Role);
                 }
+
+                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, blankPass));
+                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, nullPass));
+
+                invalidPassEmployee.Email = "a@a.a";
+                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, nullPass));
             }
         }
 

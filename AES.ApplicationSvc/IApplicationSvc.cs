@@ -1,5 +1,4 @@
-﻿using AES.ApplicationSvc.Contracts;
-using AES.Shared;
+﻿using AES.Shared;
 using AES.Shared.Contracts;
 using System;
 using System.Collections.Generic;
@@ -39,10 +38,10 @@ namespace AES.ApplicationSvc
         bool SetApplicationStatus(ApplicationInfoContract app, AppStatus status);
 
         [OperationContract]
-        bool CallApplicant(ApplicantInfoContract user);
+        bool CallApplicant(int applicantID);
 
         [OperationContract]
-        bool ApplicantDidNotAnswer(ApplicantInfoContract user);
+        bool ApplicantDidNotAnswer(int applicantID);
 
         [OperationContract]
 
