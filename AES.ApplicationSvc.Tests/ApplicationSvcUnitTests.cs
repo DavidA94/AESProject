@@ -21,23 +21,11 @@ namespace AES.ApplicationSvc.Tests
         public ApplicationSvcUnitTests()
         {
             DBFileManager.SetDataDirectory(true);
-
-            var random = new Random(Guid.NewGuid().GetHashCode());
-
-            var firstSectionSSN = random.Next(100, 999);
-            var secondSectionSSN = random.Next(10, 99);
-            var lastSectionSSN = random.Next(1000, 9999);
-
-            var SSNString = firstSectionSSN.ToString() + "-" + secondSectionSSN.ToString() + "-" + lastSectionSSN.ToString();
-
-            var SSN = Encryption.Encrypt(SSNString);
-
             SetScreeningData();
-            set_SSN = SSN;
         }
 
         private static bool hasSaveRun = false;
-        private static string set_SSN;
+        private static int? screenApplicantID = null;
 
         [TestMethod]
         public void TC10_SavePartialApplication()
@@ -558,7 +546,18 @@ namespace AES.ApplicationSvc.Tests
 
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
 
-            ApplicantInfoContract applicant = applicantsAwaitingCalls[0];
+            ApplicantInfoContract applicant = null;
+
+            foreach (var appl in applicantsAwaitingCalls)
+            {
+                if (appl.UserID == (int)screenApplicantID)
+                {
+                    applicant = appl;
+                    break;
+                }
+            }
+
+            Assert.IsNotNull(applicant);
 
             Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
 
@@ -592,7 +591,18 @@ namespace AES.ApplicationSvc.Tests
 
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
 
-            ApplicantInfoContract applicant = applicantsAwaitingCalls[0];
+            ApplicantInfoContract applicant = null;
+
+            foreach (var appl in applicantsAwaitingCalls)
+            {
+                if (appl.UserID == (int)screenApplicantID)
+                {
+                    applicant = appl;
+                    break;
+                }
+            }
+
+            Assert.IsNotNull(applicant);
 
             Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
 
@@ -631,7 +641,18 @@ namespace AES.ApplicationSvc.Tests
 
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new TimeSpan(6, 30, 0));
 
-            ApplicantInfoContract applicant = applicantsAwaitingCalls[0];
+            ApplicantInfoContract applicant = null;
+
+            foreach (var appl in applicantsAwaitingCalls)
+            {
+                if (appl.UserID == (int)screenApplicantID)
+                {
+                    applicant = appl;
+                    break;
+                }
+            }
+
+            Assert.IsNotNull(applicant);
 
             Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
 
@@ -684,7 +705,7 @@ namespace AES.ApplicationSvc.Tests
         {
             using (var db = new AESDbContext())
             {
-                foreach (var applications in db.ApplicantUsers.Where(a => a.SSN == set_SSN).Select(a => a.Applications).ToList())
+                foreach (var applications in db.ApplicantUsers.Where(a => a.userID == (int)screenApplicantID).Select(a => a.Applications).ToList())
                 {
                     foreach (var app in applications)
                     {
@@ -731,10 +752,13 @@ namespace AES.ApplicationSvc.Tests
         {
             using (var context = new AESDbContext())
             {
-                string SSN = Encryption.Encrypt("123-45-6798");
+                string SSN = Encryption.Encrypt("321-45-6798");
 
-                if (context.ApplicantUsers.FirstOrDefault(a => a.SSN == SSN) != null)
+                var existingApplicant = context.ApplicantUsers.FirstOrDefault(a => a.SSN == SSN);
+
+                if (existingApplicant != null)
                 {
+                    screenApplicantID = existingApplicant.userID;
                     return;
                 }
 
