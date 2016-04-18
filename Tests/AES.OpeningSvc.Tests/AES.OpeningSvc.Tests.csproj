@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DE9730A6-724E-4789-A080-4959B7CC8116}</ProjectGuid>
+    <ProjectGuid>{931E0896-AF2F-4C16-A1A8-179DB7B99F3F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AES.ApplicationSvc.Tests</RootNamespace>
-    <AssemblyName>AES.ApplicationSvc.Tests</AssemblyName>
+    <RootNamespace>AES.Opening.Tests</RootNamespace>
+    <AssemblyName>AES.Opening.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -49,7 +49,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
       <Private>True</Private>
@@ -68,30 +67,29 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ApplicationSvcUnitTests.cs" />
+    <Compile Include="OpeningSvcUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AES.ApplicationSvc\AES.ApplicationSvc.csproj">
-      <Project>{4181cdbe-de7d-4703-b1e2-4921caec12df}</Project>
-      <Name>AES.ApplicationSvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AES.Entities\AES.Entities.csproj">
       <Project>{b7a64050-2f1b-4709-bf04-09b0ed37ea71}</Project>
       <Name>AES.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AES.SecuritySvc\AES.SecuritySvc.csproj">
-      <Project>{e23b1cab-7e31-4d89-8c33-049ab86299e1}</Project>
-      <Name>AES.SecuritySvc</Name>
+    <ProjectReference Include="..\..\AES.OpeningsSvc\AES.OpeningsSvc.csproj">
+      <Project>{d74cbfa8-02d0-437f-8f06-00bf2883a6e2}</Project>
+      <Name>AES.OpeningsSvc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AES.Shared\AES.Shared.csproj">
+    <ProjectReference Include="..\..\AES.Shared\AES.Shared.csproj">
       <Project>{bb832eda-ff67-4abb-a5c0-e11382577d5a}</Project>
       <Name>AES.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

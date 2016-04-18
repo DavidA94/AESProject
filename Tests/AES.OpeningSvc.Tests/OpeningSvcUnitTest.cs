@@ -38,8 +38,8 @@ namespace AES.OpeningsSvc.Tests
             DBFileManager.SetDataDirectory(true);
         }
 
-        [TestMethod]
-        public void TC_Openings()
+        [TestMethod]        
+        public void OpeningSvc_GetOpenings()
         {
 
             using (var db = new AESDbContext())
@@ -67,16 +67,16 @@ namespace AES.OpeningsSvc.Tests
 
                 Job TestJob1 = new Job()
                 {
-                    title = JOB1_TITLE,
-                    descLong = JOB1_DESC_LONG,
-                    descShort = JOB1_DESC_SHORT
+                    Title = JOB1_TITLE,
+                    LongDescription = JOB1_DESC_LONG,
+                    ShortDescription = JOB1_DESC_SHORT
                 };
 
                 Job TestJob2 = new Job()
                 {
-                    title = JOB2_TITLE,
-                    descLong = JOB2_DESC_LONG,
-                    descShort = JOB2_DESC_SHORT
+                    Title = JOB2_TITLE,
+                    LongDescription = JOB2_DESC_LONG,
+                    ShortDescription = JOB2_DESC_SHORT
                 };
 
                 var testJob1 = new JobOpening()
@@ -90,13 +90,18 @@ namespace AES.OpeningsSvc.Tests
                 };
                 testJob2.Store = TestStore2;
 
-                db.Stores.AddOrUpdate(TestStore1);
-                db.Stores.AddOrUpdate(TestStore2);
-                db.Jobs.AddOrUpdate(TestJob1);
-                db.Jobs.AddOrUpdate(TestJob2);
-                db.JobOpenings.AddOrUpdate(testJob1);
-                db.JobOpenings.AddOrUpdate(testJob2);
-                db.SaveChanges();
+                // If this doesn't work, it probably means the data is already in the database.
+                try
+                {
+                    db.Stores.AddOrUpdate(TestStore1);
+                    db.Stores.AddOrUpdate(TestStore2);
+                    db.Jobs.AddOrUpdate(TestJob1);
+                    db.Jobs.AddOrUpdate(TestJob2);
+                    db.JobOpenings.AddOrUpdate(testJob1);
+                    db.JobOpenings.AddOrUpdate(testJob2);
+                    db.SaveChanges();
+                }
+                catch { }
 
                 var gottenOpenings = db.JobOpenings.Where(opening => opening.Store.ID == TestStore1.ID).ToList();
 
@@ -107,16 +112,16 @@ namespace AES.OpeningsSvc.Tests
 
                 foreach (var opening in Store1Openings)
                 {
-                    Assert.AreEqual(TestJob1.descShort, opening.shortDesc);
-                    Assert.AreEqual(TestJob1.descLong, opening.longDesc);
-                    Assert.AreEqual(TestJob1.title, opening.title);
+                    Assert.AreEqual(TestJob1.ShortDescription, opening.ShortDescription);
+                    Assert.AreEqual(TestJob1.LongDescription, opening.LongDescription);
+                    Assert.AreEqual(TestJob1.Title, opening.title);
                 }
 
                 foreach (var opening in Store2Openings)
                 {
-                    Assert.AreEqual(TestJob2.descShort, opening.shortDesc);
-                    Assert.AreEqual(TestJob2.descLong, opening.longDesc);
-                    Assert.AreEqual(TestJob2.title, opening.title);
+                    Assert.AreEqual(TestJob2.ShortDescription, opening.ShortDescription);
+                    Assert.AreEqual(TestJob2.LongDescription, opening.LongDescription);
+                    Assert.AreEqual(TestJob2.Title, opening.title);
                 }
 
             }

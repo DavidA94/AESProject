@@ -62,36 +62,35 @@ namespace AES.ApplicationSvc
             throw new NotImplementedException();
         }
 
-        public ApplicationInfoContract GetApplication(ApplicantInfoContract user)
+        public ApplicationInfoContract GetApplication(int userID, AppStatus userAppStatus)
         {
-            if (user.UserID == null)
-            {
-                return null;
-            }
-
             var retApp = new ApplicationInfoContract()
             {
-                ApplicantID = (int)user.UserID
+                ApplicantID = userID
             };
 
             using (var db = new AESDbContext())
             {
-                var applications = db.Applications.Where(a => a.Applicant.userID == user.UserID &&
-                                                              a.Status == AppStatus.PARTIAL);
-                var submittedApp = db.Applications.Where(a => a.Applicant.userID == user.UserID &&
-                                                              a.Status != AppStatus.PARTIAL)
+                var applications = db.Applications.Where(a => a.Applicant.userID == userID &&
+                                                              a.Status == userAppStatus);
+                var submittedApp = db.Applications.Where(a => a.Applicant.userID == userID &&
+                                                              a.Status != userAppStatus)
                                                               .OrderByDescending(a => a.Timestamp).FirstOrDefault();
                 if (applications != null)
                 {
                     foreach (var app in applications)
                     {
-                        retApp.AppliedJobs.Add(app.Job.ID);
-                        var job = db.Jobs.Where(j => j.ID == app.Job.ID).FirstOrDefault();
+                        retApp.AppliedJobs.Add(app.Job.JobID);
+                        var job = db.Jobs.Where(j => j.JobID == app.Job.JobID).FirstOrDefault();
 
                         if (job == null)
                         {
                             continue;
                         }
+
+                        retApp.FirstName = app.Applicant.FirstName;
+                        retApp.LastName = app.Applicant.LastName;
+                        retApp.DOB = app.Applicant.DOB;
 
                         retApp.Availability = ConvertTableToContract(app.Applicant.Availability);
                         retApp.Educations = ConvertTableToContract(app.Applicant.EducationHistory).ToList();
@@ -102,7 +101,7 @@ namespace AES.ApplicationSvc
                         foreach (var q in job.Questions)
                         {
                             // Don't add the same Q&A twice
-                            if (retApp.QA.FirstOrDefault(qa => qa.QuestionID == q.ID) != null)
+                            if (retApp.QA.FirstOrDefault(qa => qa.QuestionID == q.QuestionID) != null)
                             {
                                 continue;
                             }
@@ -116,7 +115,7 @@ namespace AES.ApplicationSvc
                                 if (q.Option4 != null && q.Option4 != "") options.Add(q.Option4);
 
 
-                                var multiAnswer = app.MultiAnswers.FirstOrDefault(qa => qa.Question.ID == q.ID);
+                                var multiAnswer = app.MultiAnswers.FirstOrDefault(qa => qa.Question.QuestionID == q.QuestionID);
                                 var multiAnswers = multiAnswer == null ? new List<bool> { false, false, false, false } : new List<bool>
                                 {
                                     multiAnswer.Answer1,
@@ -128,7 +127,7 @@ namespace AES.ApplicationSvc
                                 retApp.QA.Add(new QAContract()
                                 {
                                     Question = q.Text,
-                                    QuestionID = q.ID,
+                                    QuestionID = q.QuestionID,
                                     Options = options,
                                     Type = q.Type,
 
@@ -137,12 +136,12 @@ namespace AES.ApplicationSvc
                             }
                             else
                             {
-                                var userAnswer = app.ShortAnswers.FirstOrDefault(qa => qa.Question.ID == q.ID);
+                                var userAnswer = app.ShortAnswers.FirstOrDefault(qa => qa.Question.QuestionID == q.QuestionID);
 
                                 retApp.QA.Add(new QAContract()
                                 {
                                     Question = q.Text,
-                                    QuestionID = q.ID,
+                                    QuestionID = q.QuestionID,
                                     Type = q.Type,
 
                                     ShortAnswer = userAnswer == null ? "" : userAnswer.Answer
@@ -153,6 +152,10 @@ namespace AES.ApplicationSvc
                 }
                 else if (submittedApp != null)
                 {
+                    retApp.FirstName = submittedApp.Applicant.FirstName;
+                    retApp.LastName = submittedApp.Applicant.LastName;
+                    retApp.DOB = submittedApp.Applicant.DOB;
+
                     retApp.Availability = ConvertTableToContract(submittedApp.Applicant.Availability);
                     retApp.Educations = ConvertTableToContract(submittedApp.Applicant.EducationHistory).ToList();
                     retApp.Jobs = ConvertTableToContract(submittedApp.Applicant.EmploymentHistory).ToList();
@@ -162,11 +165,6 @@ namespace AES.ApplicationSvc
             }
 
             return retApp;
-        }
-
-        public ApplicationInfoContract GetCallApplication(ApplicantInfoContract user)
-        {
-            return GetApplication(user);
         }
 
         public ApplicationInfoContract GetInterviewApplication(UserInfoContract user)
@@ -191,7 +189,7 @@ namespace AES.ApplicationSvc
                 foreach (var job in app.AppliedJobs)
                 {
                     // Get the job
-                    var appliedJob = db.Jobs.FirstOrDefault(a => a.ID == job);
+                    var appliedJob = db.Jobs.FirstOrDefault(a => a.JobID == job);
 
                     // If it doens't exist, return BAD_JOB
                     if (appliedJob == null)
@@ -201,7 +199,7 @@ namespace AES.ApplicationSvc
 
                     // Try to get a partial application for this user for this job
                     var application = db.Applications.FirstOrDefault(a => a.Status == AppStatus.PARTIAL &&
-                    /**/                                                  a.Job.ID == job &&
+                    /**/                                                  a.Job.JobID == job &&
                     /**/                                                  a.Applicant.userID == user.userID);
                     bool isNewApp = application == null;
 
@@ -225,7 +223,7 @@ namespace AES.ApplicationSvc
                     foreach (var q in app.QA ?? new List<QAContract>())
                     {
                         // Get the question from the DB
-                        var dbQ = db.Questions.FirstOrDefault(question => question.ID == q.QuestionID);
+                        var dbQ = db.Questions.FirstOrDefault(question => question.QuestionID == q.QuestionID);
 
                         // If we didn't get a question back, return BAD_QUESTION
                         if (dbQ == null)
@@ -233,7 +231,7 @@ namespace AES.ApplicationSvc
                             return AppSvcResponse.BAD_QUESTION;
                         }
                         // If the ID of the job for this question is not the job we're on, then skip it
-                        else if (dbQ.Jobs.FirstOrDefault(j => j.ID == job) == null)
+                        else if (dbQ.Jobs.FirstOrDefault(j => j.JobID == job) == null)
                         {
                             continue;
                         }
@@ -248,19 +246,19 @@ namespace AES.ApplicationSvc
                                 // See if this answer has already been added
                                 if (answer != null)
                                 {
-                                    answer.Answer1 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(0);
-                                    answer.Answer2 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(1);
-                                    answer.Answer3 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(2);
-                                    answer.Answer4 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(3);
+                                    answer.Answer1 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).MC_Answers.ElementAtOrDefault(0);
+                                    answer.Answer2 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).MC_Answers.ElementAtOrDefault(1);
+                                    answer.Answer3 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).MC_Answers.ElementAtOrDefault(2);
+                                    answer.Answer4 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).MC_Answers.ElementAtOrDefault(3);
                                 }
                                 // Otherwise, add it
                                 else {
                                     application.MultiAnswers.Add(new ApplicationMultiAnswer()
                                     {
-                                        Answer1 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(0),
-                                        Answer2 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(1),
-                                        Answer3 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(2),
-                                        Answer4 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).MC_Answers.ElementAtOrDefault(3),
+                                        Answer1 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).MC_Answers.ElementAtOrDefault(0),
+                                        Answer2 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).MC_Answers.ElementAtOrDefault(1),
+                                        Answer3 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).MC_Answers.ElementAtOrDefault(2),
+                                        Answer4 = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).MC_Answers.ElementAtOrDefault(3),
                                         Question = dbQ,
                                     });
                                 }
@@ -272,13 +270,13 @@ namespace AES.ApplicationSvc
                                 // If it already had an answer, update it
                                 if (sAnswer != null)
                                 {
-                                    sAnswer.Answer = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).ShortAnswer;
+                                    sAnswer.Answer = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).ShortAnswer;
                                 }
                                 // Otherwise, add it
                                 else {
                                     application.ShortAnswers.Add(new ApplicationShortAnswer()
                                     {
-                                        Answer = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.ID).ShortAnswer,
+                                        Answer = app.QA.FirstOrDefault(a => a.QuestionID == dbQ.QuestionID).ShortAnswer,
                                         Question = dbQ
                                     });
                                 }
@@ -487,7 +485,7 @@ namespace AES.ApplicationSvc
             foreach (var q in app.MultiAnswers)
             {
                 // Get the question from the database
-                var dbQuestion = db.Questions.FirstOrDefault(qa => qa.ID == q.Question.ID);
+                var dbQuestion = db.Questions.FirstOrDefault(qa => qa.QuestionID == q.Question.QuestionID);
 
                 // If we can't find the question, reject the application
                 if (dbQuestion == null)

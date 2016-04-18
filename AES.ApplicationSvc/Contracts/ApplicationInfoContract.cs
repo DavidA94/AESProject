@@ -22,6 +22,21 @@ namespace AES.ApplicationSvc.Contracts
         }
 
         /// <summary>
+        /// [Out] The first name of the person who owns this application
+        /// </summary>
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// [Out] The last name of the person who owns this application
+        /// </summary>
+        public string LastName { get; set; }
+
+        /// <summary>
+        /// [Out] The DOB of the person who owns this application
+        /// </summary>
+        public DateTime DOB { get; set; }
+
+        /// <summary>
         /// [In/Out] The user's availability
         /// </summary>
         [DataMember]

@@ -46,12 +46,6 @@
   <wsdl:message name="IApplicationSvc_GetInterviewApplication_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetInterviewApplicationResponse" />
   </wsdl:message>
-  <wsdl:message name="IApplicationSvc_PullApplicantFromCallQueue_InputMessage">
-    <wsdl:part name="parameters" element="tns:PullApplicantFromCallQueue" />
-  </wsdl:message>
-  <wsdl:message name="IApplicationSvc_PullApplicantFromCallQueue_OutputMessage">
-    <wsdl:part name="parameters" element="tns:PullApplicantFromCallQueueResponse" />
-  </wsdl:message>
   <wsdl:message name="IApplicationSvc_SavePartialApplication_InputMessage">
     <wsdl:part name="parameters" element="tns:SavePartialApplication" />
   </wsdl:message>
@@ -63,6 +57,24 @@
   </wsdl:message>
   <wsdl:message name="IApplicationSvc_SetApplicationStatus_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetApplicationStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_CallApplicant_InputMessage">
+    <wsdl:part name="parameters" element="tns:CallApplicant" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_CallApplicant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CallApplicantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_ApplicantDidNotAnswer_InputMessage">
+    <wsdl:part name="parameters" element="tns:ApplicantDidNotAnswer" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_ApplicantDidNotAnswer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ApplicantDidNotAnswerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SavePhoneInterview_InputMessage">
+    <wsdl:part name="parameters" element="tns:SavePhoneInterview" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SavePhoneInterview_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SavePhoneInterviewResponse" />
   </wsdl:message>
   <wsdl:message name="IApplicationSvc_SubmitApplication_InputMessage">
     <wsdl:part name="parameters" element="tns:SubmitApplication" />
@@ -95,10 +107,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/GetInterviewApplication" message="tns:IApplicationSvc_GetInterviewApplication_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/GetInterviewApplicationResponse" message="tns:IApplicationSvc_GetInterviewApplication_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="PullApplicantFromCallQueue">
-      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/PullApplicantFromCallQueue" message="tns:IApplicationSvc_PullApplicantFromCallQueue_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/PullApplicantFromCallQueueResponse" message="tns:IApplicationSvc_PullApplicantFromCallQueue_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="SavePartialApplication">
       <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SavePartialApplication" message="tns:IApplicationSvc_SavePartialApplication_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SavePartialApplicationResponse" message="tns:IApplicationSvc_SavePartialApplication_OutputMessage" />
@@ -106,6 +114,18 @@
     <wsdl:operation name="SetApplicationStatus">
       <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SetApplicationStatus" message="tns:IApplicationSvc_SetApplicationStatus_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SetApplicationStatusResponse" message="tns:IApplicationSvc_SetApplicationStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CallApplicant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/CallApplicant" message="tns:IApplicationSvc_CallApplicant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/CallApplicantResponse" message="tns:IApplicationSvc_CallApplicant_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ApplicantDidNotAnswer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswer" message="tns:IApplicationSvc_ApplicantDidNotAnswer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswerResponse" message="tns:IApplicationSvc_ApplicantDidNotAnswer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SavePhoneInterview">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SavePhoneInterview" message="tns:IApplicationSvc_SavePhoneInterview_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SavePhoneInterviewResponse" message="tns:IApplicationSvc_SavePhoneInterview_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SubmitApplication">
       <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SubmitApplication" message="tns:IApplicationSvc_SubmitApplication_InputMessage" />
@@ -168,15 +188,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="PullApplicantFromCallQueue">
-      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/PullApplicantFromCallQueue" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="SavePartialApplication">
       <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SavePartialApplication" style="document" />
       <wsdl:input>
@@ -188,6 +199,33 @@
     </wsdl:operation>
     <wsdl:operation name="SetApplicationStatus">
       <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SetApplicationStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CallApplicant">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/CallApplicant" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApplicantDidNotAnswer">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePhoneInterview">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SavePhoneInterview" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

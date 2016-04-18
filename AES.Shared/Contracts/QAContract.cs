@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AES.ApplicationSvc.Contracts
+namespace AES.Shared.Contracts
 {
     /// <summary>
     /// Contract used for each Question/Answer from the user for the Questionaire section
@@ -21,6 +21,7 @@ namespace AES.ApplicationSvc.Contracts
         {
             Options = new List<string>();
             MC_Answers = new List<bool>();
+            QuestionID = -1;
         }
 
         /// <summary>
@@ -58,5 +59,11 @@ namespace AES.ApplicationSvc.Contracts
         /// </summary>
         [DataMember]
         public string ShortAnswer { get; set; }
+
+        /// <summary>
+        /// The number of answers that are needed to be correct
+        /// </summary>
+        [DataMember]
+        public int NeededRight { get; set; }
     }
 }
