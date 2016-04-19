@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AES.Entities.Tables
 {
@@ -14,19 +15,19 @@ namespace AES.Entities.Tables
 
         [Key]
         [Required]
-        public int ID { get; set; }
+        public int JobID { get; set; }
 
         [StringLength(128)]
-        [Required]
-        public string title { get; set; }
+        [Index(IsUnique = true)]
+        public string Title { get; set; }
 
         [StringLength(512)]
-        [Required]
-        public string descShort { get; set; }
+        [Index(IsUnique = true)]
+        public string ShortDescription { get; set; }
 
         [StringLength(4000)]
         [Required]
-        public string descLong { get; set; }
+        public string LongDescription { get; set; }
 
         public virtual ICollection<JobOpening> Openings { get; set; }
 

@@ -92,7 +92,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AES.Web\AES.Web.csproj">
+    <ProjectReference Include="..\..\AES.Web\AES.Web.csproj">
       <Project>{A4BB903F-43DB-4FF9-85DA-C756F355A8D0}</Project>
       <Name>AES.Web</Name>
     </ProjectReference>

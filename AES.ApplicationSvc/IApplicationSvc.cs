@@ -24,10 +24,7 @@ namespace AES.ApplicationSvc
         List<ApplicantInfoContract> GetApplicantsAwaitingInterview(int storeID);
 
         [OperationContract]
-        ApplicationInfoContract GetApplication(ApplicantInfoContract user);
-
-        [OperationContract]
-        ApplicationInfoContract GetCallApplication(ApplicantInfoContract user);
+        ApplicationInfoContract GetApplication(int userID, AppStatus userAppStatus);
 
         [OperationContract]
         ApplicationInfoContract GetInterviewApplication(UserInfoContract user);

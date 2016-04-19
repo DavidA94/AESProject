@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{15E23F31-8DB8-4B42-A3B6-743A403AFF24}</ProjectGuid>
+    <ProjectGuid>{07D3B028-7C2D-45BE-88EF-754BC3529552}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AES.SecuritySvc.Tests</RootNamespace>
-    <AssemblyName>AES.SecuritySvc.Tests</AssemblyName>
+    <RootNamespace>AES.JobbingSvc.Tests</RootNamespace>
+    <AssemblyName>AES.JobbingSvc.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -43,19 +43,8 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.1.3\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -70,27 +59,26 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="SecurityUnitTest.cs" />
+    <Compile Include="JobbingSvcUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">
+    <ProjectReference Include="..\..\AES.Entities\AES.Entities.csproj">
       <Project>{b7a64050-2f1b-4709-bf04-09b0ed37ea71}</Project>
       <Name>AES.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AES.SecuritySvc\AES.SecuritySvc.csproj">
-      <Project>{e23b1cab-7e31-4d89-8c33-049ab86299e1}</Project>
-      <Name>AES.SecuritySvc</Name>
+    <ProjectReference Include="..\..\AES.JobbingSvc\AES.JobbingSvc.csproj">
+      <Project>{c9e080be-f9c5-422d-a06c-b7ec0364cb14}</Project>
+      <Name>AES.JobbingSvc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AES.Shared\AES.Shared.csproj">
+    <ProjectReference Include="..\..\AES.Shared\AES.Shared.csproj">
       <Project>{bb832eda-ff67-4abb-a5c0-e11382577d5a}</Project>
       <Name>AES.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\AES.SecuritySvc.Contracts.ApplicantInfoContract.datasource" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -112,13 +100,6 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
-    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

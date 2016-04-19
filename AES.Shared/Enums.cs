@@ -96,4 +96,26 @@ namespace AES.Shared
         HqHiringSpecialist,
         StoreManager
     }
+
+    public enum JobbingResponse{
+        /// <summary>
+        /// Indicates that the job/question to be created already exists
+        /// </summary>
+        DUPLICATE,
+
+        /// <summary>
+        /// A general error has occurred
+        /// </summary>
+        ERROR,
+
+        /// <summary>
+        /// The job/question passed in is not valid
+        /// </summary>
+        INVALID,
+
+        /// <summary>
+        /// Everything completed successfully
+        /// </summary>
+        SUCCESS
+    }
 }

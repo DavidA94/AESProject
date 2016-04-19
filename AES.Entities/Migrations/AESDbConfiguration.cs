@@ -60,16 +60,16 @@ namespace AES.Entities.Migrations
 
             var salesAssociateJob = new Job
             {
-                title = "Sales Associate",
-                descShort = "Responsible for all sales activities, from lead generation through to close. The successful candidate will be able to elevate company standards, achieve sales goals and meet clients expectations.",
-                descLong = "Responsibilities:\n* Ensure high levels of customer satisfaction through excellent sales service\n* Assess customers needs and provide assistance and information on product features\n* 'Go the extra mile' to drive sales\n* Maintain in-stock and presentable condition assigned areas\n* Actively seek out customers in store\n* Remain knowledgeable on products offered and discuss available options\n* Cross sell products\n* Team up with co-workers to ensure proper customer service\n* Build productive trust relationships with customers\n\nRequirements:\n* Proven working experience as sales associate\n* Basic understanding of sales principles and customer service practices\n* Proficiency in English\n* Working knowledge of customer and market dynamics and requirements\n* Track record of over-achieving sales quota\n* Solid communication and interpersonal skills\n* Customer service focus\n* High school degree; BS degree in Marketing or related field would be a plus"
+                Title = "Sales Associate",
+                ShortDescription = "Responsible for all sales activities, from lead generation through to close. The successful candidate will be able to elevate company standards, achieve sales goals and meet clients expectations.",
+                LongDescription = "Responsibilities:\n* Ensure high levels of customer satisfaction through excellent sales service\n* Assess customers needs and provide assistance and information on product features\n* 'Go the extra mile' to drive sales\n* Maintain in-stock and presentable condition assigned areas\n* Actively seek out customers in store\n* Remain knowledgeable on products offered and discuss available options\n* Cross sell products\n* Team up with co-workers to ensure proper customer service\n* Build productive trust relationships with customers\n\nRequirements:\n* Proven working experience as sales associate\n* Basic understanding of sales principles and customer service practices\n* Proficiency in English\n* Working knowledge of customer and market dynamics and requirements\n* Track record of over-achieving sales quota\n* Solid communication and interpersonal skills\n* Customer service focus\n* High school degree; BS degree in Marketing or related field would be a plus"
             };
 
             var janitorJob = new Job
             {
-                title = "Maintenece Technician",
-                descShort = "We are looking for a thorough Maintenance Technician to undertake the responsibility to preserve the good condition and functionality of premises. You will perform maintenance tasks of great variety such as painting, HVAC installations, landscaping etc.",
-                descLong = "A Maintenance Technician is a thorough professional with a practical mind and attention to detail. The ideal candidate will be able to work autonomously and responsibly by observing all health and safety guidelines.\nThe goal is to maintain the buildings and common areas in the best possible condition."
+                Title = "Maintenece Technician",
+                ShortDescription = "We are looking for a thorough Maintenance Technician to undertake the responsibility to preserve the good condition and functionality of premises. You will perform maintenance tasks of great variety such as painting, HVAC installations, landscaping etc.",
+                LongDescription = "A Maintenance Technician is a thorough professional with a practical mind and attention to detail. The ideal candidate will be able to work autonomously and responsibly by observing all health and safety guidelines.\nThe goal is to maintain the buildings and common areas in the best possible condition."
             };
 
             context.Stores.AddOrUpdate(

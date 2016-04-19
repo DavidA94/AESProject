@@ -13,7 +13,7 @@ namespace AES.Web.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void Web_Index()
         {
             // Arrange
             HomeController controller = new HomeController();
@@ -26,7 +26,7 @@ namespace AES.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void About()
+        public void Web_About()
         {
             // Arrange
             HomeController controller = new HomeController();
@@ -39,7 +39,7 @@ namespace AES.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void Contact()
+        public void Web_Contact()
         {
             // Arrange
             HomeController controller = new HomeController();

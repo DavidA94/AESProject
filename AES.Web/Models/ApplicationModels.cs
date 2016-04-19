@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
-using AES.Web.ApplicationService;
+﻿using AES.Shared;
 using AES.Shared.Contracts;
-using AES.Shared;
+using AES.Web.ApplicationService;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace AES.Web.Models
 {
@@ -476,8 +475,8 @@ namespace AES.Web.Models
             {
                 QAs.Add(new QAContract()
                 {
-                    MC_Answers = a.MC_Answers == null ? new bool[] { false, false, false, false } : a.MC_Answers.ToArray(),
-                    Options = a.Options == null ? new string[] { "", "", "", "" } : a.Options.ToArray(),
+                    MC_Answers = a.MC_Answers == null ? new bool[] { false, false, false, false }.ToList() : a.MC_Answers,
+                    Options = a.Options == null ? new string[] { "", "", "", "" }.ToList() : a.Options,
                     Question = a.Question,
                     QuestionID = a.QuestionID,
                     ShortAnswer = a.ShortAnswer ?? "",

@@ -12,9 +12,9 @@ namespace AES.Entities.Tables
             Jobs = new HashSet<Job>();
         }
 
+        [Key]
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int QuestionID { get; set; }
 
         /// <summary>
         /// Which job this question is for
@@ -27,7 +27,7 @@ namespace AES.Entities.Tables
 
         [Required]
         [StringLength(4000)]
-        [Key]
+        [Index(IsUnique = true)]
         public string Text { get; set; }
 
         [StringLength(128)]

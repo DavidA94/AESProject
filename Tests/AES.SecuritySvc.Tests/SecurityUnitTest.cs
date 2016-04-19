@@ -27,7 +27,7 @@ namespace AES.SecuritySvc.Tests
         }
 
         [TestMethod]
-        public void TC3_UserExists()
+        public void SecuritySvc_UserExists()
         {
             using (var db = new AESDbContext())
             {
@@ -46,7 +46,7 @@ namespace AES.SecuritySvc.Tests
         }
 
         [TestMethod]
-        public void TC3_NewUser()
+        public void SecuritySvc_NewUser()
         {
             // Get the context
             using (var db = new AESDbContext())
@@ -69,7 +69,7 @@ namespace AES.SecuritySvc.Tests
         }
 
         [TestMethod]
-        public void TC3_BadCredentials()
+        public void SecuritySvc_BadCredentials()
         {
             using (var db = new AESDbContext())
             {
@@ -93,7 +93,7 @@ namespace AES.SecuritySvc.Tests
         }
 
         [TestMethod]
-        public void TC3_IncompleteCredentials()
+        public void SecuritySvc_IncompleteCredentials()
         {
             using (var db = new AESDbContext())
             {
@@ -113,7 +113,7 @@ namespace AES.SecuritySvc.Tests
         }
 
         [TestMethod]
-        public void TC_CreateEmployee()
+        public void SecuritySvc_CreateEmployee()
         {
             //db.Stores.AddOrUpdate(TestStore1);
 

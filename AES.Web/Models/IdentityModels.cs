@@ -20,11 +20,6 @@ namespace AES.Web.Models
 
     public class AESDbContext : IdentityDbContext<ApplicationUser>
     {
-        public AESDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
-
         public static AESDbContext Create()
         {
             return new AESDbContext();
