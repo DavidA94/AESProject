@@ -24,5 +24,7 @@ namespace AES.Web.Models
 
         [Display(Name = "Applicant ID")]
         public int ApplicantID { get; set; }
+
+        public FullApplicationModel Application { get; set; }
     }
 }

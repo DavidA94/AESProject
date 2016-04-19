@@ -235,6 +235,7 @@
     <Content Include="Service References\ApplicationService\AES.Web.ApplicationService.ApplicationInfoContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Properties\DataSources\AES.Shared.Contracts.EmployeeUserContract.datasource" />
     <None Include="Service References\ApplicationService\ApplicationSvc.disco" />
     <None Include="Service References\ApplicationService\configuration91.svcinfo" />
     <None Include="Service References\ApplicationService\configuration.svcinfo" />
@@ -295,6 +296,9 @@
     <Content Include="Views\Shared\DashboardPartial.cshtml" />
     <Content Include="Views\HiringSpecialist\PartialDashboardHS.cshtml" />
     <Content Include="Views\HiringSpecialist\CallPage.cshtml" />
+    <None Include="Service References\SecurityService\SecuritySvc3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

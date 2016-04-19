@@ -96,9 +96,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserInfoContract" nillable="true" type="tns:UserInfoContract" />
+  <xs:complexType name="ArrayOfApplicantInfoContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ApplicantInfoContract" nillable="true" type="tns:ApplicantInfoContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfApplicantInfoContract" nillable="true" type="tns:ArrayOfApplicantInfoContract" />
   <xs:complexType name="ApplicantInfoContract">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Applications" nillable="true" type="tns:ArrayOfApplicantInfoContract" />
       <xs:element minOccurs="0" name="Availability" nillable="true" type="tns:AvailabilityContract" />
       <xs:element minOccurs="0" name="DOB" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Education" nillable="true" type="tns:ArrayOfEducationHistoryContract" />
@@ -112,10 +117,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ApplicantInfoContract" nillable="true" type="tns:ApplicantInfoContract" />
-  <xs:complexType name="ArrayOfApplicantInfoContract">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ApplicantInfoContract" nillable="true" type="tns:ApplicantInfoContract" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfApplicantInfoContract" nillable="true" type="tns:ArrayOfApplicantInfoContract" />
 </xs:schema>

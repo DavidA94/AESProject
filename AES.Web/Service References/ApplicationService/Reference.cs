@@ -35,6 +35,9 @@ namespace AES.Web.ApplicationService {
         private AES.Shared.Contracts.EducationHistoryContract[] EducationsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string InterviewNotesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AES.Shared.Contracts.JobHistoryContract[] JobsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -42,6 +45,9 @@ namespace AES.Web.ApplicationService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AES.Shared.Contracts.ReferenceContract[] ReferencesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ScreeningNotesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AES.Shared.Contracts.UserInfoContract UserInfoField;
@@ -109,6 +115,19 @@ namespace AES.Web.ApplicationService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string InterviewNotes {
+            get {
+                return this.InterviewNotesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.InterviewNotesField, value) != true)) {
+                    this.InterviewNotesField = value;
+                    this.RaisePropertyChanged("InterviewNotes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public AES.Shared.Contracts.JobHistoryContract[] Jobs {
             get {
                 return this.JobsField;
@@ -143,6 +162,19 @@ namespace AES.Web.ApplicationService {
                 if ((object.ReferenceEquals(this.ReferencesField, value) != true)) {
                     this.ReferencesField = value;
                     this.RaisePropertyChanged("References");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ScreeningNotes {
+            get {
+                return this.ScreeningNotesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ScreeningNotesField, value) != true)) {
+                    this.ScreeningNotesField = value;
+                    this.RaisePropertyChanged("ScreeningNotes");
                 }
             }
         }
@@ -306,16 +338,16 @@ namespace AES.Web.ApplicationService {
         System.Threading.Tasks.Task<bool> CancelApplicationAsync(AES.Web.ApplicationService.ApplicationInfoContract app);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingCalls", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingCallsResponse")]
-        AES.Shared.Contracts.UserInfoContract GetApplicantsAwaitingCalls();
+        AES.Shared.Contracts.ApplicantInfoContract[] GetApplicantsAwaitingCalls(System.DateTime currentDateTime);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingCalls", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingCallsResponse")]
-        System.Threading.Tasks.Task<AES.Shared.Contracts.UserInfoContract> GetApplicantsAwaitingCallsAsync();
+        System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingCallsAsync(System.DateTime currentDateTime);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterview", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterviewResponse")]
-        AES.Shared.Contracts.UserInfoContract GetApplicantsAwaitingInterview(int storeID);
+        AES.Shared.Contracts.ApplicantInfoContract[] GetApplicantsAwaitingInterview(int storeID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterview", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterviewResponse")]
-        System.Threading.Tasks.Task<AES.Shared.Contracts.UserInfoContract> GetApplicantsAwaitingInterviewAsync(int storeID);
+        System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingInterviewAsync(int storeID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicationResponse")]
         AES.Web.ApplicationService.ApplicationInfoContract GetApplication(AES.Shared.Contracts.ApplicantInfoContract user);
@@ -324,22 +356,16 @@ namespace AES.Web.ApplicationService {
         System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetCallApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetCallApplicationResponse")]
-        AES.Web.ApplicationService.ApplicationInfoContract GetCallApplication(AES.Shared.Contracts.UserInfoContract user);
+        AES.Web.ApplicationService.ApplicationInfoContract GetCallApplication(AES.Shared.Contracts.ApplicantInfoContract user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetCallApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetCallApplicationResponse")]
-        System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetCallApplicationAsync(AES.Shared.Contracts.UserInfoContract user);
+        System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetCallApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetInterviewApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetInterviewApplicationResponse")]
         AES.Web.ApplicationService.ApplicationInfoContract GetInterviewApplication(AES.Shared.Contracts.UserInfoContract user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetInterviewApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetInterviewApplicationResponse")]
         System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetInterviewApplicationAsync(AES.Shared.Contracts.UserInfoContract user);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/PullApplicantFromCallQueue", ReplyAction="http://tempuri.org/IApplicationSvc/PullApplicantFromCallQueueResponse")]
-        bool PullApplicantFromCallQueue(AES.Shared.Contracts.UserInfoContract user);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/PullApplicantFromCallQueue", ReplyAction="http://tempuri.org/IApplicationSvc/PullApplicantFromCallQueueResponse")]
-        System.Threading.Tasks.Task<bool> PullApplicantFromCallQueueAsync(AES.Shared.Contracts.UserInfoContract user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SavePartialApplication", ReplyAction="http://tempuri.org/IApplicationSvc/SavePartialApplicationResponse")]
         AES.Shared.AppSvcResponse SavePartialApplication(AES.Web.ApplicationService.ApplicationInfoContract app);
@@ -352,6 +378,24 @@ namespace AES.Web.ApplicationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SetApplicationStatus", ReplyAction="http://tempuri.org/IApplicationSvc/SetApplicationStatusResponse")]
         System.Threading.Tasks.Task<bool> SetApplicationStatusAsync(AES.Web.ApplicationService.ApplicationInfoContract app, AES.Shared.AppStatus status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/CallApplicant", ReplyAction="http://tempuri.org/IApplicationSvc/CallApplicantResponse")]
+        bool CallApplicant(int applicantID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/CallApplicant", ReplyAction="http://tempuri.org/IApplicationSvc/CallApplicantResponse")]
+        System.Threading.Tasks.Task<bool> CallApplicantAsync(int applicantID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswer", ReplyAction="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswerResponse")]
+        bool ApplicantDidNotAnswer(int applicantID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswer", ReplyAction="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswerResponse")]
+        System.Threading.Tasks.Task<bool> ApplicantDidNotAnswerAsync(int applicantID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SavePhoneInterview", ReplyAction="http://tempuri.org/IApplicationSvc/SavePhoneInterviewResponse")]
+        bool SavePhoneInterview(int applicantID, string notes, bool approved);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SavePhoneInterview", ReplyAction="http://tempuri.org/IApplicationSvc/SavePhoneInterviewResponse")]
+        System.Threading.Tasks.Task<bool> SavePhoneInterviewAsync(int applicantID, string notes, bool approved);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SubmitApplication", ReplyAction="http://tempuri.org/IApplicationSvc/SubmitApplicationResponse")]
         bool SubmitApplication(AES.Shared.Contracts.ApplicantInfoContract user);
@@ -395,19 +439,19 @@ namespace AES.Web.ApplicationService {
             return base.Channel.CancelApplicationAsync(app);
         }
         
-        public AES.Shared.Contracts.UserInfoContract GetApplicantsAwaitingCalls() {
-            return base.Channel.GetApplicantsAwaitingCalls();
+        public AES.Shared.Contracts.ApplicantInfoContract[] GetApplicantsAwaitingCalls(System.DateTime currentDateTime) {
+            return base.Channel.GetApplicantsAwaitingCalls(currentDateTime);
         }
         
-        public System.Threading.Tasks.Task<AES.Shared.Contracts.UserInfoContract> GetApplicantsAwaitingCallsAsync() {
-            return base.Channel.GetApplicantsAwaitingCallsAsync();
+        public System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingCallsAsync(System.DateTime currentDateTime) {
+            return base.Channel.GetApplicantsAwaitingCallsAsync(currentDateTime);
         }
         
-        public AES.Shared.Contracts.UserInfoContract GetApplicantsAwaitingInterview(int storeID) {
+        public AES.Shared.Contracts.ApplicantInfoContract[] GetApplicantsAwaitingInterview(int storeID) {
             return base.Channel.GetApplicantsAwaitingInterview(storeID);
         }
         
-        public System.Threading.Tasks.Task<AES.Shared.Contracts.UserInfoContract> GetApplicantsAwaitingInterviewAsync(int storeID) {
+        public System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingInterviewAsync(int storeID) {
             return base.Channel.GetApplicantsAwaitingInterviewAsync(storeID);
         }
         
@@ -419,11 +463,11 @@ namespace AES.Web.ApplicationService {
             return base.Channel.GetApplicationAsync(user);
         }
         
-        public AES.Web.ApplicationService.ApplicationInfoContract GetCallApplication(AES.Shared.Contracts.UserInfoContract user) {
+        public AES.Web.ApplicationService.ApplicationInfoContract GetCallApplication(AES.Shared.Contracts.ApplicantInfoContract user) {
             return base.Channel.GetCallApplication(user);
         }
         
-        public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetCallApplicationAsync(AES.Shared.Contracts.UserInfoContract user) {
+        public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetCallApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user) {
             return base.Channel.GetCallApplicationAsync(user);
         }
         
@@ -433,14 +477,6 @@ namespace AES.Web.ApplicationService {
         
         public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetInterviewApplicationAsync(AES.Shared.Contracts.UserInfoContract user) {
             return base.Channel.GetInterviewApplicationAsync(user);
-        }
-        
-        public bool PullApplicantFromCallQueue(AES.Shared.Contracts.UserInfoContract user) {
-            return base.Channel.PullApplicantFromCallQueue(user);
-        }
-        
-        public System.Threading.Tasks.Task<bool> PullApplicantFromCallQueueAsync(AES.Shared.Contracts.UserInfoContract user) {
-            return base.Channel.PullApplicantFromCallQueueAsync(user);
         }
         
         public AES.Shared.AppSvcResponse SavePartialApplication(AES.Web.ApplicationService.ApplicationInfoContract app) {
@@ -457,6 +493,30 @@ namespace AES.Web.ApplicationService {
         
         public System.Threading.Tasks.Task<bool> SetApplicationStatusAsync(AES.Web.ApplicationService.ApplicationInfoContract app, AES.Shared.AppStatus status) {
             return base.Channel.SetApplicationStatusAsync(app, status);
+        }
+        
+        public bool CallApplicant(int applicantID) {
+            return base.Channel.CallApplicant(applicantID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CallApplicantAsync(int applicantID) {
+            return base.Channel.CallApplicantAsync(applicantID);
+        }
+        
+        public bool ApplicantDidNotAnswer(int applicantID) {
+            return base.Channel.ApplicantDidNotAnswer(applicantID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ApplicantDidNotAnswerAsync(int applicantID) {
+            return base.Channel.ApplicantDidNotAnswerAsync(applicantID);
+        }
+        
+        public bool SavePhoneInterview(int applicantID, string notes, bool approved) {
+            return base.Channel.SavePhoneInterview(applicantID, notes, approved);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SavePhoneInterviewAsync(int applicantID, string notes, bool approved) {
+            return base.Channel.SavePhoneInterviewAsync(applicantID, notes, approved);
         }
         
         public bool SubmitApplication(AES.Shared.Contracts.ApplicantInfoContract user) {

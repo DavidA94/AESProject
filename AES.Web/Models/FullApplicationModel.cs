@@ -11,9 +11,9 @@ namespace AES.Web.Models
     {
         public ProfileViewModel Profile { get; set; }
         public AvailabilityViewModel Availibility { get; set; }
-        public WorkHistoryViewModel WorkHistory { get; set; }
-        public EducationViewModel Education { get; set; }
-        public ReferencesViewModel References { get; set; }
-        public QuestionnaireViewModel Questionnaire { get; set; }
+        public List<WorkHistoryViewModel> WorkHistory { get; set; }
+        public List<EducationViewModel> Education { get; set; }
+        public List<ReferencesViewModel> References { get; set; }
+        public List<QuestionnaireViewModel> Questionnaire { get; set; }
     }
 }

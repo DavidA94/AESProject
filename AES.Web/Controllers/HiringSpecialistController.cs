@@ -16,15 +16,16 @@ namespace AES.Web.Controllers
         {
             var x = FillHSData();
 
-            return View(x);
+            IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            //IApplicationSvc appSvc = new ApplicationSvcClient();
+            UserInfoContract CallingApplicants = appSvc.GetApplicantsAwaitingCalls();
 
-            //// Get the application (will come back with historical data)
-            //ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
-            //{
-            //    UserID = userID
-            //});
+            var HiringSpecialist = new HiringSpecialistModel()
+            {
+                ETA = CallingApplicants.EndCallTime
+            };
+
+            return View(HiringSpecialist);
         }
         
         // Hardcoded HiringSpecialistViewModel
@@ -47,31 +48,6 @@ namespace AES.Web.Controllers
                 }
             };
         }
-            
-        //List<ApplicantInfoContract> testList = new List<ApplicantInfoContract>();
-
-        //testList.Add(new ApplicantInfoContract()
-        //{
-
-        //    UserInfo = new UserInfoContract()
-        //    {
-        //        Nickname = "John Smith";
-        //        EndCallTime = new TimeSpan(12,12,12); 
-        //    }
-        //});
-
-        //List<ApplicantInfoModel> models = new List<ApplicantInfoModel>();
-
-        //foreach (var applicant in testList)
-        //{
-        //    models.Add(new ApplicantInfoModel()
-        //    {
-        //        FirstName = applicant.FirstName,
-        //        LastName = applicant.FirstName,
-        //        ETA = yadadadad
-        //    }
-        //    );
-        //}
 
         public ActionResult CallPage()
         {

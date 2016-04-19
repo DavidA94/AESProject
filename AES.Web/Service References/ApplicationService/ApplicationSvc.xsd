@@ -9,9 +9,11 @@
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AppliedJobs" nillable="true" type="q1:ArrayOfint" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="Availability" nillable="true" type="q2:AvailabilityContract" />
       <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="Educations" nillable="true" type="q3:ArrayOfEducationHistoryContract" />
+      <xs:element minOccurs="0" name="InterviewNotes" nillable="true" type="xs:string" />
       <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="Jobs" nillable="true" type="q4:ArrayOfJobHistoryContract" />
       <xs:element minOccurs="0" name="QA" nillable="true" type="tns:ArrayOfQAContract" />
       <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="References" nillable="true" type="q5:ArrayOfReferenceContract" />
+      <xs:element minOccurs="0" name="ScreeningNotes" nillable="true" type="xs:string" />
       <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="UserInfo" nillable="true" type="q6:UserInfoContract" />
     </xs:sequence>
   </xs:complexType>
