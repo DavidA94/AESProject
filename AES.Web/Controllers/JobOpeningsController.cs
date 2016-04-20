@@ -39,9 +39,9 @@ namespace AES.Web.Controllers
                 OpeningList.Add(new JobOpeningsViewModel()
                 {
                     Title = o.title, 
-                    ShortDesc = o.shortDesc, 
+                    ShortDesc = o.ShortDescription, 
                     ID = o.ID, 
-                    LongDesc = o.longDesc
+                    LongDesc = o.LongDescription
                 });
             }
 

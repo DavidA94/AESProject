@@ -41,7 +41,7 @@ namespace AES.Web.ApplicationService {
         private AES.Shared.Contracts.JobHistoryContract[] JobsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private AES.Web.ApplicationService.QAContract[] QAField;
+        private AES.Shared.Contracts.QAContract[] QAField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AES.Shared.Contracts.ReferenceContract[] ReferencesField;
@@ -141,7 +141,7 @@ namespace AES.Web.ApplicationService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public AES.Web.ApplicationService.QAContract[] QA {
+        public AES.Shared.Contracts.QAContract[] QA {
             get {
                 return this.QAField;
             }
@@ -202,131 +202,6 @@ namespace AES.Web.ApplicationService {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="QAContract", Namespace="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts")]
-    [System.SerializableAttribute()]
-    public partial class QAContract : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool[] MC_AnswersField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string[] OptionsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string QuestionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int QuestionIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ShortAnswerField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private AES.Shared.QuestionType TypeField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool[] MC_Answers {
-            get {
-                return this.MC_AnswersField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MC_AnswersField, value) != true)) {
-                    this.MC_AnswersField = value;
-                    this.RaisePropertyChanged("MC_Answers");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] Options {
-            get {
-                return this.OptionsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.OptionsField, value) != true)) {
-                    this.OptionsField = value;
-                    this.RaisePropertyChanged("Options");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Question {
-            get {
-                return this.QuestionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.QuestionField, value) != true)) {
-                    this.QuestionField = value;
-                    this.RaisePropertyChanged("Question");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int QuestionID {
-            get {
-                return this.QuestionIDField;
-            }
-            set {
-                if ((this.QuestionIDField.Equals(value) != true)) {
-                    this.QuestionIDField = value;
-                    this.RaisePropertyChanged("QuestionID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ShortAnswer {
-            get {
-                return this.ShortAnswerField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ShortAnswerField, value) != true)) {
-                    this.ShortAnswerField = value;
-                    this.RaisePropertyChanged("ShortAnswer");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public AES.Shared.QuestionType Type {
-            get {
-                return this.TypeField;
-            }
-            set {
-                if ((this.TypeField.Equals(value) != true)) {
-                    this.TypeField = value;
-                    this.RaisePropertyChanged("Type");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ApplicationService.IApplicationSvc")]
     public interface IApplicationSvc {
@@ -350,16 +225,10 @@ namespace AES.Web.ApplicationService {
         System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingInterviewAsync(int storeID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicationResponse")]
-        AES.Web.ApplicationService.ApplicationInfoContract GetApplication(AES.Shared.Contracts.ApplicantInfoContract user);
+        AES.Web.ApplicationService.ApplicationInfoContract GetApplication(int userID, AES.Shared.AppStatus userAppStatus);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicationResponse")]
-        System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetCallApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetCallApplicationResponse")]
-        AES.Web.ApplicationService.ApplicationInfoContract GetCallApplication(AES.Shared.Contracts.ApplicantInfoContract user);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetCallApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetCallApplicationResponse")]
-        System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetCallApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user);
+        System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(int userID, AES.Shared.AppStatus userAppStatus);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetInterviewApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetInterviewApplicationResponse")]
         AES.Web.ApplicationService.ApplicationInfoContract GetInterviewApplication(AES.Shared.Contracts.UserInfoContract user);
@@ -455,20 +324,12 @@ namespace AES.Web.ApplicationService {
             return base.Channel.GetApplicantsAwaitingInterviewAsync(storeID);
         }
         
-        public AES.Web.ApplicationService.ApplicationInfoContract GetApplication(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetApplication(user);
+        public AES.Web.ApplicationService.ApplicationInfoContract GetApplication(int userID, AES.Shared.AppStatus userAppStatus) {
+            return base.Channel.GetApplication(userID, userAppStatus);
         }
         
-        public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetApplicationAsync(user);
-        }
-        
-        public AES.Web.ApplicationService.ApplicationInfoContract GetCallApplication(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetCallApplication(user);
-        }
-        
-        public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetCallApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetCallApplicationAsync(user);
+        public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(int userID, AES.Shared.AppStatus userAppStatus) {
+            return base.Channel.GetApplicationAsync(userID, userAppStatus);
         }
         
         public AES.Web.ApplicationService.ApplicationInfoContract GetInterviewApplication(AES.Shared.Contracts.UserInfoContract user) {

@@ -9,8 +9,8 @@
   <xs:complexType name="JobOpeningContract">
     <xs:sequence>
       <xs:element minOccurs="0" name="ID" type="xs:int" />
-      <xs:element minOccurs="0" name="longDesc" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="shortDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LongDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShortDescription" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

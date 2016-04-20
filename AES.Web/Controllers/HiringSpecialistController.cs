@@ -18,16 +18,32 @@ namespace AES.Web.Controllers
 
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            UserInfoContract CallingApplicants = appSvc.GetApplicantsAwaitingCalls();
+            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
 
-            var HiringSpecialist = new HiringSpecialistModel()
-            {
-                ETA = CallingApplicants.EndCallTime
-            };
+            List<HiringSpecialistModel>  ConvertedContract = ConvertContractToModel(CallingApplicants);
 
-            return View(HiringSpecialist);
+           
+
+            return View(ConvertedContract);
         }
-        
+
+        private List<HiringSpecialistModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> Info)
+        {
+            var RetInfo = new List<HiringSpecialistModel>();
+
+            foreach (var AppInfo in Info)
+            {
+                RetInfo.Add(new HiringSpecialistModel()
+                {
+                    FirstName = AppInfo.FirstName,
+                    LastName = AppInfo.LastName,
+                    ETA = AppInfo.UserInfo.EndCallTime
+                });
+            }
+
+            return RetInfo;
+        }
+
         // Hardcoded HiringSpecialistViewModel
         public List<HiringSpecialistModel> FillHSData()
         {

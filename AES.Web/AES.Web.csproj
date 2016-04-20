@@ -236,6 +236,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Properties\DataSources\AES.Shared.Contracts.EmployeeUserContract.datasource" />
+    <Content Include="Properties\DataSources\AES.Shared.Contracts.QAContract.datasource" />
     <None Include="Service References\ApplicationService\ApplicationSvc.disco" />
     <None Include="Service References\ApplicationService\configuration91.svcinfo" />
     <None Include="Service References\ApplicationService\configuration.svcinfo" />

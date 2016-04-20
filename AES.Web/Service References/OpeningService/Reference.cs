@@ -26,10 +26,10 @@ namespace AES.Web.OpeningService {
         private int IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string longDescField;
+        private string LongDescriptionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string shortDescField;
+        private string ShortDescriptionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string titleField;
@@ -58,27 +58,27 @@ namespace AES.Web.OpeningService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string longDesc {
+        public string LongDescription {
             get {
-                return this.longDescField;
+                return this.LongDescriptionField;
             }
             set {
-                if ((object.ReferenceEquals(this.longDescField, value) != true)) {
-                    this.longDescField = value;
-                    this.RaisePropertyChanged("longDesc");
+                if ((object.ReferenceEquals(this.LongDescriptionField, value) != true)) {
+                    this.LongDescriptionField = value;
+                    this.RaisePropertyChanged("LongDescription");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string shortDesc {
+        public string ShortDescription {
             get {
-                return this.shortDescField;
+                return this.ShortDescriptionField;
             }
             set {
-                if ((object.ReferenceEquals(this.shortDescField, value) != true)) {
-                    this.shortDescField = value;
-                    this.RaisePropertyChanged("shortDesc");
+                if ((object.ReferenceEquals(this.ShortDescriptionField, value) != true)) {
+                    this.ShortDescriptionField = value;
+                    this.RaisePropertyChanged("ShortDescription");
                 }
             }
         }
