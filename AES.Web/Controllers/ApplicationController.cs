@@ -44,10 +44,7 @@ namespace AES.Web.Controllers
             }
 
             // Get the application (will come back with historical data)
-            ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
-            {
-                UserID = userID
-            });
+            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
             // Get the user that is logged in
             var user = ApplicantUserManager.GetUser();
@@ -90,10 +87,7 @@ namespace AES.Web.Controllers
 
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
-            {
-                UserID = userID
-            });
+            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
             if(app == null || app.UserInfo == null)
             {
@@ -151,10 +145,7 @@ namespace AES.Web.Controllers
 
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
-            {
-                UserID = userID
-            });
+            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
             if (app == null || app.UserInfo == null)
             {
@@ -217,10 +208,7 @@ namespace AES.Web.Controllers
 
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
-            {
-                UserID = userID
-            });
+            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
             if (app == null || app.UserInfo == null)
             {
@@ -280,10 +268,7 @@ namespace AES.Web.Controllers
 
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
-            {
-                UserID = userID
-            });
+            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
             if (app == null || app.UserInfo == null)
             {
@@ -331,11 +316,8 @@ namespace AES.Web.Controllers
 
             // Get the application (will come back with historical data)
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(new ApplicantInfoContract()
-            {
-                UserID = userID
-            });
-
+            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
+            
             if (app == null || app.UserInfo == null)
             {
                 return RedirectToAction("AvailableJobs", "JobOpenings");
@@ -396,7 +378,7 @@ namespace AES.Web.Controllers
 
             // Call out and get the current application
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            var app = appSvc.GetApplication(new ApplicantInfoContract() { UserID = userID });
+            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
             // Attempt to save the application
             var result = appSvc.SubmitApplication(new ApplicantInfoContract() { UserID = app.ApplicantID });
@@ -459,7 +441,7 @@ namespace AES.Web.Controllers
 
             // Call out and get the current application
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            var app = appSvc.GetApplication(new ApplicantInfoContract() { UserID = userID });
+            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
             // Add the data to the app
             info.First().AddData(info, ref app);
