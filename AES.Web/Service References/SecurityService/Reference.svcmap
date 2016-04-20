@@ -22,9 +22,10 @@
     <MetadataSource Address="http://localhost:61658/SecuritySvc.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SecuritySvc.xsd" MetadataType="Schema" ID="44aa8674-6fc8-4f49-928c-e5836a4b251f" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?xsd=xsd0" />
-    <MetadataFile FileName="SecuritySvc1.xsd" MetadataType="Schema" ID="191d2bf3-6b51-410f-b0fd-06a3055b566d" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?xsd=xsd2" />
     <MetadataFile FileName="SecuritySvc.wsdl" MetadataType="Wsdl" ID="f0f86c30-e2bd-4ce8-abaa-ee8eff6b8fcb" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?wsdl" />
+    <MetadataFile FileName="SecuritySvc3.xsd" MetadataType="Schema" ID="1c946f4b-7f87-47cf-bec2-4a67ea7138fa" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?xsd=xsd3" />
+    <MetadataFile FileName="SecuritySvc1.xsd" MetadataType="Schema" ID="191d2bf3-6b51-410f-b0fd-06a3055b566d" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?xsd=xsd2" />
+    <MetadataFile FileName="SecuritySvc.xsd" MetadataType="Schema" ID="44aa8674-6fc8-4f49-928c-e5836a4b251f" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?xsd=xsd0" />
     <MetadataFile FileName="SecuritySvc2.xsd" MetadataType="Schema" ID="fae42973-4a85-4053-91c3-ef5e14256e60" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?xsd=xsd1" />
     <MetadataFile FileName="SecuritySvc.disco" MetadataType="Disco" ID="270cc428-0f85-4c38-a8e4-52ea1b5bc2ac" SourceId="1" SourceUrl="http://localhost:61658/SecuritySvc.svc?disco" />
   </Metadata>

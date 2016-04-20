@@ -77,6 +77,7 @@
   <xs:complexType name="QAContract">
     <xs:sequence>
       <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="MC_Answers" nillable="true" type="q2:ArrayOfboolean" />
+      <xs:element minOccurs="0" name="NeededRight" type="xs:int" />
       <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Options" nillable="true" type="q3:ArrayOfstring" />
       <xs:element minOccurs="0" name="Question" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="QuestionID" type="xs:int" />

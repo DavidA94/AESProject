@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:61658/SecuritySvc.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:61658/SecuritySvc.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:61658/SecuritySvc.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" />
+      <xsd:import schemaLocation="http://localhost:61658/SecuritySvc.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AES.Shared" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ISecuritySvc_ValidateUser_InputMessage">
@@ -13,20 +14,30 @@
   <wsdl:message name="ISecuritySvc_ValidateUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateUserResponse" />
   </wsdl:message>
-  <wsdl:message name="ISecuritySvc_GetUser_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetUser" />
+  <wsdl:message name="ISecuritySvc_ValidateEmployeeUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateEmployeeUser" />
   </wsdl:message>
-  <wsdl:message name="ISecuritySvc_GetUser_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetUserResponse" />
+  <wsdl:message name="ISecuritySvc_ValidateEmployeeUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateEmployeeUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISecuritySvc_CreateEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployee" />
+  </wsdl:message>
+  <wsdl:message name="ISecuritySvc_CreateEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployeeResponse" />
   </wsdl:message>
   <wsdl:portType name="ISecuritySvc">
     <wsdl:operation name="ValidateUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ISecuritySvc/ValidateUser" message="tns:ISecuritySvc_ValidateUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISecuritySvc/ValidateUserResponse" message="tns:ISecuritySvc_ValidateUser_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetUser">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISecuritySvc/GetUser" message="tns:ISecuritySvc_GetUser_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISecuritySvc/GetUserResponse" message="tns:ISecuritySvc_GetUser_OutputMessage" />
+    <wsdl:operation name="ValidateEmployeeUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISecuritySvc/ValidateEmployeeUser" message="tns:ISecuritySvc_ValidateEmployeeUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISecuritySvc/ValidateEmployeeUserResponse" message="tns:ISecuritySvc_ValidateEmployeeUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEmployee">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISecuritySvc/CreateEmployee" message="tns:ISecuritySvc_CreateEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISecuritySvc/CreateEmployeeResponse" message="tns:ISecuritySvc_CreateEmployee_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISecuritySvc" type="tns:ISecuritySvc">
@@ -40,8 +51,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUser">
-      <soap:operation soapAction="http://tempuri.org/ISecuritySvc/GetUser" style="document" />
+    <wsdl:operation name="ValidateEmployeeUser">
+      <soap:operation soapAction="http://tempuri.org/ISecuritySvc/ValidateEmployeeUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEmployee">
+      <soap:operation soapAction="http://tempuri.org/ISecuritySvc/CreateEmployee" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

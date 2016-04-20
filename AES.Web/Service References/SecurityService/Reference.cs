@@ -21,11 +21,17 @@ namespace AES.Web.SecurityService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/ValidateUser", ReplyAction="http://tempuri.org/ISecuritySvc/ValidateUserResponse")]
         System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract> ValidateUserAsync(AES.Shared.Contracts.ApplicantInfoContract userInfo);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/GetUser", ReplyAction="http://tempuri.org/ISecuritySvc/GetUserResponse")]
-        AES.Shared.Contracts.ApplicantInfoContract GetUser(AES.Shared.Contracts.ApplicantInfoContract user);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/ValidateEmployeeUser", ReplyAction="http://tempuri.org/ISecuritySvc/ValidateEmployeeUserResponse")]
+        AES.Shared.Contracts.EmployeeUserContract ValidateEmployeeUser(AES.Shared.Contracts.EmployeeCredentialsContract credentials);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/GetUser", ReplyAction="http://tempuri.org/ISecuritySvc/GetUserResponse")]
-        System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract> GetUserAsync(AES.Shared.Contracts.ApplicantInfoContract user);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/ValidateEmployeeUser", ReplyAction="http://tempuri.org/ISecuritySvc/ValidateEmployeeUserResponse")]
+        System.Threading.Tasks.Task<AES.Shared.Contracts.EmployeeUserContract> ValidateEmployeeUserAsync(AES.Shared.Contracts.EmployeeCredentialsContract credentials);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/CreateEmployee", ReplyAction="http://tempuri.org/ISecuritySvc/CreateEmployeeResponse")]
+        bool CreateEmployee(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/CreateEmployee", ReplyAction="http://tempuri.org/ISecuritySvc/CreateEmployeeResponse")]
+        System.Threading.Tasks.Task<bool> CreateEmployeeAsync(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -63,12 +69,20 @@ namespace AES.Web.SecurityService {
             return base.Channel.ValidateUserAsync(userInfo);
         }
         
-        public AES.Shared.Contracts.ApplicantInfoContract GetUser(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetUser(user);
+        public AES.Shared.Contracts.EmployeeUserContract ValidateEmployeeUser(AES.Shared.Contracts.EmployeeCredentialsContract credentials) {
+            return base.Channel.ValidateEmployeeUser(credentials);
         }
         
-        public System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract> GetUserAsync(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetUserAsync(user);
+        public System.Threading.Tasks.Task<AES.Shared.Contracts.EmployeeUserContract> ValidateEmployeeUserAsync(AES.Shared.Contracts.EmployeeCredentialsContract credentials) {
+            return base.Channel.ValidateEmployeeUserAsync(credentials);
+        }
+        
+        public bool CreateEmployee(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password) {
+            return base.Channel.CreateEmployee(employeeInfo, password);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CreateEmployeeAsync(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password) {
+            return base.Channel.CreateEmployeeAsync(employeeInfo, password);
         }
     }
 }

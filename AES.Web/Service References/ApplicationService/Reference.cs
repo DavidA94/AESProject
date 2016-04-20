@@ -225,16 +225,10 @@ namespace AES.Web.ApplicationService {
         System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingInterviewAsync(int storeID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicationResponse")]
-        AES.Web.ApplicationService.ApplicationInfoContract GetApplication(AES.Shared.Contracts.ApplicantInfoContract user);
+        AES.Web.ApplicationService.ApplicationInfoContract GetApplication(int userID, AES.Shared.AppStatus userAppStatus);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicationResponse")]
-        System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetCallApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetCallApplicationResponse")]
-        AES.Web.ApplicationService.ApplicationInfoContract GetCallApplication(AES.Shared.Contracts.ApplicantInfoContract user);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetCallApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetCallApplicationResponse")]
-        System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetCallApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user);
+        System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(int userID, AES.Shared.AppStatus userAppStatus);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetInterviewApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetInterviewApplicationResponse")]
         AES.Web.ApplicationService.ApplicationInfoContract GetInterviewApplication(AES.Shared.Contracts.UserInfoContract user);
@@ -330,20 +324,12 @@ namespace AES.Web.ApplicationService {
             return base.Channel.GetApplicantsAwaitingInterviewAsync(storeID);
         }
         
-        public AES.Web.ApplicationService.ApplicationInfoContract GetApplication(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetApplication(user);
+        public AES.Web.ApplicationService.ApplicationInfoContract GetApplication(int userID, AES.Shared.AppStatus userAppStatus) {
+            return base.Channel.GetApplication(userID, userAppStatus);
         }
         
-        public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetApplicationAsync(user);
-        }
-        
-        public AES.Web.ApplicationService.ApplicationInfoContract GetCallApplication(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetCallApplication(user);
-        }
-        
-        public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetCallApplicationAsync(AES.Shared.Contracts.ApplicantInfoContract user) {
-            return base.Channel.GetCallApplicationAsync(user);
+        public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(int userID, AES.Shared.AppStatus userAppStatus) {
+            return base.Channel.GetApplicationAsync(userID, userAppStatus);
         }
         
         public AES.Web.ApplicationService.ApplicationInfoContract GetInterviewApplication(AES.Shared.Contracts.UserInfoContract user) {
