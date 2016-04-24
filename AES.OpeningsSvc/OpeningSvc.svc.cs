@@ -31,14 +31,14 @@ namespace AES.OpeningsSvc
             return GetOpenings(StoreID, OpeningStatus.REJECTED);
         }
 
-        public bool RequestOpening(int StoreID, JobOpeningContract opening)
+        public bool RequestOpenings(int StoreID, JobOpeningContract opening, int number)
         {
             using (var db = new AESDbContext())
             {
                 var store = db.Stores.Where(a => a.ID == StoreID).FirstOrDefault();
                 var job = db.Jobs.Where(j => j.JobID == opening.JobID).FirstOrDefault();
 
-                if(store == null || job  == null)
+                if(store == null || job  == null || number < 1)
                 {
                     return false;
                 }
@@ -48,11 +48,16 @@ namespace AES.OpeningsSvc
                     Store = store,
                     Job = job,
                     Status = OpeningStatus.PENDING_APPROVAL,
-                    RequestNotes = opening.RequestNotes
+                    RequestNotes = opening.RequestNotes,
+                    Positions = number
                 };
 
                 db.JobOpenings.Add(openingRequest);
-                db.SaveChanges();
+
+                if (db.SaveChanges() < 1)
+                {
+                    return false;
+                }
             }
             
             return true;
@@ -71,19 +76,10 @@ namespace AES.OpeningsSvc
                 gottenOpening.StoreManagerNotes = notes;
                 gottenOpening.Status = OpeningStatus.APPROVED;
 
-                try
+                if (db.SaveChanges() < 1)
                 {
-                    if (db.SaveChanges() < 1)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-                catch (System.Exception ex)
-                {
-
-                    throw ex;
-                }
-
                 
             }
             return true;

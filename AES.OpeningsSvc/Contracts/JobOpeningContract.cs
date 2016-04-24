@@ -18,6 +18,7 @@ namespace AES.OpeningsSvc.Contracts
             StoreManagerNotes = opening.StoreManagerNotes;
             RequestNotes = opening.RequestNotes;
             OpeningID = opening.ID;
+            Positions = opening.Positions;
         }
 
         [DataMember]
@@ -37,6 +38,9 @@ namespace AES.OpeningsSvc.Contracts
 
         [DataMember]
         public int JobID { get; set; }
+
+        [DataMember]
+        public int Positions { get; set; }
 
         [DataMember]
         public int OpeningID { get; set; }

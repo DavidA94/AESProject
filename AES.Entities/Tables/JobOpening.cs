@@ -29,6 +29,8 @@ namespace AES.Entities.Tables
         [Required]
         public int StoreID { get; set; }
 
+        public int Positions { get; set; }
+
         [Required]
         public OpeningStatus Status { get; set; }
 
