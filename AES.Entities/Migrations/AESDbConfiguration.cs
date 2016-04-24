@@ -134,8 +134,8 @@ namespace AES.Entities.Migrations
 
             var userInfo2 = new UserInfo()
             {
-                CallEndTime = new TimeSpan(10, 0, 0),
-                CallStartTime = new TimeSpan(6, 0, 0),
+                CallEndTime = new TimeSpan(0, 0, 0),
+                CallStartTime = new TimeSpan(23, 59, 59),
                 State = "WA",
                 Address = "2100 SW 158th Ave.",
                 City = "Vancouver",
