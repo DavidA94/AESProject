@@ -17,6 +17,7 @@ namespace AES.OpeningsSvc.Contracts
             title = opening.Job.Title;
             StoreManagerNotes = opening.StoreManagerNotes;
             Status = opening.Status;
+            storeID = opening.Store.ID;
         }
 
         [DataMember]
@@ -30,6 +31,9 @@ namespace AES.OpeningsSvc.Contracts
 
         [DataMember]
         public string StoreManagerNotes { get; set; }
+
+        [DataMember]
+        public int storeID { get; set; }
 
         [DataMember]
         public OpeningStatus Status { get; set; }
