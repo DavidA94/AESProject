@@ -1,4 +1,5 @@
 ﻿using AES.Entities.Tables;
+using AES.Shared;
 using System.Runtime.Serialization;
 
 namespace AES.OpeningsSvc.Contracts
@@ -14,6 +15,8 @@ namespace AES.OpeningsSvc.Contracts
             ShortDescription = opening.Job.ShortDescription;
             LongDescription = opening.Job.LongDescription;
             title = opening.Job.Title;
+            StoreManagerNotes = opening.StoreManagerNotes;
+            Status = opening.Status;
         }
 
         [DataMember]
@@ -24,6 +27,12 @@ namespace AES.OpeningsSvc.Contracts
 
         [DataMember]
         public string title { get; set; }
+
+        [DataMember]
+        public string StoreManagerNotes { get; set; }
+
+        [DataMember]
+        public OpeningStatus Status { get; set; }
 
         [DataMember]
         public int ID { get; set; }
