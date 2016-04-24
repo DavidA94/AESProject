@@ -162,7 +162,7 @@ namespace AES.ApplicationSvc.Tests
 
             foreach(var rq in returnedData.QA)
             {
-                var eq = expectedData.QA.FirstOrDefault(q => q.Type == rq.Type);
+                var eq = expectedData.QA.FirstOrDefault(q => q.Type == rq.Type && q.QuestionID == rq.QuestionID);
 
                 Assert.AreEqual(rq.QuestionID, eq.QuestionID);
                 Assert.AreEqual(rq.Type, eq.Type);
@@ -564,6 +564,24 @@ namespace AES.ApplicationSvc.Tests
                         QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Which of the following are cleaning products? (Check all that apply)").QuestionID,
                         Type = QuestionType.CHECKBOX,
                         MC_Answers = new List<bool> { true, true, false, false }
+                    },
+                    new QAContract()
+                    {
+                        QuestionID = db.Questions.FirstOrDefault(q => q.Text == "How would you make a good sales associate?").QuestionID,
+                        Type = QuestionType.SHORT,
+                        ShortAnswer = "cuz of my falwless speeling"
+                    },
+                    new QAContract()
+                    {
+                        QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Are you applying for the job of sales associate?").QuestionID,
+                        Type = QuestionType.RADIO,
+                        MC_Answers = new List<bool> { true, false, false, false }
+                    },
+                    new QAContract()
+                    {
+                        QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Which are sales terms? (Check all that apply)").QuestionID,
+                        Type = QuestionType.CHECKBOX,
+                        MC_Answers = new List<bool> { true, true, false, false }
                     }
                 };
             }
@@ -610,7 +628,8 @@ namespace AES.ApplicationSvc.Tests
             var application = user.Applications.FirstOrDefault(a => a.Status == Shared.AppStatus.PARTIAL && 
                                                                     a.Applicant.userID == user.userID &&
                                                                     a.MultiAnswers.Count > 0 &&
-                                                                    a.ShortAnswers.Count > 0);
+                                                                    a.ShortAnswers.Count > 0 &&
+                                                                    a.Job.Title == "Maintenece Technician");
 
             var answer = application.MultiAnswers.FirstOrDefault(a => a.Question.Text == "Can you lift more than 50 pounds?");
             Assert.IsTrue(answer.Answer1);
