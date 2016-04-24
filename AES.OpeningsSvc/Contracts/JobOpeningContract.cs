@@ -11,13 +11,13 @@ namespace AES.OpeningsSvc.Contracts
 
         public JobOpeningContract(JobOpening opening)
         {
-            ID = opening.Job.JobID;
+            JobID = opening.Job.JobID;
             ShortDescription = opening.Job.ShortDescription;
             LongDescription = opening.Job.LongDescription;
             title = opening.Job.Title;
             StoreManagerNotes = opening.StoreManagerNotes;
-            Status = opening.Status;
-            storeID = opening.Store.ID;
+            RequestNotes = opening.RequestNotes;
+            OpeningID = opening.ID;
         }
 
         [DataMember]
@@ -33,12 +33,12 @@ namespace AES.OpeningsSvc.Contracts
         public string StoreManagerNotes { get; set; }
 
         [DataMember]
-        public int storeID { get; set; }
+        public string RequestNotes { get; set; }
 
         [DataMember]
-        public OpeningStatus Status { get; set; }
+        public int JobID { get; set; }
 
         [DataMember]
-        public int ID { get; set; }
+        public int OpeningID { get; set; }
     }
 }

@@ -59,6 +59,11 @@ namespace AES.Shared
     public enum OpeningStatus
     {
         /// <summary>
+        /// When the request for openings has been approved
+        /// </summary>
+        APPROVED,
+
+        /// <summary>
         /// When the opening is pending approval by a store manager
         /// </summary>
         PENDING_APPROVAL,
@@ -66,12 +71,7 @@ namespace AES.Shared
         /// <summary>
         /// When the store manager has rejected the request
         /// </summary>
-        REJECTED,
-
-        /// <summary>
-        /// When the request for openings has been approved
-        /// </summary>
-        APPROVED
+        REJECTED
     }
 
     /// <summary>
