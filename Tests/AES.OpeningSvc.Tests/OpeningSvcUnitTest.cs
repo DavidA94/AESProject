@@ -186,15 +186,8 @@ namespace AES.OpeningsSvc.Tests
                 Assert.AreEqual(0, rejectedOpenings.Count());
 
                 db.JobOpenings.RemoveRange(db.JobOpenings.Where(o => o.Job.JobID == newJob.JobID));
-
-                db.SaveChanges();
-
                 db.Jobs.RemoveRange(db.Jobs.Where(j => j.JobID == newJob.JobID));
-
-                db.SaveChanges();
-
                 db.Stores.RemoveRange(db.Stores.Where(st => st.ID == newStore.ID));
-
                 db.SaveChanges();
             }
         }
