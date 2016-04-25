@@ -54,6 +54,27 @@ namespace AES.Shared
     }
 
     /// <summary>
+    /// Indicates where an opening is in the process
+    /// </summary>
+    public enum OpeningStatus
+    {
+        /// <summary>
+        /// When the request for openings has been approved
+        /// </summary>
+        APPROVED,
+
+        /// <summary>
+        /// When the opening is pending approval by a store manager
+        /// </summary>
+        PENDING_APPROVAL,
+
+        /// <summary>
+        /// When the store manager has rejected the request
+        /// </summary>
+        REJECTED
+    }
+
+    /// <summary>
     /// Indicates what type of question is being asked
     /// </summary>
     public enum QuestionType {
