@@ -170,9 +170,9 @@ namespace AES.OpeningsSvc.Tests
                     RequestNotes = notes
                 };
 
-                Assert.IsTrue(s.RequestOpening(newStore.ID, openingRequest));
+                Assert.IsTrue(s.RequestOpenings(newStore.ID, openingRequest));
                 Assert.AreEqual(1, db.JobOpenings.Count(o => o.Status == OpeningStatus.PENDING_APPROVAL && o.Job.JobID == newJob.JobID));
-                Assert.IsTrue(s.RequestOpening(newStore.ID, openingRequest));
+                Assert.IsTrue(s.RequestOpenings(newStore.ID, openingRequest));
                 Assert.AreEqual(2, db.JobOpenings.Count(o => o.Status == OpeningStatus.PENDING_APPROVAL && o.Job.JobID == newJob.JobID));
 
                 var pendingOpenings = s.GetPendingOpenings(newStore.ID);
@@ -243,7 +243,7 @@ namespace AES.OpeningsSvc.Tests
 
                 string rejectNotes = "You don't need another opening for that position";
 
-                Assert.IsTrue(s.RequestOpening(newStore.ID, openingRequest));
+                Assert.IsTrue(s.RequestOpenings(newStore.ID, openingRequest));
                 Assert.AreEqual(1, db.JobOpenings.Count(o => o.Status == OpeningStatus.PENDING_APPROVAL && o.Job.JobID == newJob.JobID));
                 var gottenOpeningRequest = new JobOpeningContract(db.JobOpenings.FirstOrDefault(jo => jo.Job.JobID == newJob.JobID));
 
@@ -263,15 +263,8 @@ namespace AES.OpeningsSvc.Tests
                 Assert.AreEqual(1, rejectedOpenings.Count());
 
                 db.JobOpenings.RemoveRange(db.JobOpenings.Where(o => o.Job.JobID == newJob.JobID));
-
-                db.SaveChanges();
-
                 db.Jobs.RemoveRange(db.Jobs.Where(j => j.JobID == newJob.JobID));
-
-                db.SaveChanges();
-
                 db.Stores.RemoveRange(db.Stores.Where(st => st.ID == newStore.ID));
-
                 db.SaveChanges();
             }
         }
@@ -320,7 +313,7 @@ namespace AES.OpeningsSvc.Tests
 
                 string approveNotes = "Yes, we should have an opening for this job";
 
-                Assert.IsTrue(s.RequestOpening(newStore.ID, openingRequest));
+                Assert.IsTrue(s.RequestOpenings(newStore.ID, openingRequest));
                 Assert.AreEqual(1, db.JobOpenings.Count(o => o.Status == OpeningStatus.PENDING_APPROVAL && o.Job.JobID == newJob.JobID));
 
                 var gottenOpeningRequest = new JobOpeningContract(db.JobOpenings.FirstOrDefault(jo => jo.Job.JobID == newJob.JobID));
@@ -341,15 +334,8 @@ namespace AES.OpeningsSvc.Tests
                 Assert.AreEqual(0, rejectedOpenings.Count());
 
                 db.JobOpenings.RemoveRange(db.JobOpenings.Where(o => o.Job.JobID == newJob.JobID));
-
-                db.SaveChanges();
-
                 db.Jobs.RemoveRange(db.Jobs.Where(j => j.JobID == newJob.JobID));
-
-                db.SaveChanges();
-
                 db.Stores.RemoveRange(db.Stores.Where(st => st.ID == newStore.ID));
-
                 db.SaveChanges();
             }
         }

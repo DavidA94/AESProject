@@ -31,7 +31,7 @@ namespace AES.OpeningsSvc
             return GetOpenings(StoreID, OpeningStatus.REJECTED);
         }
 
-        public bool RequestOpenings(int StoreID, JobOpeningContract opening, int number)
+        public bool RequestOpenings(int StoreID, JobOpeningContract opening, int number = 1)
         {
             using (var db = new AESDbContext())
             {
