@@ -169,47 +169,6 @@ namespace AES.JobbingSvc.Tests
         }
 
         [TestMethod]
-        public void JobbingSvc_AddNewQuestionToNewJob()
-        {
-            // Ensure the job and question are not in the DB
-            using (var db = new AESDbContext())
-            {
-                if(db.Jobs.Any(j => j.Title == TITLE))
-                {
-                    db.Jobs.Remove(db.Jobs.FirstOrDefault(j => j.Title == TITLE));
-                    db.SaveChanges();
-                }
-                if (db.Questions.Any(q => q.Text == QUESTION))
-                {
-                    db.Questions.Remove(db.Questions.FirstOrDefault(q => q.Text == QUESTION));
-                    db.SaveChanges();
-                }
-            }
-
-            // Add the job to the question
-            JobbingSvc jobSvc = new JobbingSvc();
-
-            var newJobAndQ = jobSvc.AddQuestionsToJob(new JobContract() { LongDescription = LONG_DESC, ShortDescription = SHORT_DESC, Title = TITLE },
-                new List<QAContract> { new QAContract() { Question = QUESTION, Type = QuestionType.SHORT } });
-
-            // Get the job and question from the database
-            Job dbJob;
-            JobQuestion dbQ;
-            using (var db = new AESDbContext())
-            {
-                dbJob = db.Jobs.FirstOrDefault(j => j.Title == TITLE);
-                dbQ = db.Questions.FirstOrDefault(q => q.Text == QUESTION);
-            }
-
-            Assert.AreEqual(newJobAndQ, JobbingResponse.SUCCESS);
-            Assert.AreEqual(dbJob.LongDescription, LONG_DESC);
-            Assert.AreEqual(dbJob.ShortDescription, SHORT_DESC);
-            Assert.AreEqual(dbJob.Title, TITLE);
-            Assert.AreEqual(dbQ.Text, QUESTION);
-            Assert.AreEqual(dbQ.Type, QuestionType.SHORT);
-        }
-
-        [TestMethod]
         public void JobbingSvc_AddQuestionToJob()
         {
             // Ensure both the job and question exist
@@ -229,38 +188,8 @@ namespace AES.JobbingSvc.Tests
             JobbingSvc jobSvc = new JobbingSvc();
 
             // Link it twice, so we can ensure that it is only added once
-            var link1 = jobSvc.AddQuestionsToJob(new JobContract()
-                {
-                    JobID = dbJob.JobID,
-                    LongDescription = dbJob.LongDescription,
-                    ShortDescription = dbJob.ShortDescription,
-                    Title = dbJob.Title
-                }, 
-                new List<QAContract> { new QAContract() {
-                    QuestionID = dbQ.QuestionID,
-                    MC_Answers = ANSWERS,
-                    NeededRight = dbQ.CorrectAnswerThreshold,
-                    Options = OPTIONS,
-                    Question = dbQ.Text,
-                    Type = dbQ.Type
-                } }
-            );
-            var link2 = jobSvc.AddQuestionsToJob(new JobContract()
-            {
-                JobID = dbJob.JobID,
-                LongDescription = dbJob.LongDescription,
-                ShortDescription = dbJob.ShortDescription,
-                Title = dbJob.Title
-            },
-                new List<QAContract> { new QAContract() {
-                    QuestionID = dbQ.QuestionID,
-                    MC_Answers = ANSWERS,
-                    NeededRight = dbQ.CorrectAnswerThreshold,
-                    Options = OPTIONS,
-                    Question = dbQ.Text,
-                    Type = dbQ.Type
-                } }
-            );
+            var link1 = jobSvc.AddQuestionToJob(dbJob.JobID, dbQ.QuestionID);
+            var link2 = jobSvc.AddQuestionToJob(dbJob.JobID, dbQ.QuestionID);
 
             // Get the Job from the DB
             using (var db = new AESDbContext())
@@ -479,7 +408,7 @@ namespace AES.JobbingSvc.Tests
             var job = jobSvc.GetJobs().FirstOrDefault(j => j.Title == TITLE);
 
             // Get the questions via the service
-            var questions = jobSvc.GetQuestions(new JobContract() { JobID = job.JobID });
+            var questions = jobSvc.GetQuestions(job.JobID);
 
             // Connect to the DB
             using (var db = new AESDbContext())
@@ -515,7 +444,7 @@ namespace AES.JobbingSvc.Tests
             var question = jobSvc.GetQuestions().FirstOrDefault(q => q.Question == QUESTION);
 
             // Try to remove it
-            var remove = jobSvc.RemoveQuestionsFromJob(job, new List<QAContract> { question });
+            var remove = jobSvc.RemoveQuestionFromJob(job.JobID, question.QuestionID);
             Assert.AreEqual(remove, JobbingResponse.SUCCESS);
 
             // Connect to the DB

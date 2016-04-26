@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c4702d47-03c7-4658-bdd4-23eee093614e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:61586/JobbingSvc.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="JobbingSvc.wsdl" MetadataType="Wsdl" ID="da043380-ffe6-4a93-84f0-3252d50a71d8" SourceId="1" SourceUrl="http://localhost:61586/JobbingSvc.svc?wsdl" />
+    <MetadataFile FileName="JobbingSvc.disco" MetadataType="Disco" ID="371a43e2-7422-4392-99b9-249a0f8f80a4" SourceId="1" SourceUrl="http://localhost:61586/JobbingSvc.svc?disco" />
+    <MetadataFile FileName="JobbingSvc.xsd" MetadataType="Schema" ID="a11c8cd1-0180-45d2-92cd-9cb1648b5c1f" SourceId="1" SourceUrl="http://localhost:61586/JobbingSvc.svc?xsd=xsd1" />
+    <MetadataFile FileName="JobbingSvc1.xsd" MetadataType="Schema" ID="bd2c521f-fb1c-4c28-9517-09540758b1b4" SourceId="1" SourceUrl="http://localhost:61586/JobbingSvc.svc?xsd=xsd0" />
+    <MetadataFile FileName="JobbingSvc2.xsd" MetadataType="Schema" ID="c1581057-c115-4634-a0bb-5f7f431d5213" SourceId="1" SourceUrl="http://localhost:61586/JobbingSvc.svc?xsd=xsd3" />
+    <MetadataFile FileName="JobbingSvc3.xsd" MetadataType="Schema" ID="898c7b4d-e746-4f66-8fb9-3e7fb7548465" SourceId="1" SourceUrl="http://localhost:61586/JobbingSvc.svc?xsd=xsd2" />
+    <MetadataFile FileName="JobbingSvc4.xsd" MetadataType="Schema" ID="d82a14ce-4bd1-43c2-842e-efa5b50dd5a9" SourceId="1" SourceUrl="http://localhost:61586/JobbingSvc.svc?xsd=xsd5" />
+    <MetadataFile FileName="JobbingSvc5.xsd" MetadataType="Schema" ID="f95c6a11-d72f-414e-9155-adbe530b1895" SourceId="1" SourceUrl="http://localhost:61586/JobbingSvc.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

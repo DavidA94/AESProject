@@ -6,7 +6,7 @@ namespace AES.Shared
 {
     public class DBFileManager
     {
-        private static bool m_hasBeenCalled = false;
+        private static bool hasSet = false;
 
         /// <summary>
         /// Sets the DataDirectory so all services will use the same file
@@ -14,15 +14,11 @@ namespace AES.Shared
         /// <param name="isTest">Indicates if this is setting the directory for a *.Tests project</param>
         public static void SetDataDirectory(bool isTest = false)
         {
+            if (hasSet) { return; }
+
             // If this doesn't work, we're probably on AppHabor, and it is running tests which don't require this
             try
             {
-                if (m_hasBeenCalled)
-                {
-                    return;
-                }
-                m_hasBeenCalled = true;
-
                 // Get the directory we're starting in
                 DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
 
@@ -40,6 +36,10 @@ namespace AES.Shared
 
                 // Set the DataDirectory
                 AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
+
+                // We only want to use this flag if we are running tests, outside of the test environment, things will break with this,
+                // plus, outside the test environment, there's no chance of two SDF files.
+                hasSet = isTest;
             }
             catch { }
         }

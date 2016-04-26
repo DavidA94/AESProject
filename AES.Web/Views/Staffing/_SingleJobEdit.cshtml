@@ -1,0 +1,43 @@
+﻿@model AES.Web.Models.JobModel
+
+<div class="editBox">
+    @using (Html.BeginForm("SaveJob", "Staffing", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+                                    new { @class = "form-horizontal jobForm", role = "form" }))
+    {
+        @*@Html.HiddenFor(m => Model.JobID);*@
+        <input type="hidden" name="JobID" value="@Model.JobID" />
+
+        @* Title *@
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control editDisplayText" })
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* Short Description *@
+        <div class="form-group">
+            @Html.LabelFor(m => m.ShortDescription)
+            <div>
+                @Html.TextAreaFor(m => m.ShortDescription, new { @class = "form-control", @rows = "3" })
+                @Html.ValidationMessageFor(m => m.ShortDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* Long Description *@
+        <div class="form-group">
+            @Html.LabelFor(m => m.LongDescription)
+            <div>
+                @Html.TextAreaFor(m => m.LongDescription, new { @class = "form-control", @rows = "8" })
+                @Html.ValidationMessageFor(m => m.LongDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="pull-right">
+                <input type="submit" value="Save Edits" class="btn btn-default" />
+            </div>
+        </div>
+    }
+</div>
