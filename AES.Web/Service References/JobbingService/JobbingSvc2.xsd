@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AES.Shared" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AES.Shared" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="JobbingResponse">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DUPLICATE" />
+      <xs:enumeration value="ERROR" />
+      <xs:enumeration value="INVALID" />
+      <xs:enumeration value="SUCCESS" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="JobbingResponse" nillable="true" type="tns:JobbingResponse" />
+  <xs:simpleType name="QuestionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SHORT" />
+      <xs:enumeration value="RADIO" />
+      <xs:enumeration value="CHECKBOX" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="QuestionType" nillable="true" type="tns:QuestionType" />
+</xs:schema>

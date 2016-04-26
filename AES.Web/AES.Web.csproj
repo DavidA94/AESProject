@@ -184,6 +184,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobOpeningsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StaffingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,10 +192,16 @@
     <Compile Include="Models\ApplicantLoginModel.cs" />
     <Compile Include="Models\ApplicationModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobbingModels.cs" />
     <Compile Include="Models\JobOpeningsModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\ApplicationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\JobbingService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -215,6 +222,10 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\delete.png" />
+    <Content Include="Content\Images\edit.png" />
+    <Content Include="Content\Images\moveLeft.png" />
+    <Content Include="Content\Images\spinner.gif" />
     <Content Include="Content\Images\thanks.jpeg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -225,14 +236,26 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\AES.SecuritySvc.Contracts.ApplicantInfoContract.datasource" />
     <Content Include="Properties\DataSources\AES.Shared.Contracts.UserInfoContract.datasource" />
+    <Content Include="Scripts\JobbingDashboard.js" />
     <Content Include="Service References\ApplicationService\AES.Web.ApplicationService.ApplicationInfoContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Properties\DataSources\AES.Shared.Contracts.EmployeeUserContract.datasource" />
+    <Content Include="Properties\DataSources\AES.Shared.Contracts.QAContract.datasource" />
     <None Include="Service References\ApplicationService\ApplicationSvc.disco" />
     <None Include="Service References\ApplicationService\configuration91.svcinfo" />
     <None Include="Service References\ApplicationService\configuration.svcinfo" />
     <None Include="Service References\ApplicationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\JobbingService\AES.Web.JobbingService.JobContract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\JobbingService\JobbingSvc.disco" />
+    <None Include="Service References\JobbingService\configuration91.svcinfo" />
+    <None Include="Service References\JobbingService\configuration.svcinfo" />
+    <None Include="Service References\JobbingService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -258,6 +281,25 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ApplicationService\ApplicationSvc5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JobbingService\JobbingSvc.wsdl" />
+    <None Include="Service References\JobbingService\JobbingSvc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JobbingService\JobbingSvc1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JobbingService\JobbingSvc2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JobbingService\JobbingSvc3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JobbingService\JobbingSvc4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JobbingService\JobbingSvc5.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\OpeningService\OpeningSvc.wsdl" />
@@ -287,6 +329,12 @@
     <None Include="Service References\SecurityService\SecuritySvc3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Staffing\Dashboard.cshtml" />
+    <Content Include="Views\Staffing\_JobListPartial.cshtml" />
+    <Content Include="Views\Staffing\_QuestionListPartial.cshtml" />
+    <Content Include="Views\Staffing\_SingleJobEdit.cshtml" />
+    <Content Include="Views\Staffing\_SingleQuestionEdit.cshtml" />
+    <Content Include="Views\Staffing\_QuestionsTextList.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -410,6 +458,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ApplicationService\" />
+    <WCFMetadataStorage Include="Service References\JobbingService\" />
     <WCFMetadataStorage Include="Service References\OpeningService\" />
     <WCFMetadataStorage Include="Service References\SecurityService\" />
   </ItemGroup>

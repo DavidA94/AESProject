@@ -1,0 +1,12 @@
+﻿@using AES.Web.Models;
+@model IEnumerable<JobModel>
+
+
+@foreach (JobModel job in Model)
+{
+    <div class="job">
+        @{ Html.RenderPartial("_SingleJobEdit", job); }
+        <p class="title"><img src="~/Content/Images/edit.png" alt="Edit" class="EditJob" /> <span class="jobTitleText displayText">@job.Title</span></p>
+        <div class="hidden jobID">@job.JobID</div>
+    </div>
+}

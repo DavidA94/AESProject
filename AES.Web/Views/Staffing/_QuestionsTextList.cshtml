@@ -1,0 +1,13 @@
+﻿@using AES.Web.Models
+@model IEnumerable<QuestionnaireViewModel>
+
+<div class="editBox">
+    @foreach (QuestionnaireViewModel q in Model)
+    {
+        <div class="questionTitle title no-italic">
+            <div class="hidden qID">@q.QuestionID</div>
+            <img src="~/Content/Images/moveLeft.png" alt="<" />
+            <span>@q.Question</span>
+        </div>
+    }
+</div>
