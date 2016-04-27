@@ -26,8 +26,10 @@ namespace AES.Web.Controllers
         /// <param name="questionID">The ID of the question to be added</param>
         public string AddJobQuestionLink(int jobID, int questionID)
         {
-            IJobbingSvc jobSvc = new JobbingSvcClient();
-            return jobSvc.AddQuestionToJob(jobID, questionID).ToString();
+            using (var jobSvc = new JobbingSvcClient())
+            {
+                return jobSvc.AddQuestionToJob(jobID, questionID).ToString();
+            }
         }
 
         /// <summary>
@@ -43,8 +45,10 @@ namespace AES.Web.Controllers
         /// </summary>
         public ActionResult GetListOfQuestions()
         {
-            IJobbingSvc jobSvc = new JobbingSvcClient();
-            return PartialView("_QuestionsTextList", ConvertContractToModel(jobSvc.GetQuestions(-1)));
+            using (var jobSvc = new JobbingSvcClient())
+            {
+                return PartialView("_QuestionsTextList", ConvertContractToModel(jobSvc.GetQuestions(-1)));
+            }
         }
 
         /// <summary>
@@ -64,10 +68,12 @@ namespace AES.Web.Controllers
         /// </summary>
         public ActionResult JobList()
         {
-            IJobbingSvc jobSvc = new JobbingSvcClient();
-            var jobs = jobSvc.GetJobs();
+            using (var jobSvc = new JobbingSvcClient())
+            {
+                var jobs = jobSvc.GetJobs();
 
-            return PartialView("_JobListPartial", ConvertContractToModel(jobs));
+                return PartialView("_JobListPartial", ConvertContractToModel(jobs));
+            }
         }
 
         /// <summary>
@@ -82,13 +88,15 @@ namespace AES.Web.Controllers
                 return Content("Invaild data passed");
             }
 
-            IJobbingSvc jobSvc = new JobbingSvcClient();
-            var questions = jobSvc.GetQuestions(jobID);
+            using (var jobSvc = new JobbingSvcClient())
+            {
+                var questions = jobSvc.GetQuestions(jobID);
 
-            // Remember the jobID to be used in the partial list
-            ViewBag.jobID = jobID;
+                // Remember the jobID to be used in the partial list
+                ViewBag.jobID = jobID;
 
-            return PartialView("_QuestionListPartial", ConvertContractToModel(questions));
+                return PartialView("_QuestionListPartial", ConvertContractToModel(questions));
+            }
         }
 
         /// <summary>
@@ -98,8 +106,10 @@ namespace AES.Web.Controllers
         /// <param name="questionID">The ID of the question to remove</param>
         public string RemoveJobQuestionLink(int jobID, int questionID)
         {
-            IJobbingSvc jobSvc = new JobbingSvcClient();
-            return jobSvc.RemoveQuestionFromJob(jobID, questionID).ToString();
+            using (var jobSvc = new JobbingSvcClient())
+            {
+                return jobSvc.RemoveQuestionFromJob(jobID, questionID).ToString();
+            }
         }
 
         /// <summary>
@@ -115,18 +125,18 @@ namespace AES.Web.Controllers
                 return Content("No job provided");
             }
 
-            IJobbingSvc jobSvc = new JobbingSvcClient();
-
             JobbingResponse response;
-
-            // If <0, then it must be a new job, otherwise, edit the job
-            if(job.JobID < 0)
+            using (var jobSvc = new JobbingSvcClient())
             {
-                response = jobSvc.AddJob(ConvertModelToContract(job));
-            }
-            else
-            {
-                response = jobSvc.EditJob(ConvertModelToContract(job));
+                // If <0, then it must be a new job, otherwise, edit the job
+                if (job.JobID < 0)
+                {
+                    response = jobSvc.AddJob(ConvertModelToContract(job));
+                }
+                else
+                {
+                    response = jobSvc.EditJob(ConvertModelToContract(job));
+                }
             }
 
             // If we got a good response, respond with the udpated list of jobs, otherwise, return what went werong
@@ -181,18 +191,19 @@ namespace AES.Web.Controllers
             }
 
 
-            IJobbingSvc jobSvc = new JobbingSvcClient();
-
             JobbingResponse response;
 
-            // If <0, then it must be a new question, otherwise, update it
-            if (postQuestion.QuestionID < 0)
+            using (var jobSvc = new JobbingSvcClient())
             {
-                response = jobSvc.AddQuestion(ConvertModelToContract(postQuestion));
-            }
-            else
-            {
-                response = jobSvc.EditQuestion(ConvertModelToContract(postQuestion));
+                // If <0, then it must be a new question, otherwise, update it
+                if (postQuestion.QuestionID < 0)
+                {
+                    response = jobSvc.AddQuestion(ConvertModelToContract(postQuestion));
+                }
+                else
+                {
+                    response = jobSvc.EditQuestion(ConvertModelToContract(postQuestion));
+                }
             }
 
             // If we get a good response, then get the id of the question that was added and return it with "Success",
