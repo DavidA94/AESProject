@@ -110,28 +110,25 @@ namespace AES.ApplicationSvc.Tests
             {
                 ApplicationSvc appSvc = new ApplicationSvc();
 
-                // Get the application
+                // Ensure the data is in the database
+                ApplicationSvc_SavePartialApplication();
 
                 // Test with a bad first name
-                ApplicationSvc_SavePartialApplication();
                 var app = PartialApp4();
                 app.FirstName = "Hello";
                 var badFirst = appSvc.CancelApplication(app);
 
                 // Test with a bad last anme
-                ApplicationSvc_SavePartialApplication();
                 app = PartialApp4();
                 app.LastName = "Hello";
                 var badLast = appSvc.CancelApplication(app);
 
                 // Test with a bad DOB
-                ApplicationSvc_SavePartialApplication();
                 app = PartialApp4();
                 app.DOB = DateTime.MinValue;
                 var badDOB = appSvc.CancelApplication(app);
 
                 // Test with no user
-                ApplicationSvc_SavePartialApplication();
                 var badUser = appSvc.CancelApplication(null);
 
                 // Bad user ID
@@ -140,12 +137,14 @@ namespace AES.ApplicationSvc.Tests
                 var badID = appSvc.CancelApplication(app);
 
                 // Cancel the application with all valid data
-                ApplicationSvc_SavePartialApplication();
                 app = PartialApp4();
                 var valid = appSvc.CancelApplication(app);
 
                 // Ensure the application is not in the DB
                 var appInDB = db.Applications.Any(a => a.ApplicantID == app.ApplicantID && a.Status == AppStatus.PARTIAL);
+
+                // We need to ensure next time SavePartialApplication is called, that it will be executed
+                hasSaveRun = false;
 
                 // Ensure all the responses were valid
                 Assert.IsFalse(badFirst);
