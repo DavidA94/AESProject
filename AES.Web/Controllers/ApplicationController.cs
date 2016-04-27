@@ -12,7 +12,27 @@ namespace AES.Web.Controllers
 {
     public class ApplicationController : Controller
     {
-        // GET: Application
+        public ActionResult CancelApplication()
+        {
+            using (var appSvc = new ApplicationSvcClient())
+            {
+                var user = ApplicantUserManager.GetUser();
+
+                // Don't really care if this passes or not, just try to cancel
+                appSvc.CancelApplication(new ApplicationInfoContract()
+                {
+                    ApplicantID = ApplicantUserManager.GetUserID(),
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    DOB = user.DOB
+                });
+
+                // And then redirect / logout the user
+                return RedirectToActionPermanent("AvailableJobs", "JobOpenings");
+            }
+        }
+
+
         public ActionResult UserProfile()
         {
             // Get the seleceted jobs from the session
