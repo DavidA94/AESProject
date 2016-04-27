@@ -178,11 +178,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Authorization\AESAuthorizeAttribute.cs" />
+    <Compile Include="Authorization\EmployeeUserManager.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicantLoginController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\EmployeeLoginController.cs" />
-    <Compile Include="Controllers\FullApplicationController.cs" />
     <Compile Include="Controllers\HiringSpecialistController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobOpeningsController.cs" />
@@ -231,6 +231,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\AES.SecuritySvc.Contracts.ApplicantInfoContract.datasource" />
     <Content Include="Properties\DataSources\AES.Shared.Contracts.UserInfoContract.datasource" />
+    <Content Include="Scripts\CallPageSlideAnim.js" />
+    <Content Include="Scripts\CallPageSmoothScroll.js" />
     <Content Include="Scripts\CountdownTimer.js" />
     <Content Include="Service References\ApplicationService\AES.Web.ApplicationService.ApplicationInfoContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -294,12 +296,13 @@
     <Content Include="Views\Application\_Navigation.cshtml" />
     <Content Include="Views\EmployeeLogin\Login.cshtml" />
     <Content Include="Views\HiringSpecialist\DashboardHS.cshtml" />
-    <Content Include="Views\Shared\DashboardPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutDashHS.cshtml" />
     <Content Include="Views\HiringSpecialist\PartialDashboardHS.cshtml" />
     <Content Include="Views\HiringSpecialist\CallPage.cshtml" />
     <None Include="Service References\SecurityService\SecuritySvc3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Shared\_LayoutCallPage.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using AES.Shared;
 
 namespace AES.Web.Models
 {
@@ -13,6 +14,16 @@ namespace AES.Web.Models
             Email = "Something";
         }
 
+        [StringLength(25)]
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [StringLength(28)]
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
         [StringLength(50)]
         [Required]
         [Display(Name = "Email")]
@@ -22,5 +33,8 @@ namespace AES.Web.Models
         [Required]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        [Display(Name = "Employee Role")]
+        public EmployeeRole EmployeeRole { get; set; }
     }
 }

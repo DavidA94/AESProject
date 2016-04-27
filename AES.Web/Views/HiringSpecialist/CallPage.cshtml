@@ -2,32 +2,224 @@
 
 @{
     ViewBag.Title = "CallPage";
+    Layout = "~/Views/Shared/_LayoutCallPage.cshtml";
 }
 
-<h2>@Model.Profile.Address</h2>
+@* Heading *@
+<div id="callPage">
+    <div class="jumbotron text-center bg-grey">
+        <div class="row">
 
+            <div class="col-sm-3">
+                <span class="glyphicon glyphicon-phone-alt logo"></span>
+            </div>
 
+            <div class="col-lg-6">
+                <h1>Applicant Name</h1>
+                <h1>@Model.Profile.Phone</h1>
+            </div>
 
-@*<div class="row">
-    <div class="col-md-12">
-        <section id="CallPage">
-            @using (Html.BeginForm("UserProfile", "Application", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Tell us about yourself.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="col-sm-3">
+                <span class="glyphicon glyphicon-phone-alt logo"></span>
+            </div>
+        </div>
 
-                // Name & DOB
-                <div class="form-group">
-                    <div class="col-md-8 staticText">
-                        <p><span>Name:</span> @Model.Profile.Nickname </p>
-                        <p><span>City:</span> @Model.Profile.City</p>
-
-                    </div>
-                </div>
-            }
-
-        </section>
+        <div class="glyphicon-align-center">
+            <button type="button" class="btn btn-success btn-lg">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Accept
+            </button>
+            <button type="button" class="btn btn-danger btn-lg">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Deny
+            </button>
+        </div>
     </div>
-</div>*@
+
+
+
+    @* Profile *@
+    <div id="profile" class="container-fluid bg-white">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2><strong>Profile</strong></h2>
+                <p><span>Name: </span> @Model.Profile.FirstName @Model.Profile.LastName</p>
+                <p><span>Date of Birth: </span> @Model.Profile.DOB</p>
+                <p><span>Nickname: </span>@Model.Profile.Nickname</p>
+                <p><span>Phone: </span>@Model.Profile.Phone</p>
+                <p><span>Salaray Expectation: </span>@Model.Profile.SalaryExpectation</p>
+                <p><span>Start Call Time: </span>@Model.Profile.StartCallTime</p>
+                <p><span>State: </span>@Model.Profile.State</p>
+                <p><span>Zip: </span>@Model.Profile.Zip</p>
+            </div>
+
+            <div class="col-sm-3">
+                <span class="glyphicon glyphicon-user logo"></span>
+            </div>
+        </div>
+    </div>
+
+    @* Availability *@
+    <div id="availability" class="container-fluid bg-grey">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2><strong>Availability</strong></h2>
+                <p>
+                    <span>Monday    From:</span> @Model.Availibility.MondayStart
+                    <span>  To:</span> @Model.Availibility.MondayEnd
+                </p>
+                <p>
+                    <span>Tuesday   From:</span> @Model.Availibility.TuesdayStart
+                    <span>  To:</span> @Model.Availibility.TuesdayEnd
+                </p>
+                <p>
+                    <span>Wednesday From:</span> @Model.Availibility.WednesdayStart
+                    <span>To:</span> @Model.Availibility.WednesdayEnd
+                </p>
+                <p>
+                    <span>Thursday From:</span> @Model.Availibility.ThursdayStart
+                    <span>To:</span> @Model.Availibility.ThursdayEnd
+                </p>
+                <p>
+                    <span>Friday From:</span> @Model.Availibility.FridayStart
+                    <span>To:</span> @Model.Availibility.FridayEnd
+                </p>
+                <p>
+                    <span>Saturday From:</span> @Model.Availibility.SaturdayStart
+                    <span>To:</span> @Model.Availibility.SaturdayEnd
+                </p>
+                <p>
+                    <span>Sunday From:</span> @Model.Availibility.SundayStart
+                    <span>To:</span> @Model.Availibility.SundayEnd
+                </p>
+            </div>
+
+            <div class="col-sm-3 slideanim">
+                <span class="glyphicon glyphicon-tasks logo"></span>
+            </div>
+
+        </div>
+    </div>
+
+    @* Work History *@
+    <div id="workhistory" class="container-fluid bg-white">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2><strong>Work History</strong></h2>
+
+                @foreach (var item in Model.WorkHistory)
+                {
+                    <p><span>Employer Name: </span> @item.EmployerName</p>
+
+                    <p><span>Address: </span> @item.EmployerAddress</p>
+                    <p>
+                        <span>City: </span> @item.EmployerCity
+                        <span>State: </span> @item.EmployerState
+                        <span>Zip: </span> @item.EmployerZip
+                    </p>
+                    <p><span>Country: </span> @item.EmployerCountry</p>
+
+                    <p><span>Phone: </span> @item.EmployerPhone</p>
+
+                    <p>
+                        <span>Starting Salary: </span> @item.StartingSalary
+                        <span>Ending Salary: </span> @item.EndingSalary
+                    </p>
+                    <p><span>Reason For Leaving: </span> @item.ReasonForLeaving</p>
+                    <p><span>Responsibilities: </span> @item.Responsibilities</p>
+
+                    <p><span>Supervisor Name: </span> @item.SupervisorName</p>
+                    <p>
+                        <span>Worked From: </span> @item.WorkedFrom
+                        <span>Worked To: </span> @item.WorkedTo
+                    </p>
+                }
+
+                @*<div class="col-sm-3">
+                    <span class="glyphicon glyphicon-briefcase logo"></span>
+                </div>*@
+            </div>
+        </div>
+    </div>
+
+    @* Education *@
+    <div id="education" class="container-fluid bg-grey">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2><strong>Education</strong></h2>
+
+                @foreach (var item in Model.Education)
+                {
+                    <p><span>Employer Name: </span> @item.SchoolName</p>
+
+                    <p><span>Address: </span> @item.SchoolAddress</p>
+                    <p>
+                        <span>City: </span> @item.SchoolCity
+                        <span>State: </span> @item.SchoolState
+                        <span>Zip: </span> @item.SchoolZip
+                    </p>
+                    <p><span>Country: </span> @item.SchoolCountry</p>
+
+                    <p><span>Major: </span> @item.Major</p>
+                    <p><span>Degree: </span> @item.Degree</p>
+                    <p><span>Years Attended: </span> @item.YearAttended</p>
+                }
+            </div>
+
+            @*<div class="col-sm-3">
+                <span class="glyphicon glyphicon-education logo"></span>
+            </div>*@
+
+        </div>
+    </div>
+
+    @* References *@
+    <div id="references" class="container-fluid bg-white">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2><strong>References</strong></h2>
+
+                @foreach (var item in Model.References)
+                {
+                    <p><span>Name: </span> @item.Name</p>
+                    <p><span>Title: </span> @item.Title</p>
+                    <p><span>Comapny: </span> @item.Company</p>
+                    <p><span>Phone: </span> @item.Phone</p>
+                }
+            </div>
+
+            <div class="col-sm-3 slideanim">
+                <span class="glyphicon glyphicon-pencil logo"></span>
+            </div>
+
+        </div>
+    </div>
+
+    @* Questionnaire *@
+    <div id="questionnaire" class="container-fluid bg-grey">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2><strong>Questionaire</strong></h2>
+
+                @foreach (var item in Model.Questionnaire)
+                {
+                    <p><span>Multiple Choice Answers: </span> @item.MC_Answers</p>
+                    <p><span>Options: </span> @item.Options</p>
+                    <p><span>Question: </span> @item.Question</p>
+                    <p><span>Question ID: </span> @item.QuestionID</p>
+                    <p><span>Short Answer: </span> @item.ShortAnswer</p>
+                    <p><span>Type: </span> @item.Type</p>
+                }
+            </div>
+
+            <div class="col-sm-3 slideanim">
+                <span class="glyphicon glyphicon-list-alt logo"></span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

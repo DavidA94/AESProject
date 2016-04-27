@@ -3,18 +3,21 @@
 
 @{
     ViewBag.Title = "DashboardHS";
-    Layout = "~/Views/Shared/DashboardPartial.cshtml";
+    Layout = "~/Views/Shared/_LayoutDashHS.cshtml";
 }
 
 <h2>Dashboard</h2>
 <hr />
 
-<div id="list">
-    @foreach (HiringSpecialistModel dhs in Model)
-                    {
-                        Html.RenderPartial("PartialDashboardHS", dhs);
-                    }
-</div>
+@*@using (Html.BeginForm("CallPage", "HiringSpecialist", FormMethod.Post, new { @class = "form-class" }))
+{*@
+    <div id="list">
+        @foreach (HiringSpecialistModel dhs in Model)
+        {
+            Html.RenderPartial("PartialDashboardHS", dhs);
+        }
+    </div>
+@*}*@
 
 @* Countdown Timer *@
 @*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

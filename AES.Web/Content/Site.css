@@ -18,7 +18,7 @@
 }
 
 textarea {
-    padding:2px!important;
+    padding:2px !important;
 }
 
 #appSubmitted {
@@ -48,53 +48,191 @@ textarea {
 
 .inset {padding-left:2em;}
 
-/*Custom styling for tiles*/
+/******************************************************************************/
+/*Custom styling for Hiring Specialist Dashboard*/
+/******************************************************************************/
 
-body {
+#DashboardHS body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	line-height: 1.5em;
 	font-weight: 400;
 }
 
-p, span, a, ul, li, button {
+#DashboardHS p, a, ul, li, button {
 	font-family: inherit;
 	font-size: inherit;
 	font-weight: inherit;
 	line-height: inherit;
 }
 
-strong {
+#DashboardHS strong {
 	font-weight: 600;
 }
 
-h1, h2, h3, h4, h5, h6 {
+#DashboardHS h1, h2, h3, h4, h5, h6 {
 	font-family: Arial, Helvetica, sans-serif;
 	line-height: 1.5em;
 	font-weight: 300;	
 }
 
-strong {
+#DashboardHS strong {
   font-weight: 400;
 }
 
-.tile {
-    width: 100%;
-    border-radius: 20px;
-    color: white;
-    display: inline-block;
-    box-sizing: border-box;
-    background: #5133AB;
-    padding: 20px;
-    margin-bottom: 30px;
+#DashboardHS .tile {
+    background-color: #f9f9f9;
+    width: 300px;
+    padding: 25px;
+    border: 1px solid black;
+    border-radius: 25px;
+    margin: 25px;
 }
 
-.title {
-		margin-top: 0px;
+#DashboardHS .title {
+    margin-top: 0px;
+    text-align: center;
+    color: #9b0505;
+}
+
+#DashboardHS .tile:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}	
+	
+#DashboardHS .tile .staticText span{
+    text-align: center;
+    font-weight: bold;
+    font-size: 4em;
+}
+
+/******************************************************************************/
+/*Call Page Styling*/
+/******************************************************************************/
+
+#CallPage .jumbotron {
+        background-color: #222222; /* Grey */
+        color: darkslategray;
+        padding: 100px 25px;
+    }
+
+#CallPage .jumbotron h1 {
+        line-height: 1;
+        color: cadetblue;
+    }
+
+#CallPage .bg-grey {
+        background-color: #f6f6f6;
+    }
+
+#CallPage .bg-darkgrey{
+        background-color: #747474;
+    }
+
+#CallPage .bg-white{
+    background-color: white;
+}
+
+#CallPage .container-fluid {
+        padding: 60px 50px;
+    }
+
+#CallPage .logo {
+        font-size: 200px;
+    }
+
+#CallPage .col-sm-4 {
         text-align: center;
+        margin: 25px 0;
+    }
+
+#CallPage .navbar {
+        margin-bottom: 0;
+        z-index: 9999;
+        border: 0;
+        font-size: 12px !important;
+        line-height: 1.42857143 !important;
+        letter-spacing: 4px;
+        border-radius: 0;
+        background-color: #222222;
+        font: Arial, Helvetica, sans-serif;
+    }
+
+#CallPage .navbar li a, .navbar .navbar-brand {
+        color: #fff !important;
+    }
+
+#CallPage .navbar-nav li a:hover {
+        color: #222222 !important;
+        background-color: #fff !important;
+    }
+
+#CallPage .navbar-nav li.active a {
+        color: #222222 !important;
+        background-color: #fff !important;
 }
 
-.tile:hover {
-			background: #6600cc;
-            box-shadow: 5px 0px 40px rgba(0,0,0, .2);
-}		
+#CallPage .navbar-default .navbar-toggle {
+        border-color: transparent;
+        color: #222222 !important;
+        background-color: #222222;
+    }
+
+#CallPage{
+        font-family: Arial, Helvetica, sans-serif;
+	    font-size: 18px;
+	    line-height: 1.5em;
+	    font-weight: 400;
+        width: 100%;
+        background-color:#222222;
+    }
+
+#CallPage h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #303030;
+    font-weight: 600;
+    margin-bottom: 30px;
+    }
+
+#CallPage h4 {
+        font-size: 19px;
+        line-height: 1.375em;
+        color: #303030;
+        font-weight: 400;
+        margin-bottom: 30px;
+    }
+
+#CallPage .slideanim {visibility:hidden;}
+
+#CallPage .slide {
+    /* The name of the animation */
+    animation-name: slide;
+    -webkit-animation-name: slide; 
+    /* The duration of the animation */
+    animation-duration: 1s; 
+    -webkit-animation-duration: 1s;
+    /* Make the element visible */
+    visibility: visible; 
+}
+
+/* Go from 0% to 100% opacity (see-through) and specify the percentage from when to slide in the element along the Y-axis */
+@keyframes slide {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    } 
+}
+@-webkit-keyframes slide {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    }
+}
