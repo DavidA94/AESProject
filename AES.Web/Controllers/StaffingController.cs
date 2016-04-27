@@ -204,29 +204,29 @@ namespace AES.Web.Controllers
                 {
                     response = jobSvc.EditQuestion(ConvertModelToContract(postQuestion));
                 }
-            }
 
-            // If we get a good response, then get the id of the question that was added and return it with "Success",
-            // otherwise return what went wrong
-            if (response == JobbingResponse.SUCCESS)
-            {
-                int qID = jobSvc.GetQuestions(-1).FirstOrDefault(q => q.Question == postQuestion.Question).QuestionID;
-                return Content("Success:" + qID.ToString());
-            }
-            else if (response == JobbingResponse.INVALID)
-            {
-                return Content("Invalid information given");
-            }
-            else if (response == JobbingResponse.DUPLICATE)
-            {
-                return Content("This job already exists");
-            }
-            else if (response == JobbingResponse.ERROR)
-            {
-                return Content("An unknown error occurred");
-            }
+                // If we get a good response, then get the id of the question that was added and return it with "Success",
+                // otherwise return what went wrong
+                if (response == JobbingResponse.SUCCESS)
+                {
+                    int qID = jobSvc.GetQuestions(-1).FirstOrDefault(q => q.Question == postQuestion.Question).QuestionID;
+                    return Content("Success:" + qID.ToString());
+                }
+                else if (response == JobbingResponse.INVALID)
+                {
+                    return Content("Invalid information given");
+                }
+                else if (response == JobbingResponse.DUPLICATE)
+                {
+                    return Content("This job already exists");
+                }
+                else if (response == JobbingResponse.ERROR)
+                {
+                    return Content("An unknown error occurred");
+                }
 
-            return Content("Weird things can happen");
+                return Content("Weird things can happen");
+            }
         }
 
         #region Converters
