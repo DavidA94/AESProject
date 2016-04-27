@@ -78,7 +78,7 @@ namespace AES.ApplicationSvc
                 try {
                     return db.SaveChanges() > 0;
                 }
-                catch(Exception ex)
+                catch
                 {
                     return false;
                 }
