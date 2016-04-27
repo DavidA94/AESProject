@@ -100,9 +100,9 @@ namespace AES.Shared
     public enum DegreeType {
         [Display(Name = "No Degree")] NONE,
         [Display(Name = "High School Diploma")] HS_DIPLOMA,
-        [Display(Name = "Associates")] AA,
-        [Display(Name = "Batchelors")] BA,
-        [Display(Name = "Masters")] MA,
+        [Display(Name = "Associate")] AA,
+        [Display(Name = "Bachelor's")] BA,
+        [Display(Name = "Master's")] MA,
         [Display(Name = "Doctorate")] PHD,
         [Display(Name = "Medical Doctor")] MD,
         [Display(Name = "Certificate")] CERTIFICATE
