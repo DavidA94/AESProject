@@ -1,0 +1,14 @@
+﻿@using AES.Shared;
+@using AES.Web.Models;
+@model IList<QuestionnaireViewModel>
+
+<div class="hidden" id="currentJob">@ViewBag.jobID</div>
+@foreach(QuestionnaireViewModel q in Model)
+{
+    <div class="question">
+        <div class="hidden questionID">@q.QuestionID</div>
+        @{ Html.RenderPartial("_SingleQuestionEdit", q); }
+
+        <p class="title"><img src="~/Content/Images/delete.png" alt="Edit" class="deleteQuestion" /> <span class="questionText displayText">@q.Question</span></p>
+    </div>
+}

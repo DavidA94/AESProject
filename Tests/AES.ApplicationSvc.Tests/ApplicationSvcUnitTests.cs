@@ -6,9 +6,6 @@ using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
 using System.Linq;
 
 namespace AES.ApplicationSvc.Tests
@@ -16,14 +13,15 @@ namespace AES.ApplicationSvc.Tests
     [TestClass]
     public class ApplicationSvcUnitTests
     {
-        private static bool hasSaveRun = false;
-        private string applicantFirstName = "Joseph";
-        private string applicantLastName = "Morgan";
 
         public ApplicationSvcUnitTests()
         {
             DBFileManager.SetDataDirectory(true);
         }
+
+        private static bool hasSaveRun = false;
+        private const string ApplicantFirstName = "Joseph";
+        private const string ApplicantLastName = "Morgan";
 
         [TestMethod]
         public void ApplicationSvc_SavePartialApplication()
@@ -164,7 +162,7 @@ namespace AES.ApplicationSvc.Tests
 
             foreach(var rq in returnedData.QA)
             {
-                var eq = expectedData.QA.FirstOrDefault(q => q.Type == rq.Type);
+                var eq = expectedData.QA.FirstOrDefault(q => q.Type == rq.Type && q.QuestionID == rq.QuestionID);
 
                 Assert.AreEqual(rq.QuestionID, eq.QuestionID);
                 Assert.AreEqual(rq.Type, eq.Type);
@@ -212,50 +210,19 @@ namespace AES.ApplicationSvc.Tests
         public void ApplicationSvc_GetApplicantsAwaitingScreening()
         {
             var applicationService = new ApplicationSvc();
-
             SetupValidWaitingCallApp();
 
+            // Ensure that at least one applicant is returned inside of the time range
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 6, 30, 0, 0));
-            var foundTestApplicant = false;
-            foreach (var applicant in applicantsAwaitingCalls)
-            {
-                if (applicant.FirstName == applicantFirstName && applicant.LastName == applicantLastName)
-                {
-                    foundTestApplicant = true;
-                    break;
-                }
-            }
+            Assert.IsTrue(applicantsAwaitingCalls.Any(a => a.FirstName == ApplicantFirstName && a.LastName == ApplicantLastName));
 
-            Assert.IsTrue(foundTestApplicant);
-
+            // Ensure that no applicants are returned before the start time
             var applicantsAwaitingCallsTooEarly = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 5, 30, 0, 0));
-            foundTestApplicant = false;
+            Assert.IsFalse(applicantsAwaitingCallsTooEarly.Any(a => a.FirstName == ApplicantFirstName && a.LastName == ApplicantLastName));
 
-            foreach (var applicant in applicantsAwaitingCallsTooEarly)
-            {
-                if (applicant.FirstName == applicantFirstName && applicant.LastName == applicantLastName)
-                {
-                    foundTestApplicant = true;
-                    break;
-                }
-            }
-
-            Assert.IsFalse(foundTestApplicant);
-
+            // Ensure that no applicants are returned after the end time
             var applicantsAwaitingCallsTooLate = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 11, 30, 0, 0));
-            foundTestApplicant = false;
-
-            foreach (var applicant in applicantsAwaitingCallsTooLate)
-            {
-                if (applicant.FirstName == applicantFirstName && applicant.LastName == applicantLastName)
-                {
-                    foundTestApplicant = true;
-                    break;
-                }
-            }
-
-            Assert.IsFalse(foundTestApplicant);
-
+            Assert.IsFalse(applicantsAwaitingCallsTooLate.Any(a => a.FirstName == ApplicantFirstName && a.LastName == ApplicantLastName));
         }
 
         [TestMethod]
@@ -263,28 +230,34 @@ namespace AES.ApplicationSvc.Tests
         {
             var applicationService = new ApplicationSvc();
 
+            // Set up the applications
             SetupValidWaitingCallApp();
 
+            //Get the applicants awaiting calls
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 6, 30, 0, 0));
 
-            ApplicantInfoContract applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == applicantFirstName);
+            // Get the applicant we are testing
+            var applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == ApplicantFirstName);
 
+            // Ensure the applicant was gotten
             Assert.IsNotNull(applicant);
 
+            // Ensure the call was successful
             Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
 
             using (var db = new AESDbContext())
             {
-                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.IN_CALL).Count(), 1);
-            }
+                // Ensure that, in the db, there is actually an applicant in a call
+                Assert.AreEqual(db.Applications.Count(a => a.Status == AppStatus.IN_CALL), 1);
 
-            Assert.IsFalse(applicationService.CallApplicant((int)applicant.UserID));
+                // Ensure that the applicant cannot be called again
+                Assert.IsFalse(applicationService.CallApplicant((int)applicant.UserID));
 
-            Assert.IsTrue(applicationService.ApplicantDidNotAnswer((int)applicant.UserID));
+                // Ensure that the applicant can be marked as having not answered
+                Assert.IsTrue(applicationService.ApplicantDidNotAnswer((int)applicant.UserID));
 
-            using (var db = new AESDbContext())
-            {
-                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.WAITING_CALL && a.ApplicantID == (int)applicant.UserID).Count(), 1);
+                // Ensure in the db that the applicant is now awaiting a call again
+                Assert.AreEqual(db.Applications.Count(a => a.Status == AppStatus.WAITING_CALL && a.ApplicantID == (int)applicant.UserID), 1);
             }
 
             Assert.IsFalse(applicationService.ApplicantDidNotAnswer((int)applicant.UserID));
@@ -293,81 +266,88 @@ namespace AES.ApplicationSvc.Tests
         [TestMethod]
         public void ApplicationSvc_DenyApplicant()
         {
-            var testNotes = "Failure";
-
+            const string testNotes = "Failure!";
             var applicationService = new ApplicationSvc();
 
+            // Set applications for the test applicant to AppStatus.WAITING_CALL
             SetupValidWaitingCallApp();
 
+            // Get the applicants awaiting calls using the service
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 6, 30, 0, 0));
 
-            ApplicantInfoContract applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == applicantFirstName);
+            // Get the applicant being tested
+            var applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == ApplicantFirstName);
 
+            // Make sure an applicant was gotten
             Assert.IsNotNull(applicant);
 
+            // Make sure the applicant can be called
             Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
 
+            // Make sure the phone interview can be saved and denied
             Assert.IsTrue(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
 
             using (var db = new AESDbContext())
             {
-                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.CALL_DENIED).Count(), 1);
-            }
+                // Ensure the notes were saved to the db
+                Assert.IsTrue(db.Applications.Any(a => a.Status == AppStatus.CALL_DENIED && a.ScreeningNotes == testNotes));
 
-            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
+                // Ensure that the interview cannot be saved and rejected again
+                Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
 
-            using (var db = new AESDbContext())
-            {
-                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.CALL_DENIED).Count(), 1);
-            }
+                // Ensure that the applicant's status is still call denied
+                Assert.IsTrue(db.Applications.Any(a => a.Status == AppStatus.CALL_DENIED));
 
-            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
+                // Ensure that the interview cannot be re-saved as approved
+                Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
 
-            using (var db = new AESDbContext())
-            {
-                Assert.AreEqual(db.Applications.Where(a => a.Status == AppStatus.CALL_DENIED).Count(), 1);
+                // Ensure that the applicant is still denied
+                Assert.IsTrue(db.Applications.Any(a => a.Status == AppStatus.CALL_DENIED));
             }
         }
 
         [TestMethod]
         public void ApplicationSvc_ApproveApplicant()
         {
-            var testNotes = "Test Notes 123";
-
+            const string testNotes = "Success!";
             var applicationService = new ApplicationSvc();
 
+            // Set applications for the test applicant to AppStatus.WAITING_CALL
             SetupValidWaitingCallApp();
 
+            // Get the applicants awaiting calls using the service
             var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 6, 30, 0, 0));
 
-            ApplicantInfoContract applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == applicantFirstName);
+            // Get the applicant being tested
+            var applicant = applicantsAwaitingCalls.FirstOrDefault(a => a.FirstName == ApplicantFirstName);
 
+            // Make sure an applicant was gotten
             Assert.IsNotNull(applicant);
 
+            // Make sure the applicant can be called
             Assert.IsTrue(applicationService.CallApplicant((int)applicant.UserID));
 
+            // Make sure the phone interview can be saved and approved
             Assert.IsTrue(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
 
             using (var db = new AESDbContext())
             {
-                Assert.IsTrue(db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW && a.ScreeningNotes == testNotes).Any());
+                // Ensure the notes were saved to the db
+                Assert.IsTrue(db.Applications.Any(a => a.Status == AppStatus.WAITING_INTERVIEW && a.ScreeningNotes == testNotes));
+
+                // Ensure that the interview cannot be saved and approved again
+                Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
+
+                // Ensure that the applicant's status is still awaiting an interview
+                Assert.IsTrue(db.Applications.Any(a => a.Status == AppStatus.WAITING_INTERVIEW));
+            
+                // Ensure that the interview cannot be re-saved as rejected
+                Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
+
+                // Ensure that the applicant is still awaiting an interview
+                Assert.IsTrue(db.Applications.Any(a => a.Status == AppStatus.WAITING_INTERVIEW));
             }
-
-            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, true));
-
-            using (var db = new AESDbContext())
-            {
-                Assert.IsTrue(db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW).Any());
-            }
-
-            Assert.IsFalse(applicationService.SavePhoneInterview((int)applicant.UserID, testNotes, false));
-
-            using (var db = new AESDbContext())
-            {
-                Assert.IsTrue(db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW).Any());
-            }
-
-        }
+		}
 
 
         #region Helper Methods
@@ -415,6 +395,7 @@ namespace AES.ApplicationSvc.Tests
                 };
             }
         }
+		
         private void AssertPartialApp1(ApplicantUser user, ApplicationInfoContract app)
         {
             Assert.AreEqual(user.UserInfo.Address, app.UserInfo.Address);
@@ -477,6 +458,7 @@ namespace AES.ApplicationSvc.Tests
 
             return app;
         }
+		
         private void AssertPartialApp2(ApplicantUser user, ApplicationInfoContract app)
         {
             AssertPartialApp1(user, app);
@@ -532,6 +514,7 @@ namespace AES.ApplicationSvc.Tests
 
             return app;
         }
+		
         private void AssertPartialApp3(ApplicantUser user, ApplicationInfoContract app)
         {
             AssertPartialApp2(user, app);
@@ -581,12 +564,31 @@ namespace AES.ApplicationSvc.Tests
                         QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Which of the following are cleaning products? (Check all that apply)").QuestionID,
                         Type = QuestionType.CHECKBOX,
                         MC_Answers = new List<bool> { true, true, false, false }
+                    },
+                    new QAContract()
+                    {
+                        QuestionID = db.Questions.FirstOrDefault(q => q.Text == "How would you make a good sales associate?").QuestionID,
+                        Type = QuestionType.SHORT,
+                        ShortAnswer = "cuz of my falwless speeling"
+                    },
+                    new QAContract()
+                    {
+                        QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Are you applying for the job of sales associate?").QuestionID,
+                        Type = QuestionType.RADIO,
+                        MC_Answers = new List<bool> { true, false, false, false }
+                    },
+                    new QAContract()
+                    {
+                        QuestionID = db.Questions.FirstOrDefault(q => q.Text == "Which are sales terms? (Check all that apply)").QuestionID,
+                        Type = QuestionType.CHECKBOX,
+                        MC_Answers = new List<bool> { true, true, false, false }
                     }
                 };
             }
 
             return app;
         }
+		
         private ApplicationInfoContract PartialApp4_BadAnswers()
         {
             var app = PartialApp3();
@@ -618,14 +620,16 @@ namespace AES.ApplicationSvc.Tests
 
             return app;
         }
-        private void AssertPartialApp4_Pass(ApplicantUser user, ApplicationInfoContract app)
+
+		private void AssertPartialApp4_Pass(ApplicantUser user, ApplicationInfoContract app)
         {
             AssertPartialApp3(user, app);
 
             var application = user.Applications.FirstOrDefault(a => a.Status == Shared.AppStatus.PARTIAL && 
                                                                     a.Applicant.userID == user.userID &&
                                                                     a.MultiAnswers.Count > 0 &&
-                                                                    a.ShortAnswers.Count > 0);
+                                                                    a.ShortAnswers.Count > 0 &&
+                                                                    a.Job.Title == "Maintenece Technician");
 
             var answer = application.MultiAnswers.FirstOrDefault(a => a.Question.Text == "Can you lift more than 50 pounds?");
             Assert.IsTrue(answer.Answer1);
@@ -642,12 +646,12 @@ namespace AES.ApplicationSvc.Tests
             var sanswer = application.ShortAnswers.FirstOrDefault(a => a.Question.Text == "What do you feel you can bring to the job?");
             Assert.AreEqual(sanswer.Answer, "Cleaning skills");
         }
-                
-        private void SetupValidWaitingCallApp()
+		
+		private void SetupValidWaitingCallApp()
         {
             using (var db = new AESDbContext())
             {
-                foreach (var applications in db.ApplicantUsers.Where(a => a.FirstName == applicantFirstName).Select(a => a.Applications).ToList())
+                foreach (var applications in db.ApplicantUsers.Where(a => a.FirstName == ApplicantFirstName).Select(a => a.Applications).ToList())
                 {
                     foreach (var app in applications)
                     {
@@ -660,38 +664,7 @@ namespace AES.ApplicationSvc.Tests
             }
         }
 
-        private int saveDb(AESDbContext context)
-        {
-            int changes = 0;
-
-            try
-            {
-                // Try to save the changes
-                changes = context.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
-            catch (DbUpdateException e1)
-            {
-                Debug.WriteLine(e1.InnerException.ToString());
-                throw;
-            }
-
-            return changes;
-        }
-
-        #endregion
+		#endregion
+                
     }
 }

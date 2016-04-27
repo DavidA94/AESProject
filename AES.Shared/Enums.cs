@@ -54,6 +54,27 @@ namespace AES.Shared
     }
 
     /// <summary>
+    /// Indicates where an opening is in the process
+    /// </summary>
+    public enum OpeningStatus
+    {
+        /// <summary>
+        /// When the request for openings has been approved
+        /// </summary>
+        APPROVED,
+
+        /// <summary>
+        /// When the opening is pending approval by a store manager
+        /// </summary>
+        PENDING_APPROVAL,
+
+        /// <summary>
+        /// When the store manager has rejected the request
+        /// </summary>
+        REJECTED
+    }
+
+    /// <summary>
     /// Indicates what type of question is being asked
     /// </summary>
     public enum QuestionType {
@@ -79,9 +100,9 @@ namespace AES.Shared
     public enum DegreeType {
         [Display(Name = "No Degree")] NONE,
         [Display(Name = "High School Diploma")] HS_DIPLOMA,
-        [Display(Name = "Associates")] AA,
-        [Display(Name = "Batchelors")] BA,
-        [Display(Name = "Masters")] MA,
+        [Display(Name = "Associate")] AA,
+        [Display(Name = "Bachelor's")] BA,
+        [Display(Name = "Master's")] MA,
         [Display(Name = "Doctorate")] PHD,
         [Display(Name = "Medical Doctor")] MD,
         [Display(Name = "Certificate")] CERTIFICATE

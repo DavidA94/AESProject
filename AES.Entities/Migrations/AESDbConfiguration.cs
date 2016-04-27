@@ -132,7 +132,21 @@ namespace AES.Entities.Migrations
                 Zip = 97219
             };
 
+            var userInfo2 = new UserInfo()
+            {
+                CallEndTime = new TimeSpan(0, 0, 0),
+                CallStartTime = new TimeSpan(23, 59, 59),
+                State = "WA",
+                Address = "2100 SW 158th Ave.",
+                City = "Vancouver",
+                Phone = "665-656-6566",
+                Nickname = "Appy",
+                SalaryExpectation = 89,
+                Zip = 99885
+            };
+
             context.UserInfo.AddOrUpdate(userInfo);
+            context.UserInfo.AddOrUpdate(userInfo2);
 
             context.SaveChanges();
 
@@ -150,7 +164,22 @@ namespace AES.Entities.Migrations
                 FridayEnd = new TimeSpan(20, 0, 0)
             };
 
+            var availability2 = new Availability
+            {
+                MondayStart = new TimeSpan(7, 0, 0),
+                MondayEnd = new TimeSpan(20, 0, 0),
+                TuesdayStart = new TimeSpan(7, 0, 0),
+                TuesdayEnd = new TimeSpan(20, 0, 0),
+                WednesdayStart = new TimeSpan(7, 0, 0),
+                WednesdayEnd = new TimeSpan(20, 0, 0),
+                ThursdayStart = new TimeSpan(7, 0, 0),
+                ThursdayEnd = new TimeSpan(20, 0, 0),
+                FridayStart = new TimeSpan(7, 0, 0),
+                FridayEnd = new TimeSpan(20, 0, 0)
+            };
+
             context.Availabilities.AddOrUpdate(availability);
+            context.Availabilities.AddOrUpdate(availability2);
 
             context.SaveChanges();
 
@@ -164,7 +193,18 @@ namespace AES.Entities.Migrations
                 SSN = Encryption.Encrypt("123-45-6789")
             };
 
+            var applicantUser2 = new ApplicantUser()
+            {
+                UserInfo = userInfo2,
+                Availability = availability2,
+                DOB = new DateTime(1989, 3, 14),
+                FirstName = "Additional",
+                LastName = "Applicant",
+                SSN = Encryption.Encrypt("234-56-7890")
+            };
+
             context.ApplicantUsers.AddOrUpdate(applicantUser);
+            context.ApplicantUsers.AddOrUpdate(applicantUser2);
 
             context.SaveChanges();
 
@@ -177,7 +217,17 @@ namespace AES.Entities.Migrations
                 Title = "Floor Supervisor"
             };
 
+            var reference2 = new Reference
+            {
+                Applicant = applicantUser2,
+                Company = "asdasd's",
+                Name = "asdasd asdasdasd",
+                Phone = "123-321-1232",
+                Title = "asdasd asdasd"
+            };
+
             context.References.AddOrUpdate(reference);
+            context.References.AddOrUpdate(reference2);
 
             context.SaveChanges();
 
@@ -200,7 +250,27 @@ namespace AES.Entities.Migrations
                 ReasonForLeaving = "The company folded"
             };
 
+            var employmentHistory2 = new JobHistory()
+            {
+                Applicant = applicantUser2,
+                EmployerAddress = "asdasd asdsad asdasd",
+                EmployerCity = "asdasd",
+                EmployerCountry = "USA",
+                EmployerName = "asdsad's asd sdf",
+                EmployerPhone = "111-333-2222",
+                EmployerState = "WA",
+                EmployerZip = 99235,
+                EndDate = new DateTime(2015, 11, 8),
+                EndingSalary = 8,
+                StartDate = new DateTime(2013, 1, 14),
+                StartingSalary = 7,
+                SupervisorName = "ASD zxcvb",
+                Responsibilities = "qwerty uiop",
+                ReasonForLeaving = "Stuff happens"
+            };
+
             context.JobHistories.AddOrUpdate(employmentHistory);
+            context.JobHistories.AddOrUpdate(employmentHistory2);
 
             context.SaveChanges();
 
@@ -219,7 +289,23 @@ namespace AES.Entities.Migrations
                 YearsAttended = 2
             };
 
+            var educationHistory2 = new EducationHistory()
+            {
+                Applicant = applicantUser2,
+                Degree = DegreeType.HS_DIPLOMA,
+                GraduationDate = new DateTime(2010, 6, 27),
+                Major = "asdasd asdasd",
+                SchoolAddress = "1 asdasd Ave.",
+                SchoolCity = "asdasd",
+                SchoolCountry = "USA",
+                SchoolName = "asdasd asdasd College",
+                SchoolState = "QA",
+                SchoolZip = 22336,
+                YearsAttended = 4
+            };
+
             context.EducationHistories.AddOrUpdate(educationHistory);
+            context.EducationHistories.AddOrUpdate(educationHistory2);
 
             context.SaveChanges();
 
@@ -228,9 +314,18 @@ namespace AES.Entities.Migrations
                 Type = QuestionType.SHORT,
                 Text = "What do you feel you can bring to the job?"
             };
+
+            var shortQuestion2 = new JobQuestion()
+            {
+                Type = QuestionType.SHORT,
+                Text = "How would you make a good sales associate?"
+            };
+
             shortQuestion.Jobs.Add(janitorJob);
+            shortQuestion2.Jobs.Add(salesAssociateJob);
 
             context.Questions.AddOrUpdate(shortQuestion);
+            context.Questions.AddOrUpdate(shortQuestion2);
 
             context.SaveChanges();
 
@@ -245,7 +340,19 @@ namespace AES.Entities.Migrations
             };
             radioQuestion.Jobs.Add(janitorJob);
 
+            var radioQuestion2 = new JobQuestion()
+            {
+                Type = QuestionType.RADIO,
+                Text = "Are you applying for the job of sales associate?",
+                Option1 = "Yes",
+                Option2 = "No",
+                CorrectAnswerThreshold = 1,
+                CorrectAnswers = "1"
+            };
+            radioQuestion2.Jobs.Add(salesAssociateJob);
+
             context.Questions.AddOrUpdate(radioQuestion);
+            context.Questions.AddOrUpdate(radioQuestion2);
 
             context.SaveChanges();
 
@@ -262,7 +369,21 @@ namespace AES.Entities.Migrations
             };
             checkQuestion.Jobs.Add(janitorJob);
 
+            var checkQuestion2 = new JobQuestion()
+            {
+                Type = QuestionType.CHECKBOX,
+                Text = "Which are sales terms? (Check all that apply)",
+                Option1 = "Money",
+                Option2 = "Turbo Encabulator",
+                Option3 = "Client",
+                Option4 = "Feta Cheese",
+                CorrectAnswerThreshold = 1,
+                CorrectAnswers = "13"
+            };
+            checkQuestion2.Jobs.Add(salesAssociateJob);
+
             context.Questions.AddOrUpdate(checkQuestion);
+            context.Questions.AddOrUpdate(checkQuestion2);
 
             context.SaveChanges();
 
@@ -274,7 +395,16 @@ namespace AES.Entities.Migrations
                 Timestamp = new DateTime(2016, 3, 11)
             };
 
+            var application2 = new Application()
+            {
+                Status = AppStatus.WAITING_CALL,
+                Applicant = applicantUser2,
+                Job = salesAssociateJob,
+                Timestamp = new DateTime(2016, 3, 11)
+            };
+
             context.Applications.AddOrUpdate(application);
+            context.Applications.AddOrUpdate(application2);
 
             context.SaveChanges();
 
@@ -285,6 +415,14 @@ namespace AES.Entities.Migrations
             };
 
             context.ShortAnswers.AddOrUpdate(shortAnswer);
+
+            var shortAnswer2 = new ApplicationShortAnswer
+            {
+                Answer = "cuz of my falwless speeling",
+                Question = shortQuestion2
+            };
+
+            context.ShortAnswers.AddOrUpdate(shortAnswer2);
 
             context.SaveChanges();
 
@@ -303,7 +441,23 @@ namespace AES.Entities.Migrations
                 Answer4 = false
             };
 
+            var radioAnswer2 = new ApplicationMultiAnswer
+            {
+                Question = radioQuestion2,
+                Answer1 = true
+            };
+
+            var checkAnswer2 = new ApplicationMultiAnswer
+            {
+                Question = checkQuestion2,
+                Answer1 = true,
+                Answer2 = false,
+                Answer3 = true,
+                Answer4 = false
+            };
+
             context.MultiAnswers.AddOrUpdate(radioAnswer, checkAnswer);
+            context.MultiAnswers.AddOrUpdate(radioAnswer2, checkAnswer2);
 
             context.SaveChanges();
         }

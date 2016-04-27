@@ -236,3 +236,34 @@ textarea {
         -webkit-transform: translateY(0%);
     }
 }
+
+#ajaxSpinner {position:absolute;top:0;right:0;bottom:0;left:0;z-index:999;background:rgba(255, 255, 255, .5) url('/Content/Images/spinner.gif') no-repeat center center;}
+
+#staffingExpert {clear:both;overflow:hidden;}
+#staffingExpert #editBox .editBox {display:block;}
+#staffingExpert #editBox .editBox input[type=radio], #staffingExpert #editBox .editBox input[type=checkbox] {margin:10px 0;}
+#staffingExpert #editBox .editBox .multipleChoiceCheck, #staffingExpert #editBox .editBox .multipleChoiceRadio {display:none;}
+#staffingExpert #editBox .editBox .multipleChoice {display:none;}
+#staffingExpert #editBox .editBox .multipleChoice.typeRadio, #staffingExpert #editBox .editBox .multipleChoice.typeCheckbox {display:block;}
+#staffingExpert #editBox .editBox .typeCheckbox .multipleChoiceCheck {display:initial;}
+#staffingExpert #editBox .editBox .typeRadio .multipleChoiceRadio {display:initial;}
+#staffingExpert #editing {font-style:italic;color:black;}
+#staffingExpert #JobList {overflow:hidden;padding:0;}
+#staffingExpert #noJobSelected {display:block;line-height:40px;text-align:center;}
+#staffingExpert #noJobSelected + div + div + div {display:none;}
+#staffingExpert #noJobSelected[class] + div + div + div {display:block;}
+#staffingExpert #QuestionList {overflow:hidden;padding:0 0px;}
+
+#staffingExpert .btn {margin-top:5px;margin-bottom:5px;}
+#staffingExpert .button {line-height:30px;padding:0 10px;border-radius:7px;background:lightgray;border:1px solid darkgray;
+                         margin:5px;font-size:1.2em;font-weight:bold;cursor:pointer;text-align:center;}
+#staffingExpert .editBox {display:none;}
+#staffingExpert .full-btn {width:100%;}
+#staffingExpert .no-italic {font-style:normal;}
+#staffingExpert .questionTitle img {visibility:hidden;}
+#staffingExpert .questionTitle:hover img {visibility:visible;}
+#staffingExpert .title {font-size:1.2em;font-weight:bold;line-height:24px;padding:12px 2px;margin:0;border-bottom:2px solid lightgray;font-style:italic;}
+#staffingExpert .title:first-child {padding-top:5px;}
+#staffingExpert .title img {float:left;margin-right:.5em;cursor:pointer;}
+#staffingExpert .title span {display:block;overflow:hidden;cursor:pointer;}
+#staffingExpert .editBox + .title {color:gray;font-style:normal;}

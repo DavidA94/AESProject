@@ -18,6 +18,11 @@ namespace AES.JobbingSvc
     /// </summary>
     public class JobbingSvc : IJobbingSvc
     {
+        public JobbingSvc()
+        {
+            DBFileManager.SetDataDirectory();
+        }
+
         /// See Interface for method descriptions
 
         public JobbingResponse AddJob(JobContract job)
@@ -81,10 +86,18 @@ namespace AES.JobbingSvc
                 }
 
                 string rightAnswers = "";
-                rightAnswers += question.MC_Answers.ElementAtOrDefault(0) == true ? "1" : "";
-                rightAnswers += question.MC_Answers.ElementAtOrDefault(1) == true ? "2" : "";
-                rightAnswers += question.MC_Answers.ElementAtOrDefault(2) == true ? "3" : "";
-                rightAnswers += question.MC_Answers.ElementAtOrDefault(3) == true ? "4" : "";
+                if (question.MC_Answers != null)
+                {
+                    rightAnswers += question.MC_Answers.ElementAtOrDefault(0) == true ? "1" : "";
+                    rightAnswers += question.MC_Answers.ElementAtOrDefault(1) == true ? "2" : "";
+                    rightAnswers += question.MC_Answers.ElementAtOrDefault(2) == true ? "3" : "";
+                    rightAnswers += question.MC_Answers.ElementAtOrDefault(3) == true ? "4" : "";
+                }
+                if(question.Options == null)
+                {
+                    question.Options = new List<string>();
+                }
+
 
                 // Add the new question
                 db.Questions.Add(new JobQuestion()
@@ -110,13 +123,13 @@ namespace AES.JobbingSvc
             return JobbingResponse.ERROR;
         }
 
-        public JobbingResponse AddQuestionsToJob(JobContract job, IEnumerable<QAContract> questions)
+        public JobbingResponse AddQuestionToJob(int jobID, int questionID)
         {
             /// We only allow a job/question to be added if it's Title/QuestionText is unique. 
             /// Thus, we can safely search by Title/QuestionText when looking in the DB.
 
             // Ensure we have a valid job
-            if (!isValidJob(job))
+            if (jobID < 0 || questionID < 0)
             {
                 return JobbingResponse.INVALID;
             }
@@ -124,67 +137,31 @@ namespace AES.JobbingSvc
             // Open the DB
             using (var db = new AESDbContext())
             {
-                var dbJob = db.Jobs.FirstOrDefault(j => j.JobID == job.JobID);
+                var dbJob = db.Jobs.FirstOrDefault(j => j.JobID == jobID);
 
-                // If the job doesn't exist yet
+                // If the job doesn't exist, return INVALID
                 if (dbJob == null)
                 {
-                    // Add it
-                    var add = AddJob(job);
-
-                    // If we didn't get SUCCESS or DUPLICATE, return whatever the error was
-                    if(add != JobbingResponse.SUCCESS && add != JobbingResponse.DUPLICATE)
-                    {
-                        return add;
-                    }
-
-                    // Otherwise, update the job reference by the title, in case it was the number that was the issue
-                    dbJob = db.Jobs.FirstOrDefault(j => j.Title.ToLower() == job.Title.ToLower());
-
-                    // If we still don't have anything, return ERROR
-                    if (dbJob == null)
-                    {
-                        return JobbingResponse.ERROR;
-                    }
+                    return JobbingResponse.INVALID;
                 }
 
-                // Loop through all the questions that came in
-                foreach(var question in questions)
+                // If the question is alerady in the list, do nothing
+                if (dbJob.Questions.FirstOrDefault(q => q.QuestionID == questionID) != null)
                 {
-                    // If we don't have a valid question, just skip it
-                    // Also skip it if it's already in the current questions linked to this job
-                    if (!isValidQuestion(question) || dbJob.Questions.FirstOrDefault(q => q.QuestionID == question.QuestionID) != null)
-                    {
-                        continue;
-                    }
-
-                    // Try to get the question from the DB
-                    var dbQ = db.Questions.FirstOrDefault(q => q.Text.ToLower() == question.Question.ToLower());
-
-                    // If it doesn't exist, add it
-                    if(dbQ == null)
-                    {
-                        var add = AddQuestion(question);
-
-                        // If it didn't succeeed, and it's not a dupliate, return whatever add got
-                        if(add != JobbingResponse.SUCCESS && add != JobbingResponse.DUPLICATE)
-                        {
-                            return add;
-                        }
-
-                        // Otherwise, update the question reference by the text, in case it was the number that was the issue
-                        dbQ = db.Questions.FirstOrDefault(q => q.Text.ToLower() == question.Question.ToLower());
-
-                        // If we still don't have anything, return ERROR
-                        if (dbQ == null)
-                        {
-                            return JobbingResponse.ERROR;
-                        }
-                    }
-
-                    // Add the question to the job
-                    dbJob.Questions.Add(dbQ);
+                    return JobbingResponse.SUCCESS;
                 }
+                
+                // Try to get the question from the DB
+                var dbQ = db.Questions.FirstOrDefault(q => q.QuestionID == questionID);
+
+                // If it doesn't exist, return INVALID
+                if(dbQ == null)
+                {
+                    return JobbingResponse.INVALID;
+                }
+
+                // Otherwise add the question to the job
+                dbJob.Questions.Add(dbQ);
 
                 // Save the changes, and return SUCCESS.
                 // We don't check the value of SaveChanges because it could be zero if no new questions were added to the job
@@ -326,7 +303,7 @@ namespace AES.JobbingSvc
             }
         }
 
-        public IEnumerable<QAContract> GetQuestions(JobContract job = null)
+        public IEnumerable<QAContract> GetQuestions(int jobID = -1)
         {
             // Connect to the DB
             using (var db = new AESDbContext())
@@ -338,14 +315,14 @@ namespace AES.JobbingSvc
                 IEnumerable<JobQuestion> questions;
 
                 // Return all questions if it's null
-                if (job == null)
+                if (jobID < 0 )
                 {
                     questions = db.Questions;
                 }
                 // Otherwise just what matches the ID in job
                 else
                 {
-                    questions = db.Questions.Where(q => q.Jobs.FirstOrDefault(j => j.JobID == job.JobID) != null);
+                    questions = db.Questions.Where(q => q.Jobs.FirstOrDefault(j => j.JobID == jobID) != null);
                 }
 
                 // Loop through what we got, convert it, and add it to the return list
@@ -359,10 +336,10 @@ namespace AES.JobbingSvc
             }
         }
 
-        public JobbingResponse RemoveQuestionsFromJob(JobContract job, IEnumerable<QAContract> questions)
+        public JobbingResponse RemoveQuestionFromJob(int jobID, int questionID)
         {
             // Ensure we have a valid job
-            if (!isValidJob(job))
+            if (jobID < 0 || questionID < 0)
             {
                 return JobbingResponse.INVALID;
             }
@@ -371,7 +348,7 @@ namespace AES.JobbingSvc
             using (var db = new AESDbContext())
             {
                 // Try to get the job that is having questions removed from
-                var dbJob = db.Jobs.FirstOrDefault(j => j.JobID == job.JobID);
+                var dbJob = db.Jobs.FirstOrDefault(j => j.JobID == jobID);
 
                 // If we didn't get the job, then return INVALID
                 if(dbJob == null)
@@ -379,15 +356,11 @@ namespace AES.JobbingSvc
                     return JobbingResponse.INVALID;
                 }
 
-                // Loop through the questions we want to remove
-                foreach(var question in questions)
+                // If the question exists
+                if (dbJob.Questions.Any(q => q.QuestionID == questionID))
                 {
-                    // If the question exists
-                    if(dbJob.Questions.Any(q => q.QuestionID == question.QuestionID && q.Text == question.Question))
-                    {
-                        // Remove it
-                        dbJob.Questions.Remove(dbJob.Questions.First(q => q.QuestionID == question.QuestionID && q.Text == question.Question));
-                    }
+                    // Remove it
+                    dbJob.Questions.Remove(dbJob.Questions.First(q => q.QuestionID == questionID));
                 }
 
                 // SaveChanges may not remove anything if the questions are not in the job, so just save and return SUCCESS
@@ -460,6 +433,12 @@ namespace AES.JobbingSvc
         {
             return new QAContract()
             {
+                MC_Answers = new List<bool> {
+                    question.CorrectAnswers != null && question.CorrectAnswers.Contains("1"),
+                    question.CorrectAnswers != null && question.CorrectAnswers.Contains("2"),
+                    question.CorrectAnswers != null && question.CorrectAnswers.Contains("3"),
+                    question.CorrectAnswers != null && question.CorrectAnswers.Contains("4")
+                },
                 NeededRight = question.CorrectAnswerThreshold,
                 Options = new List<string> { question.Option1, question.Option2, question.Option3, question.Option4 },
                 Question = question.Text,

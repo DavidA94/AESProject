@@ -446,10 +446,16 @@ namespace AES.Web.Models
     {
         #region Data
 
+        [Required]
         public QuestionType Type { get; set; }
+
+        [Display(Name = "# Needed Correct")]
+        [Range(1, 4)]
+        public int NeededCorrect { get; set; }
 
         public int QuestionID { get; set; }
 
+        [Required]
         public string Question { get; set; }
 
         public string RadioOption { get; set; }
@@ -461,6 +467,12 @@ namespace AES.Web.Models
         public string ShortAnswer { get; set; }
 
         #endregion
+
+        public QuestionnaireViewModel()
+        {
+            QuestionID = -1;
+            NeededCorrect = 1; // Not used in most cases, but need to ensure it has a value always
+        }
 
         public void AddData(IApplicationViewModel data, ref ApplicationInfoContract info)
         {

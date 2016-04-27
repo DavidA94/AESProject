@@ -38,7 +38,7 @@ namespace AES.JobbingSvc
         /// <param name="questions">The questions to assign to this job</param>
         /// <returns>See JobbingResponse summaries</returns>
         [OperationContract]
-        JobbingResponse AddQuestionsToJob(JobContract job, IEnumerable<QAContract> questions);
+        JobbingResponse AddQuestionToJob(int jobID, int questionID);
 
         /// <summary>
         /// Edits a job who's ID matches the one passed in
@@ -69,7 +69,7 @@ namespace AES.JobbingSvc
         /// <param name="job">[Optional] Pass this in to get questions relating to a specific job</param>
         /// <returns>An IEnumerable of Questions, or null if there aren't any</returns>
         [OperationContract]
-        IEnumerable<QAContract> GetQuestions(JobContract job = null);
+        IEnumerable<QAContract> GetQuestions(int jobID = -1);
 
         /// <summary>
         /// Removes questions from a job
@@ -77,6 +77,7 @@ namespace AES.JobbingSvc
         /// <param name="job">The job who has the questions</param>
         /// <param name="questions">The questions to remove</param>
         /// <returns>See JobbingResponse Summaries</returns>
-        JobbingResponse RemoveQuestionsFromJob(JobContract job, IEnumerable<QAContract> questions);
+        [OperationContract]
+        JobbingResponse RemoveQuestionFromJob(int jobID, int questionID);
     }
 }
