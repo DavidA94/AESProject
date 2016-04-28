@@ -410,27 +410,24 @@ namespace AES.ApplicationSvc.Tests
             var s = new ApplicationSvcTestClient.ApplicationSvcClient();
             var excepted = false;
 
-            using (var db = new AESDbContext())
+            try
             {
-                try
-                {
-                    var fakeApp = new ApplicationInfoContract();
-                    var fakeApplicant = new ApplicantInfoContract();
+                var fakeApp = new ApplicationInfoContract();
+                var fakeApplicant = new ApplicantInfoContract();
 
-                    s.CancelApplication(fakeApp);
-                    s.GetApplicantsAwaitingCalls(new DateTime());
-                    s.GetApplication(0, AppStatus.AUTO_REJECT);
-                    s.SavePartialApplication(fakeApp);
-                    s.CallApplicant(0);
-                    s.ApplicantDidNotAnswer(0);
-                    s.SavePhoneInterview(0, "", true);
-                    s.SubmitApplication(fakeApplicant);
-                }
-                catch (Exception)
-                {
-                    excepted = true;
-                    throw;
-                }
+                s.CancelApplication(fakeApp);
+                s.GetApplicantsAwaitingCalls(new DateTime());
+                s.GetApplication(0, AppStatus.AUTO_REJECT);
+                s.SavePartialApplication(fakeApp);
+                s.CallApplicant(0);
+                s.ApplicantDidNotAnswer(0);
+                s.SavePhoneInterview(0, "", true);
+                s.SubmitApplication(fakeApplicant);
+            }
+            catch (Exception)
+            {
+                excepted = true;
+                throw;
             }
 
             s.Close();
