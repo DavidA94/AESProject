@@ -32,13 +32,22 @@ namespace AES.Web.ApplicationService {
         private AES.Shared.Contracts.AvailabilityContract AvailabilityField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DOBField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AES.Shared.Contracts.EducationHistoryContract[] EducationsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FirstNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string InterviewNotesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AES.Shared.Contracts.JobHistoryContract[] JobsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LastNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AES.Shared.Contracts.QAContract[] QAField;
@@ -102,6 +111,19 @@ namespace AES.Web.ApplicationService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DOB {
+            get {
+                return this.DOBField;
+            }
+            set {
+                if ((this.DOBField.Equals(value) != true)) {
+                    this.DOBField = value;
+                    this.RaisePropertyChanged("DOB");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public AES.Shared.Contracts.EducationHistoryContract[] Educations {
             get {
                 return this.EducationsField;
@@ -110,6 +132,19 @@ namespace AES.Web.ApplicationService {
                 if ((object.ReferenceEquals(this.EducationsField, value) != true)) {
                     this.EducationsField = value;
                     this.RaisePropertyChanged("Educations");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FirstName {
+            get {
+                return this.FirstNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FirstNameField, value) != true)) {
+                    this.FirstNameField = value;
+                    this.RaisePropertyChanged("FirstName");
                 }
             }
         }
@@ -136,6 +171,19 @@ namespace AES.Web.ApplicationService {
                 if ((object.ReferenceEquals(this.JobsField, value) != true)) {
                     this.JobsField = value;
                     this.RaisePropertyChanged("Jobs");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LastName {
+            get {
+                return this.LastNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LastNameField, value) != true)) {
+                    this.LastNameField = value;
+                    this.RaisePropertyChanged("LastName");
                 }
             }
         }

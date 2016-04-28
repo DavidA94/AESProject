@@ -50,6 +50,8 @@ textarea {
 
 #ajaxSpinner {position:absolute;top:0;right:0;bottom:0;left:0;z-index:999;background:rgba(255, 255, 255, .5) url('/Content/Images/spinner.gif') no-repeat center center;}
 
+#availableJobs .h3 {margin:0;}
+
 #staffingExpert {clear:both;overflow:hidden;}
 #staffingExpert #editBox .editBox {display:block;}
 #staffingExpert #editBox .editBox input[type=radio], #staffingExpert #editBox .editBox input[type=checkbox] {margin:10px 0;}

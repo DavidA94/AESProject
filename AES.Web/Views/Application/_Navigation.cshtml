@@ -1,6 +1,7 @@
 ﻿<div class="form-group">
     <div class="bottom-left">
-        @*@Html.ActionLink("Next", "NextSection", "Application", new { @class = "btn btn-default" })*@
-        <input type="submit" value="Next Section" class="btn btn-default" />
+        <input type="submit" value="@ViewBag.NextSection" class="btn btn-default" />
+        @Html.ActionLink("Cancel Application", "CancelApplication", "Application", 
+                        new { @class = "padLeft", onclick = "return confirm('Are you sure you want to cancel your application?');"})
     </div>
 </div>

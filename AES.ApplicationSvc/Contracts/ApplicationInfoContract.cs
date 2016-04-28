@@ -1,11 +1,7 @@
 ﻿using AES.Shared.Contracts;
-using AES.ApplicationSvc.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AES.ApplicationSvc.Contracts
 {
@@ -24,16 +20,19 @@ namespace AES.ApplicationSvc.Contracts
         /// <summary>
         /// [Out] The first name of the person who owns this application
         /// </summary>
+        [DataMember]
         public string FirstName { get; set; }
 
         /// <summary>
         /// [Out] The last name of the person who owns this application
         /// </summary>
+        [DataMember]
         public string LastName { get; set; }
 
         /// <summary>
         /// [Out] The DOB of the person who owns this application
         /// </summary>
+        [DataMember]
         public DateTime DOB { get; set; }
 
         /// <summary>
