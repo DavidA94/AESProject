@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" />
+  <xs:complexType name="ApplicationInfoContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApplicantID" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AppliedJobs" nillable="true" type="q1:ArrayOfint" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="Availability" nillable="true" type="q2:AvailabilityContract" />
+      <xs:element minOccurs="0" name="DOB" type="xs:dateTime" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="Educations" nillable="true" type="q3:ArrayOfEducationHistoryContract" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InterviewNotes" nillable="true" type="xs:string" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="Jobs" nillable="true" type="q4:ArrayOfJobHistoryContract" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="QA" nillable="true" type="q5:ArrayOfQAContract" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="References" nillable="true" type="q6:ArrayOfReferenceContract" />
+      <xs:element minOccurs="0" name="ScreeningNotes" nillable="true" type="xs:string" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="UserInfo" nillable="true" type="q7:UserInfoContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApplicationInfoContract" nillable="true" type="tns:ApplicationInfoContract" />
+</xs:schema>

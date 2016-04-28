@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApplicationSvc" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" />
+      <xsd:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" />
+      <xsd:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/AES.Shared" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IApplicationSvc_CancelApplication_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelApplication" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_CancelApplication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelApplicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_GetApplicantsAwaitingCalls_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetApplicantsAwaitingCalls" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_GetApplicantsAwaitingCalls_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetApplicantsAwaitingCallsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_GetApplicantsAwaitingInterview_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetApplicantsAwaitingInterview" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_GetApplicantsAwaitingInterview_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetApplicantsAwaitingInterviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_GetApplication_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetApplication" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_GetApplication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetApplicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_GetInterviewApplication_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInterviewApplication" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_GetInterviewApplication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInterviewApplicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SavePartialApplication_InputMessage">
+    <wsdl:part name="parameters" element="tns:SavePartialApplication" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SavePartialApplication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SavePartialApplicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SetApplicationStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetApplicationStatus" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SetApplicationStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetApplicationStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_CallApplicant_InputMessage">
+    <wsdl:part name="parameters" element="tns:CallApplicant" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_CallApplicant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CallApplicantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_ApplicantDidNotAnswer_InputMessage">
+    <wsdl:part name="parameters" element="tns:ApplicantDidNotAnswer" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_ApplicantDidNotAnswer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ApplicantDidNotAnswerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SavePhoneInterview_InputMessage">
+    <wsdl:part name="parameters" element="tns:SavePhoneInterview" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SavePhoneInterview_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SavePhoneInterviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SubmitApplication_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitApplication" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SubmitApplication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitApplicationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IApplicationSvc">
+    <wsdl:operation name="CancelApplication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/CancelApplication" message="tns:IApplicationSvc_CancelApplication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/CancelApplicationResponse" message="tns:IApplicationSvc_CancelApplication_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicantsAwaitingCalls">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingCalls" message="tns:IApplicationSvc_GetApplicantsAwaitingCalls_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingCallsResponse" message="tns:IApplicationSvc_GetApplicantsAwaitingCalls_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicantsAwaitingInterview">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterview" message="tns:IApplicationSvc_GetApplicantsAwaitingInterview_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterviewResponse" message="tns:IApplicationSvc_GetApplicantsAwaitingInterview_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApplication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/GetApplication" message="tns:IApplicationSvc_GetApplication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/GetApplicationResponse" message="tns:IApplicationSvc_GetApplication_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInterviewApplication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/GetInterviewApplication" message="tns:IApplicationSvc_GetInterviewApplication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/GetInterviewApplicationResponse" message="tns:IApplicationSvc_GetInterviewApplication_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SavePartialApplication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SavePartialApplication" message="tns:IApplicationSvc_SavePartialApplication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SavePartialApplicationResponse" message="tns:IApplicationSvc_SavePartialApplication_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetApplicationStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SetApplicationStatus" message="tns:IApplicationSvc_SetApplicationStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SetApplicationStatusResponse" message="tns:IApplicationSvc_SetApplicationStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CallApplicant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/CallApplicant" message="tns:IApplicationSvc_CallApplicant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/CallApplicantResponse" message="tns:IApplicationSvc_CallApplicant_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ApplicantDidNotAnswer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswer" message="tns:IApplicationSvc_ApplicantDidNotAnswer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswerResponse" message="tns:IApplicationSvc_ApplicantDidNotAnswer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SavePhoneInterview">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SavePhoneInterview" message="tns:IApplicationSvc_SavePhoneInterview_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SavePhoneInterviewResponse" message="tns:IApplicationSvc_SavePhoneInterview_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitApplication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SubmitApplication" message="tns:IApplicationSvc_SubmitApplication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SubmitApplicationResponse" message="tns:IApplicationSvc_SubmitApplication_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IApplicationSvc" type="tns:IApplicationSvc">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CancelApplication">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/CancelApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicantsAwaitingCalls">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingCalls" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicantsAwaitingInterview">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApplication">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/GetApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInterviewApplication">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/GetInterviewApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePartialApplication">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SavePartialApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetApplicationStatus">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SetApplicationStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CallApplicant">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/CallApplicant" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApplicantDidNotAnswer">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/ApplicantDidNotAnswer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePhoneInterview">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SavePhoneInterview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitApplication">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SubmitApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApplicationSvc">
+    <wsdl:port name="BasicHttpBinding_IApplicationSvc" binding="tns:BasicHttpBinding_IApplicationSvc">
+      <soap:address location="http://localhost:55707/ApplicationSvc.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

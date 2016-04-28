@@ -219,18 +219,15 @@ namespace AES.SecuritySvc.Tests
                 UserInfo = fakeUserInfo
             };
 
-            using (var db = new AESDbContext())
+            try
             {
-                try
-                {
-                    s.CreateEmployee(fakeEmployee, "nS3CuR3_P4$$W0RD");
-                    s.ValidateUser(fakeApplicant);
-                    s.ValidateEmployeeUser(fakeEmployeeCredentials);
-                }
-                catch (Exception)
-                {
-                    excepted = true;
-                }
+                s.CreateEmployee(fakeEmployee, "nS3CuR3_P4$$W0RD");
+                s.ValidateUser(fakeApplicant);
+                s.ValidateEmployeeUser(fakeEmployeeCredentials);
+            }
+            catch (Exception)
+            {
+                excepted = true;
             }
             s.Close();
             Assert.IsFalse(excepted);
