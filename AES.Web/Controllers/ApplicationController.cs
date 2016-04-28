@@ -12,7 +12,27 @@ namespace AES.Web.Controllers
 {
     public class ApplicationController : Controller
     {
-        // GET: Application
+        public ActionResult CancelApplication()
+        {
+            using (var appSvc = new ApplicationSvcClient())
+            {
+                var user = ApplicantUserManager.GetUser();
+
+                // Don't really care if this passes or not, just try to cancel
+                appSvc.CancelApplication(new ApplicationInfoContract()
+                {
+                    ApplicantID = ApplicantUserManager.GetUserID(),
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    DOB = user.DOB
+                });
+
+                // And then redirect / logout the user
+                return RedirectToActionPermanent("AvailableJobs", "JobOpenings");
+            }
+        }
+
+
         public ActionResult UserProfile()
         {
             // Get the seleceted jobs from the session
@@ -24,47 +44,49 @@ namespace AES.Web.Controllers
                 return RedirectToAction("AvailableJobs", "JobOpenings");
             }
 
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-
-            // If we have jobs, start a new app, otherwise, assume the user is continuing a previous application
-            if (selectedJobs != null && selectedJobs.Length > 0)
+            using (var appSvc = new ApplicationSvcClient())
             {
-                // Save the new application
-                var response = appSvc.SavePartialApplication(new ApplicationInfoContract()
-                {
-                    ApplicantID = userID,
-                    AppliedJobs = selectedJobs
-                });
 
-                // If we didn't get a good application back, go to the job openings page
-                if (response != AppSvcResponse.GOOD)
+                // If we have jobs, start a new app, otherwise, assume the user is continuing a previous application
+                if (selectedJobs != null && selectedJobs.Length > 0)
                 {
-                    return RedirectToAction("AvailableJobs", "JobOpenings");
+                    // Save the new application
+                    var response = appSvc.SavePartialApplication(new ApplicationInfoContract()
+                    {
+                        ApplicantID = userID,
+                        AppliedJobs = selectedJobs
+                    });
+
+                    // If we didn't get a good application back, go to the job openings page
+                    if (response != AppSvcResponse.GOOD)
+                    {
+                        return RedirectToAction("AvailableJobs", "JobOpenings");
+                    }
                 }
+
+                // Get the application (will come back with historical data)
+                ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
+
+                // Get the user that is logged in
+                var user = ApplicantUserManager.GetUser();
+
+                // Create the data to go into the profile view
+                var profile = new ProfileViewModel()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    DOB = user.DOB,
+                    Nickname = app.UserInfo.Nickname,
+                    Address = app.UserInfo.Address,
+                    City = app.UserInfo.City,
+                    State = app.UserInfo.State,
+                    Zip = app.UserInfo.Zip == 0 ? (int?)null : app.UserInfo.Zip,
+                    Phone = app.UserInfo.Phone,
+                    SalaryExpectation = app.UserInfo.SalaryExpectation == 0 ? (decimal?)null : app.UserInfo.SalaryExpectation
+                };
+
+                return View(profile);
             }
-
-            // Get the application (will come back with historical data)
-            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
-
-            // Get the user that is logged in
-            var user = ApplicantUserManager.GetUser();
-
-            // Create the data to go into the profile view
-            var profile = new ProfileViewModel()
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                DOB = user.DOB,
-                Nickname = app.UserInfo.Nickname,
-                Address = app.UserInfo.Address,
-                City = app.UserInfo.City,
-                State = app.UserInfo.State,
-                Zip = app.UserInfo.Zip == 0 ? (int?)null : app.UserInfo.Zip,
-                Phone = app.UserInfo.Phone,
-                SalaryExpectation = app.UserInfo.SalaryExpectation == 0 ? (decimal?)null : app.UserInfo.SalaryExpectation
-            };
-
-            return View(profile);
         }
 
         [HttpPost]
@@ -86,38 +108,41 @@ namespace AES.Web.Controllers
             }
 
             // Get the application (will come back with historical data)
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
-
-            if(app == null || app.UserInfo == null)
+            using (var appSvc = new ApplicationSvcClient())
             {
-                return RedirectToAction("AvailableJobs", "JobOpenings");
-            }
+                ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
-            if (app.Availability != null) {
-
-                var availability = new AvailabilityViewModel()
+                if (app == null || app.UserInfo == null)
                 {
-                    SundayStart = app.Availability.SundayStart,
-                    SundayEnd = app.Availability.SundayEnd,
-                    MondayStart = app.Availability.MondayStart,
-                    MondayEnd = app.Availability.MondayEnd,
-                    TuesdayStart = app.Availability.TuesdayStart,
-                    TuesdayEnd = app.Availability.TuesdayEnd,
-                    WednesdayStart = app.Availability.WednesdayStart,
-                    WednesdayEnd = app.Availability.WednesdayEnd,
-                    ThursdayStart = app.Availability.ThursdayStart,
-                    ThursdayEnd = app.Availability.ThursdayEnd,
-                    FridayStart = app.Availability.FridayStart,
-                    FridayEnd = app.Availability.FridayEnd,
-                    SaturdayStart = app.Availability.SaturdayStart,
-                    SaturdayEnd = app.Availability.SaturdayEnd
-                };
+                    return RedirectToAction("AvailableJobs", "JobOpenings");
+                }
 
-                return View(availability);
+                if (app.Availability != null)
+                {
+
+                    var availability = new AvailabilityViewModel()
+                    {
+                        SundayStart = app.Availability.SundayStart,
+                        SundayEnd = app.Availability.SundayEnd,
+                        MondayStart = app.Availability.MondayStart,
+                        MondayEnd = app.Availability.MondayEnd,
+                        TuesdayStart = app.Availability.TuesdayStart,
+                        TuesdayEnd = app.Availability.TuesdayEnd,
+                        WednesdayStart = app.Availability.WednesdayStart,
+                        WednesdayEnd = app.Availability.WednesdayEnd,
+                        ThursdayStart = app.Availability.ThursdayStart,
+                        ThursdayEnd = app.Availability.ThursdayEnd,
+                        FridayStart = app.Availability.FridayStart,
+                        FridayEnd = app.Availability.FridayEnd,
+                        SaturdayStart = app.Availability.SaturdayStart,
+                        SaturdayEnd = app.Availability.SaturdayEnd
+                    };
+
+                    return View(availability);
+                }
+
+                return View(new AvailabilityViewModel());
             }
-
-            return View(new AvailabilityViewModel());
         }
 
         [HttpPost]
@@ -144,43 +169,45 @@ namespace AES.Web.Controllers
             }
 
             // Get the application (will come back with historical data)
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
-
-            if (app == null || app.UserInfo == null)
+            using (var appSvc = new ApplicationSvcClient())
             {
-                return RedirectToAction("AvailableJobs", "JobOpenings");
-            }
+                ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
-            if (app.Jobs != null && app.Jobs.Length > 0)
-            {
-                var pastJobs = new List<WorkHistoryViewModel>();
-
-                foreach (var job in app.Jobs)
+                if (app == null || app.UserInfo == null)
                 {
-                    pastJobs.Add(new WorkHistoryViewModel()
-                    {
-                        EmployerAddress = job.EmployerAddress,
-                        EmployerCity = job.EmployerCity,
-                        EmployerName = job.EmployerName,
-                        EmployerCountry = job.EmployerCountry,
-                        EndingSalary = job.EndingSalary > 0 ? job.EndingSalary : (decimal?)null,
-                        EmployerPhone = job.EmployerPhone,
-                        ReasonForLeaving = job.ReasonForLeaving,
-                        Responsibilities = job.Responsibilities,
-                        StartingSalary = job.StartingSalary > 0 ? job.StartingSalary : (decimal?)null,
-                        EmployerState = job.EmployerState,
-                        SupervisorName = job.SupervisorName,
-                        WorkedFrom = job.StartDate != new DateTime(1970, 1, 1) ? job.StartDate : (DateTime?)null,
-                        WorkedTo = job.EndDate != new DateTime(1970, 1, 1) ? job.EndDate : (DateTime?)null,
-                        EmployerZip = job.EmployerZip < 100 ? (int?)null : job.EmployerZip
-                    });
+                    return RedirectToAction("AvailableJobs", "JobOpenings");
                 }
 
-                return View(pastJobs);
-            }
+                if (app.Jobs != null && app.Jobs.Length > 0)
+                {
+                    var pastJobs = new List<WorkHistoryViewModel>();
 
-            return View(new List<WorkHistoryViewModel> { new WorkHistoryViewModel() });
+                    foreach (var job in app.Jobs)
+                    {
+                        pastJobs.Add(new WorkHistoryViewModel()
+                        {
+                            EmployerAddress = job.EmployerAddress,
+                            EmployerCity = job.EmployerCity,
+                            EmployerName = job.EmployerName,
+                            EmployerCountry = job.EmployerCountry,
+                            EndingSalary = job.EndingSalary > 0 ? job.EndingSalary : (decimal?)null,
+                            EmployerPhone = job.EmployerPhone,
+                            ReasonForLeaving = job.ReasonForLeaving,
+                            Responsibilities = job.Responsibilities,
+                            StartingSalary = job.StartingSalary > 0 ? job.StartingSalary : (decimal?)null,
+                            EmployerState = job.EmployerState,
+                            SupervisorName = job.SupervisorName,
+                            WorkedFrom = job.StartDate != new DateTime(1970, 1, 1) ? job.StartDate : (DateTime?)null,
+                            WorkedTo = job.EndDate != new DateTime(1970, 1, 1) ? job.EndDate : (DateTime?)null,
+                            EmployerZip = job.EmployerZip < 100 ? (int?)null : job.EmployerZip
+                        });
+                    }
+
+                    return View(pastJobs);
+                }
+
+                return View(new List<WorkHistoryViewModel> { new WorkHistoryViewModel() });
+            }
         }
 
         [HttpPost]
@@ -207,40 +234,42 @@ namespace AES.Web.Controllers
             }
 
             // Get the application (will come back with historical data)
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
-
-            if (app == null || app.UserInfo == null)
+            using (var appSvc = new ApplicationSvcClient())
             {
-                return RedirectToAction("AvailableJobs", "JobOpenings");
-            }
+                ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
-            if (app.Educations != null && app.Educations.Length > 0)
-            {
-                var pastEds = new List<EducationViewModel>();
-
-                foreach (var ed in app.Educations)
+                if (app == null || app.UserInfo == null)
                 {
-                    pastEds.Add(new EducationViewModel()
-                    {
-                        SchoolAddress = ed.SchoolAddress,
-
-                        SchoolCity = ed.SchoolCity,
-                        Degree = ed.Degree,
-                        SchoolCountry = ed.SchoolCountry,
-                        GraduationDate = ed.Graduated != new DateTime(1970, 1, 1) ? ed.Graduated : (DateTime?)null,
-                        SchoolName = ed.SchoolName,
-                        Major = ed.Major,
-                        SchoolState = ed.SchoolState,
-                        YearAttended = ed.YearsAttended > 0 ? ed.YearsAttended : (double?)null,
-                        SchoolZip = ed.SchoolZIP > 0 ? ed.SchoolZIP : (int?)null
-                    });
+                    return RedirectToAction("AvailableJobs", "JobOpenings");
                 }
 
-                return View(pastEds);
-            }
+                if (app.Educations != null && app.Educations.Length > 0)
+                {
+                    var pastEds = new List<EducationViewModel>();
 
-            return View(new List<EducationViewModel> { new EducationViewModel() });
+                    foreach (var ed in app.Educations)
+                    {
+                        pastEds.Add(new EducationViewModel()
+                        {
+                            SchoolAddress = ed.SchoolAddress,
+
+                            SchoolCity = ed.SchoolCity,
+                            Degree = ed.Degree,
+                            SchoolCountry = ed.SchoolCountry,
+                            GraduationDate = ed.Graduated != new DateTime(1970, 1, 1) ? ed.Graduated : (DateTime?)null,
+                            SchoolName = ed.SchoolName,
+                            Major = ed.Major,
+                            SchoolState = ed.SchoolState,
+                            YearAttended = ed.YearsAttended > 0 ? ed.YearsAttended : (double?)null,
+                            SchoolZip = ed.SchoolZIP > 0 ? ed.SchoolZIP : (int?)null
+                        });
+                    }
+
+                    return View(pastEds);
+                }
+
+                return View(new List<EducationViewModel> { new EducationViewModel() });
+            }
         }
 
         [HttpPost]
@@ -267,33 +296,35 @@ namespace AES.Web.Controllers
             }
 
             // Get the application (will come back with historical data)
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
-
-            if (app == null || app.UserInfo == null)
+            using (var appSvc = new ApplicationSvcClient())
             {
-                return RedirectToAction("AvailableJobs", "JobOpenings");
-            }
+                ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
-            if (app.References != null && app.References.Length > 0)
-            {
-                var refs = new List<ReferencesViewModel>();
-
-                foreach (var r in app.References)
+                if (app == null || app.UserInfo == null)
                 {
-                    refs.Add(new ReferencesViewModel()
-                    {
-                        Company = r.Company,
-                        Phone = r.Phone,
-                        Name = r.Name,
-                        Title = r.Title
-                    });
+                    return RedirectToAction("AvailableJobs", "JobOpenings");
                 }
 
-                return View(refs);
-            }
+                if (app.References != null && app.References.Length > 0)
+                {
+                    var refs = new List<ReferencesViewModel>();
 
-            return View(new List<ReferencesViewModel> { new ReferencesViewModel() });
+                    foreach (var r in app.References)
+                    {
+                        refs.Add(new ReferencesViewModel()
+                        {
+                            Company = r.Company,
+                            Phone = r.Phone,
+                            Name = r.Name,
+                            Title = r.Title
+                        });
+                    }
+
+                    return View(refs);
+                }
+
+                return View(new List<ReferencesViewModel> { new ReferencesViewModel() });
+            }
         }
 
         [HttpPost]
@@ -315,36 +346,38 @@ namespace AES.Web.Controllers
             }
 
             // Get the application (will come back with historical data)
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
-            
-            if (app == null || app.UserInfo == null)
+            using (var appSvc = new ApplicationSvcClient())
             {
-                return RedirectToAction("AvailableJobs", "JobOpenings");
-            }
+                ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
-            if (app.QA != null && app.QA.Length > 0)
-            {
-                var questions = new List<QuestionnaireViewModel>();
-
-                foreach (var q in app.QA)
+                if (app == null || app.UserInfo == null)
                 {
-                    questions.Add(new QuestionnaireViewModel()
-                    {
-                        MC_Answers = q.MC_Answers.ToList(),
-                        Options = q.Options.ToList(),
-                        Question = q.Question,
-                        QuestionID = q.QuestionID,
-                        RadioOption = q.Type == QuestionType.RADIO ? "i" + q.QuestionID.ToString() + q.MC_Answers.ToList().IndexOf(true).ToString() : "",
-                        ShortAnswer = q.ShortAnswer,
-                        Type = q.Type
-                    });
+                    return RedirectToAction("AvailableJobs", "JobOpenings");
                 }
 
-                return View(questions);
-            }
+                if (app.QA != null && app.QA.Length > 0)
+                {
+                    var questions = new List<QuestionnaireViewModel>();
 
-            return View(new List<QuestionnaireViewModel>());
+                    foreach (var q in app.QA)
+                    {
+                        questions.Add(new QuestionnaireViewModel()
+                        {
+                            MC_Answers = q.MC_Answers.ToList(),
+                            Options = q.Options.ToList(),
+                            Question = q.Question,
+                            QuestionID = q.QuestionID,
+                            RadioOption = q.Type == QuestionType.RADIO ? "i" + q.QuestionID.ToString() + q.MC_Answers.ToList().IndexOf(true).ToString() : "",
+                            ShortAnswer = q.ShortAnswer,
+                            Type = q.Type
+                        });
+                    }
+
+                    return View(questions);
+                }
+
+                return View(new List<QuestionnaireViewModel>());
+            }
         }
 
         [HttpPost]
@@ -377,19 +410,21 @@ namespace AES.Web.Controllers
             }
 
             // Call out and get the current application
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
-
-            // Attempt to save the application
-            var result = appSvc.SubmitApplication(new ApplicantInfoContract() { UserID = app.ApplicantID });
-
-            if (result)
+            using (var appSvc = new ApplicationSvcClient())
             {
-                return RedirectToAction("ApplicationSubmitted");
-            }
+                ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
-            ModelState.AddModelError("", "There was an issue submitting your application. Please try again");
-            return View(info);
+                // Attempt to save the application
+                var result = appSvc.SubmitApplication(new ApplicantInfoContract() { UserID = app.ApplicantID });
+
+                if (result)
+                {
+                    return RedirectToAction("ApplicationSubmitted");
+                }
+
+                ModelState.AddModelError("", "There was an issue submitting your application. Please try again");
+                return View(info);
+            }
         }
 
         public ActionResult ApplicationSubmitted()
@@ -440,17 +475,19 @@ namespace AES.Web.Controllers
             }
 
             // Call out and get the current application
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
+            using (var appSvc = new ApplicationSvcClient())
+            {
+                ApplicationInfoContract app = appSvc.GetApplication(userID, AppStatus.PARTIAL);
 
-            // Add the data to the app
-            info.First().AddData(info, ref app);
+                // Add the data to the app
+                info.First().AddData(info, ref app);
 
-            // Save the application
-            appSvc.SavePartialApplication(app);
+                // Save the application
+                appSvc.SavePartialApplication(app);
 
-            // Go to the next page
-            return RedirectToAction(nextView, "Application");
+                // Go to the next page
+                return RedirectToAction(nextView, "Application");
+            }
         }
 
     }

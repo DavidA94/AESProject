@@ -22,30 +22,31 @@ namespace AES.Web.Controllers
             ApplicantUserManager.Logout();
 
             // Open the service
-            IOpeningSvc JobOpenings = new OpeningSvcClient();
-
-            // Get the query string, or use 1 by default
-            string storeID = Request.QueryString["StoreID"] ?? "1";
-
-            // Get all the openings for the given store
-            var getOpening = JobOpenings.GetAllOpenings(Convert.ToInt32(storeID));
-
-            // Create a new list of openings
-            List<JobOpeningsViewModel> OpeningList = new List<JobOpeningsViewModel>();
-
-            // Loop through what we got and add them to the list
-            foreach (var o in getOpening)
+            using (var JobOpenings = new OpeningSvcClient())
             {
-                OpeningList.Add(new JobOpeningsViewModel()
-                {
-                    Title = o.title, 
-                    ShortDesc = o.ShortDescription, 
-                    ID = o.OpeningID, 
-                    LongDesc = o.LongDescription
-                });
-            }
+                // Get the query string, or use 1 by default
+                string storeID = Request.QueryString["StoreID"] ?? "1";
 
-            return View(OpeningList);
+                // Get all the openings for the given store
+                var getOpening = JobOpenings.GetAllOpenings(Convert.ToInt32(storeID));
+
+                // Create a new list of openings
+                List<JobOpeningsViewModel> OpeningList = new List<JobOpeningsViewModel>();
+
+                // Loop through what we got and add them to the list
+                foreach (var o in getOpening)
+                {
+                    OpeningList.Add(new JobOpeningsViewModel()
+                    {
+                        Title = o.title,
+                        ShortDesc = o.ShortDescription,
+                        ID = o.OpeningID,
+                        LongDesc = o.LongDescription
+                    });
+                }
+
+                return View(OpeningList);
+            }
         }
 
         [HttpPost]

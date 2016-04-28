@@ -30,7 +30,59 @@ namespace AES.ApplicationSvc
 
         public bool CancelApplication(ApplicationInfoContract app)
         {
-            throw new NotImplementedException();
+            if(app == null)
+            {
+                return false;
+            }
+
+            using (var db = new AESDbContext())
+            {
+                // Get the application, and ensure we got one
+                var applications = db.Applications.Where(a => a.Status == AppStatus.PARTIAL && a.ApplicantID == app.ApplicantID);
+                if(!applications.Any())
+                {
+                    return false;
+                }
+
+                // Get the user, and ensure there is one
+                var user = applications.FirstOrDefault().Applicant;
+                if(user == null)
+                {
+                    return false;
+                }
+
+                // Ensure the data given matches what is in the DB, assuming there is information in the database.
+                if ((user.FirstName != app.FirstName && !string.IsNullOrWhiteSpace(user.FirstName)) ||
+                    (user.LastName != app.LastName && !string.IsNullOrWhiteSpace(user.LastName)) ||
+                    (user.DOB != app.DOB && user.DOB != new DateTime(1970, 1, 1)))
+                {
+                    return false;
+                }
+
+                // Disassociate the user and job from the application, and remove any answers
+                foreach (var application in applications)
+                {
+                    application.Applicant = null;
+                    application.ApplicantID = -1;
+                    application.Job = null;
+                    application.JobID = -1;
+
+                    db.MultiAnswers.RemoveRange(application.MultiAnswers);
+                    db.ShortAnswers.RemoveRange(application.ShortAnswers);
+                }
+
+                // Remove the applications
+                db.Applications.RemoveRange(applications);
+
+                // As long as the changes are saved
+                try {
+                    return db.SaveChanges() > 0;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
         }
 
         public List<ApplicantInfoContract> GetApplicantsAwaitingCalls(DateTime currentDateTime)
