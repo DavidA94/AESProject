@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:61658/SecuritySvc.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:61658/SecuritySvc.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AES.Shared" />
+  <xs:complexType name="ApplicantInfoContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Availability" nillable="true" type="tns:AvailabilityContract" />
+      <xs:element minOccurs="0" name="DOB" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Education" nillable="true" type="tns:ArrayOfEducationHistoryContract" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PastJobs" nillable="true" type="tns:ArrayOfJobHistoryContract" />
+      <xs:element minOccurs="0" name="References" nillable="true" type="tns:ArrayOfReferenceContract" />
+      <xs:element minOccurs="0" name="SSN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UserInfo" nillable="true" type="tns:UserInfoContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApplicantInfoContract" nillable="true" type="tns:ApplicantInfoContract" />
+  <xs:complexType name="AvailabilityContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FridayEnd" type="ser:duration" />
+      <xs:element minOccurs="0" name="FridayStart" type="ser:duration" />
+      <xs:element minOccurs="0" name="MondayEnd" type="ser:duration" />
+      <xs:element minOccurs="0" name="MondayStart" type="ser:duration" />
+      <xs:element minOccurs="0" name="SaturdayEnd" type="ser:duration" />
+      <xs:element minOccurs="0" name="SaturdayStart" type="ser:duration" />
+      <xs:element minOccurs="0" name="SundayEnd" type="ser:duration" />
+      <xs:element minOccurs="0" name="SundayStart" type="ser:duration" />
+      <xs:element minOccurs="0" name="ThursdayEnd" type="ser:duration" />
+      <xs:element minOccurs="0" name="ThursdayStart" type="ser:duration" />
+      <xs:element minOccurs="0" name="TuesdayEnd" type="ser:duration" />
+      <xs:element minOccurs="0" name="TuesdayStart" type="ser:duration" />
+      <xs:element minOccurs="0" name="WednesdayEnd" type="ser:duration" />
+      <xs:element minOccurs="0" name="WednesdayStart" type="ser:duration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AvailabilityContract" nillable="true" type="tns:AvailabilityContract" />
+  <xs:complexType name="ArrayOfEducationHistoryContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EducationHistoryContract" nillable="true" type="tns:EducationHistoryContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEducationHistoryContract" nillable="true" type="tns:ArrayOfEducationHistoryContract" />
+  <xs:complexType name="EducationHistoryContract">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="Degree" type="q1:DegreeType" />
+      <xs:element minOccurs="0" name="Graduated" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Major" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SchoolAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SchoolCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SchoolCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SchoolName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SchoolState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SchoolZIP" type="xs:int" />
+      <xs:element minOccurs="0" name="YearsAttended" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EducationHistoryContract" nillable="true" type="tns:EducationHistoryContract" />
+  <xs:complexType name="ArrayOfJobHistoryContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="JobHistoryContract" nillable="true" type="tns:JobHistoryContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfJobHistoryContract" nillable="true" type="tns:ArrayOfJobHistoryContract" />
+  <xs:complexType name="JobHistoryContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EmployerAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerPhone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployerZip" type="xs:int" />
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="EndingSalary" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ReasonForLeaving" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Responsibilities" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="StartingSalary" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SupervisorName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="JobHistoryContract" nillable="true" type="tns:JobHistoryContract" />
+  <xs:complexType name="ArrayOfReferenceContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReferenceContract" nillable="true" type="tns:ReferenceContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReferenceContract" nillable="true" type="tns:ArrayOfReferenceContract" />
+  <xs:complexType name="ReferenceContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReferenceContract" nillable="true" type="tns:ReferenceContract" />
+  <xs:complexType name="UserInfoContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndCallTime" type="ser:duration" />
+      <xs:element minOccurs="0" name="Nickname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SalaryExpectation" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StartCallTime" type="ser:duration" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Zip" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserInfoContract" nillable="true" type="tns:UserInfoContract" />
+  <xs:complexType name="EmployeeCredentialsContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmployeeCredentialsContract" nillable="true" type="tns:EmployeeCredentialsContract" />
+  <xs:complexType name="EmployeeUserContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="Role" type="q2:EmployeeRole" />
+      <xs:element minOccurs="0" name="UserInfo" nillable="true" type="tns:UserInfoContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmployeeUserContract" nillable="true" type="tns:EmployeeUserContract" />
+</xs:schema>

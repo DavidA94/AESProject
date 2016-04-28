@@ -4,6 +4,7 @@ using AES.Shared;
 using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
@@ -167,6 +168,72 @@ namespace AES.SecuritySvc.Tests
                 invalidPassEmployee.Email = "a@a.a";
                 Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, nullPass));
             }
+        }
+
+        [TestMethod]
+        public void SecuritySvc_Sanity()
+        {
+            var s = new SecuritySvcTestClient.SecuritySvcClient();
+            var excepted = false;
+
+            var fakeEmployeeCredentials = new EmployeeCredentialsContract()
+            {
+                Email ="yada@yada.blah",
+                Password = "Qwerty123"
+            };
+
+            var fakeUserInfo = new UserInfoContract()
+            {
+                Address = "asdasd",
+                City = "asdf",
+                EndCallTime = new TimeSpan(23, 59, 59),
+                Nickname = "asdsad",
+                Phone = "333-222-1111",
+                SalaryExpectation = 12,
+                StartCallTime = new TimeSpan(0, 0, 0),
+                State = "OR",
+                Zip = 12432
+            };
+
+            var fakeApplicant = new ApplicantInfoContract()
+            {
+                Availability = new AvailabilityContract()
+                {
+                    
+                },
+                DOB = new DateTime(1970,1,1),
+                FirstName = "asdsad",
+                LastName = "sdsdsd",
+                SSN = "234-56-7890",
+                UserInfo = fakeUserInfo
+            };
+
+            
+
+            var fakeEmployee = new EmployeeUserContract()
+            {
+                Email = "asdasd@asd.asd",
+                FirstName = "First",
+                LastName = "Last",
+                Role = EmployeeRole.HiringManager,
+                UserInfo = fakeUserInfo
+            };
+
+            using (var db = new AESDbContext())
+            {
+                try
+                {
+                    s.CreateEmployee(fakeEmployee, "nS3CuR3_P4$$W0RD");
+                    s.ValidateUser(fakeApplicant);
+                    s.ValidateEmployeeUser(fakeEmployeeCredentials);
+                }
+                catch (Exception)
+                {
+                    excepted = true;
+                }
+            }
+            s.Close();
+            Assert.IsFalse(excepted);
         }
 
 
