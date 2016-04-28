@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:61586/JobbingSvc.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AES.JobbingSvc.Contracts" />
+  <xs:import schemaLocation="http://localhost:61586/JobbingSvc.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AES.Shared" />
+  <xs:import schemaLocation="http://localhost:61586/JobbingSvc.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" />
+  <xs:element name="AddJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AES.JobbingSvc.Contracts" minOccurs="0" name="job" nillable="true" type="q1:JobContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="AddJobResult" type="q2:JobbingResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddQuestion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="question" nillable="true" type="q3:QAContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddQuestionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="AddQuestionResult" type="q4:JobbingResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddQuestionToJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="jobID" type="xs:int" />
+        <xs:element minOccurs="0" name="questionID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddQuestionToJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="AddQuestionToJobResult" type="q5:JobbingResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AES.JobbingSvc.Contracts" minOccurs="0" name="job" nillable="true" type="q6:JobContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="EditJobResult" type="q7:JobbingResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditQuestion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="question" nillable="true" type="q8:QAContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditQuestionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="EditQuestionResult" type="q9:JobbingResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetJobs">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetJobsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AES.JobbingSvc.Contracts" minOccurs="0" name="GetJobsResult" nillable="true" type="q10:ArrayOfJobContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetQuestions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="jobID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetQuestionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="GetQuestionsResult" nillable="true" type="q11:ArrayOfQAContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveQuestionFromJob">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="jobID" type="xs:int" />
+        <xs:element minOccurs="0" name="questionID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveQuestionFromJobResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="RemoveQuestionFromJobResult" type="q12:JobbingResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

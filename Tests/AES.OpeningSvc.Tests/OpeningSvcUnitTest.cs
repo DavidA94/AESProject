@@ -6,6 +6,7 @@ using AES.Shared;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using AES.Opening.Tests.OpeningSvcTestClient;
 
 namespace AES.OpeningsSvc.Tests
 {
@@ -337,7 +338,7 @@ namespace AES.OpeningsSvc.Tests
         [TestMethod]
         public void OpeningSvc_Sanity()
         {
-            var s = new OpeningSvc();
+            var s = new OpeningSvcClient();
             var excepted = false;
             using (var db = new AESDbContext())
             {
@@ -379,13 +380,13 @@ namespace AES.OpeningsSvc.Tests
                     var opening2 = new JobOpeningContract(opening2Table);
                     var opening3 = new JobOpeningContract(opening3Table);
 
-                    s.RequestOpenings(store.ID, opening1);
+                    s.RequestOpenings(store.ID, opening1, 1);
                     s.ApproveOpening(opening2, "note");
                     s.GetAllOpenings(store.ID);
                     s.GetApprovedOpenings(store.ID);
                     s.GetPendingOpenings(store.ID);
                     s.GetRejectedOpenings(store.ID);
-                    s.RejectOpening(opening1, "note");
+                    s.RejectOpening(opening3, "note");
                     
                 }
                 catch (Exception)
@@ -393,6 +394,8 @@ namespace AES.OpeningsSvc.Tests
                     excepted = true;
                 }
             }
+
+            s.Close();
             Assert.IsFalse(excepted);
         }
     }

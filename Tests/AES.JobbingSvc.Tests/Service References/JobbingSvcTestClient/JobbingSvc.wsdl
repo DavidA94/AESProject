@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="JobbingSvc" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:61586/JobbingSvc.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:61586/JobbingSvc.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:61586/JobbingSvc.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AES.JobbingSvc.Contracts" />
+      <xsd:import schemaLocation="http://localhost:61586/JobbingSvc.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AES.Shared" />
+      <xsd:import schemaLocation="http://localhost:61586/JobbingSvc.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" />
+      <xsd:import schemaLocation="http://localhost:61586/JobbingSvc.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IJobbingSvc_AddJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddJob" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_AddJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_AddQuestion_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddQuestion" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_AddQuestion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddQuestionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_AddQuestionToJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddQuestionToJob" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_AddQuestionToJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddQuestionToJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_EditJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditJob" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_EditJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_EditQuestion_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditQuestion" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_EditQuestion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditQuestionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_GetJobs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobs" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_GetJobs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_GetQuestions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuestions" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_GetQuestions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuestionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_RemoveQuestionFromJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveQuestionFromJob" />
+  </wsdl:message>
+  <wsdl:message name="IJobbingSvc_RemoveQuestionFromJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveQuestionFromJobResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IJobbingSvc">
+    <wsdl:operation name="AddJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJobbingSvc/AddJob" message="tns:IJobbingSvc_AddJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJobbingSvc/AddJobResponse" message="tns:IJobbingSvc_AddJob_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddQuestion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJobbingSvc/AddQuestion" message="tns:IJobbingSvc_AddQuestion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJobbingSvc/AddQuestionResponse" message="tns:IJobbingSvc_AddQuestion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddQuestionToJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJobbingSvc/AddQuestionToJob" message="tns:IJobbingSvc_AddQuestionToJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJobbingSvc/AddQuestionToJobResponse" message="tns:IJobbingSvc_AddQuestionToJob_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJobbingSvc/EditJob" message="tns:IJobbingSvc_EditJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJobbingSvc/EditJobResponse" message="tns:IJobbingSvc_EditJob_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditQuestion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJobbingSvc/EditQuestion" message="tns:IJobbingSvc_EditQuestion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJobbingSvc/EditQuestionResponse" message="tns:IJobbingSvc_EditQuestion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJobbingSvc/GetJobs" message="tns:IJobbingSvc_GetJobs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJobbingSvc/GetJobsResponse" message="tns:IJobbingSvc_GetJobs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQuestions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJobbingSvc/GetQuestions" message="tns:IJobbingSvc_GetQuestions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJobbingSvc/GetQuestionsResponse" message="tns:IJobbingSvc_GetQuestions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveQuestionFromJob">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJobbingSvc/RemoveQuestionFromJob" message="tns:IJobbingSvc_RemoveQuestionFromJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJobbingSvc/RemoveQuestionFromJobResponse" message="tns:IJobbingSvc_RemoveQuestionFromJob_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IJobbingSvc" type="tns:IJobbingSvc">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddJob">
+      <soap:operation soapAction="http://tempuri.org/IJobbingSvc/AddJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddQuestion">
+      <soap:operation soapAction="http://tempuri.org/IJobbingSvc/AddQuestion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddQuestionToJob">
+      <soap:operation soapAction="http://tempuri.org/IJobbingSvc/AddQuestionToJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditJob">
+      <soap:operation soapAction="http://tempuri.org/IJobbingSvc/EditJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditQuestion">
+      <soap:operation soapAction="http://tempuri.org/IJobbingSvc/EditQuestion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobs">
+      <soap:operation soapAction="http://tempuri.org/IJobbingSvc/GetJobs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQuestions">
+      <soap:operation soapAction="http://tempuri.org/IJobbingSvc/GetQuestions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveQuestionFromJob">
+      <soap:operation soapAction="http://tempuri.org/IJobbingSvc/RemoveQuestionFromJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JobbingSvc">
+    <wsdl:port name="BasicHttpBinding_IJobbingSvc" binding="tns:BasicHttpBinding_IJobbingSvc">
+      <soap:address location="http://localhost:61586/JobbingSvc.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
