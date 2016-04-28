@@ -20,7 +20,6 @@ namespace AES.Web.Controllers
             //var x = FillHSData();
 
             IApplicationSvc appSvc = new ApplicationSvcClient();
-
             ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
 
             List<HiringSpecialistModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
