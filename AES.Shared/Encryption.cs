@@ -66,5 +66,28 @@ namespace AES.Shared
 
             return data;
         }
+
+        public static byte[] ComputeHash(string input, HashAlgorithm algorithm, byte[] saltBytes)
+        {
+            var inputBytes = Encoding.UTF8.GetBytes(input);
+
+            // Combine salt and input bytes
+            var saltedInput = new byte[saltBytes.Length + inputBytes.Length];
+            saltBytes.CopyTo(saltedInput, 0);
+            inputBytes.CopyTo(saltedInput, saltBytes.Length);
+
+            return algorithm.ComputeHash(saltedInput);
+        }
+
+        public static byte[] GetSalt()
+        {
+            var salt = new byte[saltLengthLimit];
+            using (var random = new RNGCryptoServiceProvider())
+            {
+                random.GetNonZeroBytes(salt);
+            }
+
+            return salt;
+        }
     }
 }
