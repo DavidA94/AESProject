@@ -208,11 +208,16 @@ namespace AES.SecuritySvc.Tests
                 UserInfo = fakeUserInfo
             };
 
-            
+            var cryptRandom = new RNGCryptoServiceProvider();
+            var intRandom = new Random(Guid.NewGuid().GetHashCode());
+            var randomBytes = new byte[intRandom.Next(1, 30)];
+            cryptRandom.GetNonZeroBytes(randomBytes);
+
+            var fakeEmail = Convert.ToBase64String(randomBytes) + "@gmail.com";
 
             var fakeEmployee = new EmployeeUserContract()
             {
-                Email = "asdasd@asd.asd",
+                Email = fakeEmail,
                 FirstName = "First",
                 LastName = "Last",
                 Role = EmployeeRole.HiringManager,
@@ -229,7 +234,9 @@ namespace AES.SecuritySvc.Tests
             {
                 excepted = true;
             }
+
             s.Close();
+
             Assert.IsFalse(excepted);
         }
 
