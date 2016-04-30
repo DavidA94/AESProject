@@ -405,8 +405,8 @@ namespace AES.ApplicationSvc.Tests
                               (status2 == AppStatus.WAITING_CALL && status1 == AppStatus.AUTO_REJECT));
             }
         }
-
-        //[TestMethod]
+        /*
+       [TestMethod]
         public void ApplicationSvc_Sanity()
         {
             var s = new ApplicationSvcTestClient.ApplicationSvcClient();
@@ -435,7 +435,7 @@ namespace AES.ApplicationSvc.Tests
             s.Close();
             Assert.IsFalse(excepted);
         }
-
+        */
         #region Helper Methods
 
         private ApplicationInfoContract PartialApp1()

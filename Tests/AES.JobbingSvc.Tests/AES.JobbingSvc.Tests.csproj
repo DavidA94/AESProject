@@ -72,11 +72,6 @@
   <ItemGroup>
     <Compile Include="JobbingSvcUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\JobbingSvcTestClient\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AES.Entities\AES.Entities.csproj">
@@ -97,46 +92,9 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\AES.JobbingSvc.Contracts.JobContract.datasource" />
     <None Include="Properties\DataSources\AES.Shared.Contracts.QAContract.datasource" />
-    <None Include="Service References\JobbingSvcTestClient\JobbingSvc.wsdl" />
-    <None Include="Service References\JobbingSvcTestClient\JobbingSvc.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\JobbingSvcTestClient\JobbingSvc1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\JobbingSvcTestClient\JobbingSvc2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\JobbingSvcTestClient\JobbingSvc3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\JobbingSvcTestClient\JobbingSvc4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\JobbingSvcTestClient\JobbingSvc5.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\JobbingSvcTestClient\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JobbingSvcTestClient\JobbingSvc.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JobbingSvcTestClient\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JobbingSvcTestClient\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JobbingSvcTestClient\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

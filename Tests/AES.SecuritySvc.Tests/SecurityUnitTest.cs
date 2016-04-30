@@ -169,8 +169,8 @@ namespace AES.SecuritySvc.Tests
                 Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, nullPass));
             }
         }
-
-        //[TestMethod]
+        /*
+        [TestMethod]
         public void SecuritySvc_Sanity()
         {
             var s = new SecuritySvcTestClient.SecuritySvcClient();
@@ -239,7 +239,7 @@ namespace AES.SecuritySvc.Tests
 
             Assert.IsFalse(excepted);
         }
-
+        */
 
         private void userInDB(ref ApplicantUser user, AESDbContext db, bool isIn)
         {

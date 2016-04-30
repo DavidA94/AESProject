@@ -6,7 +6,6 @@ using AES.Shared;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using AES.Opening.Tests.OpeningSvcTestClient;
 
 namespace AES.OpeningsSvc.Tests
 {
@@ -334,8 +333,8 @@ namespace AES.OpeningsSvc.Tests
                 db.SaveChanges();
             }
         }
-
-        //[TestMethod]
+        /*
+        [TestMethod]
         public void OpeningSvc_Sanity()
         {
             var s = new OpeningSvcClient();
@@ -398,5 +397,6 @@ namespace AES.OpeningsSvc.Tests
             s.Close();
             Assert.IsFalse(excepted);
         }
+        */
     }
 }

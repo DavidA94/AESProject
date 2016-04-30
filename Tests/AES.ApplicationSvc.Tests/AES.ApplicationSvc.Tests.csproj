@@ -73,11 +73,6 @@
   <ItemGroup>
     <Compile Include="ApplicationSvcUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\ApplicationSvcTestClient\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AES.ApplicationSvc\AES.ApplicationSvc.csproj">
@@ -102,46 +97,9 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\AES.ApplicationSvc.Contracts.ApplicationInfoContract.datasource" />
     <None Include="Properties\DataSources\AES.Shared.Contracts.ApplicantInfoContract.datasource" />
-    <None Include="Service References\ApplicationSvcTestClient\ApplicationSvc.wsdl" />
-    <None Include="Service References\ApplicationSvcTestClient\ApplicationSvc.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApplicationSvcTestClient\ApplicationSvc1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApplicationSvcTestClient\ApplicationSvc2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApplicationSvcTestClient\ApplicationSvc3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApplicationSvcTestClient\ApplicationSvc4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApplicationSvcTestClient\ApplicationSvc5.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ApplicationSvcTestClient\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ApplicationSvcTestClient\ApplicationSvc.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ApplicationSvcTestClient\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ApplicationSvcTestClient\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ApplicationSvcTestClient\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

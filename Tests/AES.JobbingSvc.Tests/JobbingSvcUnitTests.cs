@@ -457,8 +457,8 @@ namespace AES.JobbingSvc.Tests
                 Assert.AreEqual(questions.Count, 0);
             }
         }
-
-        //[TestMethod]
+        /*
+        [TestMethod]
         public void JobbingSvc_Sanity()
         {
             var s = new JobbingSvcTestClient.JobbingSvcClient();
@@ -519,5 +519,6 @@ namespace AES.JobbingSvc.Tests
             s.Close();
             Assert.IsFalse(excepted);
         }
+        */
     }
 }

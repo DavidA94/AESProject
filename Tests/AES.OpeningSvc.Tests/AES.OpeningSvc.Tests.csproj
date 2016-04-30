@@ -72,26 +72,11 @@
   <ItemGroup>
     <Compile Include="OpeningSvcUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\OpeningSvcTestClient\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\AES.OpeningsSvc.Contracts.JobOpeningContract.datasource" />
-    <None Include="Service References\OpeningSvcTestClient\OpeningSvc.wsdl" />
-    <None Include="Service References\OpeningSvcTestClient\OpeningSvc.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OpeningSvcTestClient\OpeningSvc1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OpeningSvcTestClient\OpeningSvc2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AES.Entities\AES.Entities.csproj">
@@ -109,24 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\OpeningSvcTestClient\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OpeningSvcTestClient\OpeningSvc.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OpeningSvcTestClient\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OpeningSvcTestClient\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OpeningSvcTestClient\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
