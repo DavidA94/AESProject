@@ -404,7 +404,7 @@ namespace AES.ApplicationSvc.Tests
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void ApplicationSvc_Sanity()
         {
             var s = new ApplicationSvcTestClient.ApplicationSvcClient();

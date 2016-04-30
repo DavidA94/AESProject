@@ -458,7 +458,7 @@ namespace AES.JobbingSvc.Tests
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void JobbingSvc_Sanity()
         {
             var s = new JobbingSvcTestClient.JobbingSvcClient();

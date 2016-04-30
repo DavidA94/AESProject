@@ -170,7 +170,7 @@ namespace AES.SecuritySvc.Tests
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void SecuritySvc_Sanity()
         {
             var s = new SecuritySvcTestClient.SecuritySvcClient();

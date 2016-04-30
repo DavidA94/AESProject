@@ -335,7 +335,7 @@ namespace AES.OpeningsSvc.Tests
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void OpeningSvc_Sanity()
         {
             var s = new OpeningSvcClient();
