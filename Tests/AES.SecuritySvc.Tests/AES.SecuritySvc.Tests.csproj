@@ -91,6 +91,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\AES.SecuritySvc.Contracts.ApplicantInfoContract.datasource" />
+    <None Include="Properties\DataSources\AES.Shared.Contracts.ApplicantInfoContract.datasource" />
+    <None Include="Properties\DataSources\AES.Shared.Contracts.EmployeeUserContract.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -1,4 +1,5 @@
-﻿using AES.Entities.Contexts;
+﻿using System;
+using AES.Entities.Contexts;
 using AES.Entities.Tables;
 using AES.JobbingSvc.Contracts;
 using AES.Shared;
@@ -456,5 +457,68 @@ namespace AES.JobbingSvc.Tests
                 Assert.AreEqual(questions.Count, 0);
             }
         }
+        /*
+        [TestMethod]
+        public void JobbingSvc_Sanity()
+        {
+            var s = new JobbingSvcTestClient.JobbingSvcClient();
+            var excepted = false;
+
+            using (var db = new AESDbContext())
+            {
+
+                var job = db.Jobs.FirstOrDefault();
+                var question = db.Questions.FirstOrDefault();
+
+                var jobContract = new JobContract()
+                {
+                    JobID = job.JobID,
+                    ShortDescription = job.ShortDescription,
+                    LongDescription = job.LongDescription,
+                    Title = job.Title
+                };
+
+                var questionContract = new QAContract()
+                {
+                    Question = question.Text,
+                    Type = question.Type,
+                    NeededRight = question.CorrectAnswerThreshold,
+                    QuestionID = question.QuestionID
+                };
+
+                var newJob = new JobContract()
+                {
+                    ShortDescription = "ShortDesc",
+                    LongDescription = "LongDesc",
+                    Title = "Title"
+                };
+
+                var newQuestion = new QAContract()
+                {
+                     Question = "Sup?",
+                     Type = QuestionType.SHORT
+                };
+
+                try
+                {
+                    s.AddJob(newJob);
+                    s.AddQuestion(newQuestion);
+                    s.AddQuestionToJob(job.JobID, question.QuestionID);
+                    s.EditJob(jobContract);
+                    s.EditQuestion(questionContract);
+                    s.RemoveQuestionFromJob(job.JobID, question.QuestionID);
+                    s.GetQuestions(job.JobID);
+                    s.GetJobs();
+                }
+                catch (Exception)
+                {
+                    excepted = true;
+                }
+            }
+
+            s.Close();
+            Assert.IsFalse(excepted);
+        }
+        */
     }
 }

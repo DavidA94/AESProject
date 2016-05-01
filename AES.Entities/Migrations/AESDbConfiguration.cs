@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography;
 using AES.Entities.Tables;
 using AES.Shared;
 
@@ -458,6 +459,25 @@ namespace AES.Entities.Migrations
 
             context.MultiAnswers.AddOrUpdate(radioAnswer, checkAnswer);
             context.MultiAnswers.AddOrUpdate(radioAnswer2, checkAnswer2);
+
+            context.SaveChanges();
+
+            var employeeSalt = Encryption.GetSalt();
+            var employeePass = "password";
+            var hashedEmployeePass = Encryption.ComputeHash(employeePass, new SHA256CryptoServiceProvider(), employeeSalt);
+
+            var employeeUser = new EmployeeUser
+            {
+                Email = "Employee@AES.com",
+                FirstName = "Employee",
+                LastName = "User",
+                Role = EmployeeRole.HqHiringSpecialist,
+                PasswordHash = hashedEmployeePass,
+                Salt = employeeSalt,
+                UserInfo = new UserInfo()
+            };
+
+            context.EmployeeUsers.AddOrUpdate(employeeUser);
 
             context.SaveChanges();
         }

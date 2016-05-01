@@ -1,4 +1,5 @@
-﻿using AES.Entities.Contexts;
+﻿using System;
+using AES.Entities.Contexts;
 using AES.Entities.Tables;
 using AES.OpeningsSvc.Contracts;
 using AES.Shared;
@@ -332,5 +333,70 @@ namespace AES.OpeningsSvc.Tests
                 db.SaveChanges();
             }
         }
+        /*
+        [TestMethod]
+        public void OpeningSvc_Sanity()
+        {
+            var s = new OpeningSvcClient();
+            var excepted = false;
+            using (var db = new AESDbContext())
+            {
+                try
+                {
+                    var store = db.Stores.FirstOrDefault();
+
+                    var job = db.Jobs.FirstOrDefault();
+
+                    var opening1Table = new JobOpening()
+                    {
+                        Job = job,
+                        Positions = 1,
+                        Store = store,
+                        Status = OpeningStatus.PENDING_APPROVAL
+                    };
+
+                    var opening2Table = new JobOpening()
+                    {
+                        Job = job,
+                        Positions = 1,
+                        Store = store,
+                        Status = OpeningStatus.PENDING_APPROVAL
+                    };
+
+                    var opening3Table = new JobOpening()
+                    {
+                        Job = job,
+                        Positions = 1,
+                        Store = store,
+                        Status = OpeningStatus.PENDING_APPROVAL
+                    };
+
+                    db.JobOpenings.AddOrUpdate(opening1Table, opening2Table, opening3Table);
+
+                    db.SaveChanges();
+
+                    var opening1 = new JobOpeningContract(opening1Table);
+                    var opening2 = new JobOpeningContract(opening2Table);
+                    var opening3 = new JobOpeningContract(opening3Table);
+
+                    s.RequestOpenings(store.ID, opening1, 1);
+                    s.ApproveOpening(opening2, "note");
+                    s.GetAllOpenings(store.ID);
+                    s.GetApprovedOpenings(store.ID);
+                    s.GetPendingOpenings(store.ID);
+                    s.GetRejectedOpenings(store.ID);
+                    s.RejectOpening(opening3, "note");
+                    
+                }
+                catch (Exception)
+                {
+                    excepted = true;
+                }
+            }
+
+            s.Close();
+            Assert.IsFalse(excepted);
+        }
+        */
     }
 }

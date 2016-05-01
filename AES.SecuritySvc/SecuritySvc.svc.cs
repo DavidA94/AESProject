@@ -81,7 +81,7 @@ namespace AES.SecuritySvc
 
                 if (dbUser != null)
                 {
-                    var passHash = ComputeHash(credentials.Password, new SHA256CryptoServiceProvider(), dbUser.Salt);
+                    var passHash = Encryption.ComputeHash(credentials.Password, new SHA256CryptoServiceProvider(), dbUser.Salt);
 
                     if (passHash.SequenceEqual(dbUser.PasswordHash))
                     {
@@ -120,8 +120,8 @@ namespace AES.SecuritySvc
             };
 
 
-            var salt = GetSalt();
-            var passwordHash = ComputeHash(password, new SHA256CryptoServiceProvider(), salt);
+            var salt = Encryption.GetSalt();
+            var passwordHash = Encryption.ComputeHash(password, new SHA256CryptoServiceProvider(), salt);
 
             newEmployeeUser.PasswordHash = passwordHash;
             newEmployeeUser.Salt = salt;
@@ -227,29 +227,6 @@ namespace AES.SecuritySvc
                     Zip = user.UserInfo.Zip
                 }
             };
-        }
-
-        public static byte[] ComputeHash(string input, HashAlgorithm algorithm, byte[] saltBytes)
-        {
-            var inputBytes = Encoding.UTF8.GetBytes(input);
-
-            // Combine salt and input bytes
-            var saltedInput = new byte[saltBytes.Length + inputBytes.Length];
-            saltBytes.CopyTo(saltedInput, 0);
-            inputBytes.CopyTo(saltedInput, saltBytes.Length);
-
-            return algorithm.ComputeHash(saltedInput);
-        }
-
-        private static byte[] GetSalt()
-        {
-            var salt = new byte[Encryption.saltLengthLimit];
-            using (var random = new RNGCryptoServiceProvider())
-            {
-                random.GetNonZeroBytes(salt);
-            }
-
-            return salt;
         }
     }
 }
