@@ -68,7 +68,7 @@ namespace AES.OpeningsSvc
             using (var db = new AESDbContext())
             {
                 var gottenOpening = db.JobOpenings.Where(o => o.ID == opening.OpeningID).FirstOrDefault();
-                if (gottenOpening == null || gottenOpening.Status != OpeningStatus.PENDING_APPROVAL)
+                if (gottenOpening == null || (gottenOpening.Status != OpeningStatus.PENDING_APPROVAL && gottenOpening.Status != OpeningStatus.REJECTED))
                 {
                     return false;
                 }
@@ -90,7 +90,7 @@ namespace AES.OpeningsSvc
             using (var db = new AESDbContext())
             {
                 var gottenOpening = db.JobOpenings.Where(o => o.ID == opening.OpeningID).FirstOrDefault();
-                if (gottenOpening == null || gottenOpening.Status != OpeningStatus.PENDING_APPROVAL)
+                if (gottenOpening == null || (gottenOpening.Status != OpeningStatus.PENDING_APPROVAL && gottenOpening.Status != OpeningStatus.APPROVED))
                 {
                     return false;
                 }
@@ -104,20 +104,6 @@ namespace AES.OpeningsSvc
                 }
             }
             return true;
-        }
-
-        public List<JobOpeningContract> GetAllOpenings(int StoreID)
-        {
-            List<JobOpeningContract> returnedList = new List<JobOpeningContract>();
-            using (var db = new AESDbContext())
-            {
-                var gottenOpenings = db.JobOpenings.Where(o => o.Store.ID == StoreID).ToList();
-                foreach (var opening in gottenOpenings)
-                {
-                    returnedList.Add(new JobOpeningContract(opening));
-                }
-            }
-            return returnedList;
         }
 
         private List<JobOpeningContract> GetOpenings(int StoreID, OpeningStatus status)

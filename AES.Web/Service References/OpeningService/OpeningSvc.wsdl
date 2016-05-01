@@ -7,12 +7,6 @@
       <xsd:import schemaLocation="http://localhost:7437/OpeningSvc.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AES.OpeningsSvc.Contracts" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IOpeningSvc_GetAllOpenings_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllOpenings" />
-  </wsdl:message>
-  <wsdl:message name="IOpeningSvc_GetAllOpenings_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllOpeningsResponse" />
-  </wsdl:message>
   <wsdl:message name="IOpeningSvc_GetApprovedOpenings_InputMessage">
     <wsdl:part name="parameters" element="tns:GetApprovedOpenings" />
   </wsdl:message>
@@ -50,10 +44,6 @@
     <wsdl:part name="parameters" element="tns:RejectOpeningResponse" />
   </wsdl:message>
   <wsdl:portType name="IOpeningSvc">
-    <wsdl:operation name="GetAllOpenings">
-      <wsdl:input wsaw:Action="http://tempuri.org/IOpeningSvc/GetAllOpenings" message="tns:IOpeningSvc_GetAllOpenings_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IOpeningSvc/GetAllOpeningsResponse" message="tns:IOpeningSvc_GetAllOpenings_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetApprovedOpenings">
       <wsdl:input wsaw:Action="http://tempuri.org/IOpeningSvc/GetApprovedOpenings" message="tns:IOpeningSvc_GetApprovedOpenings_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IOpeningSvc/GetApprovedOpeningsResponse" message="tns:IOpeningSvc_GetApprovedOpenings_OutputMessage" />
@@ -81,15 +71,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IOpeningSvc" type="tns:IOpeningSvc">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetAllOpenings">
-      <soap:operation soapAction="http://tempuri.org/IOpeningSvc/GetAllOpenings" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetApprovedOpenings">
       <soap:operation soapAction="http://tempuri.org/IOpeningSvc/GetApprovedOpenings" style="document" />
       <wsdl:input>

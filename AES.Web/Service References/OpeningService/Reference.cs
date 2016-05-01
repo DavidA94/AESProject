@@ -174,12 +174,6 @@ namespace AES.Web.OpeningService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="OpeningService.IOpeningSvc")]
     public interface IOpeningSvc {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOpeningSvc/GetAllOpenings", ReplyAction="http://tempuri.org/IOpeningSvc/GetAllOpeningsResponse")]
-        AES.Web.OpeningService.JobOpeningContract[] GetAllOpenings(int StoreID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOpeningSvc/GetAllOpenings", ReplyAction="http://tempuri.org/IOpeningSvc/GetAllOpeningsResponse")]
-        System.Threading.Tasks.Task<AES.Web.OpeningService.JobOpeningContract[]> GetAllOpeningsAsync(int StoreID);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOpeningSvc/GetApprovedOpenings", ReplyAction="http://tempuri.org/IOpeningSvc/GetApprovedOpeningsResponse")]
         AES.Web.OpeningService.JobOpeningContract[] GetApprovedOpenings(int StoreID);
         
@@ -242,14 +236,6 @@ namespace AES.Web.OpeningService {
         
         public OpeningSvcClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
-        }
-        
-        public AES.Web.OpeningService.JobOpeningContract[] GetAllOpenings(int StoreID) {
-            return base.Channel.GetAllOpenings(StoreID);
-        }
-        
-        public System.Threading.Tasks.Task<AES.Web.OpeningService.JobOpeningContract[]> GetAllOpeningsAsync(int StoreID) {
-            return base.Channel.GetAllOpeningsAsync(StoreID);
         }
         
         public AES.Web.OpeningService.JobOpeningContract[] GetApprovedOpenings(int StoreID) {

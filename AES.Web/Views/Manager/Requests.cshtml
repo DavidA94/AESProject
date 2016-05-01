@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Requests";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Job Requests</h2>
+
+<div id="jobRequests">
+    <div class="hidden" id="ApprovedRequestsURL">@Url.Action("ApprovedRequests")</div>
+    <div class="hidden" id="DeniedRequestsURL">@Url.Action("DeniedRequests")</div>
+    <div class="hidden" id="PendingRequestsURL">@Url.Action("PendingRequests")</div>
+    <div class="hidden" id="SetRequestURL">@Url.Action("SetRequest")</div>
+    
+    <div class="col-md-4">
+        <h2>Pending Requests</h2>
+        <div id="pendingRequests" class="col-md-12">
+            @{ Html.RenderAction("PendingRequests", "Manager"); }
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Approved Requests</h2>
+        <div id="approvedRequests" class="col-md-12">
+            @{ Html.RenderAction("ApprovedRequests", "Manager"); }
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Denied Requests</h2>
+        <div id="rejectedRequests" class="col-md-12">
+            @{ Html.RenderAction("DeniedRequests", "Manager"); }
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/approveRejectOpening.js")
+}

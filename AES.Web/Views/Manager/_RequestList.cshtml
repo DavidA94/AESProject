@@ -1,0 +1,25 @@
+﻿@using AES.Web.Models
+@model IEnumerable<OpeningRequestModel>
+
+@foreach (OpeningRequestModel request in Model)
+{
+    <div class="opening">
+        <h4><span class="jobTitle">@request.JobTitle</span> <span class="numJobs">(@request.NumOpenings)</span></h4>
+        <div class="shortDesc">@request.JobShortDescription</div>
+
+        <div class="requestID">@request.RequestID</div>
+        <div class="requestNotes">@request.RequestNotes</div>
+        <div class="responseNotes">@request.StoreManagerNotes</div>
+        <div class="no-overflow">
+            <div class="reject arButton col-md-4">Reject...</div>
+            <div class="accept arButton col-md-4">Accept</div>
+        </div>
+        <div class="rejectBox">
+            <form onsubmit="return false">
+                <textarea>@request.StoreManagerNotes</textarea>
+            </form>
+            <div class="reallyReject arButton col-md-3 pull-right">Reject</div>
+            <div class="cancelReject arButton col-md-3 pull-right">Cancel</div>
+        </div>
+    </div>
+}

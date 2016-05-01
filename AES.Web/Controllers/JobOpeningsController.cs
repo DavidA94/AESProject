@@ -30,7 +30,7 @@ namespace AES.Web.Controllers
                 string storeID = Request.QueryString["StoreID"] ?? "1";
 
                 // Get all the openings for the given store
-                var getOpening = JobOpenings.GetAllOpenings(Convert.ToInt32(storeID));
+                var getOpening = JobOpenings.GetApprovedOpenings(Convert.ToInt32(storeID));
 
                 // Create a new list of openings
                 List<JobOpeningsViewModel> OpeningList = new List<JobOpeningsViewModel>();

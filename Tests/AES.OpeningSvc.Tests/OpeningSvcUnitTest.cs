@@ -177,12 +177,10 @@ namespace AES.OpeningsSvc.Tests
                 Assert.AreEqual(2, db.JobOpenings.Count(o => o.Status == OpeningStatus.PENDING_APPROVAL && o.Job.JobID == newJob.JobID));
 
                 var pendingOpenings = s.GetPendingOpenings(newStore.ID);
-                var allOpenings = s.GetAllOpenings(newStore.ID);
                 var approvedOpenings = s.GetApprovedOpenings(newStore.ID);
                 var rejectedOpenings = s.GetRejectedOpenings(newStore.ID);
 
                 Assert.AreEqual(2, pendingOpenings.Count());
-                Assert.AreEqual(2, allOpenings.Count());
                 Assert.AreEqual(0, approvedOpenings.Count());
                 Assert.AreEqual(0, rejectedOpenings.Count());
 
@@ -247,12 +245,10 @@ namespace AES.OpeningsSvc.Tests
                 Assert.AreEqual(0, db.JobOpenings.Count(o => o.Status == OpeningStatus.APPROVED && o.Job.JobID == newJob.JobID));
 
                 var pendingOpenings = s.GetPendingOpenings(newStore.ID);
-                var allOpenings = s.GetAllOpenings(newStore.ID);
                 var approvedOpenings = s.GetApprovedOpenings(newStore.ID);
                 var rejectedOpenings = s.GetRejectedOpenings(newStore.ID);
 
                 Assert.AreEqual(0, pendingOpenings.Count());
-                Assert.AreEqual(1, allOpenings.Count());
                 Assert.AreEqual(0, approvedOpenings.Count());
                 Assert.AreEqual(1, rejectedOpenings.Count());
 
@@ -318,12 +314,10 @@ namespace AES.OpeningsSvc.Tests
                 Assert.AreEqual(0, db.JobOpenings.Count(o => o.Status == OpeningStatus.REJECTED && o.Job.JobID == newJob.JobID));
 
                 var pendingOpenings = s.GetPendingOpenings(newStore.ID);
-                var allOpenings = s.GetAllOpenings(newStore.ID);
                 var approvedOpenings = s.GetApprovedOpenings(newStore.ID);
                 var rejectedOpenings = s.GetRejectedOpenings(newStore.ID);
 
                 Assert.AreEqual(0, pendingOpenings.Count());
-                Assert.AreEqual(1, allOpenings.Count());
                 Assert.AreEqual(1, approvedOpenings.Count());
                 Assert.AreEqual(0, rejectedOpenings.Count());
 
