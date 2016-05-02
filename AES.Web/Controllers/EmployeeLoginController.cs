@@ -1,4 +1,5 @@
-﻿using AES.Web.Models;
+﻿using AES.Web.Authorization;
+using AES.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,19 @@ namespace AES.Web.Controllers
                 return View(user);
             }
 
+            if (EmployeeUserManager.LoginUser(user))
+            {
+                return RedirectToAction("Welcome", "EmployeeLogin");
+            }
+
             ModelState.AddModelError("", "Invalid Login.");
             return View(user);
+        }
+
+        [AESAuthorize]
+        public ActionResult Welcome()
+        {
+            return View(EmployeeUserManager.GetUser());
         }
 
     }

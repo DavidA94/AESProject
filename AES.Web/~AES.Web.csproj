@@ -435,6 +435,8 @@
     <None Include="Service References\SecurityService\SecuritySvc2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\EmployeeLogin\Welcome.cshtml" />
+    <Content Include="Views\Shared\_LayoutCallPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">

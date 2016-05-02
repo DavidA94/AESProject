@@ -9,18 +9,11 @@ namespace AES.Web.Models
 {
     public class EmployeeLoginModel
     {
-        public EmployeeLoginModel()
-        {
-            Email = "Something";
-        }
-
         [StringLength(25)]
-        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [StringLength(28)]
-        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 

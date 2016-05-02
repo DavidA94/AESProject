@@ -29,6 +29,31 @@ namespace AES.Web.Controllers
             //return View(x);
         }
 
+        [HttpPost]
+        public ActionResult DashboardHS(string ApplicantStatus, int ApplicantID, string Notes)
+        {
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            if (ApplicantStatus == "Accept")
+            {
+                appSvc.SavePhoneInterview(ApplicantID, Notes, true);
+            }
+            else if (ApplicantStatus == "Deny")
+            {
+                appSvc.SavePhoneInterview(ApplicantID, Notes, false);
+            }
+            else
+            {
+                appSvc.ApplicantDidNotAnswer(ApplicantID);
+            }
+
+            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
+
+            List<HiringSpecialistModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
+
+            return View(ConvertedContract);
+        }
+
         private List<HiringSpecialistModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> ApplicantInfo)
         {
             var RetAppInfo = new List<HiringSpecialistModel>();
@@ -76,11 +101,17 @@ namespace AES.Web.Controllers
 
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            appSvc.CallApplicant(ApplicantID);
+            if(!appSvc.CallApplicant(ApplicantID))
+            {
+                return RedirectToAction("DashboardHS");
+            }
 
             ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.IN_CALL);
 
             FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
+
+            //Keep track of the applicant ID for apply or deny buttons
+            ConvertedFullAppModel.ApplicantID = ApplicantID;
 
             return View(ConvertedFullAppModel);
         }
@@ -93,10 +124,10 @@ namespace AES.Web.Controllers
                 {
                     Address = app.UserInfo.Address,
                     City = app.UserInfo.City,
-                    //DOB = app.Applicant.DOB,
+                    DOB = app.DOB,
                     EndCallTime = app.UserInfo.EndCallTime,
-                    //FirstName = app.
-                    //LastName = app.Applicant.LastName,
+                    FirstName = app.FirstName,
+                    LastName = app.LastName,
                     Nickname = app.UserInfo.Nickname,
                     Phone = app.UserInfo.Phone,
                     SalaryExpectation = app.UserInfo.SalaryExpectation,

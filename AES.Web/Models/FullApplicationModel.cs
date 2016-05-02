@@ -15,5 +15,8 @@ namespace AES.Web.Models
         public List<EducationViewModel> Education { get; set; }
         public List<ReferencesViewModel> References { get; set; }
         public List<QuestionnaireViewModel> Questionnaire { get; set; }
+
+        public int ApplicantID { get; set; }
+        public string Notes { get; set; }
     }
 }
