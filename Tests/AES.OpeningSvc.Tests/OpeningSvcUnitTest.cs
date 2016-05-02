@@ -1,4 +1,5 @@
-﻿using AES.Entities.Contexts;
+﻿using System;
+using AES.Entities.Contexts;
 using AES.Entities.Tables;
 using AES.OpeningsSvc.Contracts;
 using AES.Shared;
@@ -176,12 +177,10 @@ namespace AES.OpeningsSvc.Tests
                 Assert.AreEqual(2, db.JobOpenings.Count(o => o.Status == OpeningStatus.PENDING_APPROVAL && o.Job.JobID == newJob.JobID));
 
                 var pendingOpenings = s.GetPendingOpenings(newStore.ID);
-                var allOpenings = s.GetAllOpenings(newStore.ID);
                 var approvedOpenings = s.GetApprovedOpenings(newStore.ID);
                 var rejectedOpenings = s.GetRejectedOpenings(newStore.ID);
 
                 Assert.AreEqual(2, pendingOpenings.Count());
-                Assert.AreEqual(2, allOpenings.Count());
                 Assert.AreEqual(0, approvedOpenings.Count());
                 Assert.AreEqual(0, rejectedOpenings.Count());
 
@@ -246,12 +245,10 @@ namespace AES.OpeningsSvc.Tests
                 Assert.AreEqual(0, db.JobOpenings.Count(o => o.Status == OpeningStatus.APPROVED && o.Job.JobID == newJob.JobID));
 
                 var pendingOpenings = s.GetPendingOpenings(newStore.ID);
-                var allOpenings = s.GetAllOpenings(newStore.ID);
                 var approvedOpenings = s.GetApprovedOpenings(newStore.ID);
                 var rejectedOpenings = s.GetRejectedOpenings(newStore.ID);
 
                 Assert.AreEqual(0, pendingOpenings.Count());
-                Assert.AreEqual(1, allOpenings.Count());
                 Assert.AreEqual(0, approvedOpenings.Count());
                 Assert.AreEqual(1, rejectedOpenings.Count());
 
@@ -317,12 +314,10 @@ namespace AES.OpeningsSvc.Tests
                 Assert.AreEqual(0, db.JobOpenings.Count(o => o.Status == OpeningStatus.REJECTED && o.Job.JobID == newJob.JobID));
 
                 var pendingOpenings = s.GetPendingOpenings(newStore.ID);
-                var allOpenings = s.GetAllOpenings(newStore.ID);
                 var approvedOpenings = s.GetApprovedOpenings(newStore.ID);
                 var rejectedOpenings = s.GetRejectedOpenings(newStore.ID);
 
                 Assert.AreEqual(0, pendingOpenings.Count());
-                Assert.AreEqual(1, allOpenings.Count());
                 Assert.AreEqual(1, approvedOpenings.Count());
                 Assert.AreEqual(0, rejectedOpenings.Count());
 
@@ -332,5 +327,70 @@ namespace AES.OpeningsSvc.Tests
                 db.SaveChanges();
             }
         }
+        /*
+        [TestMethod]
+        public void OpeningSvc_Sanity()
+        {
+            var s = new OpeningSvcClient();
+            var excepted = false;
+            using (var db = new AESDbContext())
+            {
+                try
+                {
+                    var store = db.Stores.FirstOrDefault();
+
+                    var job = db.Jobs.FirstOrDefault();
+
+                    var opening1Table = new JobOpening()
+                    {
+                        Job = job,
+                        Positions = 1,
+                        Store = store,
+                        Status = OpeningStatus.PENDING_APPROVAL
+                    };
+
+                    var opening2Table = new JobOpening()
+                    {
+                        Job = job,
+                        Positions = 1,
+                        Store = store,
+                        Status = OpeningStatus.PENDING_APPROVAL
+                    };
+
+                    var opening3Table = new JobOpening()
+                    {
+                        Job = job,
+                        Positions = 1,
+                        Store = store,
+                        Status = OpeningStatus.PENDING_APPROVAL
+                    };
+
+                    db.JobOpenings.AddOrUpdate(opening1Table, opening2Table, opening3Table);
+
+                    db.SaveChanges();
+
+                    var opening1 = new JobOpeningContract(opening1Table);
+                    var opening2 = new JobOpeningContract(opening2Table);
+                    var opening3 = new JobOpeningContract(opening3Table);
+
+                    s.RequestOpenings(store.ID, opening1, 1);
+                    s.ApproveOpening(opening2, "note");
+                    s.GetAllOpenings(store.ID);
+                    s.GetApprovedOpenings(store.ID);
+                    s.GetPendingOpenings(store.ID);
+                    s.GetRejectedOpenings(store.ID);
+                    s.RejectOpening(opening3, "note");
+                    
+                }
+                catch (Exception)
+                {
+                    excepted = true;
+                }
+            }
+
+            s.Close();
+            Assert.IsFalse(excepted);
+        }
+        */
     }
 }

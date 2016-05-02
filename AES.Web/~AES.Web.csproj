@@ -193,6 +193,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobOpeningsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\StaffingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -207,6 +208,7 @@
     <Compile Include="Models\JobbingModels.cs" />
     <Compile Include="Models\JobOpeningsModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OpeningRequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\ApplicationService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -232,13 +234,16 @@
     <Compile Include="Authorization\ApplicantUserManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\approveRejectOpening.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\comment.png" />
     <Content Include="Content\Images\delete.png" />
     <Content Include="Content\Images\edit.png" />
     <Content Include="Content\Images\moveLeft.png" />
+    <Content Include="Content\Images\question.png" />
     <Content Include="Content\Images\spinner.gif" />
     <Content Include="Content\Images\thanks.jpeg" />
     <Content Include="favicon.ico" />
@@ -260,6 +265,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Properties\DataSources\AES.Shared.Contracts.QAContract1.datasource" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\JobbingDashboard.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\CallPageSlideAnim.js" />
@@ -435,6 +441,8 @@
     <None Include="Service References\SecurityService\SecuritySvc2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Manager\Requests.cshtml" />
+    <Content Include="Views\Manager\_RequestList.cshtml" />
     <Content Include="Views\EmployeeLogin\Welcome.cshtml" />
     <Content Include="Views\Shared\_LayoutCallPage.cshtml" />
   </ItemGroup>
@@ -442,10 +450,6 @@
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">
       <Project>{b7a64050-2f1b-4709-bf04-09b0ed37ea71}</Project>
       <Name>AES.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AES.SecuritySvc\AES.SecuritySvc.csproj">
-      <Project>{e23b1cab-7e31-4d89-8c33-049ab86299e1}</Project>
-      <Name>AES.SecuritySvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\AES.Shared\AES.Shared.csproj">
       <Project>{bb832eda-ff67-4abb-a5c0-e11382577d5a}</Project>

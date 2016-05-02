@@ -405,8 +405,37 @@ namespace AES.ApplicationSvc.Tests
                               (status2 == AppStatus.WAITING_CALL && status1 == AppStatus.AUTO_REJECT));
             }
         }
+        /*
+       [TestMethod]
+        public void ApplicationSvc_Sanity()
+        {
+            var s = new ApplicationSvcTestClient.ApplicationSvcClient();
+            var excepted = false;
 
+            try
+            {
+                var fakeApp = new ApplicationInfoContract();
+                var fakeApplicant = new ApplicantInfoContract();
 
+                s.CancelApplication(fakeApp);
+                s.GetApplicantsAwaitingCalls(new DateTime());
+                s.GetApplication(0, AppStatus.AUTO_REJECT);
+                s.SavePartialApplication(fakeApp);
+                s.CallApplicant(0);
+                s.ApplicantDidNotAnswer(0);
+                s.SavePhoneInterview(0, "", true);
+                s.SubmitApplication(fakeApplicant);
+            }
+            catch (Exception)
+            {
+                excepted = true;
+                throw;
+            }
+
+            s.Close();
+            Assert.IsFalse(excepted);
+        }
+        */
         #region Helper Methods
 
         private ApplicationInfoContract PartialApp1()

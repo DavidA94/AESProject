@@ -1,4 +1,5 @@
 ﻿using AES.OpeningsSvc.Contracts;
+using AES.Shared;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -8,9 +9,6 @@ namespace AES.OpeningsSvc
     [ServiceContract]
     public interface IOpeningSvc
     {
-        [OperationContract]
-        List<JobOpeningContract> GetAllOpenings(int StoreID);
-
         [OperationContract]
         List<JobOpeningContract> GetApprovedOpenings(int StoreID);
 

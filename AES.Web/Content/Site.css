@@ -257,8 +257,28 @@ textarea {
 /******************************************************************************/
 
 #ajaxSpinner {position:absolute;top:0;right:0;bottom:0;left:0;z-index:999;background:rgba(255, 255, 255, .5) url('/Content/Images/spinner.gif') no-repeat center center;}
-
+#ajaxSpinner {position:fixed;top:0;right:0;bottom:0;left:0;z-index:999;background:rgba(255, 255, 255, .5) url('/Content/Images/spinner.gif') no-repeat center center;}
 #availableJobs .h3 {margin:0;}
+#cancelCover {position:fixed;top:0;right:0;bottom:0;left:0;z-index:5;background:rgba(255, 255, 255, .5);}
+
+#jobRequests #approvedRequests .accept {display:none;}
+#jobRequests #rejectedRequests .reject {display:none;}
+#jobRequests .opening {position:relative;padding-bottom:1em;border-bottom:2px solid lightgray;}
+#jobRequests .opening h4 {font-weight:bold}
+#jobRequests .opening h4:hover + .shortDesc,  #jobRequests .opening .shortDesc:hover {display:block;}
+#jobRequests .opening .accept {background:green;color:white;}
+#jobRequests .opening .arButton {line-height:25px;text-align:center;border-radius:10px;margin-right:1em;font-size:14px;cursor:pointer;
+                                 user-select:none;-moz-user-select:none;-webkit-user-select:none;}
+#jobRequests .opening .reject {background:red;color:white;}
+#jobRequests .opening .requestID {display:none;}
+#jobRequests .opening .rejectBox {display:none;position:absolute;left:0;right:0;padding:10px;overflow:hidden;background:#f5f5f5;border:2px solid #dedede;z-index:9;margin-top:.5em;}
+#jobRequests .opening .rejectBox textarea {width:100%;margin-bottom:5px;}
+#jobRequests .opening .rejectBox .cancelReject {background:#777;color:white;}
+#jobRequests .opening .rejectBox .reallyReject {background:red;color:white;margin:0;}
+#jobRequests .opening .requestNotes:not(:empty), #jobRequests .opening .responseNotes:not(:empty) {margin:0 0 1em 20px;max-height:50px;overflow:auto;}
+#jobRequests .opening .requestNotes:not(:empty)::before {content:url('/Content/Images/question.png');position:absolute;left:0px;margin-top:2px;}
+#jobRequests .opening .responseNotes:not(:empty)::before {content:url('/Content/Images/comment.png');position:absolute;left:0px;margin-top:2px;}
+#jobRequests .opening .shortDesc {display:none;position:absolute;background:#fcffd8;border:1px solid #cbc8a3;z-index:10;padding:.5em;margin:-10px 0;}
 
 #staffingExpert {clear:both;overflow:hidden;}
 #staffingExpert #editBox .editBox {display:block;}
