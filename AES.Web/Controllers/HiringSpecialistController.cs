@@ -105,7 +105,6 @@ namespace AES.Web.Controllers
             {
                 return RedirectToAction("DashboardHS");
             }
-
             ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.IN_CALL);
 
             FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
