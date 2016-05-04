@@ -22,6 +22,12 @@ namespace AES.Web
             );
 
             routes.MapRoute(
+                name: "EmployeeLogin",
+                url: "EmployeeLogin",
+                defaults: new { controller = "EmployeeLogin", action = "Login" }
+            );
+
+            routes.MapRoute(
                 name: "AvailableJobs",
                 url: "AvailableJobs",
                 defaults: new { controller = "JobOpenings", action = "AvailableJobs" }

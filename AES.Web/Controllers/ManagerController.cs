@@ -1,4 +1,5 @@
 ﻿using AES.Shared;
+using AES.Web.Authorization;
 using AES.Web.Models;
 using AES.Web.OpeningService;
 using System.Collections.Generic;
@@ -14,6 +15,11 @@ namespace AES.Web.Controllers
         /// <returns></returns>
         public ActionResult Requests()
         {
+            if(EmployeeUserManager.GetUser() == null)
+            {
+                return RedirectToActionPermanent("Login", "EmployeeLogin");
+            }
+
             return View();
         }
 
@@ -59,9 +65,14 @@ namespace AES.Web.Controllers
         /// <returns></returns>
         public ActionResult ApprovedRequests()
         {
+            if (EmployeeUserManager.GetUser() == null)
+            {
+                return Content("Not logged in");
+            }
+
             IOpeningSvc openSvc = new OpeningSvcClient();
 
-            var openings = openSvc.GetApprovedOpenings(1);
+            var openings = openSvc.GetApprovedOpenings(EmployeeUserManager.GetUser().StoreID);
 
             return PartialView("_RequestList", ConvertContractToModel(openings));
         }
@@ -72,9 +83,14 @@ namespace AES.Web.Controllers
         /// <returns></returns>
         public ActionResult DeniedRequests()
         {
+            if (EmployeeUserManager.GetUser() == null)
+            {
+                return Content("Not logged in");
+            }
+
             IOpeningSvc openSvc = new OpeningSvcClient();
 
-            var openings = openSvc.GetRejectedOpenings(1);
+            var openings = openSvc.GetRejectedOpenings(EmployeeUserManager.GetUser().StoreID);
 
             return PartialView("_RequestList", ConvertContractToModel(openings));
         }
@@ -85,9 +101,14 @@ namespace AES.Web.Controllers
         /// <returns></returns>
         public ActionResult PendingRequests()
         {
+            if (EmployeeUserManager.GetUser() == null)
+            {
+                return Content("Not logged in");
+            }
+
             IOpeningSvc openSvc = new OpeningSvcClient();
 
-            var openings = openSvc.GetPendingOpenings(1);
+            var openings = openSvc.GetPendingOpenings(EmployeeUserManager.GetUser().StoreID);
 
             return PartialView("_RequestList", ConvertContractToModel(openings));
         }

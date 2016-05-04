@@ -34,12 +34,12 @@ namespace AES.Web.Authorization
                     {
                         // adding following 2 claim just for supporting default antiforgery provider
                         new Claim(ClaimTypes.Email, valid.Email.ToString()),
-                        new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
-
                         new Claim(ClaimTypes.Name, valid.FirstName),
                         new Claim(ClaimTypes.GivenName, valid.LastName),
-                        // new Claim(ClaimTypes.Role, "Applicant")
-                        new Claim(ClaimTypes.Role, valid.Role.ToString())
+                        new Claim(ClaimTypes.Role, valid.Role.ToString()),
+                        new Claim(ClaimTypes.NameIdentifier, valid.StoreID.ToString()),
+
+                        new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string")
                     },
                     DefaultAuthenticationTypes.ApplicationCookie
                 );
@@ -57,16 +57,22 @@ namespace AES.Web.Authorization
         {
             var claims = ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims;
 
-            var EmployeeUser = new EmployeeLoginModel()
-            {
-                FirstName = claims.First(n => n.Type == ClaimTypes.Name).Value,
-                LastName = claims.First(n => n.Type == ClaimTypes.Name).Value,
-                Email = claims.First(n => n.Type == ClaimTypes.Email).Value,
-                EmployeeRole = (EmployeeRole)Enum.Parse(typeof(EmployeeRole), claims.First(n => n.Type == ClaimTypes.Role).Value)
-                //EmployeeRole = claims.First(n => n.Type == ClaimTypes.Role).Value.ToString()
-            };
+            try {
+                var EmployeeUser = new EmployeeLoginModel()
+                {
+                    FirstName = claims.First(n => n.Type == ClaimTypes.Name).Value,
+                    LastName = claims.First(n => n.Type == ClaimTypes.Name).Value,
+                    Email = claims.First(n => n.Type == ClaimTypes.Email).Value,
+                    EmployeeRole = (EmployeeRole)Enum.Parse(typeof(EmployeeRole), claims.First(n => n.Type == ClaimTypes.Role).Value),
+                    StoreID = Convert.ToInt32(claims.First(n => n.Type == ClaimTypes.NameIdentifier).Value)
+                };
 
-            return EmployeeUser;
+                return EmployeeUser;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static EmployeeRole? GetEmployeeRole()
@@ -74,7 +80,6 @@ namespace AES.Web.Authorization
             try
             {
                 return (EmployeeRole)Enum.Parse(typeof(EmployeeRole), (((ClaimsIdentity)HttpContext.Current.User.Identity).Claims.First(id => id.Type == ClaimTypes.Role).Value));
-                //return (((ClaimsIdentity)HttpContext.Current.User.Identity).Claims.First(id => id.Type == ClaimTypes.Role).Value);
             }
             catch (Exception)
             {

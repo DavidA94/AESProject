@@ -30,6 +30,12 @@ namespace AES.Entities.Tables
         [StringLength(28)]
         public string LastName { get; set; }
 
+        [ForeignKey("StoreID")]
+        public virtual Store Store { get; set; }
+
+        [Required]
+        public int StoreID { get; set; }
+
         public virtual UserInfo UserInfo { get; set; }
     }
 }
