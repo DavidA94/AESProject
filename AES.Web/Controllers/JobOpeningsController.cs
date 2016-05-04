@@ -15,8 +15,6 @@ namespace AES.Web.Controllers
 {
     public class JobOpeningsController : Controller
     {
-        // How to set up a cookie 
-
         // GET: JobOpenings
         public ActionResult AvailableJobs()
         {
@@ -64,7 +62,7 @@ namespace AES.Web.Controllers
                 return View(model);
             }
 
-            // Remember the jobs in a sessino variables
+            // Remember the jobs in a session variables
             Session["SelectedJobs"] = selectedJobs;
 
             // Redirect to the login page

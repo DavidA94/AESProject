@@ -1,0 +1,310 @@
+﻿@model AES.Web.Models.FullApplicationModel
+
+@{
+    ViewBag.Title = "CallPage";
+    Layout = "~/Views/Shared/_LayoutCallPage.cshtml";
+}
+
+@using (Html.BeginForm("DashboardHS", "HiringSpecialist", FormMethod.Post))
+{
+    @* Heading *@
+    <div id="CallPage">
+        <div class="jumbotron text-center bg-grey" id="top">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <span class="glyphicon glyphicon-phone-alt logo"></span>
+                </div>
+
+                <div class="col-lg-6">
+                    <h1>@Model.Profile.FirstName @Model.Profile.LastName</h1>
+                    <h1>@Model.Profile.Phone</h1>
+                </div>
+
+                <div class="col-sm-3">
+                    <span class="glyphicon glyphicon-phone-alt logo"></span>
+                </div>
+            </div>
+
+       
+            <div class="glyphicon-align-center">
+                <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
+                <button type="submit" name="ApplicantStatus" class="btn btn-success btn-lg" value="Accept">
+                    <i class="glyphicon glyphicon-ok"></i> Accept
+                </button>
+                <button type="submit" name="ApplicantStatus" class="btn btn-primary btn-lg" value="NoPickUp">
+                    <i class="glyphicon glyphicon-remove"></i> Didn't Pick Up
+                </button>
+                <button type="submit" name="ApplicantStatus" class="btn btn-danger btn-lg" value="Deny">
+                    <i class="glyphicon glyphicon-ban-circle"></i> Deny
+                </button>
+            </div>
+
+        </div>
+
+
+
+        @* Profile *@
+        <div id="profile" class="container-fluid bg-white">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><strong>Profile</strong></h2>
+                    <p><span>Name: </span> @Model.Profile.FirstName @Model.Profile.LastName</p>
+                    <p><span>Date of Birth: </span> @Model.Profile.DOB.ToString("MM-dd-yyyy")</p>
+                    <p><span>Nickname: </span>@Model.Profile.Nickname</p>
+                    <p><span>Phone: </span>@Model.Profile.Phone</p>
+                    <p><span>Salaray Expectation: </span>$@Model.Profile.SalaryExpectation</p>
+                    <p><span>Start Call Time: </span>@Model.Profile.StartCallTime</p>
+                    <p><span>End Call Time: </span>@Model.Profile.EndCallTime</p>
+                    <p><span>State: </span>@Model.Profile.State</p>
+                    <p><span>Zip: </span>@Model.Profile.Zip</p>
+                </div>
+
+                @*<div class="col-md-8">
+                    <h2><strong>Profile</strong></h2>
+                    <div class="text-container">
+                        <p><span>Name: </span> @Model.Profile.FirstName @Model.Profile.LastName</p>
+                    </div>
+                    <div class="text-container">
+                        <p><span>Date of Birth: </span> @Model.Profile.DOB.ToString("MM-dd-yyyy")</p>
+                    </div>
+                    <div class="text-container">
+                        <p><span>Nickname: </span>@Model.Profile.Nickname</p>
+                    </div>
+                    <div class="text-container">
+                        <p><span>Phone: </span>@Model.Profile.Phone</p>
+                    </div>
+                    <div class="text-container">
+                        <p><span>Salaray Expectation: </span>$@Model.Profile.SalaryExpectation</p>
+                    </div>
+                    <div class="text-container">
+                        <p><span>Start Call Time: </span>@Model.Profile.StartCallTime</p>
+                    </div>
+                    <div class="text-container">
+                        <p><span>End Call Time: </span>@Model.Profile.EndCallTime</p>
+                    </div>
+                    <div class="text-container">
+                        <p><span>State: </span>@Model.Profile.State</p>
+                    </div>
+                    <div class="text-container">
+                        <p><span>Zip: </span>@Model.Profile.Zip</p>
+                    </div>
+                </div>*@
+                
+
+                <div class="col-md-4 slideanim">
+                    <span class="glyphicon glyphicon-user logo"></span>
+                </div>
+            </div>
+        </div>
+
+        @* Availability *@
+        <div id="availability" class="container-fluid bg-grey">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><strong>Availability</strong></h2>
+                    <p>
+                        <span>Monday    From:</span> @Model.Availibility.MondayStart
+                        <span>  To:</span> @Model.Availibility.MondayEnd
+                    </p>
+                    <p>
+                        <span>Tuesday   From:</span> @Model.Availibility.TuesdayStart
+                        <span>  To:</span> @Model.Availibility.TuesdayEnd
+                    </p>
+                    <p>
+                        <span>Wednesday From:</span> @Model.Availibility.WednesdayStart
+                        <span>To:</span> @Model.Availibility.WednesdayEnd
+                    </p>
+                    <p>
+                        <span>Thursday From:</span> @Model.Availibility.ThursdayStart
+                        <span>To:</span> @Model.Availibility.ThursdayEnd
+                    </p>
+                    <p>
+                        <span>Friday From:</span> @Model.Availibility.FridayStart
+                        <span>To:</span> @Model.Availibility.FridayEnd
+                    </p>
+                    <p>
+                        <span>Saturday From:</span> @Model.Availibility.SaturdayStart
+                        <span>To:</span> @Model.Availibility.SaturdayEnd
+                    </p>
+                    <p>
+                        <span>Sunday From:</span> @Model.Availibility.SundayStart
+                        <span>To:</span> @Model.Availibility.SundayEnd
+                    </p>
+                </div>
+
+                <div class="col-md-4 slideanim">
+                    <span class="glyphicon glyphicon-tasks logo"></span>
+                </div>
+
+            </div>
+        </div>
+
+        @* Work History *@
+        <div id="workhistory" class="container-fluid bg-white">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><strong>Work History</strong></h2>
+
+                    @foreach (var item in Model.WorkHistory)
+                    {
+                        <p><span>Employer Name: </span> @item.EmployerName</p>
+
+                        <p><span>Address: </span> @item.EmployerAddress</p>
+                        <p>
+                            <span>City: </span> @item.EmployerCity
+                            <span>State: </span> @item.EmployerState
+                            <span>Zip: </span> @item.EmployerZip
+                        </p>
+                        <p><span>Country: </span> @item.EmployerCountry</p>
+
+                        <p><span>Phone: </span> @item.EmployerPhone</p>
+
+                        <p>
+                            <span>Starting Salary: </span> @item.StartingSalary
+                            <span>Ending Salary: </span> @item.EndingSalary
+                        </p>
+                        <p><span>Reason For Leaving: </span> @item.ReasonForLeaving</p>
+                        <p><span>Responsibilities: </span> @item.Responsibilities</p>
+
+                        <p><span>Supervisor Name: </span> @item.SupervisorName</p>
+                        <p><span>Worked From: </span> @item.WorkedFrom</p>
+                        <p><span>Worked To: </span> @item.WorkedTo</p>
+                    }
+
+                </div>
+
+                <div class="col-md-4 slideanim">
+                    <span class="glyphicon glyphicon-briefcase logo"></span>
+                </div>
+
+            </div>
+        </div>
+
+        @* Education *@
+        <div id="education" class="container-fluid bg-grey">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><strong>Education</strong></h2>
+
+                    @foreach (var item in Model.Education)
+                    {
+                        <p><span>Employer Name: </span> @item.SchoolName</p>
+
+                        <p><span>Address: </span> @item.SchoolAddress</p>
+                        <p>
+                            <span>City: </span> @item.SchoolCity
+                            <span>State: </span> @item.SchoolState
+                            <span>Zip: </span> @item.SchoolZip
+                        </p>
+                        <p><span>Country: </span> @item.SchoolCountry</p>
+
+                        <p><span>Major: </span> @item.Major</p>
+                        <p><span>Degree: </span> @item.Degree</p>
+                        <p><span>Years Attended: </span> @item.YearAttended</p>
+                    }
+                </div>
+
+               <div class="col-md-4 slideanim">
+                    <span class="glyphicon glyphicon-education logo"></span>
+                </div>
+
+            </div>
+        </div>
+
+        @* References *@
+        <div id="references" class="container-fluid bg-white">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><strong>References</strong></h2>
+
+                    @foreach (var item in Model.References)
+                    {
+                        <p><span>Name: </span> @item.Name</p>
+                        <p><span>Title: </span> @item.Title</p>
+                        <p><span>Comapny: </span> @item.Company</p>
+                        <p><span>Phone: </span> @item.Phone</p>
+                    }
+                </div>
+
+                <div class="col-md-4 slideanim">
+                    <span class="glyphicon glyphicon-pencil logo"></span>
+                </div>
+
+            </div>
+        </div>
+
+        @* Questionnaire *@
+        <div id="questionnaire" class="container-fluid bg-grey">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><strong>Questionaire</strong></h2>
+
+                    @foreach (var item in Model.Questionnaire)
+                    {
+                        <p><span>Multiple Choice Answers: </span> @item.MC_Answers</p>
+                        <p><span>Options: </span> @item.Options</p>
+                        <p><span>Question: </span> @item.Question</p>
+                        <p><span>Question ID: </span> @item.QuestionID</p>
+                        <p><span>Short Answer: </span> @item.ShortAnswer</p>
+                        <p><span>Type: </span> @item.Type</p>
+                    }
+                </div>
+
+                <div class="col-md-4 slideanim">
+                    <span class="glyphicon glyphicon-list-alt logo"></span>
+                </div>
+
+            </div>
+        </div>
+
+        @* Notes *@
+        <div id="notes" class="container-fluid bg-white">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="notes"><strong>Notes:</strong></label>
+                        <textarea class="form-control" name="Notes" rows="10" id="notes"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-4 slideanim">
+                    <span class="glyphicon glyphicon-comment logo"></span>
+                </div>
+
+            </div>
+        </div>
+
+        
+       
+
+        <div class="container-fluid bg-grey">
+            <div class="row">
+                <div class="glyphicon-align-center text-center">
+                    <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
+                    <button type="submit" name="ApplicantStatus" class="btn btn-success btn-lg" value="Accept">
+                        <i class="glyphicon glyphicon-ok"></i> Accept
+                    </button>
+                    <button type="submit" name="ApplicantStatus" class="btn btn-primary btn-lg" value="NoPickUp">
+                        <i class="glyphicon glyphicon-remove"></i> Didn't Pick Up
+                    </button>
+                    <button type="submit" name="ApplicantStatus" class="btn btn-danger btn-lg" value="Deny">
+                        <i class="glyphicon glyphicon-ban-circle"></i> Deny
+                    </button>
+                </div>
+                <div id="backtotop" class="container-fluid bg-grey">
+                    <div>
+                        <a href="#top" class="btn btn-info btn-lg" role="button">Back To Top</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+
+
+
+

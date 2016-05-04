@@ -1,0 +1,31 @@
+﻿@model AES.Web.Models.HiringSpecialistModel
+
+@* Tiles *@
+@*<form method="post">*@
+
+<div id="DashboardHS">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="tile">
+                    <h3 class="title">@Model.FirstName @Model.LastName</h3>
+                    <p>
+                        @*<a href="" class="btn btn-success btn-lg" >
+                                <span class="glyphicon glyphicon-earphone"></span> Call
+                            </a>*@
+                        @using (Html.BeginForm("CallPage", "HiringSpecialist", FormMethod.Post))
+                        {
+                            <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
+                            <input type="submit" value="Call" class="btn btn-success btn-lg" />
+                            <span class="staticText" id="eta">@Model.ETA</span>
+                        }
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   
+
+@*</form>*@

@@ -1,0 +1,38 @@
+﻿@using AES.Web.Models
+@model IEnumerable<HiringSpecialistModel>
+
+@{
+    ViewBag.Title = "DashboardHS";
+    Layout = "~/Views/Shared/_LayoutDashHS.cshtml";
+}
+
+<h2>Dashboard</h2>
+<hr />
+
+
+<div id="list">
+    @foreach (HiringSpecialistModel dhs in Model)
+    {
+        Html.RenderPartial("PartialDashboardHS", dhs);
+    }
+</div>
+
+
+@* Countdown Timer *@
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/CountdownTimer.js")
+}
+
+<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+
+Connect the countdown functionality to your divs.
+
+$(selector).countdown({until: liftoffTime});
+
+You can include custom settings as part of this process.
+
+$(selector).countdown({until: liftoffTime, format: 'dHM'});*@

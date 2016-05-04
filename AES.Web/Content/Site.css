@@ -18,7 +18,7 @@
 }
 
 textarea {
-    padding:2px!important;
+    padding:2px !important;
 }
 
 #appSubmitted {
@@ -38,7 +38,7 @@ textarea {
 .staticText span {font-weight:bold;}
 
 #list .enumItem + .enumItem h3 {margin-top:2em;}
-#list h3::after {
+#list list.enumItem h3::after {
     counter-increment: itemCounter;
     content:' ' counter(itemCounter);
 }
@@ -48,6 +48,215 @@ textarea {
 
 .inset {padding-left:2em;}
 
+/******************************************************************************/
+/*Custom styling for Hiring Specialist Dashboard*/
+/******************************************************************************/
+
+#DashboardHS body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 1.5em;
+	font-weight: 400;
+}
+
+#DashboardHS p, a, ul, li, button {
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+}
+
+#DashboardHS strong {
+	font-weight: 600;
+}
+
+#DashboardHS h1, h2, h3, h4, h5, h6 {
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1.5em;
+	font-weight: 300;	
+}
+
+#DashboardHS strong {
+  font-weight: 400;
+}
+
+#DashboardHS .tile {
+    background-color: #f9f9f9;
+    width: 300px;
+    padding: 25px;
+    border: 1px solid black;
+    border-radius: 25px;
+    margin: 25px;
+}
+
+#DashboardHS .title {
+    margin-top: 0px;
+    text-align: center;
+    color: #9b0505;
+}
+
+#DashboardHS .tile:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}	
+	
+#DashboardHS .tile .staticText span{
+    text-align: center;
+    font-weight: bold;
+    font-size: 4em;
+}
+
+/******************************************************************************/
+/*Call Page Styling*/
+/******************************************************************************/
+
+#CallPage .jumbotron {
+        background-color: #222222; /* Grey */
+        color: darkslategray;
+        /*padding: 100px 25px;*/
+        padding: 3em 1.5em;
+    }
+
+#CallPage .jumbotron h1 {
+        line-height: 1;
+        color: cadetblue;
+    }
+
+#CallPage .bg-grey {
+        background-color: #f6f6f6;
+    }
+
+#CallPage .bg-darkgrey{
+        background-color: #747474;
+    }
+
+#CallPage .bg-white{
+    background-color: white;
+}
+
+#CallPage .container-fluid {
+        /*padding: 60px 50px;*/
+        padding: 4em 3em;
+    }
+
+#CallPage .logo {
+        /*font-size: 200px;*/
+        font-size: 8em;
+    }
+
+#CallPage .col-sm-4 {
+        text-align: center;
+        /*margin: 25px 0;*/
+        margin: auto;
+    }
+
+#CallPage .navbar {
+        margin-bottom: 0;
+        z-index: 9999;
+        border: 0;
+        font-size: .75em;
+        /*line-height: 1.42857143;*/
+        letter-spacing: .3em;
+        border-radius: 0;
+        background-color: #222222;
+        font: Arial, Helvetica, sans-serif;
+    }
+
+#CallPage .navbar li a, .navbar .navbar-brand {
+        color: #fff;
+    }
+
+#CallPage .navbar-nav li a:hover {
+        color: #222222;
+        background-color: #fff;
+    }
+
+#CallPage .navbar-nav li.active a {
+        color: #222222;
+        background-color: #fff;
+}
+
+#CallPage .navbar-default .navbar-toggle {
+        border-color: transparent;
+        color: #222222;
+        background-color: #222222;
+    }
+
+#CallPage{
+        font-family: Arial, Helvetica, sans-serif;
+	    font-size: 1.5em;
+	    line-height: 1.3em;
+	    font-weight: 400;
+        width: 100%;
+        background-color:#222222;
+    }
+
+#CallPage h2 {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: #303030;
+    font-weight: 600;
+    margin-bottom: 1em;
+    }
+
+#CallPage .slideanim {visibility:hidden;}
+
+#CallPage .slide {
+    /* The name of the animation */
+    animation-name: slide;
+    -webkit-animation-name: slide; 
+    /* The duration of the animation */
+    animation-duration: 1s; 
+    -webkit-animation-duration: 1s;
+    /* Make the element visible */
+    visibility: visible; 
+}
+
+#CallPage .glyphicon-align-center::before{
+    content:none;
+}
+
+#CallPage #backtotop{
+    text-align: center;
+}
+
+/*#CallPage .text-container {
+    background-color: white;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #9b0505;
+    border-radius: 20px;
+    margin: 0px;
+    height: 20px;
+    line-height: 0px;
+}*/
+
+/* Go from 0% to 100% opacity (see-through) and specify the percentage from when to slide in the element along the Y-axis */
+@keyframes slide {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    } 
+}
+@-webkit-keyframes slide {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    }
+}
+
+/******************************************************************************/
+/*Staffing Expert Dashboard Styling*/
+/******************************************************************************/
+
+#ajaxSpinner {position:absolute;top:0;right:0;bottom:0;left:0;z-index:999;background:rgba(255, 255, 255, .5) url('/Content/Images/spinner.gif') no-repeat center center;}
 #ajaxSpinner {position:fixed;top:0;right:0;bottom:0;left:0;z-index:999;background:rgba(255, 255, 255, .5) url('/Content/Images/spinner.gif') no-repeat center center;}
 #availableJobs .h3 {margin:0;}
 #cancelCover {position:fixed;top:0;right:0;bottom:0;left:0;z-index:5;background:rgba(255, 255, 255, .5);}
