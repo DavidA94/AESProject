@@ -28,7 +28,20 @@ namespace AES.Web.Controllers
 
             if (EmployeeUserManager.LoginUser(user))
             {
-                return RedirectToAction("Welcome", "EmployeeLogin");
+                
+                switch(EmployeeUserManager.GetEmployeeRole())
+                {
+                    case Shared.EmployeeRole.HqHiringSpecialist:
+                        return RedirectToAction("DashboardHS", "HiringSpecialist");
+                    case Shared.EmployeeRole.HqQStaffingExpert:
+                        return RedirectToAction("Dashboard", "Staffing");
+                    case Shared.EmployeeRole.StoreManager:
+                        return RedirectToAction("Requests", "Manager");
+                    case Shared.EmployeeRole.HiringManager:
+                        return RedirectToAction("Login", "EmployeeLogin");
+                    default:
+                        return RedirectToAction("Login", "EmployeeLogin");
+                }
             }
 
             ModelState.AddModelError("", "Invalid Login.");

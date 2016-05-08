@@ -24,6 +24,7 @@ namespace AES.Web.Controllers
             
             if (ApplicantUserManager.LoginUser(user))
             {
+                
                 return RedirectToAction("UserProfile", "Application");
             }
 
