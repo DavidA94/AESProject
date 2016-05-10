@@ -1,4 +1,5 @@
-﻿@model AES.Web.Models.HiringSpecialistModel
+﻿@model AES.Web.Models.HiringManagerModel
+
 
 @* Tiles *@
 
@@ -8,17 +9,15 @@
             <div class="tile">
                 <h3 class="title">@Model.FirstName @Model.LastName</h3>
                 <p>
-                    @using (Html.BeginForm("CallPage", "HiringSpecialist", FormMethod.Post))
+                    @using (Html.BeginForm("FullApplicantInfo", "HiringManager", FormMethod.Post))
                     {
                         <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
-                        <button type="submit" class="btn btn-success btn-lg" value="Call">
-                            <i class="glyphicon glyphicon-earphone"></i> Call
+                        <button type="submit" class="btn btn-info btn-lg" value="ViewInfo">
+                            <i class="glyphicon glyphicon-user"></i> View Info
                         </button>
-                        <span class="staticText" id="eta">@Model.ETA</span>
                     }
                 </p>
             </div>
         </div>
     </div>
 </div>
-

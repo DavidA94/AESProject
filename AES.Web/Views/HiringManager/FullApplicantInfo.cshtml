@@ -1,48 +1,21 @@
 ﻿@model AES.Web.Models.FullApplicationModel
-
 @{
-    ViewBag.Title = "CallPage";
+    ViewBag.Title = "FullApplicantInfo";
     Layout = "~/Views/Shared/_LayoutCallPage.cshtml";
 }
 
-@using (Html.BeginForm("DashboardHS", "HiringSpecialist", FormMethod.Post))
+@using (Html.BeginForm("FullApplicantInfo", "HiringManager", FormMethod.Post))
 {
     @* Heading *@
     <div id="CallPage">
+
         <div class="jumbotron text-center bg-grey" id="top">
             <div class="row">
-
-                <div class="col-sm-3">
-                    <span class="glyphicon glyphicon-phone-alt logo"></span>
-                </div>
-
-                <div class="col-lg-6">
-                    <h1>@Model.Profile.FirstName @Model.Profile.LastName</h1>
-                    <h1>@Model.Profile.Phone</h1>
-                </div>
-
-                <div class="col-sm-3">
-                    <span class="glyphicon glyphicon-phone-alt logo"></span>
+                <div class="col-lg-12">
+                    <h1>@Model.Profile.FirstName @Model.Profile.LastName Info</h1>
                 </div>
             </div>
-
-       
-            <div class="glyphicon-align-center">
-                <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
-                <button type="submit" name="ApplicantStatus" class="btn btn-success btn-lg" value="Approve">
-                    <i class="glyphicon glyphicon-ok"></i> Approve
-                </button>
-                <button type="submit" name="ApplicantStatus" class="btn btn-primary btn-lg" value="NoPickUp">
-                    <i class="glyphicon glyphicon-remove"></i> Didn't Pick Up
-                </button>
-                <button type="submit" name="ApplicantStatus" class="btn btn-danger btn-lg" value="Deny">
-                    <i class="glyphicon glyphicon-ban-circle"></i> Deny
-                </button>
-            </div>
-
         </div>
-
-
 
         @* Profile *@
         <div id="profile" class="container-fluid bg-white">
@@ -82,7 +55,7 @@
                         @Model.Profile.Nickname
                     </div>
                 </div>
-                
+
                 @*Date of Birth*@
                 <div class="form-group">
                     @Html.LabelFor(m => m.Profile.DOB, new { @class = "col-md-2 control-label" })
@@ -109,23 +82,23 @@
 
                 @*City State & Zip Together*@
                 @*<div class="form-group">
-                    @Html.LabelFor(m => m.Profile.City, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-2">
-                        @Model.Profile.City
-                    </div>
-                    @Html.LabelFor(m => m.Profile.State, new { @class = "col-md-1 control-label" })
-                    <div class="col-md-1">
-                        @Model.Profile.State
+                        @Html.LabelFor(m => m.Profile.City, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-2">
+                            @Model.Profile.City
                         </div>
-                    @Html.LabelFor(m => m.Profile.Zip, new { @class = "col-md-1 control-label" })
-                    <div class="col-md-2">
-                        @Model.Profile.Zip
-                    </div>
-                </div>*@
+                        @Html.LabelFor(m => m.Profile.State, new { @class = "col-md-1 control-label" })
+                        <div class="col-md-1">
+                            @Model.Profile.State
+                            </div>
+                        @Html.LabelFor(m => m.Profile.Zip, new { @class = "col-md-1 control-label" })
+                        <div class="col-md-2">
+                            @Model.Profile.Zip
+                        </div>
+                    </div>*@
 
                 @*City*@
                 <div class="form-group">
-                @Html.LabelFor(m => m.Profile.City, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(m => m.Profile.City, new { @class = "col-md-2 control-label" })
                     <div class="col-md-push-4">
                         @Model.Profile.City
                     </div>
@@ -191,7 +164,7 @@
 
                 @*Monday*@
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Availibility.MondayStart,"Monday", new { @class = "col-md-12 control-label" })
+                    @Html.LabelFor(m => m.Availibility.MondayStart, "Monday", new { @class = "col-md-12 control-label" })
                     <div class="container-fluid">
                         <div class="col-md-1">
                             <strong>From:</strong>
@@ -554,40 +527,40 @@
                     </div>
                 </div>
 
-                    @foreach (var item in Model.References)
-                    {
-                        //Reference Name
-                        <div class="form-group">
-                            @Html.LabelFor(a => item.Name, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-push-4">
-                                @item.Name
-                            </div>
+                @foreach (var item in Model.References)
+                {
+                    //Reference Name
+                    <div class="form-group">
+                        @Html.LabelFor(a => item.Name, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-push-4">
+                            @item.Name
                         </div>
+                    </div>
 
-                        //Title
-                        <div class="form-group">
-                            @Html.LabelFor(a => item.Title, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-push-4">
-                                @item.Title
-                            </div>
+                    //Title
+                    <div class="form-group">
+                        @Html.LabelFor(a => item.Title, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-push-4">
+                            @item.Title
                         </div>
+                    </div>
 
-                        //Company Name
-                        <div class="form-group">
-                            @Html.LabelFor(a => item.Company, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-push-4">
-                                @item.Company
-                            </div>
+                    //Company Name
+                    <div class="form-group">
+                        @Html.LabelFor(a => item.Company, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-push-4">
+                            @item.Company
                         </div>
+                    </div>
 
-                        //Reference Phone Number
-                        <div class="form-group">
-                            @Html.LabelFor(a => item.Phone, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-push-4">
-                                @item.Phone
-                            </div>
+                    //Reference Phone Number
+                    <div class="form-group">
+                        @Html.LabelFor(a => item.Phone, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-push-4">
+                            @item.Phone
                         </div>
-                    }
+                    </div>
+                }
             </div>
         </div>
 
@@ -609,47 +582,47 @@
 
 
 
-                    @foreach (var item in Model.Questionnaire)
+                @foreach (var item in Model.Questionnaire)
+                {
+                    if (item.Type.ToString() == "SHORT")
                     {
-                        if (item.Type.ToString() == "SHORT")
-                        {
-                            //Question
-                            <div class="form-group">
-                                @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-push-4">
-                                    @item.Question
-                                </div>
+                        //Question
+                        <div class="form-group">
+                            @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @item.Question
                             </div>
+                        </div>
 
-                            //Short Answer
-                            <div class="form-group">
-                                @Html.LabelFor(a => item.ShortAnswer, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    <textarea class="form-control" name="ShortAnswer" rows="4">Short answers here</textarea> 
-                                </div>
+                        //Short Answer
+                        <div class="form-group">
+                            @Html.LabelFor(a => item.ShortAnswer, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                <textarea class="form-control" name="ShortAnswer" rows="4">Short answers here</textarea>
                             </div>
+                        </div>
 
                             <br />
-                        }
+                    }
 
-                        <hr />
+                    <hr />
 
-                        if (item.Type.ToString() == "RADIO")
-                        {
-                            //Question
-                            <div class="form-group">
-                                @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-push-4">
-                                    @item.Question
-                                </div>
+                    if (item.Type.ToString() == "RADIO")
+                    {
+                        //Question
+                        <div class="form-group">
+                            @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @item.Question
                             </div>
+                        </div>
 
-                            //Radio Answer
-                            <div class="form-group">
-                                @Html.LabelFor(a => item.Options, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-push-4">
-                                    @*Have to figure out how to get RadioOption to return something*@
-                                    @*@if (item.RadioOption)
+                        //Radio Answer
+                        <div class="form-group">
+                            @Html.LabelFor(a => item.Options, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @*Have to figure out how to get RadioOption to return something*@
+                                @*@if (item.RadioOption)
                                     {
                                         @item.Options[0].ToString()
                                     }
@@ -657,36 +630,36 @@
                                     {
                                         @item.Options[1].ToString()
                                     }*@
-                                    @item.Options[0].ToString()
-                                    @item.Options[1].ToString()
-                                </div>
+                                @item.Options[0].ToString()
+                                @item.Options[1].ToString()
                             </div>
-                        }
-
-                        if (item.Type.ToString() == "CHECKBOX")
-                        {
-                            //Question
-                            <div class="form-group">
-                                @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-push-4">
-                                    @item.Question
-                                </div>
-                            </div>
-
-                            //Short Answer
-                            <div class="form-group">
-                                @Html.LabelFor(a => item.MC_Answers, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-push-4">
-                                    @item.MC_Answers[0]
-                                    @item.MC_Answers[1]
-                                    @item.MC_Answers[2]
-                                    @item.MC_Answers[3]
-
-                                    @item.NeededCorrect
-                                </div>
-                            </div>
-                        }
+                        </div>
                     }
+
+                    if (item.Type.ToString() == "CHECKBOX")
+                    {
+                        //Question
+                        <div class="form-group">
+                            @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @item.Question
+                            </div>
+                        </div>
+
+                        //Short Answer
+                        <div class="form-group">
+                            @Html.LabelFor(a => item.MC_Answers, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @item.MC_Answers[0]
+                                @item.MC_Answers[1]
+                                @item.MC_Answers[2]
+                                @item.MC_Answers[3]
+
+                                @item.NeededCorrect
+                            </div>
+                        </div>
+                    }
+                }
             </div>
         </div>
 
@@ -707,36 +680,14 @@
             </div>
         </div>
 
-
-
-
+        @*Back To Top Button*@
         <div class="container-fluid bg-grey">
-            <div class="row">
-                <div class="glyphicon-align-center text-center">
-                    <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
-                    <button type="submit" name="ApplicantStatus" class="btn btn-success btn-lg" value="Accept">
-                        <i class="glyphicon glyphicon-ok"></i> Approve
-                    </button>
-                    <button type="submit" name="ApplicantStatus" class="btn btn-primary btn-lg" value="NoPickUp">
-                        <i class="glyphicon glyphicon-remove"></i> Didn't Pick Up
-                    </button>
-                    <button type="submit" name="ApplicantStatus" class="btn btn-danger btn-lg" value="Deny">
-                        <i class="glyphicon glyphicon-ban-circle"></i> Deny
-                    </button>
-                </div>
                 <div id="backtotop" class="container-fluid bg-grey">
                     <div>
                         <a href="#top" class="btn btn-info btn-lg" role="button">Back To Top</a>
                     </div>
                 </div>
-            </div>
-
         </div>
     </div>
 }
-
-
-
-
-
 

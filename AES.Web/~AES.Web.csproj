@@ -189,6 +189,7 @@
     <Compile Include="Controllers\ApplicantLoginController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\EmployeeLoginController.cs" />
+    <Compile Include="Controllers\HiringManagerController.cs" />
     <Compile Include="Controllers\HiringSpecialistController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobOpeningsController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Models\ApplicationModels.cs" />
     <Compile Include="Models\EmployeeLoginModel.cs" />
     <Compile Include="Models\FullApplicationModel.cs" />
+    <Compile Include="Models\HiringManagerModel.cs" />
     <Compile Include="Models\HiringSpecialistModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobbingModels.cs" />
@@ -445,6 +447,11 @@
     <Content Include="Views\Manager\_RequestList.cshtml" />
     <Content Include="Views\EmployeeLogin\Welcome.cshtml" />
     <Content Include="Views\Shared\_LayoutCallPage.cshtml" />
+    <Content Include="Views\HiringManager\DashboardHM.cshtml" />
+    <Content Include="Views\Shared\_LayoutDashHM.cshtml" />
+    <Content Include="Views\HiringManager\FullApplicantInfo.cshtml" />
+    <Content Include="Views\HiringManager\InterviewList.cshtml" />
+    <Content Include="Views\HiringManager\PartialInterviewList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">

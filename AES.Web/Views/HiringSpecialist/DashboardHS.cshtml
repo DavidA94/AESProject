@@ -9,13 +9,14 @@
 <h2>Dashboard</h2>
 <hr />
 
-
-<div id="list">
+<div>
     @foreach (HiringSpecialistModel dhs in Model)
     {
         Html.RenderPartial("PartialDashboardHS", dhs);
     }
 </div>
+
+
 
 
 @* Countdown Timer *@

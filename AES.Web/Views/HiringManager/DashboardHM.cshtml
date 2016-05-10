@@ -1,0 +1,15 @@
+﻿@model AES.Web.Models.HiringManagerModel
+
+@{
+    ViewBag.Title = "DashboardHM";
+    Layout = "~/Views/Shared/_LayoutDashHM.cshtml";
+}
+
+<h2>Hiring Manager Dashboard</h2>
+
+@using (Html.BeginForm("DashboardHM", "HiringManager", FormMethod.Post))
+{
+    <button type="submit" name="InterviewList" class="btn btn-info btn-lg" value="Applicant Interview List">
+        Applicant Interview List
+    </button>
+}

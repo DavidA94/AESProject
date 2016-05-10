@@ -9,129 +9,64 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
-    public class HiringSpecialistController : Controller
+    public class HiringManagerController : Controller
     {
-        HiringSpecialistModel hs = new HiringSpecialistModel();
-
-        // GET: HiringSpecialist
-        [HttpGet]
-        public ActionResult DashboardHS()
+        // GET: HiringManager
+        public ActionResult DashboardHM()
         {
-            var x = FillHSData();
+            return View();
 
-            //IApplicationSvc appSvc = new ApplicationSvcClient();
-            //ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
-
-            //List<HiringSpecialistModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
-
-            //return View(ConvertedContract);
-
-            return View(x);
         }
 
         [HttpPost]
-        public ActionResult DashboardHS(string ApplicantStatus, int ApplicantID, string Notes)
+        public ActionResult DashboardHM(string InterviewList)
+        {
+            if (InterviewList == "Applicant Interview List")
+            {
+                return RedirectToAction("InterviewList");
+            }
+
+            return View();
+        }
+
+        public ActionResult InterviewList()
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
-
-            if (ApplicantStatus == "Accept")
-            {
-                appSvc.SavePhoneInterview(ApplicantID, Notes, true);
-            }
-            else if (ApplicantStatus == "Deny")
-            {
-                appSvc.SavePhoneInterview(ApplicantID, Notes, false);
-            }
-            else
-            {
-                appSvc.ApplicantDidNotAnswer(ApplicantID);
-            }
-
             ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
 
-            List<HiringSpecialistModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
 
             return View(ConvertedContract);
         }
 
-        private List<HiringSpecialistModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> ApplicantInfo)
+        [HttpPost]
+        public ActionResult FullApplicantInfo(int ApplicantID)
         {
-            var RetAppInfo = new List<HiringSpecialistModel>();
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_CALL);
+
+            FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
+
+            return View(ConvertedFullAppModel);
+        }
+
+
+        private List<HiringManagerModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> ApplicantInfo)
+        {
+            var RetAppInfo = new List<HiringManagerModel>();
 
             foreach (var AppInfo in ApplicantInfo)
             {
-                RetAppInfo.Add(new HiringSpecialistModel()
+                RetAppInfo.Add(new HiringManagerModel()
                 {
                     FirstName = AppInfo.FirstName,
                     LastName = AppInfo.LastName,
-                    ETA = AppInfo.UserInfo.EndCallTime,
                     ApplicantID = (int)AppInfo.UserID
                 });
             }
 
             return RetAppInfo;
-        }
-
-        // Hardcoded HiringSpecialistViewModel
-        public List<HiringSpecialistModel> FillHSData()
-        {
-            return new List<HiringSpecialistModel>()
-            {
-                new HiringSpecialistModel()
-                {
-                    ETA = new TimeSpan(12,12,12),
-                    FirstName = "John",
-                    LastName = "Smith",
-                    ApplicantID = 1
-                },
-
-                new HiringSpecialistModel()
-                {
-                    ETA = new TimeSpan(11,11,11),
-                    FirstName = "Awesome",
-                    LastName = "Fun",
-                    ApplicantID = 2
-                },
-
-                new HiringSpecialistModel()
-                {
-                    ETA = new TimeSpan(11,11,11),
-                    FirstName = "Awesome",
-                    LastName = "Fun",
-                    ApplicantID = 3
-                },
-
-                new HiringSpecialistModel()
-                {
-                    ETA = new TimeSpan(11,11,11),
-                    FirstName = "Awesome",
-                    LastName = "Fun",
-                    ApplicantID = 4
-                }
-            };
-        }
-
-        [HttpPost]
-        public ActionResult CallPage(int ApplicantID)
-        {
-
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-
-            //if(!appSvc.CallApplicant(ApplicantID))
-            //{
-            //    return RedirectToAction("DashboardHS");
-            //}
-
-            appSvc.CallApplicant(ApplicantID);
-
-            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.IN_CALL);
-
-            FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
-
-            //Keep track of the applicant ID for apply or deny buttons
-            ConvertedFullAppModel.ApplicantID = ApplicantID;
-
-            return View(ConvertedFullAppModel);
         }
 
         public FullApplicationModel ConvertAppContractToModel(ApplicationInfoContract app)
