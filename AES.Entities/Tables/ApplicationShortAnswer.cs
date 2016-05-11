@@ -15,6 +15,9 @@ namespace AES.Entities.Tables
         [Required]
         public virtual JobQuestion Question { get; set; }
 
+        [Required]
+        public virtual Application Application { get; set; }
+
         [Required(AllowEmptyStrings = true)]
         [StringLength(4000)]
         public string Answer { get; set; }
