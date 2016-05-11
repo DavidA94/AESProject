@@ -17,16 +17,16 @@ namespace AES.Web.Controllers
         [HttpGet]
         public ActionResult DashboardHS()
         {
-            var x = FillHSData();
+            //var x = FillHSData();
 
-            //IApplicationSvc appSvc = new ApplicationSvcClient();
-            //ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
 
-            //List<HiringSpecialistModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
+            List<HiringSpecialistModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
 
-            //return View(ConvertedContract);
+            return View(ConvertedContract);
 
-            return View(x);
+            //return View(x);
         }
 
         [HttpPost]

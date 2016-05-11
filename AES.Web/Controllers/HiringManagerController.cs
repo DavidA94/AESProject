@@ -32,7 +32,7 @@ namespace AES.Web.Controllers
         public ActionResult InterviewList()
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
+            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingInterview(1);
 
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
 
@@ -44,7 +44,7 @@ namespace AES.Web.Controllers
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_CALL);
+            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.INTERVIEW_COMPLETE);
 
             FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
 
