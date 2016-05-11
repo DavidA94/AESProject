@@ -21,5 +21,8 @@ namespace AES.Shared.Contracts
 
         [DataMember]
         public UserInfoContract UserInfo { get; set; }
+
+        [DataMember]
+        public int StoreID { get; set; }
     }
 }

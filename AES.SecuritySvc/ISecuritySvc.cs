@@ -15,7 +15,7 @@ namespace AES.SecuritySvc
         EmployeeUserContract ValidateEmployeeUser(EmployeeCredentialsContract credentials);
 
         [OperationContract]
-        bool CreateEmployee(EmployeeUserContract employeeInfo, string password);
+        bool CreateEmployee(EmployeeUserContract employeeInfo, string password, int storeID);
     }
     
 }

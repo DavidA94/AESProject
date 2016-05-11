@@ -7,7 +7,6 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace AES.SecuritySvc
 {
@@ -93,7 +92,7 @@ namespace AES.SecuritySvc
             return null;
         }
 
-        public bool CreateEmployee(EmployeeUserContract employeeInfo, string password)
+        public bool CreateEmployee(EmployeeUserContract employeeInfo, string password, int storeID)
         {
 
             if (string.IsNullOrEmpty(password) || password.Length < 1 || string.IsNullOrEmpty(employeeInfo.Email) || employeeInfo.Email.Length < 6 || string.IsNullOrEmpty(employeeInfo.FirstName) || string.IsNullOrEmpty(employeeInfo.LastName) || employeeInfo.UserInfo == null)
@@ -106,7 +105,8 @@ namespace AES.SecuritySvc
                 FirstName = employeeInfo.FirstName,
                 LastName = employeeInfo.LastName,
                 Email = employeeInfo.Email,
-                Role = employeeInfo.Role
+                Role = employeeInfo.Role,
+                StoreID = storeID
             };
 
             newEmployeeUser.UserInfo = new UserInfo()
@@ -217,6 +217,7 @@ namespace AES.SecuritySvc
                 Role = user.Role,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                StoreID = user.StoreID,
                 UserInfo = new UserInfoContract()
                 {
                     Address = user.UserInfo.Address,

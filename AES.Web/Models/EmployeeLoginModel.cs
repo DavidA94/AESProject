@@ -29,5 +29,7 @@ namespace AES.Web.Models
 
         [Display(Name = "Employee Role")]
         public EmployeeRole EmployeeRole { get; set; }
+
+        public int StoreID { get; set; }
     }
 }

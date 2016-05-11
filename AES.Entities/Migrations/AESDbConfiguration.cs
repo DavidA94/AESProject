@@ -474,6 +474,7 @@ namespace AES.Entities.Migrations
                 Role = EmployeeRole.HqHiringSpecialist,
                 PasswordHash = hashedEmployeePass,
                 Salt = employeeSalt,
+                StoreID = portlandStore.ID,
                 UserInfo = new UserInfo()
             };
 
