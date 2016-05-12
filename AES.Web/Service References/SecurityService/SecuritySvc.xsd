@@ -34,6 +34,7 @@
       <xs:sequence>
         <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="employeeInfo" nillable="true" type="q5:EmployeeUserContract" />
         <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="storeID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

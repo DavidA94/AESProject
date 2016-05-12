@@ -231,11 +231,6 @@ namespace AES.ApplicationSvc
             return retApp;
         }
 
-        public ApplicationInfoContract GetInterviewApplication(UserInfoContract user)
-        {
-            throw new NotImplementedException();
-        }
-
         public AppSvcResponse SavePartialApplication(ApplicationInfoContract app)
         {
             using (var db = new AESDbContext())

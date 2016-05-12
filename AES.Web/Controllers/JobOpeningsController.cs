@@ -40,7 +40,7 @@ namespace AES.Web.Controllers
                     {
                         Title = o.title,
                         ShortDesc = o.ShortDescription,
-                        JobID = o.OpeningID,
+                        JobID = o.JobID,
                         LongDesc = o.LongDescription,
                         StoreID = o.StoreID
                     });

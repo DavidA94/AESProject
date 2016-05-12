@@ -35,12 +35,6 @@
   <wsdl:message name="IApplicationSvc_GetApplication_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetApplicationResponse" />
   </wsdl:message>
-  <wsdl:message name="IApplicationSvc_GetInterviewApplication_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetInterviewApplication" />
-  </wsdl:message>
-  <wsdl:message name="IApplicationSvc_GetInterviewApplication_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetInterviewApplicationResponse" />
-  </wsdl:message>
   <wsdl:message name="IApplicationSvc_SavePartialApplication_InputMessage">
     <wsdl:part name="parameters" element="tns:SavePartialApplication" />
   </wsdl:message>
@@ -93,10 +87,6 @@
     <wsdl:operation name="GetApplication">
       <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/GetApplication" message="tns:IApplicationSvc_GetApplication_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/GetApplicationResponse" message="tns:IApplicationSvc_GetApplication_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetInterviewApplication">
-      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/GetInterviewApplication" message="tns:IApplicationSvc_GetInterviewApplication_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/GetInterviewApplicationResponse" message="tns:IApplicationSvc_GetInterviewApplication_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SavePartialApplication">
       <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SavePartialApplication" message="tns:IApplicationSvc_SavePartialApplication_InputMessage" />
@@ -154,15 +144,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetApplication">
       <soap:operation soapAction="http://tempuri.org/IApplicationSvc/GetApplication" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetInterviewApplication">
-      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/GetInterviewApplication" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
