@@ -1,5 +1,6 @@
 ﻿using AES.Shared;
 using AES.Shared.Contracts;
+using AES.Web.Authorization;
 using AES.Web.JobbingService;
 using AES.Web.Models;
 using System;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
+    [AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HqQStaffingExpert)]
     public class StaffingController : Controller
     {
         /// <summary>
