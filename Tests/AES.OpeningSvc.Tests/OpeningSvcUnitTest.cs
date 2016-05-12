@@ -83,12 +83,14 @@ namespace AES.OpeningsSvc.Tests
 
                 var testJob1 = new JobOpening()
                 {
-                    Job = TestJob1
+                    Job = TestJob1,
+                    Store = TestStore1
                 };
                 testJob1.Store = TestStore1;
                 var testJob2 = new JobOpening()
                 {
-                    Job = TestJob2
+                    Job = TestJob2,
+                    Store = TestStore2
                 };
                 testJob2.Store = TestStore2;
 
@@ -117,6 +119,7 @@ namespace AES.OpeningsSvc.Tests
                     Assert.AreEqual(TestJob1.ShortDescription, opening.ShortDescription);
                     Assert.AreEqual(TestJob1.LongDescription, opening.LongDescription);
                     Assert.AreEqual(TestJob1.Title, opening.title);
+                    Assert.IsTrue(opening.StoreID >= 0);
                 }
 
                 foreach (var opening in Store2Openings)
@@ -124,6 +127,7 @@ namespace AES.OpeningsSvc.Tests
                     Assert.AreEqual(TestJob2.ShortDescription, opening.ShortDescription);
                     Assert.AreEqual(TestJob2.LongDescription, opening.LongDescription);
                     Assert.AreEqual(TestJob2.Title, opening.title);
+                    Assert.IsTrue(opening.StoreID >= 0);
                 }
 
             }

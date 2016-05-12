@@ -10,7 +10,7 @@ namespace AES.ApplicationSvc.Contracts
     {
         public ApplicationInfoContract()
         {
-            AppliedJobs = new List<int>();
+            AppliedJobs = new List<Tuple<int, int>>();
             Educations = new List<EducationHistoryContract>();
             Jobs = new List<JobHistoryContract>();
             QA = new List<QAContract>();
@@ -49,9 +49,10 @@ namespace AES.ApplicationSvc.Contracts
 
         /// <summary>
         /// [In] A list of Job IDs indicating which jobs a user is applying for
+        /// int1 = jobID, int2 = storeID
         /// </summary>
         [DataMember]
-        public List<int> AppliedJobs { get; set; }
+        public List<Tuple<int, int>> AppliedJobs { get; set; }
 
         /// <summary>
         /// [In/Out] The user's education history

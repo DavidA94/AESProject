@@ -32,6 +32,15 @@ namespace AES.Entities.Tables
         public int JobID { get; set; }
 
         /// <summary>
+        /// Which store the application is for
+        /// </summary>
+        [ForeignKey("StoreID")]
+        public virtual Store Store { get; set; }
+
+        [Required]
+        public int StoreID { get; set; }
+
+        /// <summary>
         /// The applicant this application is for
         /// </summary>
         [ForeignKey("ApplicantID")]

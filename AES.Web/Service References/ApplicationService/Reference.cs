@@ -26,7 +26,7 @@ namespace AES.Web.ApplicationService {
         private int ApplicantIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int[] AppliedJobsField;
+        private System.Tuple<int, int>[] AppliedJobsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AES.Shared.Contracts.AvailabilityContract AvailabilityField;
@@ -85,7 +85,7 @@ namespace AES.Web.ApplicationService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int[] AppliedJobs {
+        public System.Tuple<int, int>[] AppliedJobs {
             get {
                 return this.AppliedJobsField;
             }

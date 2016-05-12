@@ -393,6 +393,7 @@ namespace AES.Entities.Migrations
                 Status = AppStatus.WAITING_CALL,
                 Applicant = applicantUser,
                 Job = janitorJob,
+                Store = tualatinStore,
                 Timestamp = new DateTime(2016, 3, 11)
             };
 
@@ -401,6 +402,7 @@ namespace AES.Entities.Migrations
                 Status = AppStatus.WAITING_CALL,
                 Applicant = applicantUser2,
                 Job = salesAssociateJob,
+                Store = tualatinStore,
                 Timestamp = new DateTime(2016, 3, 11)
             };
 

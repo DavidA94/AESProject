@@ -111,7 +111,19 @@ namespace AES.ApplicationSvc
 
         public List<ApplicantInfoContract> GetApplicantsAwaitingInterview(int storeID)
         {
-            throw new NotImplementedException();
+            List<ApplicantInfoContract> returnedApplicants = new List<ApplicantInfoContract>();
+
+            using (var db = new AESDbContext())
+            {
+                var apps = db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW && a.StoreID == storeID);
+
+                foreach (var app in apps.Select(a => a.Applicant))
+                {
+                    returnedApplicants.Add(ConvertTableToContract(app));
+                }
+            }
+
+            return returnedApplicants.Distinct().ToList();
         }
 
         public ApplicationInfoContract GetApplication(int userID, AppStatus userAppStatus)
@@ -132,7 +144,7 @@ namespace AES.ApplicationSvc
                 {
                     foreach (var app in applications)
                     {
-                        retApp.AppliedJobs.Add(app.Job.JobID);
+                        retApp.AppliedJobs.Add(Tuple.Create(app.Job.JobID, app.StoreID));
                         var job = db.Jobs.Where(j => j.JobID == app.Job.JobID).FirstOrDefault();
 
                         if (job == null)
@@ -241,7 +253,7 @@ namespace AES.ApplicationSvc
                 foreach (var job in app.AppliedJobs)
                 {
                     // Get the job
-                    var appliedJob = db.Jobs.FirstOrDefault(a => a.JobID == job);
+                    var appliedJob = db.Jobs.FirstOrDefault(a => a.JobID == job.Item1);
 
                     // If it doens't exist, return BAD_JOB
                     if (appliedJob == null)
@@ -249,9 +261,17 @@ namespace AES.ApplicationSvc
                         return AppSvcResponse.BAD_JOB;
                     }
 
+                    // Get the store, and return BAD_STORE if it doesn't exist.
+                    var appliedStore = db.Stores.FirstOrDefault(s => s.ID == job.Item2);
+                    if(appliedStore == null)
+                    {
+                        return AppSvcResponse.BAD_STORE;
+                    }
+
                     // Try to get a partial application for this user for this job
                     var application = db.Applications.FirstOrDefault(a => a.Status == AppStatus.PARTIAL &&
-                    /**/                                                  a.Job.JobID == job &&
+                    /**/                                                  a.Job.JobID == job.Item1 &&
+                    /**/                                                  a.Store.ID == job.Item2 &&
                     /**/                                                  a.Applicant.userID == user.userID);
                     bool isNewApp = application == null;
 
@@ -264,6 +284,7 @@ namespace AES.ApplicationSvc
                         application.Job = appliedJob;
                         application.Status = AppStatus.PARTIAL;
                         application.Applicant = user;
+                        application.StoreID = appliedStore.ID;
                     }
 
                     // Update the TimeStamp
@@ -283,7 +304,7 @@ namespace AES.ApplicationSvc
                             return AppSvcResponse.BAD_QUESTION;
                         }
                         // If the ID of the job for this question is not the job we're on, then skip it
-                        else if (dbQ.Jobs.FirstOrDefault(j => j.JobID == job) == null)
+                        else if (dbQ.Jobs.FirstOrDefault(j => j.JobID == job.Item1) == null)
                         {
                             continue;
                         }

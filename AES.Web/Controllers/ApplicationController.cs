@@ -36,7 +36,7 @@ namespace AES.Web.Controllers
         public ActionResult UserProfile()
         {
             // Get the seleceted jobs from the session
-            int[] selectedJobs = (int[])Session["SelectedJobs"];
+            Tuple<int, int>[] selectedJobs = (Tuple<int, int>[])Session["SelectedJobs"];
             int userID = ApplicantUserManager.GetUserID();
 
             if(userID < 0)
@@ -50,6 +50,8 @@ namespace AES.Web.Controllers
                 // If we have jobs, start a new app, otherwise, assume the user is continuing a previous application
                 if (selectedJobs != null && selectedJobs.Length > 0)
                 {
+
+
                     // Save the new application
                     var response = appSvc.SavePartialApplication(new ApplicationInfoContract()
                     {

@@ -393,8 +393,8 @@ namespace AES.ApplicationSvc.Tests
             using (var db = new AESDbContext())
             { 
                 // Get the status of both jobs submitted
-                int job1 = app.AppliedJobs[0];
-                int job2 = app.AppliedJobs[1];
+                int job1 = app.AppliedJobs[0].Item1;
+                int job2 = app.AppliedJobs[1].Item1;
                 AppStatus status1 = db.Applications.FirstOrDefault(a => a.Applicant.userID == app.ApplicantID &&
                                                                         a.JobID == job1).Status;
                 AppStatus status2 = db.Applications.FirstOrDefault(a => a.Applicant.userID == app.ApplicantID &&
@@ -450,10 +450,15 @@ namespace AES.ApplicationSvc.Tests
 
             using (var db = new AESDbContext())
             {
+                var appliedJobs = db.Jobs.ToList();
+
+                // Because you can't do this in the linq query
+                int storeID = db.Jobs.First().Openings.First().StoreID;
+
                 return new ApplicationInfoContract()
                 {
                     ApplicantID = userID,
-                    AppliedJobs = db.Jobs.Select(j => j.JobID).Take(2).ToList(),
+                    AppliedJobs = appliedJobs.Select(j => new Tuple<int, int>(j.JobID, storeID)).Take(2).ToList(),
                     Availability = new AvailabilityContract()
                     {
                         MondayStart = new TimeSpan(8, 0, 0),
@@ -484,6 +489,8 @@ namespace AES.ApplicationSvc.Tests
 		
         private void AssertPartialApp1(ApplicantUser user, ApplicationInfoContract app)
         {
+            Assert.IsTrue(user.Applications.Select(c => c.StoreID).OrderBy(sID => sID).SequenceEqual(app.AppliedJobs.Select(c => c.Item2).OrderBy(sID => sID)));
+
             Assert.AreEqual(user.UserInfo.Address, app.UserInfo.Address);
             Assert.AreEqual(user.UserInfo.CallEndTime, app.UserInfo.EndCallTime);
             Assert.AreEqual(user.UserInfo.CallStartTime, app.UserInfo.StartCallTime);

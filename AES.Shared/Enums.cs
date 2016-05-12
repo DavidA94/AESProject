@@ -108,7 +108,7 @@ namespace AES.Shared
         [Display(Name = "Certificate")] CERTIFICATE
     };
 
-    public enum AppSvcResponse { GOOD, BAD_USER, BAD_JOB, BAD_QUESTION, ERROR };
+    public enum AppSvcResponse { GOOD, BAD_USER, BAD_JOB, BAD_QUESTION, BAD_STORE, ERROR };
 
     public enum EmployeeRole
     {
