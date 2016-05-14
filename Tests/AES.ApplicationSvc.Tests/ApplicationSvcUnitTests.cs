@@ -224,6 +224,41 @@ namespace AES.ApplicationSvc.Tests
         }
 
         [TestMethod]
+        public void ApplicationSvc_GetApplicantsAwaitingInterview()
+        {
+            var applicationService = new ApplicationSvc();
+            SetupValidWaitingCallApp();
+
+            // Ensure that at least one applicant is returned inside of the time range
+            var applicantsAwaitingCalls = applicationService.GetApplicantsAwaitingCalls(new DateTime(1970, 1, 1, 6, 30, 0, 0));
+            Assert.IsTrue(applicantsAwaitingCalls.Any(a => a.FirstName == ApplicantFirstName && a.LastName == ApplicantLastName));
+
+
+            using (var db = new AESDbContext())
+            {
+                // Get from seeded data, and manually move to waiting an interview
+                var app = db.Applications.Where(a => a.Status == AppStatus.WAITING_CALL).FirstOrDefault();
+                Assert.IsNotNull(app);
+
+                app.Status = AppStatus.WAITING_INTERVIEW;
+
+                db.SaveChanges();
+
+                var applicant = applicationService.GetApplicantsAwaitingInterview(app.StoreID).FirstOrDefault(a => a.UserID == app.Applicant.userID);
+                Assert.IsNotNull(applicant);
+
+                // If all of this is correct, we'll assume it's the right person
+                Assert.AreEqual(app.Applicant.FirstName, applicant.FirstName);
+                Assert.AreEqual(app.Applicant.LastName, applicant.LastName);
+                Assert.AreEqual(app.ApplicantID, applicant.UserID);
+
+                // Revert their status
+                app.Status = AppStatus.WAITING_CALL;
+                db.SaveChanges();
+            }
+        }
+
+        [TestMethod]
         public void ApplicationSvc_GetPartialApplication()
         {
             ApplicationSvc_SavePartialApplication();
