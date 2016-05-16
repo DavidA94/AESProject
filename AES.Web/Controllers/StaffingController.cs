@@ -144,7 +144,7 @@ namespace AES.Web.Controllers
             // If we got a good response, respond with the udpated list of jobs, otherwise, return what went werong
             if(response == JobbingResponse.SUCCESS)
             {
-                return JobList();
+                return RedirectToAction("JobList");
             }
             else if(response == JobbingResponse.INVALID)
             {
