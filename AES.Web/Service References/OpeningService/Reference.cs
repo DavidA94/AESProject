@@ -41,6 +41,9 @@ namespace AES.Web.OpeningService {
         private string ShortDescriptionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StoreIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string StoreManagerNotesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -130,6 +133,19 @@ namespace AES.Web.OpeningService {
                 if ((object.ReferenceEquals(this.ShortDescriptionField, value) != true)) {
                     this.ShortDescriptionField = value;
                     this.RaisePropertyChanged("ShortDescription");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StoreID {
+            get {
+                return this.StoreIDField;
+            }
+            set {
+                if ((this.StoreIDField.Equals(value) != true)) {
+                    this.StoreIDField = value;
+                    this.RaisePropertyChanged("StoreID");
                 }
             }
         }

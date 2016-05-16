@@ -21,7 +21,8 @@
                         @* Checkbox for the jobs *@
                         <div class="pull-left">
                             @Html.EditorFor(m => m.ToArray()[i].JobCheckbox, new { @checked = "checked" })
-                            @Html.HiddenFor(m => m.ToArray()[i].ID)
+                            @Html.HiddenFor(m => m.ToArray()[i].JobID)
+                            @Html.HiddenFor(m => m.ToArray()[i].StoreID)
                         </div>
                         <div class="no-overflow padLeft">
                             @* Display Job Title *@

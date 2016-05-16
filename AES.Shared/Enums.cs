@@ -108,14 +108,15 @@ namespace AES.Shared
         [Display(Name = "Certificate")] CERTIFICATE
     };
 
-    public enum AppSvcResponse { GOOD, BAD_USER, BAD_JOB, BAD_QUESTION, ERROR };
+    public enum AppSvcResponse { GOOD, BAD_USER, BAD_JOB, BAD_QUESTION, BAD_STORE, ERROR };
 
     public enum EmployeeRole
     {
-        HiringManager,
-        HqQStaffingExpert,
-        HqHiringSpecialist,
-        StoreManager
+        HiringManager = 1,
+        HqQStaffingExpert = 2,
+        HqHiringSpecialist = 4,
+        StoreManager = 8,
+        ITSpecialist = 16
     }
 
     public enum JobbingResponse{

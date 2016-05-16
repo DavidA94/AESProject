@@ -18,7 +18,12 @@ namespace AES.Web.Models
         /// <summary>
         /// Not shown to user
         /// </summary>
-        public int ID { get; set; }
+        public int JobID { get; set; }
+
+        /// <summary>
+        /// Not shown to user
+        /// </summary>
+        public int StoreID { get; set; }
 
         [StringLength(512)]
         [Required]

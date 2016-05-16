@@ -23,9 +23,6 @@ namespace AES.ApplicationSvc
         ApplicationInfoContract GetApplication(int userID, AppStatus userAppStatus);
 
         [OperationContract]
-        ApplicationInfoContract GetInterviewApplication(UserInfoContract user);
-
-        [OperationContract]
         AppSvcResponse SavePartialApplication(ApplicationInfoContract app);
 
         [OperationContract]

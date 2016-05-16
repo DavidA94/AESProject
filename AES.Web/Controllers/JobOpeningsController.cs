@@ -28,7 +28,7 @@ namespace AES.Web.Controllers
                 string storeID = Request.QueryString["StoreID"] ?? "1";
 
                 // Get all the openings for the given store
-                var getOpening = JobOpenings.GetApprovedOpenings(Convert.ToInt32(storeID));
+                JobOpeningContract[] getOpening = JobOpenings.GetApprovedOpenings(Convert.ToInt32(storeID));
 
                 // Create a new list of openings
                 List<JobOpeningsViewModel> OpeningList = new List<JobOpeningsViewModel>();
@@ -40,8 +40,9 @@ namespace AES.Web.Controllers
                     {
                         Title = o.title,
                         ShortDesc = o.ShortDescription,
-                        ID = o.OpeningID,
-                        LongDesc = o.LongDescription
+                        JobID = o.JobID,
+                        LongDesc = o.LongDescription,
+                        StoreID = o.StoreID
                     });
                 }
 
@@ -53,7 +54,7 @@ namespace AES.Web.Controllers
         public ActionResult AvailableJobs(IEnumerable<JobOpeningsViewModel> model)
         {
             // Get the jobs that were selected
-            var selectedJobs = model.Where(c => c.JobCheckbox == true).Select(m => m.ID).ToArray();
+            var selectedJobs = model.Where(c => c.JobCheckbox == true).Select(m => new Tuple<int, int>(m.JobID, m.StoreID)).ToArray();
 
             // If there were none, then error back to the user
             if (selectedJobs.Length == 0)

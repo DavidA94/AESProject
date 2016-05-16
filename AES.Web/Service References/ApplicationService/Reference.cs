@@ -26,7 +26,7 @@ namespace AES.Web.ApplicationService {
         private int ApplicantIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int[] AppliedJobsField;
+        private System.Tuple<int, int>[] AppliedJobsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AES.Shared.Contracts.AvailabilityContract AvailabilityField;
@@ -85,7 +85,7 @@ namespace AES.Web.ApplicationService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int[] AppliedJobs {
+        public System.Tuple<int, int>[] AppliedJobs {
             get {
                 return this.AppliedJobsField;
             }
@@ -278,12 +278,6 @@ namespace AES.Web.ApplicationService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicationResponse")]
         System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(int userID, AES.Shared.AppStatus userAppStatus);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetInterviewApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetInterviewApplicationResponse")]
-        AES.Web.ApplicationService.ApplicationInfoContract GetInterviewApplication(AES.Shared.Contracts.UserInfoContract user);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetInterviewApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetInterviewApplicationResponse")]
-        System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetInterviewApplicationAsync(AES.Shared.Contracts.UserInfoContract user);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SavePartialApplication", ReplyAction="http://tempuri.org/IApplicationSvc/SavePartialApplicationResponse")]
         AES.Shared.AppSvcResponse SavePartialApplication(AES.Web.ApplicationService.ApplicationInfoContract app);
         
@@ -378,14 +372,6 @@ namespace AES.Web.ApplicationService {
         
         public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetApplicationAsync(int userID, AES.Shared.AppStatus userAppStatus) {
             return base.Channel.GetApplicationAsync(userID, userAppStatus);
-        }
-        
-        public AES.Web.ApplicationService.ApplicationInfoContract GetInterviewApplication(AES.Shared.Contracts.UserInfoContract user) {
-            return base.Channel.GetInterviewApplication(user);
-        }
-        
-        public System.Threading.Tasks.Task<AES.Web.ApplicationService.ApplicationInfoContract> GetInterviewApplicationAsync(AES.Shared.Contracts.UserInfoContract user) {
-            return base.Channel.GetInterviewApplicationAsync(user);
         }
         
         public AES.Shared.AppSvcResponse SavePartialApplication(AES.Web.ApplicationService.ApplicationInfoContract app) {

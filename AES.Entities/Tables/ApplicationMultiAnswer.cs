@@ -16,6 +16,9 @@ namespace AES.Entities.Tables
         public virtual JobQuestion Question { get; set; }
 
         [Required]
+        public virtual Application Application { get; set; }
+
+        [Required]
         public bool Answer1 { get; set; }
 
         [Required]

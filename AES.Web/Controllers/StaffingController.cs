@@ -1,5 +1,6 @@
 ﻿using AES.Shared;
 using AES.Shared.Contracts;
+using AES.Web.Authorization;
 using AES.Web.JobbingService;
 using AES.Web.Models;
 using System;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
+    [AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HqQStaffingExpert)]
     public class StaffingController : Controller
     {
         /// <summary>
@@ -142,7 +144,7 @@ namespace AES.Web.Controllers
             // If we got a good response, respond with the udpated list of jobs, otherwise, return what went werong
             if(response == JobbingResponse.SUCCESS)
             {
-                return JobList();
+                return RedirectToAction("JobList");
             }
             else if(response == JobbingResponse.INVALID)
             {

@@ -393,6 +393,7 @@ namespace AES.Entities.Migrations
                 Status = AppStatus.WAITING_CALL,
                 Applicant = applicantUser,
                 Job = janitorJob,
+                Store = tualatinStore,
                 Timestamp = new DateTime(2016, 3, 11)
             };
 
@@ -401,6 +402,7 @@ namespace AES.Entities.Migrations
                 Status = AppStatus.WAITING_CALL,
                 Applicant = applicantUser2,
                 Job = salesAssociateJob,
+                Store = tualatinStore,
                 Timestamp = new DateTime(2016, 3, 11)
             };
 
@@ -412,7 +414,8 @@ namespace AES.Entities.Migrations
             var shortAnswer = new ApplicationShortAnswer
             {
                 Answer = "My mop, my bucket, and my experience",
-                Question = shortQuestion
+                Question = shortQuestion,
+                Application = application
             };
 
             context.ShortAnswers.AddOrUpdate(shortAnswer);
@@ -420,7 +423,8 @@ namespace AES.Entities.Migrations
             var shortAnswer2 = new ApplicationShortAnswer
             {
                 Answer = "cuz of my falwless speeling",
-                Question = shortQuestion2
+                Question = shortQuestion2,
+                Application = application2
             };
 
             context.ShortAnswers.AddOrUpdate(shortAnswer2);
@@ -430,7 +434,8 @@ namespace AES.Entities.Migrations
             var radioAnswer = new ApplicationMultiAnswer
             {
                 Question = radioQuestion,
-                Answer1 = true
+                Answer1 = true,
+                Application = application
             };
 
             var checkAnswer = new ApplicationMultiAnswer
@@ -439,13 +444,15 @@ namespace AES.Entities.Migrations
                 Answer1 = true,
                 Answer2 = false,
                 Answer3 = true,
-                Answer4 = false
+                Answer4 = false,
+                Application = application
             };
 
             var radioAnswer2 = new ApplicationMultiAnswer
             {
                 Question = radioQuestion2,
-                Answer1 = true
+                Answer1 = true,
+                Application = application2
             };
 
             var checkAnswer2 = new ApplicationMultiAnswer
@@ -454,7 +461,8 @@ namespace AES.Entities.Migrations
                 Answer1 = true,
                 Answer2 = false,
                 Answer3 = true,
-                Answer4 = false
+                Answer4 = false,
+                Application = application2
             };
 
             context.MultiAnswers.AddOrUpdate(radioAnswer, checkAnswer);

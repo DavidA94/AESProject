@@ -213,14 +213,16 @@ namespace AES.JobbingSvc
                 dbJob.Title = job.Title;
 
                 // Save the DB, and return success if there are no issues
-                if(db.SaveChanges() != 0)
-                {
+                try {
+                    db.SaveChanges();
                     return JobbingResponse.SUCCESS;
                 }
+                catch
+                {
+                    // If something goes wrong with saving, return an error.
+                    return JobbingResponse.ERROR;
+                }
             }
-
-            // If we make it this far, return an error
-            return JobbingResponse.ERROR;
         }
 
         public JobbingResponse EditQuestion(QAContract question)

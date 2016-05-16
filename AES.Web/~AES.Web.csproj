@@ -281,6 +281,9 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Service References\ApplicationService\ApplicationSvc.disco" />
+    <None Include="Service References\ApplicationService\ApplicationSvc6.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ApplicationService\configuration91.svcinfo" />
     <None Include="Service References\ApplicationService\configuration.svcinfo" />
     <None Include="Service References\ApplicationService\Reference.svcmap">

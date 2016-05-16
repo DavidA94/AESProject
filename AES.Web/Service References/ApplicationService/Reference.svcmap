@@ -29,6 +29,7 @@
     <MetadataFile FileName="ApplicationSvc.disco" MetadataType="Disco" ID="5a84935c-cc06-45e0-a00a-ad9a3081c414" SourceId="1" SourceUrl="http://localhost:55707/ApplicationSvc.svc?disco" />
     <MetadataFile FileName="ApplicationSvc4.xsd" MetadataType="Schema" ID="478aa44a-c840-4cb5-9d1c-e8e1a6cb31ca" SourceId="1" SourceUrl="http://localhost:55707/ApplicationSvc.svc?xsd=xsd4" />
     <MetadataFile FileName="ApplicationSvc5.xsd" MetadataType="Schema" ID="86ee631b-a293-4ea4-be6c-2d1070a166fb" SourceId="1" SourceUrl="http://localhost:55707/ApplicationSvc.svc?xsd=xsd5" />
+    <MetadataFile FileName="ApplicationSvc6.xsd" MetadataType="Schema" ID="1ef60866-95c3-4cb2-8eea-5efb8e304201" SourceId="1" SourceUrl="http://localhost:55707/ApplicationSvc.svc?xsd=xsd6" />
     <MetadataFile FileName="ApplicationSvc.wsdl" MetadataType="Wsdl" ID="d05d929a-00f2-4ec1-b6c2-dde8e10749ee" SourceId="1" SourceUrl="http://localhost:55707/ApplicationSvc.svc?wsdl" />
   </Metadata>
   <Extensions>

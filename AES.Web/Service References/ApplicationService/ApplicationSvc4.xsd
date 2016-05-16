@@ -2,7 +2,7 @@
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/AES.Shared" />
-  <xs:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:55707/ApplicationSvc.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="AvailabilityContract">
     <xs:sequence>
       <xs:element minOccurs="0" name="FridayEnd" type="ser:duration" />
