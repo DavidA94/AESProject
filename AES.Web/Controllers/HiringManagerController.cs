@@ -32,11 +32,16 @@ namespace AES.Web.Controllers
         public ActionResult InterviewList()
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
 
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
 
             return View(ConvertedContract);
+
+            //var x = FillInterviewList();
+
+            //return View(x);
+
         }
 
         [HttpPost]
@@ -44,7 +49,7 @@ namespace AES.Web.Controllers
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.INTERVIEW_COMPLETE);
+            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_CALL);
 
             FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
 
@@ -67,6 +72,41 @@ namespace AES.Web.Controllers
             }
 
             return RetAppInfo;
+        }
+
+        // Hardcoded HiringManagerViewModel
+        public List<HiringManagerModel> FillInterviewList()
+        {
+            return new List<HiringManagerModel>()
+            {
+                new HiringManagerModel()
+                {
+                    FirstName = "John",
+                    LastName = "Smith",
+                    ApplicantID = 1
+                },
+
+                new HiringManagerModel()
+                {
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                    ApplicantID = 2
+                },
+
+                new HiringManagerModel()
+                {
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                    ApplicantID = 3
+                },
+
+                new HiringManagerModel()
+                {
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                    ApplicantID = 4
+                }
+            };
         }
 
         public FullApplicationModel ConvertAppContractToModel(ApplicationInfoContract app)
