@@ -5,11 +5,29 @@
     Layout = "~/Views/Shared/_LayoutDashHM.cshtml";
 }
 
-<h2>Hiring Manager Dashboard</h2>
-
 @using (Html.BeginForm("DashboardHM", "HiringManager", FormMethod.Post))
 {
     <button type="submit" name="InterviewList" class="btn btn-info btn-lg" value="Applicant Interview List">
         Applicant Interview List
     </button>
 }
+
+
+<div class="container-fluid">
+    <div class="jumbotron text-center bg-grey">
+        <h2>Hiring Manager Dashboard</h2>
+    </div>
+    <div id="LeftHalfHM">
+        <div class="col-md-6">
+            <h2>Hello</h2>
+        </div>
+    </div>
+    
+    <div id="RightHalfHM">
+        <div class="col-md-6">
+            <h2>World</h2>
+        </div>
+    </div>
+
+    
+</div>

@@ -8,7 +8,7 @@
 @using (Html.BeginForm("DashboardHS", "HiringSpecialist", FormMethod.Post))
 {
     @* Heading *@
-    <div id="CallPage">
+    <div id="StaticApplicationTheme">
         <div class="jumbotron text-center bg-grey" id="top">
             <div class="row">
 
@@ -670,23 +670,10 @@
                                 </div>
                             </div>
 
-                            @*//Checkbox Answers
+                            //Checkbox Answers
                             <div class="form-group">
-                                @Html.LabelFor(a => item.MC_Answers,"Answer", new { @class = "col-md-push-2 control-label" })
-                                
-                                @for (int i = 0; i < item.Options.Count; ++i)
-                                {
-                                    <div class="col-md-4">
-                                        @item.Options[i]
-                                    </div>
-                                    <div class="col-md-push-4">
-                                        @item.MC_Answers[i]
-                                    </div>
-                                }
-                            </div>*@
-
-                            <div class="form-group">
-                                @Html.LabelFor(a => item.MC_Answers, "Answers:", new { @class = "col-md-push-2 control-label" })
+                                @Html.LabelFor(a => item.MC_Answers, "Answers:", new { @class = "col-md-12 control-label" })
+                                <div class="container-fluid">
                                     @for (int i = 0; i < item.Options.Count; ++i)
                                     {
                                         <div class="col-md-4">
@@ -696,6 +683,7 @@
                                             @item.MC_Answers[i]
                                         </div>
                                     }
+                                </div>
                             </div>
                         }
                     }
@@ -718,8 +706,6 @@
 
             </div>
         </div>
-
-
 
 
         <div class="container-fluid bg-grey">

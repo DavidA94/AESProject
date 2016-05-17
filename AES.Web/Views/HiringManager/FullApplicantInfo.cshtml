@@ -7,7 +7,7 @@
 @using (Html.BeginForm("FullApplicantInfo", "HiringManager", FormMethod.Post))
 {
     @* Heading *@
-    <div id="CallPage">
+    <div id="StaticApplicationTheme">
 
         <div class="jumbotron text-center bg-grey" id="top">
             <div class="row">
@@ -596,9 +596,9 @@
 
                         //Short Answer
                         <div class="form-group">
-                            @Html.LabelFor(a => item.ShortAnswer, new { @class = "col-md-2 control-label" })
+                            @Html.LabelFor(a => item.ShortAnswer, "Answer", new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
-                                <textarea class="form-control" name="ShortAnswer" rows="4">Short answers here</textarea>
+                                <textarea class="form-control" name="ShortAnswer" rows="4">@item.ShortAnswer</textarea>
                             </div>
                         </div>
 
@@ -619,19 +619,16 @@
 
                         //Radio Answer
                         <div class="form-group">
-                            @Html.LabelFor(a => item.Options, new { @class = "col-md-2 control-label" })
+                            @Html.LabelFor(a => item.Options, "Answer", new { @class = "col-md-2 control-label" })
                             <div class="col-md-push-4">
-                                @*Have to figure out how to get RadioOption to return something*@
-                                @*@if (item.RadioOption)
-                                    {
-                                        @item.Options[0].ToString()
-                                    }
-                                    else
-                                    {
-                                        @item.Options[1].ToString()
-                                    }*@
-                                @item.Options[0].ToString()
-                                @item.Options[1].ToString()
+                                @if (item.MC_Answers[0])
+                                {
+                                    @item.Options[0].ToString()
+                                }
+                                else
+                                {
+                                    @item.Options[1].ToString()
+                                }
                             </div>
                         </div>
                     }
@@ -646,22 +643,27 @@
                             </div>
                         </div>
 
-                        //Short Answer
+                        //Checkbox Answers
                         <div class="form-group">
-                            @Html.LabelFor(a => item.MC_Answers, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-push-4">
-                                @item.MC_Answers[0]
-                                @item.MC_Answers[1]
-                                @item.MC_Answers[2]
-                                @item.MC_Answers[3]
-
-                                @item.NeededCorrect
+                            @Html.LabelFor(a => item.MC_Answers, "Answers:", new { @class = "col-md-12 control-label" })
+                            <div class="container-fluid">
+                                @for (int i = 0; i < item.Options.Count; ++i)
+                                {
+                                    <div class="col-md-4">
+                                        <strong>@item.Options[i]</strong>
+                                    </div>
+                                        <div class="col-md-push-2">
+                                            @item.MC_Answers[i]
+                                        </div>
+                                }
                             </div>
                         </div>
                     }
                 }
             </div>
         </div>
+
+
 
         @* Notes *@
         <div id="notes" class="container-fluid bg-white">

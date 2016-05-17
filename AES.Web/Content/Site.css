@@ -107,50 +107,50 @@ textarea {
 }
 
 /******************************************************************************/
-/*Call Page Styling*/
+/*Static Application Styling*/
 /******************************************************************************/
 
-#CallPage .jumbotron {
+#StaticApplicationTheme .jumbotron {
         background-color: #222222; /* Grey */
         color: darkslategray;
         /*padding: 100px 25px;*/
         padding: 3em 1.5em;
     }
 
-#CallPage .jumbotron h1 {
+#StaticApplicationTheme .jumbotron h1 {
         line-height: 1;
         color: cadetblue;
     }
 
-#CallPage .bg-grey {
+#StaticApplicationTheme .bg-grey {
         background-color: #f6f6f6;
     }
 
-#CallPage .bg-darkgrey{
+#StaticApplicationTheme .bg-darkgrey{
         background-color: #747474;
     }
 
-#CallPage .bg-white{
+#StaticApplicationTheme .bg-white{
     background-color: white;
 }
 
-#CallPage .container-fluid {
+#StaticApplicationTheme .container-fluid {
         /*padding: 60px 50px;*/
         padding: 4em 3em;
     }
 
-#CallPage .logo {
+#StaticApplicationTheme .logo {
         /*font-size: 200px;*/
         font-size: 8em;
     }
 
-#CallPage .col-sm-4 {
+#StaticApplicationTheme .col-sm-4 {
         text-align: center;
         /*margin: 25px 0;*/
         margin: auto;
     }
 
-#CallPage .navbar {
+#StaticApplicationTheme .navbar {
         margin-bottom: 0;
         z-index: 9999;
         border: 0;
@@ -162,27 +162,27 @@ textarea {
         font: Arial, Helvetica, sans-serif;
     }
 
-#CallPage .navbar li a, .navbar .navbar-brand {
+#StaticApplicationTheme .navbar li a, .navbar .navbar-brand {
         color: #fff;
     }
 
-#CallPage .navbar-nav li a:hover {
+#StaticApplicationTheme .navbar-nav li a:hover {
         color: #222222;
         background-color: #fff;
     }
 
-#CallPage .navbar-nav li.active a {
+#StaticApplicationTheme .navbar-nav li.active a {
         color: #222222;
         background-color: #fff;
 }
 
-#CallPage .navbar-default .navbar-toggle {
+#StaticApplicationTheme .navbar-default .navbar-toggle {
         border-color: transparent;
         color: #222222;
         background-color: #222222;
     }
 
-#CallPage{
+#StaticApplicationTheme{
         font-family: Arial, Helvetica, sans-serif;
 	    font-size: 1.5em;
 	    line-height: 1.3em;
@@ -191,7 +191,7 @@ textarea {
         background-color:#222222;
     }
 
-#CallPage h2 {
+#StaticApplicationTheme h2 {
     font-size: 1.5em;
     text-transform: uppercase;
     color: #303030;
@@ -199,9 +199,9 @@ textarea {
     margin-bottom: 1em;
     }
 
-#CallPage .slideanim {visibility:hidden;}
+#StaticApplicationTheme .slideanim {visibility:hidden;}
 
-#CallPage .slide {
+#StaticApplicationTheme .slide {
     /* The name of the animation */
     animation-name: slide;
     -webkit-animation-name: slide; 
@@ -212,11 +212,11 @@ textarea {
     visibility: visible; 
 }
 
-#CallPage .glyphicon-align-center::before{
+#StaticApplicationTheme .glyphicon-align-center::before{
     content:none;
 }
 
-#CallPage #backtotop{
+#StaticApplicationTheme #backtotop{
     text-align: center;
 }
 
@@ -317,3 +317,26 @@ textarea {
 #staffingExpert .title img {float:left;margin-right:.5em;cursor:pointer;}
 #staffingExpert .title span {display:block;overflow:hidden;cursor:pointer;}
 #staffingExpert .editBox + .title {color:gray;font-style:normal;}
+
+#DashHMLayout {
+    background-color: #222222;
+}
+
+#LeftHalfHM {
+    border-radius: 1em;
+    background-color: aquamarine;
+    text-align: center;
+    padding: 14em;
+}
+
+#LeftHalfHM .col-md-4 :hover {
+    box-shadow: 5em;
+    color: blue;
+}
+
+#RightHalfHM {
+    border-radius: 1em;
+    background-color: brown;
+    text-align: center;
+    padding: 14em;
+}

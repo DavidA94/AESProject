@@ -28,7 +28,6 @@ namespace AES.Web.Controllers
 
             if (EmployeeUserManager.LoginUser(user))
             {
-                
                 switch(EmployeeUserManager.GetEmployeeRole())
                 {
                     case Shared.EmployeeRole.HqHiringSpecialist:

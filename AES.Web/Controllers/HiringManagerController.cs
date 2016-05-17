@@ -1,5 +1,6 @@
 ﻿using AES.Shared.Contracts;
 using AES.Web.ApplicationService;
+using AES.Web.Authorization;
 using AES.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -32,9 +33,11 @@ namespace AES.Web.Controllers
         public ActionResult InterviewList()
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
 
-            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
+            // ** Get the store ID from the database**********
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
 
@@ -49,6 +52,7 @@ namespace AES.Web.Controllers
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
+            // ** Change this waiting call status to awaiting calls!
             ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_CALL);
 
             FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
