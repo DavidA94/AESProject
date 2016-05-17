@@ -319,24 +319,34 @@ textarea {
 #staffingExpert .editBox + .title {color:gray;font-style:normal;}
 
 #DashHMLayout {
-    background-color: #222222;
+    background-color: white;
 }
 
-#LeftHalfHM {
+#DashboardHM .LeftHalfHM {
     border-radius: 1em;
     background-color: aquamarine;
     text-align: center;
-    padding: 14em;
+    border: 1px solid black;
+    padding: 15em;
 }
 
-#LeftHalfHM .col-md-4 :hover {
-    box-shadow: 5em;
+#DashboardHM .LeftHalfHM:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
     color: blue;
 }
 
-#RightHalfHM {
+#DashboardHM .RightHalfHM {
     border-radius: 1em;
     background-color: brown;
     text-align: center;
-    padding: 14em;
+    border: 1px solid black;
+    padding: 15em;
+}
+
+#buttons .glyphicon-align-center::before{
+    content:none;
+}
+
+#InterviewPage .container-fluid {
+    text-align: center;
 }

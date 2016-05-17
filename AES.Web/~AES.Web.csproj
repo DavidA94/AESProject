@@ -455,6 +455,7 @@
     <Content Include="Views\HiringManager\FullApplicantInfo.cshtml" />
     <Content Include="Views\HiringManager\InterviewList.cshtml" />
     <Content Include="Views\HiringManager\PartialInterviewList.cshtml" />
+    <Content Include="Views\HiringManager\FullApplicationCollapse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">

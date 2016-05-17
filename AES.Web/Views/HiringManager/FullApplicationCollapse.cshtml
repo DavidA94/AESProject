@@ -1,0 +1,663 @@
+﻿@model AES.Web.Models.FullApplicationModel
+
+@{
+    ViewBag.Title = "Interview";
+    Layout = "~/Views/Shared/_LayoutDashHM.cshtml";
+}
+
+<div id="InterviewPage">
+    <div class="container-fluid bg-grey">
+        <h2>@Model.Profile.FirstName @Model.Profile.LastName Interview</h2>
+        <div id="buttons">
+            <div class="glyphicon-align-center">
+                <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
+                <button type="submit" name="ApplicantStatus" class="btn btn-success btn-lg" value="Approve">
+                    <i class="glyphicon glyphicon-ok"></i> Hire
+                </button>
+                <button type="submit" name="ApplicantStatus" class="btn btn-primary btn-lg" value="NoPickUp">
+                    <i class="glyphicon glyphicon-remove"></i> Decide Later
+                </button>
+                <button type="submit" name="ApplicantStatus" class="btn btn-danger btn-lg" value="Deny">
+                    <i class="glyphicon glyphicon-ban-circle"></i> Deny
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2>Application</h2>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+
+                @*Profile*@
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#profile"> Profile</a>
+                    </h4>
+                </div>
+                <div id="profile" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @*First Name*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.FirstName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.FirstName
+                            </div>
+                        </div>
+
+                        @*Last Name*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.LastName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.LastName
+                            </div>
+                        </div>
+
+                        @*Nickname*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.Nickname, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.Nickname
+                            </div>
+                        </div>
+
+                        @*Date of Birth*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.DOB, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.DOB.ToString("MM-dd-yyyy")
+                            </div>
+                        </div>
+
+                        @*Phone Number*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.Phone, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.Phone
+                            </div>
+                        </div>
+
+                        @*Address*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.Address, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.Address
+                            </div>
+                        </div>
+
+                        @*City*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.City, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.City
+                            </div>
+                        </div>
+
+                        @*State*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.State, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.State
+                            </div>
+                        </div>
+
+                        @*Zip*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.Zip, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.Zip
+                            </div>
+                        </div>
+
+                        @*Start Call Time*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.StartCallTime, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.StartCallTime
+                            </div>
+                        </div>
+
+                        @*End Call Time*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.EndCallTime, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                @Model.Profile.EndCallTime
+                            </div>
+                        </div>
+
+                        @*Salary Expectation*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.SalaryExpectation, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-push-4">
+                                $@Model.Profile.SalaryExpectation
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @*Availablity*@
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#availablity">Availablity</a>
+                    </h4>
+                </div>
+                <div id="availablity" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @*Monday*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Availibility.MondayStart, "Monday", new { @class = "col-md-12 control-label" })
+                            <div class="container-fluid">
+                                <div class="col-md-1">
+                                    <strong>From:</strong>
+                                </div>
+                                <div class="col-md-2">
+                                    @Model.Availibility.MondayStart
+                                </div>
+                                @Html.LabelFor(m => m.Availibility.MondayEnd, "To:", new { @class = "col-md-1 control-label" })
+                                <div class="col-md-push-2">
+                                    @Model.Availibility.MondayEnd
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Tuesday*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Availibility.TuesdayStart, "Tuesday", new { @class = "col-md-12 control-label" })
+                            <div class="container-fluid">
+                                <div class="col-md-1">
+                                    <strong>From:</strong>
+                                </div>
+                                <div class="col-md-2">
+                                    @Model.Availibility.TuesdayStart
+                                </div>
+                                @Html.LabelFor(m => m.Availibility.TuesdayEnd, "To:", new { @class = "col-md-1 control-label" })
+                                <div class="col-md-push-2">
+                                    @Model.Availibility.TuesdayEnd
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Wednesday*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Availibility.WednesdayStart, "Wednesday", new { @class = "col-md-12 control-label" })
+                            <div class="container-fluid">
+                                <div class="col-md-1">
+                                    <strong>From:</strong>
+                                </div>
+                                <div class="col-md-2">
+                                    @Model.Availibility.WednesdayStart
+                                </div>
+                                @Html.LabelFor(m => m.Availibility.WednesdayEnd, "To:", new { @class = "col-md-1 control-label" })
+                                <div class="col-md-push-2">
+                                    @Model.Availibility.WednesdayEnd
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Thursday*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Availibility.ThursdayStart, "Thrusday", new { @class = "col-md-12 control-label" })
+                            <div class="container-fluid">
+                                <div class="col-md-1">
+                                    <strong>From:</strong>
+                                </div>
+                                <div class="col-md-2">
+                                    @Model.Availibility.ThursdayStart
+                                </div>
+                                @Html.LabelFor(m => m.Availibility.ThursdayEnd, "To:", new { @class = "col-md-1 control-label" })
+                                <div class="col-md-push-2">
+                                    @Model.Availibility.ThursdayEnd
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Friday*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Availibility.FridayStart, "Friday", new { @class = "col-md-12 control-label" })
+                            <div class="container-fluid">
+                                <div class="col-md-1">
+                                    <strong>From:</strong>
+                                </div>
+                                <div class="col-md-2">
+                                    @Model.Availibility.FridayStart
+                                </div>
+                                @Html.LabelFor(m => m.Availibility.FridayEnd, "To:", new { @class = "col-md-1 control-label" })
+                                <div class="col-md-push-2">
+                                    @Model.Availibility.FridayEnd
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Saturday*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Availibility.SaturdayStart, "Saturday", new { @class = "col-md-12 control-label" })
+                            <div class="container-fluid">
+                                <div class="col-md-1">
+                                    <strong>From:</strong>
+                                </div>
+                                <div class="col-md-2">
+                                    @Model.Availibility.SaturdayStart
+                                </div>
+                                @Html.LabelFor(m => m.Availibility.SaturdayEnd, "To:", new { @class = "col-md-1 control-label" })
+                                <div class="col-md-push-2">
+                                    @Model.Availibility.SaturdayEnd
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Sunday*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Availibility.SundayStart, "Sunday", new { @class = "col-md-12 control-label" })
+                            <div class="container-fluid">
+                                <div class="col-md-1">
+                                    <strong>From:</strong>
+                                </div>
+                                <div class="col-md-2">
+                                    @Model.Availibility.SundayStart
+                                </div>
+                                @Html.LabelFor(m => m.Availibility.SundayEnd, "To:", new { @class = "col-md-1 control-label" })
+                                <div class="col-md-push-2">
+                                    @Model.Availibility.SundayEnd
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#workhistory">Work History</a>
+                    </h4>
+                </div>
+                <div id="workhistory" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @foreach (var item in Model.WorkHistory)
+                        {
+                            //Employer Name
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.EmployerName, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.EmployerName
+                                </div>
+                            </div>
+
+                            //Address
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.EmployerAddress, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.EmployerAddress
+                                </div>
+                            </div>
+
+                            //City
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.EmployerCity, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.EmployerCity
+                                </div>
+                            </div>
+
+                            //State
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.EmployerState, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.EmployerState
+                                </div>
+                            </div>
+
+                            //Zip
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.EmployerZip, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.EmployerZip
+                                </div>
+                            </div>
+
+                            //Country
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.EmployerCountry, "Country", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.EmployerCountry
+                                </div>
+                            </div>
+
+                            //Phone Number
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.EmployerPhone, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.EmployerPhone
+                                </div>
+                            </div>
+
+                            //Starting Salary
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.StartingSalary, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    $@item.StartingSalary
+                                </div>
+                            </div>
+
+                            //Ending Salary
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.EndingSalary, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    $@item.EndingSalary
+                                </div>
+                            </div>
+
+                            //Reason for Leaving
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.ReasonForLeaving, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.ReasonForLeaving
+                                </div>
+                            </div>
+
+                            //Responsibilities
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.Responsibilities, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.Responsibilities
+                                </div>
+                            </div>
+
+                            //Supervisor Name
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.SupervisorName, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.SupervisorName
+                                </div>
+                            </div>
+
+                            //Worked From
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.WorkedFrom, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.WorkedFrom
+                                </div>
+                            </div>
+
+                            //Worked To
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.WorkedTo, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.WorkedTo
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#education">Education</a>
+                    </h4>
+                </div>
+                <div id="education" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @foreach (var item in Model.Education)
+                        {
+                            //School Name
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.SchoolName, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.SchoolName
+                                </div>
+                            </div>
+
+                            //Address
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.SchoolAddress, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.SchoolAddress
+                                </div>
+                            </div>
+
+                            //City
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.SchoolCity, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.SchoolCity
+                                </div>
+                            </div>
+
+                            //State
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.SchoolState, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.SchoolState
+                                </div>
+                            </div>
+
+                            //Zip
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.SchoolZip, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.SchoolZip
+                                </div>
+                            </div>
+
+                            //Country
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.SchoolCountry, "Country", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.SchoolCountry
+                                </div>
+                            </div>
+
+                            //Major
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.Major, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.Major
+                                </div>
+                            </div>
+
+                            //Degree
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.Degree, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.Degree
+                                </div>
+                            </div>
+
+                            //Years Attended
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.YearAttended, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.YearAttended
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#references">References</a>
+                    </h4>
+                </div>
+                <div id="references" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @foreach (var item in Model.References)
+                        {
+                            //Reference Name
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.Name, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.Name
+                                </div>
+                            </div>
+
+                            //Title
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.Title, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.Title
+                                </div>
+                            </div>
+
+                            //Company Name
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.Company, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.Company
+                                </div>
+                            </div>
+
+                            //Reference Phone Number
+                            <div class="form-group">
+                                @Html.LabelFor(a => item.Phone, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-push-4">
+                                    @item.Phone
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#questionnaire">Questionnaire</a>
+                    </h4>
+                </div>
+                <div id="questionnaire" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @foreach (var item in Model.Questionnaire)
+                        {
+                            if (item.Type.ToString() == "SHORT")
+                            {
+                                //Question
+                                <div class="form-group">
+                                    @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-push-4">
+                                        @item.Question
+                                    </div>
+                                </div>
+
+                                //Short Answer
+                                <div class="form-group">
+                                    @Html.LabelFor(a => item.ShortAnswer, "Answer", new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        <textarea class="form-control" name="ShortAnswer" rows="4">@item.ShortAnswer</textarea>
+                                    </div>
+                                </div>
+                            }
+
+                            if (item.Type.ToString() == "RADIO")
+                            {
+                                //Question
+                                <div class="form-group">
+                                    @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-push-4">
+                                        @item.Question
+                                    </div>
+                                </div>
+
+                                //Radio Answer
+                                <div class="form-group">
+                                    @Html.LabelFor(a => item.Options, "Answer", new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-push-4">
+                                        @if (item.MC_Answers[0])
+                                        {
+                                            @item.Options[0].ToString()
+                                        }
+                                        else
+                                        {
+                                            @item.Options[1].ToString()
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            if (item.Type.ToString() == "CHECKBOX")
+                            {
+                                //Question
+                                <div class="form-group">
+                                    @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-push-4">
+                                        @item.Question
+                                    </div>
+                                </div>
+
+                                //Checkbox Answers
+                                <div class="form-group">
+                                    @Html.LabelFor(a => item.MC_Answers, "Answers:", new { @class = "col-md-12 control-label" })
+                                    <div class="container-fluid">
+                                        @for (int i = 0; i < item.Options.Count; ++i)
+                                        {
+                                            <div class="col-md-4">
+                                                <strong>@item.Options[i]</strong>
+                                            </div>
+                                            <div class="col-md-push-2">
+                                                @item.MC_Answers[i]
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#notes">Notes By Hiring Specialist</a>
+                    </h4>
+                </div>
+                <div id="notes" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Model.Notes
+                    </div>
+                </div>
+            </div>
+
+            <h2>Notes By Hiring Manager</h2>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#noteshm">Interview Notes</a>
+                    </h4>
+                </div>
+                <div id="noteshm" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <textarea class="form-control" name="Notes" rows="10" id="notes"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <p></p>
+            <div class="container-fluid">
+                <div id="buttons">
+                    <div class="glyphicon-align-center">
+                        <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
+                        <button type="submit" name="ApplicantStatus" class="btn btn-success btn-lg" value="Approve">
+                            <i class="glyphicon glyphicon-ok"></i> Hire
+                        </button>
+                        <button type="submit" name="ApplicantStatus" class="btn btn-primary btn-lg" value="NoPickUp">
+                            <i class="glyphicon glyphicon-remove"></i> Decide Later
+                        </button>
+                        <button type="submit" name="ApplicantStatus" class="btn btn-danger btn-lg" value="Deny">
+                            <i class="glyphicon glyphicon-ban-circle"></i> Deny
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+
+        </div>
+    </div>
+</div>

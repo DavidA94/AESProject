@@ -35,8 +35,8 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -53,7 +53,20 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Change this waiting call status to awaiting calls!
-            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_CALL);
+            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_INTERVIEW);
+
+            FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
+
+            return View(ConvertedFullAppModel);
+        }
+
+        [HttpPost]
+        public ActionResult FullApplicationCollapse(int ApplicantID)
+        {
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            // ** Change this waiting call status to awaiting interview!
+            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_INTERVIEW);
 
             FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
 
