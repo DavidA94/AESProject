@@ -470,6 +470,51 @@ namespace AES.ApplicationSvc
             return true;
         }
 
+        public bool SaveInterview(int applicantID, string notes, AppStatus setStatus)
+        {
+            // If the status is not one of the 3 acceptable ones, return false
+            if((setStatus != AppStatus.INTERVIEW_COMPLETE) || (setStatus != AppStatus.APPROVED) || (setStatus != AppStatus.DENIED))
+            {
+                return false;
+            }
+
+            // Sets the applicant's status to one of the three, return false if they are not awaiting an interview
+            if (!SetApplicationStatus(applicantID, AppStatus.WAITING_INTERVIEW, setStatus))
+            {
+                return false;
+            }
+
+            using (var db = new AESDbContext())
+            {
+                var apps = db.Applications.Where(a => a.Applicant.userID == applicantID && a.Status == setStatus);
+
+                // Just in case
+                if (!apps.Any())
+                {
+                    return false;
+                }
+
+                // Save the interview notes
+                foreach (var app in apps)
+                {
+                    app.InterviewNotes = notes;
+                }
+
+                // Just in case
+                if (db.SaveChanges() == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool SetIntervieweeApplicantStatus(int applicantID, bool approved)
+        {
+            return SetApplicationStatus(applicantID, AppStatus.INTERVIEW_COMPLETE, approved ? AppStatus.APPROVED : AppStatus.DENIED);
+        }
+
         public bool SetApplicationStatus(ApplicationInfoContract app, AppStatus status)
         {
             throw new NotImplementedException();
@@ -506,6 +551,13 @@ namespace AES.ApplicationSvc
             return true;
         }
 
+        /// <summary>
+        /// Sets an Applicant's status to setStatus, but only if expectedStatus is its current status
+        /// </summary>
+        /// <param name="applicantID">The ID of the applicant</param>
+        /// <param name="expectedStatus">The current status to expect</param>
+        /// <param name="setStatus">The new status to set</param>
+        /// <returns></returns>
         private bool SetApplicationStatus(int applicantID, AppStatus expectedStatus, AppStatus setStatus)
         {
             using (var db = new AESDbContext())
@@ -516,6 +568,12 @@ namespace AES.ApplicationSvc
                 {
                     //app.Applicant = db.ApplicantUsers.Where(a => a.userID == applicantID).FirstOrDefault();
                     app.Status = setStatus;
+                    changes += 1;
+                }
+
+                if (changes == 0)
+                {
+                    return false;
                 }
 
                 try

@@ -39,6 +39,13 @@ namespace AES.ApplicationSvc
         bool SavePhoneInterview(int applicantID, string notes, bool approved);
 
         [OperationContract]
+
+        bool SaveInterview(int applicantID, string notes, AppStatus status);
+
+        [OperationContract]
+        bool SetIntervieweeApplicantStatus(int applicantID, bool approved);
+
+        [OperationContract]
         bool SubmitApplication(ApplicantInfoContract user);
         
     }
