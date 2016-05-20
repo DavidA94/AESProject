@@ -1,4 +1,5 @@
-﻿using AES.Shared.Contracts;
+﻿using AES.Shared;
+using AES.Shared.Contracts;
 using AES.Web.ApplicationService;
 using AES.Web.Authorization;
 using AES.Web.Models;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
+    //[AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HiringManager)]
     public class HiringManagerController : Controller
     {
         // GET: HiringManager
@@ -28,6 +30,27 @@ namespace AES.Web.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult DashboardHM(int ApplicantID, string ApplicantStatus, string InterviewNotes)
+        {
+            IApplicationSvc appsvc = new ApplicationSvcClient();
+
+            if (ApplicantStatus == "hire")
+            {
+
+            }
+            else if (applicantstatus == "deny")
+            {
+                appsvc.savephoneinterview(applicantid, interviewnotes, false);
+            }
+            else
+            {
+                appsvc.applicantdidnotanswer(applicantid);
+            }
+
+            return view();
         }
 
         public ActionResult InterviewList()
@@ -60,6 +83,7 @@ namespace AES.Web.Controllers
             return View(ConvertedFullAppModel);
         }
 
+
         [HttpPost]
         public ActionResult FullApplicationCollapse(int ApplicantID)
         {
@@ -72,7 +96,6 @@ namespace AES.Web.Controllers
 
             return View(ConvertedFullAppModel);
         }
-
 
         private List<HiringManagerModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> ApplicantInfo)
         {

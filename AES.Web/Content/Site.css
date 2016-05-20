@@ -228,17 +228,6 @@ textarea {
     padding: 0em 0em 0em 3em;
 }
 
-/*#CallPage .text-container {
-    background-color: white;
-    width: 100%;
-    padding: 20px;
-    border: 1px solid #9b0505;
-    border-radius: 20px;
-    margin: 0px;
-    height: 20px;
-    line-height: 0px;
-}*/
-
 /* Go from 0% to 100% opacity (see-through) and specify the percentage from when to slide in the element along the Y-axis */
 @keyframes slide {
     0% {
@@ -349,4 +338,21 @@ textarea {
 
 #InterviewPage .container-fluid {
     text-align: center;
+}
+
+#InterviewPage .panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";   
+    float: right;       
+    color: grey;
+}
+
+#InterviewPage .panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";   
+}
+
+#qtextarea {
+    padding-left: 0px;
 }
