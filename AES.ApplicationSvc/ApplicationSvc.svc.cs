@@ -109,7 +109,7 @@ namespace AES.ApplicationSvc
             return returnedApplicants.Distinct().ToList();
         }
 
-        public List<ApplicantInfoContract> GetApplicantsAwaitingInterview(int storeID)
+        public List<ApplicantInfoContract> GetApplicantsAwaiting(int storeID, AppStatus status)
         {
             List<ApplicantInfoContract> returnedApplicants = new List<ApplicantInfoContract>();
 
