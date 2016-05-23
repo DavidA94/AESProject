@@ -158,6 +158,7 @@ namespace AES.ManagementSvc.Tests
                 Address = stores[0].Address,
                 City = stores[0].City,
                 Name = stores[0].Name,
+                IsActive = stores[0].IsActive,
                 Phone = stores[0].Phone,
                 State = stores[0].State,
                 StoreID = stores[0].StoreID,
