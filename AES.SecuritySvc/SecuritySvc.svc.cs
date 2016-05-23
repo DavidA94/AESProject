@@ -92,10 +92,47 @@ namespace AES.SecuritySvc
             return null;
         }
 
-        public bool CreateEmployee(EmployeeUserContract employeeInfo, string password, int storeID)
+        public bool UpdateUserPassword(EmployeeCredentialsContract credentials, string newPassword)
+        {
+            var user = ValidateEmployeeUser(credentials);
+            if(user == null)
+            {
+                return false;
+            }
+            
+            using (var db = new AESDbContext())
+            {
+                var salt = Encryption.GetSalt();
+                var passwordHash = Encryption.ComputeHash(newPassword, new SHA256CryptoServiceProvider(), salt);
+
+                var dbUser = db.EmployeeUsers.FirstOrDefault(e => e.Email.ToLower() == user.Email.ToLower());
+
+                if(user == null)
+                {
+                    return false;
+                }
+
+                dbUser.PasswordHash = passwordHash;
+                dbUser.Salt = salt;
+
+                try
+                {
+                    db.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool CreateEmployee(EmployeeUserContract employeeInfo, string password)
         {
 
-            if (string.IsNullOrEmpty(password) || password.Length < 1 || string.IsNullOrEmpty(employeeInfo.Email) || employeeInfo.Email.Length < 6 || string.IsNullOrEmpty(employeeInfo.FirstName) || string.IsNullOrEmpty(employeeInfo.LastName) || employeeInfo.UserInfo == null)
+            if (string.IsNullOrEmpty(password) || password.Length < 1 ||
+                string.IsNullOrEmpty(employeeInfo.FirstName) || !employeeInfo.FirstName.All(c => char.IsLetterOrDigit(c)) ||
+                string.IsNullOrEmpty(employeeInfo.LastName) || !employeeInfo.LastName.All(c => char.IsLetterOrDigit(c)))
             {
                 return false;
             }
@@ -104,19 +141,9 @@ namespace AES.SecuritySvc
             {
                 FirstName = employeeInfo.FirstName,
                 LastName = employeeInfo.LastName,
-                Email = employeeInfo.Email,
+                MustResetPassword = true,
                 Role = employeeInfo.Role,
-                StoreID = storeID
-            };
-
-            newEmployeeUser.UserInfo = new UserInfo()
-            {
-                Address = employeeInfo.UserInfo.Address,
-                City = employeeInfo.UserInfo.City,
-                Nickname = employeeInfo.UserInfo.Nickname,
-                Phone = employeeInfo.UserInfo.Phone,
-                State = employeeInfo.UserInfo.State,
-                Zip = employeeInfo.UserInfo.Zip
+                StoreID = employeeInfo.StoreID
             };
 
 
@@ -128,6 +155,19 @@ namespace AES.SecuritySvc
 
             using (var db = new AESDbContext())
             {
+                // Check if anybody else else the same name
+                var numOthers = db.EmployeeUsers.Count(e => e.FirstName == employeeInfo.FirstName &&
+                                                            e.LastName == employeeInfo.LastName);
+
+                if (numOthers == 0)
+                {
+                    newEmployeeUser.Email = string.Format("{0}.{1}@AES.com", employeeInfo.FirstName, employeeInfo.LastName);
+                }
+                else
+                {
+                    newEmployeeUser.Email = string.Format("{0}.{1}{2}@AES.com", employeeInfo.FirstName, employeeInfo.LastName, numOthers + 1);
+                }
+
                 db.EmployeeUsers.Add(newEmployeeUser);
 
                 var changes = 0;
@@ -217,16 +257,9 @@ namespace AES.SecuritySvc
                 Role = user.Role,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                MustResetPassword = user.MustResetPassword,
                 StoreID = user.StoreID,
-                UserInfo = new UserInfoContract()
-                {
-                    Address = user.UserInfo.Address,
-                    City = user.UserInfo.City,
-                    Nickname = user.UserInfo.Nickname,
-                    Phone = user.UserInfo.Phone,
-                    State = user.UserInfo.State,
-                    Zip = user.UserInfo.Zip
-                }
+                StoreName = user.Store.Name
             };
         }
     }

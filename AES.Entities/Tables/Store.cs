@@ -15,7 +15,10 @@ namespace AES.Entities.Tables
         [Required]
         public int ID { get; set; }
 
-        [StringLength(25)]
+        [Required]
+        public bool IsActive { get; set; }
+
+        [StringLength(50)]
         [Required]
         public string Name { get; set; }
 

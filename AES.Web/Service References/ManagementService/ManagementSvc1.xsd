@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:61487/ManagementSvc.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AES.Shared" />
+  <xs:complexType name="ArrayOfStoreContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StoreContract" nillable="true" type="tns:StoreContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStoreContract" nillable="true" type="tns:ArrayOfStoreContract" />
+  <xs:complexType name="StoreContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StoreID" type="xs:int" />
+      <xs:element minOccurs="0" name="Zip" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StoreContract" nillable="true" type="tns:StoreContract" />
+  <xs:complexType name="ArrayOfEmployeeUserContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeUserContract" nillable="true" type="tns:EmployeeUserContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmployeeUserContract" nillable="true" type="tns:ArrayOfEmployeeUserContract" />
+  <xs:complexType name="EmployeeUserContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MustResetPassword" type="xs:boolean" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="Role" type="q1:EmployeeRole" />
+      <xs:element minOccurs="0" name="StoreID" type="xs:int" />
+      <xs:element minOccurs="0" name="StoreName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmployeeUserContract" nillable="true" type="tns:EmployeeUserContract" />
+</xs:schema>

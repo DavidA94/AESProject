@@ -261,6 +261,13 @@ textarea {
 #availableJobs .h3 {margin:0;}
 #cancelCover {position:fixed;top:0;right:0;bottom:0;left:0;z-index:5;background:rgba(255, 255, 255, .5);}
 
+#ITDashboard {width:450px;margin:auto;overflow:hidden;}
+#ITDashboard > a {display:block;width:200px;height:200px;background:#ededed;float:left;border:1px solid #ababab;padding:10px;text-align:center;color:#555;}
+#ITDashboard > a:first-child {margin-right:50px;}
+#ITDashboard > a:hover {color:inherit;border-color:#777;}
+#ITDashboard a div {font-size:120px;line-height:120px;padding-top:10px;}
+#ITDashboard a p {font-weight:bold;line-height:20px;}
+
 #jobRequests #approvedRequests .accept {display:none;}
 #jobRequests #rejectedRequests .reject {display:none;}
 #jobRequests .opening {position:relative;padding-bottom:1em;border-bottom:2px solid lightgray;}
@@ -308,3 +315,22 @@ textarea {
 #staffingExpert .title img {float:left;margin-right:.5em;cursor:pointer;}
 #staffingExpert .title span {display:block;overflow:hidden;cursor:pointer;}
 #staffingExpert .editBox + .title {color:gray;font-style:normal;}
+
+#management #List .item {margin-bottom:1em;padding-bottom:1em;border-bottom:2px solid lightgray;}
+#management #List .item form {display:none;}
+#management #List .item p {margin:0 0 0 5px;}
+#management #List .item p span {vertical-align:middle;}
+#management #List .item .btn {margin-top:.5em;}
+#management #List .item .btn-danger {margin:.5em .5em 0 5px;}
+#management #List .item .deactivate, #userManagement #userList .user .edit {float:left;}
+#management #List .item .name {background:#fff;padding:5px 0 0 4px;margin:0;}
+#management #List .item .userName {font-size:1.2em;font-weight:bold;}
+
+#editBox {margin-left:15px;}
+#editBox h3 {margin:0 5px;}
+#editBox input[type=submit] {margin-top:10px;}
+#editBox label {text-align:left;margin:0 0 2px 5px;}
+#editBox .form-group {margin-bottom:0;}
+#editBox .nameEdit {display:none;}
+#editBox .newUser .name {display:none;}
+#editBox .newUser .nameEdit {display:block;}

@@ -112,11 +112,12 @@ namespace AES.Shared
 
     public enum EmployeeRole
     {
-        HiringManager = 1,
-        HqQStaffingExpert = 2,
-        HqHiringSpecialist = 4,
-        StoreManager = 8,
-        ITSpecialist = 16
+        [Display(Name = "Hiring Manager")] HiringManager = 1,
+        [Display(Name = "Staffing Expert")] HqQStaffingExpert = 2,
+        [Display(Name = "Hiring Specialist")] HqHiringSpecialist = 4,
+        [Display(Name = "Store Manager")] StoreManager = 8,
+        [Display(Name = "IT Technician")] ITSpecialist = 16,
+        [Display(Name = "Deactivated")] Deactivated = 32,
     }
 
     public enum JobbingResponse{

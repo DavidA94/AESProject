@@ -43,6 +43,7 @@ namespace AES.Entities.Migrations
             {
                 Address = "8000 SW Barbur Blvd.",
                 City = "Portland",
+                IsActive = true,
                 State = "OR",
                 Name = "AES Electronics Portland",
                 Phone = "503-555-0000",
@@ -53,9 +54,10 @@ namespace AES.Entities.Migrations
             {
                 Address = "2700 SW Tualatin Sherwood Rd.",
                 City = "Tualatin",
+                IsActive = true,
                 State = "OR",
                 Name = "AES Electronics Tualatin",
-                Phone = "503-555-0000",
+                Phone = "503-555-1111",
                 Zip = 97062
             };
 
@@ -479,11 +481,11 @@ namespace AES.Entities.Migrations
                 Email = "Employee@AES.com",
                 FirstName = "Employee",
                 LastName = "User",
+                MustResetPassword = false,
                 Role = EmployeeRole.HqHiringSpecialist,
                 PasswordHash = hashedEmployeePass,
                 Salt = employeeSalt,
                 StoreID = portlandStore.ID,
-                UserInfo = new UserInfo()
             };
 
             context.EmployeeUsers.AddOrUpdate(employeeUser);
