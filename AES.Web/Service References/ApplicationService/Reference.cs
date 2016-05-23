@@ -308,6 +308,18 @@ namespace AES.Web.ApplicationService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SavePhoneInterview", ReplyAction="http://tempuri.org/IApplicationSvc/SavePhoneInterviewResponse")]
         System.Threading.Tasks.Task<bool> SavePhoneInterviewAsync(int applicantID, string notes, bool approved);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SaveInterview", ReplyAction="http://tempuri.org/IApplicationSvc/SaveInterviewResponse")]
+        bool SaveInterview(int applicantID, string notes, AES.Shared.AppStatus status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SaveInterview", ReplyAction="http://tempuri.org/IApplicationSvc/SaveInterviewResponse")]
+        System.Threading.Tasks.Task<bool> SaveInterviewAsync(int applicantID, string notes, AES.Shared.AppStatus status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatus", ReplyAction="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatusResponse")]
+        bool SetIntervieweeApplicantStatus(int applicantID, bool approved);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatus", ReplyAction="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatusResponse")]
+        System.Threading.Tasks.Task<bool> SetIntervieweeApplicantStatusAsync(int applicantID, bool approved);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SubmitApplication", ReplyAction="http://tempuri.org/IApplicationSvc/SubmitApplicationResponse")]
         bool SubmitApplication(AES.Shared.Contracts.ApplicantInfoContract user);
         
@@ -412,6 +424,22 @@ namespace AES.Web.ApplicationService {
         
         public System.Threading.Tasks.Task<bool> SavePhoneInterviewAsync(int applicantID, string notes, bool approved) {
             return base.Channel.SavePhoneInterviewAsync(applicantID, notes, approved);
+        }
+        
+        public bool SaveInterview(int applicantID, string notes, AES.Shared.AppStatus status) {
+            return base.Channel.SaveInterview(applicantID, notes, status);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SaveInterviewAsync(int applicantID, string notes, AES.Shared.AppStatus status) {
+            return base.Channel.SaveInterviewAsync(applicantID, notes, status);
+        }
+        
+        public bool SetIntervieweeApplicantStatus(int applicantID, bool approved) {
+            return base.Channel.SetIntervieweeApplicantStatus(applicantID, approved);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetIntervieweeApplicantStatusAsync(int applicantID, bool approved) {
+            return base.Channel.SetIntervieweeApplicantStatusAsync(applicantID, approved);
         }
         
         public bool SubmitApplication(AES.Shared.Contracts.ApplicantInfoContract user) {

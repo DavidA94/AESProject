@@ -120,10 +120,10 @@ namespace AES.Web.Controllers
 
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            //if(!appSvc.CallApplicant(ApplicantID))
-            //{
-            //    return RedirectToAction("DashboardHS");
-            //}
+            if (!appSvc.CallApplicant(ApplicantID))
+            {
+                return RedirectToAction("DashboardHS");
+            }
 
             appSvc.CallApplicant(ApplicantID);
 

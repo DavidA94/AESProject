@@ -13,5 +13,9 @@ namespace AES.Web.Models
 
         public int ApplicantID { get; set; }
 
+        public string PositionReqNotes { get; set; }
+
+
+
     }
 }

@@ -65,6 +65,18 @@
   <wsdl:message name="IApplicationSvc_SavePhoneInterview_OutputMessage">
     <wsdl:part name="parameters" element="tns:SavePhoneInterviewResponse" />
   </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SaveInterview_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveInterview" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SaveInterview_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveInterviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SetIntervieweeApplicantStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetIntervieweeApplicantStatus" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationSvc_SetIntervieweeApplicantStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetIntervieweeApplicantStatusResponse" />
+  </wsdl:message>
   <wsdl:message name="IApplicationSvc_SubmitApplication_InputMessage">
     <wsdl:part name="parameters" element="tns:SubmitApplication" />
   </wsdl:message>
@@ -107,6 +119,14 @@
     <wsdl:operation name="SavePhoneInterview">
       <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SavePhoneInterview" message="tns:IApplicationSvc_SavePhoneInterview_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SavePhoneInterviewResponse" message="tns:IApplicationSvc_SavePhoneInterview_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveInterview">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SaveInterview" message="tns:IApplicationSvc_SaveInterview_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SaveInterviewResponse" message="tns:IApplicationSvc_SaveInterview_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetIntervieweeApplicantStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatus" message="tns:IApplicationSvc_SetIntervieweeApplicantStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatusResponse" message="tns:IApplicationSvc_SetIntervieweeApplicantStatus_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SubmitApplication">
       <wsdl:input wsaw:Action="http://tempuri.org/IApplicationSvc/SubmitApplication" message="tns:IApplicationSvc_SubmitApplication_InputMessage" />
@@ -189,6 +209,24 @@
     </wsdl:operation>
     <wsdl:operation name="SavePhoneInterview">
       <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SavePhoneInterview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveInterview">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SaveInterview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetIntervieweeApplicantStatus">
+      <soap:operation soapAction="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatus" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

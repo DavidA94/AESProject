@@ -133,10 +133,41 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SaveInterview">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="applicantID" type="xs:int" />
+        <xs:element minOccurs="0" name="notes" nillable="true" type="xs:string" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="status" type="q10:AppStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveInterviewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SaveInterviewResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetIntervieweeApplicantStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="applicantID" type="xs:int" />
+        <xs:element minOccurs="0" name="approved" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetIntervieweeApplicantStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetIntervieweeApplicantStatusResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SubmitApplication">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="user" nillable="true" type="q10:ApplicantInfoContract" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="user" nillable="true" type="q11:ApplicantInfoContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

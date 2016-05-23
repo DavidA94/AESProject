@@ -1,56 +1,105 @@
-﻿@model AES.Web.Models.HiringManagerModel
+﻿@*@model AES.Web.Models.HiringManagerModel*@
+
+@using AES.Web.Models
+@model IEnumerable<HiringManagerModel>
 
 @{
     ViewBag.Title = "DashboardHM";
     Layout = "~/Views/Shared/_LayoutDashHM.cshtml";
 }
 
-@using (Html.BeginForm("DashboardHM", "HiringManager", FormMethod.Post))
+@*@using (Html.BeginForm("DashboardHM", "HiringManager", FormMethod.Post))
 {
     <button type="submit" name="InterviewList" class="btn btn-info btn-lg" value="Applicant Interview List">
         Applicant Interview List
     </button>
-}
+}*@
 
-@*<div id="DashboardHM">
-    <div class="container-fluid">
-        <div class="jumbotron text-center bg-grey">
-            <h2>Hiring Manager Dashboard</h2>
-        </div>
-        <div class="col-md-6">
-            <div class="LeftHalfHM">
-                <h2>Hello</h2>
+<div id="DashboardHM">
+    <div id="ViewApplicantInfo">
+        <div class="container-fluid">
+            <div class="jumbotron col-md-offset-2">
+                <h1>Applicant Information</h1>
             </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="RightHalfHM">
-                <h2>World</h2>
+            <div class="col-md-12" id="AppInfoDiv">
+                @{Html.RenderAction("ApplicantInformationList", "HiringManager");}
             </div>
         </div>
     </div>
-</div>*@
 
-@*<div id="DashboardHM">
-    <div class="container-fluid">
-        <div class="jumbotron text-center bg-grey">
-            <h2>Hiring Manager Dashboard</h2>
-        </div>
+    <div id="InterviewSection">
+        <div class="container">
+            <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                </ol>
 
-        <div class="col-md-6">
-            <div class="container">
-                <div class="LeftHalfHM">
-                    Hello
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+
+                    <div class="item active">
+                        <div class="jumbotron">
+                            <h1>Applicants Awaiting Interview</h1>
+                        </div>
+                        <div class="carousel-tiles">
+                            <div class="container-fluid">
+                                @*@{Html.RenderAction("ApplicantsAwaitingInterview", "HiringManager");}*@
+                            </div>
+                        </div>
+                        <img src="~/Content/Images/Interview_Background_3.jpg" alt="Interview" width="1000" height="665" />
+                    </div>
+
+                    <div class="item">
+                        <div class="jumbotron">
+                            <h1>Hired Applicants</h1>
+                        </div>
+                        <img src="~/Content/Images/Interview_Background_0.jpg" alt="Interview" width="1698" height="1131"></>
+                    </div>
+
+                    <div class="item">
+                        <div class="jumbotron">
+                            <h1>Applicants Awaiting Decision</h1>
+                        </div>
+                        <img src="~/Content/Images/Interview_Background_1.jpg" alt="Interview" width="1698" height="1131"></>
+                    </div>
+
+                    <div class="item">
+                        <div class="jumbotron">
+                            <h1>Applicants Not Accepted</h1>
+                        </div>
+                        <img src="~/Content/Images/Interview_Background_2.jpg" alt="Interview" width="1000" height="667"></>
+                    </div>
+
                 </div>
-            </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="container">
-                <div class="RightHalfHM">
-                    World
-                </div>
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
     </div>
+
+    <div id="RequestPositions">
+        <div class="container-fluid">
+            <div class="jumbotron col-md-offset-2">
+                <h1>Request Positions</h1>
+            </div>
+        </div>
+    </div>
+   
+
+</div>
+
+@*<div class="col-md-12" id="AppAwaitingIntDiv">
+    @{Html.RenderAction("ApplicantInformationList", "HiringManager");}
 </div>*@

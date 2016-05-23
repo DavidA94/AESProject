@@ -3,21 +3,11 @@
 
 @* Tiles *@
 
-<div id="InterviewList">
+<div id="PartialApplicantsAwaitingInterview">
     <div class="row col-md-4">
         <div class="container">
             <div class="tile">
                 <h3 class="title">@Model.FirstName @Model.LastName</h3>
-                <p>
-                    @using (Html.BeginForm("FullApplicantInfo", "HiringManager", FormMethod.Post))
-                    {
-                        <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
-                        <button type="submit" class="btn btn-info btn-lg" value="ViewInfo">
-                            <i class="glyphicon glyphicon-user"></i> View Info
-                        </button>
-                    }
-                </p>
-
                 <p>
                     @using (Html.BeginForm("FullApplicationCollapse", "HiringManager", FormMethod.Post))
                     {
@@ -27,8 +17,7 @@
                         </button>
                     }
                 </p>
-                   
-                
+
             </div>
         </div>
     </div>

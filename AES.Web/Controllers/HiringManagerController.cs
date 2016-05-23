@@ -2,6 +2,7 @@
 using AES.Shared.Contracts;
 using AES.Web.ApplicationService;
 using AES.Web.Authorization;
+using AES.Web.JobbingService;
 using AES.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,14 @@ namespace AES.Web.Controllers
         // GET: HiringManager
         public ActionResult DashboardHM()
         {
-            return View();
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            // ** Get the store ID from the database**********
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+
+            return View(ConvertedContract);
 
         }
 
@@ -32,25 +40,53 @@ namespace AES.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult DashboardHM(int ApplicantID, string ApplicantStatus, string InterviewNotes)
+        public ActionResult ApplicantInformationList()
         {
-            IApplicationSvc appsvc = new ApplicationSvcClient();
+            IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            if (ApplicantStatus == "hire")
-            {
+            // ** Get the store ID from the database**********
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
-            }
-            else if (applicantstatus == "deny")
+            return View(ConvertedContract);
+        }
+
+        public ActionResult ApplicantsAwaitingInterview()
+        {
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            // ** Get the store ID from the database**********
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+
+            return View(ConvertedContract);
+        }
+
+        public ActionResult HiredApplicants()
+        {
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            // ** Get the store ID from the database**********
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+
+            return View(ConvertedContract);
+        }
+
+        public ActionResult RequestPositions()
+        {
+            using (var jobSvc = new JobbingSvcClient())
             {
-                appsvc.savephoneinterview(applicantid, interviewnotes, false);
-            }
-            else
-            {
-                appsvc.applicantdidnotanswer(applicantid);
+                var positions = jobSvc.GetJobs();
+
+                List<JobModel> ConvertedContract = ConvertContractToModel(positions);
+
+                return View(ConvertedContract);
             }
 
-            return view();
         }
 
         public ActionResult InterviewList()
@@ -68,6 +104,27 @@ namespace AES.Web.Controllers
 
             //return View(x);
 
+        }
+
+        [HttpPost]
+        public ActionResult InterviewList(int ApplicantID, string ApplicantStatus, string InterviewNotes)
+        {
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            if (ApplicantStatus == "Hire")
+            {
+                appSvc.SaveInterview(ApplicantID, InterviewNotes, AppStatus.APPROVED);
+            }
+            else if (ApplicantStatus == "Deny")
+            {
+                appSvc.SaveInterview(ApplicantID, InterviewNotes, AppStatus.DENIED);
+            }
+            else
+            {
+                appSvc.SaveInterview(ApplicantID, InterviewNotes, AppStatus.INTERVIEW_COMPLETE);
+            }
+
+            return View();
         }
 
         [HttpPost]
@@ -94,8 +151,12 @@ namespace AES.Web.Controllers
 
             FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
 
+            //Keep track of the applicant ID for hire or deny buttons
+            ConvertedFullAppModel.ApplicantID = ApplicantID;
+
             return View(ConvertedFullAppModel);
         }
+
 
         private List<HiringManagerModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> ApplicantInfo)
         {
@@ -287,5 +348,46 @@ namespace AES.Web.Controllers
 
             return RetQA;
         }
+
+        #region Converters
+
+        #region Contract to Model
+
+        private List<JobModel> ConvertContractToModel(IEnumerable<JobContract> jobs)
+        {
+            List<JobModel> retList = new List<JobModel>();
+
+            foreach (var job in jobs)
+            {
+                retList.Add(new JobModel()
+                {
+                    JobID = job.JobID,
+                    LongDescription = job.LongDescription,
+                    ShortDescription = job.ShortDescription,
+                    Title = job.Title
+                });
+            }
+
+            return retList;
+        }
+
+        #endregion
+
+        #region Model to Contract
+
+        private JobContract ConvertModelToContract(JobModel job)
+        {
+            return new JobContract()
+            {
+                JobID = job.JobID,
+                LongDescription = job.LongDescription,
+                ShortDescription = job.ShortDescription,
+                Title = job.Title
+            };
+        }
+
+        #endregion
+
+        #endregion
     }
 }
