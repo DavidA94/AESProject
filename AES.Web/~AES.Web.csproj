@@ -112,10 +112,6 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Portable.Licensing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.Licensing.1.1.0\lib\portable-net40+sl4+wp7+win8\Portable.Licensing.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="simplelocalisation, Version=0.9.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SimpleLocalisation.0.9.6\lib\net40\simplelocalisation.dll</HintPath>
       <Private>True</Private>
@@ -187,14 +183,6 @@
     <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
-    </Reference>
-    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\T4MVCExtensions.3.6.5\lib\net40\T4MVCExtensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="TwitterBootstrapMVC5, Version=3.17.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TwitterBootstrapMVC5.3.17.0\lib\net40\TwitterBootstrapMVC5.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="WebActivator, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivator.1.5\lib\net40\WebActivator.dll</HintPath>
@@ -310,7 +298,6 @@
     <Content Include="Scripts\CallPageSmoothScroll.js" />
     <Content Include="Scripts\CountdownTimer.js" />
     <Content Include="Scripts\Management.js" />
-    <Content Include="Scripts\TwitterBootstrapMvcJs.js" />
     <Content Include="Service References\ApplicationService\AES.Web.ApplicationService.ApplicationInfoContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
