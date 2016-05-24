@@ -37,7 +37,7 @@ namespace AES.Web.Controllers
                     case Shared.EmployeeRole.StoreManager:
                         return RedirectToAction("Requests", "Manager");
                     case Shared.EmployeeRole.HiringManager:
-                        return RedirectToAction("Login", "EmployeeLogin");
+                        return RedirectToAction("DashboardHM", "HiringManager");
                     default:
                         return RedirectToAction("Login", "EmployeeLogin");
                 }

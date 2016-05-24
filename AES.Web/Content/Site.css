@@ -1,5 +1,5 @@
 ﻿body {
-    /*padding-top: 50px;*/
+    padding-top: 50px;
     padding-bottom: 20px;
     counter-reset: itemCounter;
 }
@@ -438,7 +438,7 @@ textarea {
 
 /*Prevent a sudden jump when navbar transforms*/
 #DashHMLayout .nav-wrapper {
-    min-height: 60px;
+    min-height: 5.3em;
 }
 
 /*Round button in affix to scroll down*/
@@ -666,6 +666,7 @@ textarea {
     margin-left: auto;
 }
 
+/*Applicant Information Absolute Div*/
 @media (min-width: 768px){
   #AppInfoDiv {
     position: absolute;
@@ -683,3 +684,5 @@ textarea {
   text-align: center;
   height:72%;
 }
+
+

@@ -15,6 +15,8 @@ namespace AES.Web.Authorization
     {
         // http://stackoverflow.com/questions/31584506/how-to-implement-custom-authentication-in-asp-net-mvc-5
 
+        private static ClaimsIdentity claimsidentity;
+
         public static bool LoginUser(EmployeeLoginModel EmployeeUser)
         {
             var s = new SecurityService.SecuritySvcClient();
@@ -44,8 +46,11 @@ namespace AES.Web.Authorization
                     DefaultAuthenticationTypes.ApplicationCookie
                 );
 
+
                 // Actually sign the user in
                 HttpContext.Current.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { IsPersistent = false }, identity);
+
+                claimsidentity = identity;
 
                 return true;
             }
@@ -79,7 +84,7 @@ namespace AES.Web.Authorization
         {
             try
             {
-                return (EmployeeRole)Enum.Parse(typeof(EmployeeRole), (((ClaimsIdentity)HttpContext.Current.User.Identity).Claims.First(id => id.Type == ClaimTypes.Role).Value));
+                return (EmployeeRole)Enum.Parse(typeof(EmployeeRole), GetClaim(ClaimTypes.Role).Value);
             }
             catch (Exception)
             {
@@ -90,6 +95,12 @@ namespace AES.Web.Authorization
         public static void Logout()
         {
             HttpContext.Current.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
+
+        private static Claim GetClaim(string claimType)
+        {
+            return ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims.FirstOrDefault(id => id.Type == claimType) ?? 
+                                                            claimsidentity.Claims.FirstOrDefault(id => id.Type == claimType);
         }
     }
 }
