@@ -17,7 +17,7 @@ namespace AES.ApplicationSvc
         List<ApplicantInfoContract> GetApplicantsAwaitingCalls(DateTime currentDateTime);
 
         [OperationContract]
-        List<ApplicantInfoContract> GetApplicantsAwaitingInterview(int storeID);
+        List<ApplicantInfoContract> GetApplicantsAwaiting(int storeID, AppStatus status);
 
         [OperationContract]
         ApplicationInfoContract GetApplication(int userID, AppStatus userAppStatus);

@@ -50,6 +50,7 @@
     <Compile Include="Contracts\JobHistoryContract.cs" />
     <Compile Include="Contracts\QAContract.cs" />
     <Compile Include="Contracts\ReferenceContract.cs" />
+    <Compile Include="Contracts\StoreContract.cs" />
     <Compile Include="Contracts\UserInfoContract.cs" />
     <Compile Include="DBFileManager.cs" />
     <Compile Include="Encryption.cs" />

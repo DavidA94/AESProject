@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/IT/_ITLayout.cshtml";
+}
+
+<h2>IT Dashboard</h2>
+
+<div id="ITDashboard">
+    <a href="@Url.Action("Stores")">
+        <div class="material-icons">store</div>
+        <p>Store Management</p>
+    </a>
+    <a href="@Url.Action("Users")">
+        <div class="material-icons">supervisor_account</div>
+        <p>User Management</p>
+    </a>
+</div>

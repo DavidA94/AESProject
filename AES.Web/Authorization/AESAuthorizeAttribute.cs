@@ -26,6 +26,8 @@ namespace AES.Web.Authorization
                 throw new ArgumentNullException("filterContext");
             }
 
+            string redirectURL = (BadRedirectURL ?? "") + "?ReturnUrl=" + filterContext.HttpContext.Request.Url.AbsolutePath;
+
             if (AuthorizeCore(filterContext.HttpContext))
             {
                 HttpCachePolicyBase cachePolicy =
@@ -36,17 +38,28 @@ namespace AES.Web.Authorization
             /// This code added to support custom Unauthorized pages.
             else if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
+                // Redirect to Login page.
                 if (BadRedirectURL != null)
-                    filterContext.Result = new RedirectResult(BadRedirectURL);
+                {
+                    filterContext.Result = new RedirectResult(redirectURL);
+                }
                 else
-                    // Redirect to Login page.
+                {
                     HandleUnauthorizedRequest(filterContext);
+                }
             }
             /// End of additional code
             else
             {
                 // Redirect to Login page.
-                HandleUnauthorizedRequest(filterContext);
+                if (BadRedirectURL != null)
+                {
+                    filterContext.Result = new RedirectResult(redirectURL);
+                }
+                else
+                {
+                    HandleUnauthorizedRequest(filterContext);
+                }
             }
         }
 

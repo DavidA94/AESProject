@@ -36,6 +36,7 @@ namespace AES.Entities.Tables
         [Required]
         public int StoreID { get; set; }
 
-        public virtual UserInfo UserInfo { get; set; }
+        [Required]
+        public bool MustResetPassword { get; set; }
     }
 }

@@ -28,10 +28,10 @@ namespace AES.Web.SecurityService {
         System.Threading.Tasks.Task<AES.Shared.Contracts.EmployeeUserContract> ValidateEmployeeUserAsync(AES.Shared.Contracts.EmployeeCredentialsContract credentials);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/CreateEmployee", ReplyAction="http://tempuri.org/ISecuritySvc/CreateEmployeeResponse")]
-        bool CreateEmployee(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password, int storeID);
+        bool CreateEmployee(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/CreateEmployee", ReplyAction="http://tempuri.org/ISecuritySvc/CreateEmployeeResponse")]
-        System.Threading.Tasks.Task<bool> CreateEmployeeAsync(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password, int storeID);
+        System.Threading.Tasks.Task<bool> CreateEmployeeAsync(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -77,12 +77,12 @@ namespace AES.Web.SecurityService {
             return base.Channel.ValidateEmployeeUserAsync(credentials);
         }
         
-        public bool CreateEmployee(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password, int storeID) {
-            return base.Channel.CreateEmployee(employeeInfo, password, storeID);
+        public bool CreateEmployee(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password) {
+            return base.Channel.CreateEmployee(employeeInfo, password);
         }
         
-        public System.Threading.Tasks.Task<bool> CreateEmployeeAsync(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password, int storeID) {
-            return base.Channel.CreateEmployeeAsync(employeeInfo, password, storeID);
+        public System.Threading.Tasks.Task<bool> CreateEmployeeAsync(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password) {
+            return base.Channel.CreateEmployeeAsync(employeeInfo, password);
         }
     }
 }

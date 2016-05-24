@@ -224,7 +224,7 @@ namespace AES.ApplicationSvc.Tests
         }
 
         [TestMethod]
-        public void ApplicationSvc_GetApplicantsAwaitingInterview()
+        public void ApplicationSvc_GetApplicantsAwaiting()
         {
             var applicationService = new ApplicationSvc();
             SetupValidWaitingCallApp();
@@ -244,7 +244,8 @@ namespace AES.ApplicationSvc.Tests
 
                 db.SaveChanges();
 
-                var applicant = applicationService.GetApplicantsAwaitingInterview(app.StoreID).FirstOrDefault(a => a.UserID == app.Applicant.userID);
+                var applicant = applicationService.GetApplicantsAwaiting(app.StoreID, AppStatus.WAITING_INTERVIEW)
+                                                  .FirstOrDefault(a => a.UserID == app.Applicant.userID);
                 Assert.IsNotNull(applicant);
 
                 // If all of this is correct, we'll assume it's the right person

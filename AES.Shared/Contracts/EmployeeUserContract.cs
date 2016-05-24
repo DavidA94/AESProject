@@ -20,9 +20,12 @@ namespace AES.Shared.Contracts
         public string LastName { get; set; }
 
         [DataMember]
-        public UserInfoContract UserInfo { get; set; }
+        public int StoreID { get; set; }
 
         [DataMember]
-        public int StoreID { get; set; }
+        public string StoreName { get; set; }
+
+        [DataMember]
+        public bool MustResetPassword { get; set; }
     }
 }

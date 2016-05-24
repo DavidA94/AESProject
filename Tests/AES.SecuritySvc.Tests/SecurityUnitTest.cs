@@ -116,8 +116,16 @@ namespace AES.SecuritySvc.Tests
         [TestMethod]
         public void SecuritySvc_CreateEmployee()
         {
+
             using (var db = new AESDbContext())
             {
+                // Clear any old runs
+                db.EmployeeUsers.RemoveRange(db.EmployeeUsers.Where(e => e.FirstName == FIRSTNAME && e.LastName == LASTNAME));
+                db.SaveChanges();
+            }
+            using (var db = new AESDbContext())
+            { 
+
                 var s = new SecuritySvc();
                 var store = db.Stores.FirstOrDefault();
 
@@ -131,8 +139,8 @@ namespace AES.SecuritySvc.Tests
                 {
                     FirstName = "Random",
                     LastName = "Davis",
-                    Email = "random.davis@gmail.com",
-                    Role = EmployeeRole.StoreManager
+                    Role = EmployeeRole.StoreManager,
+                    StoreID = storeId
                 };
 
                 for (var i = 0; i < 20; i++)
@@ -142,31 +150,56 @@ namespace AES.SecuritySvc.Tests
                     var normalPass = Convert.ToBase64String(randomBytes);
                     var newValidEmployee = new EmployeeUserContract
                     {
-                        FirstName = "TestFirst",
-                        LastName = "TestLast",
-                        Role = EmployeeRole.HqQStaffingExpert
+                        FirstName = FIRSTNAME,
+                        LastName = LASTNAME,
+                        Role = EmployeeRole.HqQStaffingExpert,
+                        StoreID = storeId
                     };
-                    newValidEmployee.UserInfo = new UserInfoContract();
-                    randomBytes = new byte[intRandom.Next(1, 30)];
-                    cryptRandom.GetNonZeroBytes(randomBytes);
-                    newValidEmployee.Email = Convert.ToBase64String(randomBytes) + "@gmail.com";
-                    Assert.IsTrue(s.CreateEmployee(newValidEmployee, normalPass, storeId));
-                    var credentials = new EmployeeCredentialsContract() { Email = newValidEmployee.Email, Password = normalPass };
+
+                    Assert.IsTrue(s.CreateEmployee(newValidEmployee, normalPass));
+
+                    // Get what the email will be
+                    string email;
+                    using (var dbRefresh = new AESDbContext())
+                    {
+                        int count = dbRefresh.EmployeeUsers.Count(e => e.FirstName == FIRSTNAME && e.LastName == LASTNAME);
+                        email = string.Format("{0}.{1}{2}@AES.com", FIRSTNAME, LASTNAME, count == 1 ? "" : count.ToString());
+                    }
+
+                    var credentials = new EmployeeCredentialsContract() { Email = email, Password = normalPass };
                     var gottenEmployee = s.ValidateEmployeeUser(credentials);
                     Assert.IsNotNull(gottenEmployee);
                     Assert.AreEqual(gottenEmployee.FirstName, newValidEmployee.FirstName);
                     Assert.AreEqual(gottenEmployee.LastName, newValidEmployee.LastName);
-                    Assert.AreEqual(gottenEmployee.Email, newValidEmployee.Email);
+                    Assert.AreEqual(gottenEmployee.Email, email);
                     Assert.AreEqual(gottenEmployee.Role, newValidEmployee.Role);
+                    Assert.IsTrue(gottenEmployee.MustResetPassword);
                 }
 
-                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, "", storeId));
-                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, null, storeId));
+                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, ""));
+                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, null));
 
-                invalidPassEmployee.Email = "a@a.a";
-                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, "Passw0rd!", storeId));
+                invalidPassEmployee.FirstName = "a@a.a";
+                Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, "Passw0rd!"));
             }
         }
+        
+        [TestMethod]
+        public void SecuritySvc_EditEmployeePassword()
+        {
+            using (var db = new AESDbContext())
+            {
+                // Find the salted user
+                var user = db.EmployeeUsers.FirstOrDefault(e => e.Email.ToLower() == "employee@aes.com");
+
+                Assert.IsNotNull(user);
+
+                var s = new SecuritySvc();
+                Assert.IsTrue(s.UpdateUserPassword(new EmployeeCredentialsContract() { Email = "employee@aes.com", Password = "password" }, "BrandNewPassword!"));
+                Assert.IsTrue(s.UpdateUserPassword(new EmployeeCredentialsContract() { Email = "employee@aes.com", Password = "BrandNewPassword!" }, "password"));
+            }
+        }
+
         /*
         [TestMethod]
         public void SecuritySvc_Sanity()

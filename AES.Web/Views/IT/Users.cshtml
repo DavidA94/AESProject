@@ -1,0 +1,33 @@
+﻿@using AES.Web.Models;
+@model IEnumerable<EmployeeUserModel>
+@{
+    ViewBag.Title = "User Management";
+    Layout = "~/Views/IT/_ITLayout.cshtml";
+}
+
+<h2>User Management</h2>
+
+<div id="management">
+    <div class="hidden hide">
+        <div id="newTemplate">
+            @{Html.RenderPartial("_UserEdit", new EmployeeUserModel());}
+        </div>
+        
+        <div id="newUserURL">@Url.Action("NewUser")</div>
+        <div id="GetUserListURL">@Url.Action("GetUserList")</div>
+        <div id="DeactivateUserURL">@Url.Action("DeactivateUser")</div>
+    </div>
+    <div class="col-md-5">
+        <div id="List">
+            @{ Html.RenderPartial("_UsersList", Model); }
+        </div>
+        <div class="btn btn-default" id="addNewUser">Add New User</div>
+    </div>
+    
+    <div id="editBox" class="col-md-5"></div>
+</div>
+<div class="clearfix"></div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/commonscripts.js", "~/Scripts/Management.js")
+}
