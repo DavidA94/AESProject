@@ -65,7 +65,6 @@ namespace AES.Web.Authorization
         public static int GetUserID()
         {
             try {
-                var x = HttpContext.Current.GetOwinContext().Authentication.User.Claims;
                 return Convert.ToInt32(((ClaimsIdentity)HttpContext.Current.User.Identity).Claims.First(id => id.Type == ClaimTypes.NameIdentifier).Value);
             }
             catch(Exception)

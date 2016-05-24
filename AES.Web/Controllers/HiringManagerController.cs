@@ -21,8 +21,7 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -45,8 +44,7 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -57,8 +55,7 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -69,8 +66,7 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -94,8 +90,7 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(1);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -157,24 +152,6 @@ namespace AES.Web.Controllers
             return View(ConvertedFullAppModel);
         }
 
-
-        private List<HiringManagerModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> ApplicantInfo)
-        {
-            var RetAppInfo = new List<HiringManagerModel>();
-
-            foreach (var AppInfo in ApplicantInfo)
-            {
-                RetAppInfo.Add(new HiringManagerModel()
-                {
-                    FirstName = AppInfo.FirstName,
-                    LastName = AppInfo.LastName,
-                    ApplicantID = (int)AppInfo.UserID
-                });
-            }
-
-            return RetAppInfo;
-        }
-
         // Hardcoded HiringManagerViewModel
         public List<HiringManagerModel> FillInterviewList()
         {
@@ -208,6 +185,29 @@ namespace AES.Web.Controllers
                     ApplicantID = 4
                 }
             };
+        }
+
+
+
+        #region Converters
+
+        #region Contract to Model
+
+        private List<HiringManagerModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> ApplicantInfo)
+        {
+            var RetAppInfo = new List<HiringManagerModel>();
+
+            foreach (var AppInfo in ApplicantInfo)
+            {
+                RetAppInfo.Add(new HiringManagerModel()
+                {
+                    FirstName = AppInfo.FirstName,
+                    LastName = AppInfo.LastName,
+                    ApplicantID = (int)AppInfo.UserID
+                });
+            }
+
+            return RetAppInfo;
         }
 
         public FullApplicationModel ConvertAppContractToModel(ApplicationInfoContract app)
@@ -348,10 +348,6 @@ namespace AES.Web.Controllers
 
             return RetQA;
         }
-
-        #region Converters
-
-        #region Contract to Model
 
         private List<JobModel> ConvertContractToModel(IEnumerable<JobContract> jobs)
         {
