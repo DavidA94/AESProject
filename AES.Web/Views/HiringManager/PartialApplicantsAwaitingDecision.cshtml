@@ -3,7 +3,7 @@
 
 @* Tiles *@
 
-<div id="PartialApplicantsAwaitingInterview">
+<div id="PartialApplicantsAwaitingDecision">
     <div class="col-md-3">
         <div class="tile">
             <h3 class="title">@Model.FirstName @Model.LastName</h3>
@@ -11,8 +11,8 @@
                 @using (Html.BeginForm("FullApplicationCollapse", "HiringManager", FormMethod.Post))
                 {
                     <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
-                    <button type="submit" class="btn btn-info btn-sm" value="BeginInterview">
-                        <i class="glyphicon glyphicon-user"></i> Begin Interview
+                    <button type="submit" class="btn btn-info btn-sm" value="Decide">
+                        <i class="glyphicon glyphicon-user"></i> Decide
                     </button>
                 }
             </p>

@@ -31,17 +31,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetApplicantsAwaitingInterview">
+  <xs:element name="GetApplicantsAwaiting">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="storeID" type="xs:int" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="status" type="q3:AppStatus" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetApplicantsAwaitingInterviewResponse">
+  <xs:element name="GetApplicantsAwaitingResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="GetApplicantsAwaitingInterviewResult" nillable="true" type="q3:ArrayOfApplicantInfoContract" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="GetApplicantsAwaitingResult" nillable="true" type="q4:ArrayOfApplicantInfoContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -49,36 +50,36 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="userID" type="xs:int" />
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="userAppStatus" type="q4:AppStatus" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="userAppStatus" type="q5:AppStatus" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetApplicationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="GetApplicationResult" nillable="true" type="q5:ApplicationInfoContract" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="GetApplicationResult" nillable="true" type="q6:ApplicationInfoContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SavePartialApplication">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="app" nillable="true" type="q6:ApplicationInfoContract" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="app" nillable="true" type="q7:ApplicationInfoContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SavePartialApplicationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="SavePartialApplicationResult" type="q7:AppSvcResponse" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="SavePartialApplicationResult" type="q8:AppSvcResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SetApplicationStatus">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="app" nillable="true" type="q8:ApplicationInfoContract" />
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="status" type="q9:AppStatus" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AES.ApplicationSvc.Contracts" minOccurs="0" name="app" nillable="true" type="q9:ApplicationInfoContract" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="status" type="q10:AppStatus" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -138,7 +139,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="applicantID" type="xs:int" />
         <xs:element minOccurs="0" name="notes" nillable="true" type="xs:string" />
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="status" type="q10:AppStatus" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/AES.Shared" minOccurs="0" name="status" type="q11:AppStatus" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -167,7 +168,7 @@
   <xs:element name="SubmitApplication">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="user" nillable="true" type="q11:ApplicantInfoContract" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/AES.Shared.Contracts" minOccurs="0" name="user" nillable="true" type="q12:ApplicantInfoContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

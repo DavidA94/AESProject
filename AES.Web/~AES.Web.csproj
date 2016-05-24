@@ -537,6 +537,12 @@
     <Content Include="Views\HiringManager\ApplicantsAwaitingInterview.cshtml" />
     <Content Include="Views\HiringManager\RequestPositions.cshtml" />
     <Content Include="Views\HiringManager\PartialRequestPositions.cshtml" />
+    <Content Include="Views\HiringManager\HiredApplicants.cshtml" />
+    <Content Include="Views\HiringManager\PartialHiredApplicants.cshtml" />
+    <Content Include="Views\HiringManager\ApplicantsAwaitingDecision.cshtml" />
+    <Content Include="Views\HiringManager\PartialApplicantsAwaitingDecision.cshtml" />
+    <Content Include="Views\HiringManager\ApplicantsNotAccepted.cshtml" />
+    <Content Include="Views\HiringManager\PartialApplicantsNotAccepted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">

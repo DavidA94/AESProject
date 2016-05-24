@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
     counter-reset: itemCounter;
 }
@@ -318,7 +318,26 @@ textarea {
 #staffingExpert .title img {float:left;margin-right:.5em;cursor:pointer;}
 #staffingExpert .title span {display:block;overflow:hidden;cursor:pointer;}
 #staffingExpert .editBox + .title {color:gray;font-style:normal;}
+#staffingExpert .editBox + .title {color:gray;font-style:normal;}
 
+#management #List .item {margin-bottom:1em;padding-bottom:1em;border-bottom:2px solid lightgray;}
+#management #List .item form {display:none;}
+#management #List .item p {margin:0 0 0 5px;}
+#management #List .item p span {vertical-align:middle;}
+#management #List .item .btn {margin-top:.5em;}
+#management #List .item .btn-danger {margin:.5em .5em 0 5px;}
+#management #List .item .deactivate, #userManagement #userList .user .edit {float:left;}
+#management #List .item .name {background:#fff;padding:5px 0 0 4px;margin:0;}
+#management #List .item .userName {font-size:1.2em;font-weight:bold;}
+
+#editBox {margin-left:15px;}
+#editBox h3 {margin:0 5px;}
+#editBox input[type=submit] {margin-top:10px;}
+#editBox label {text-align:left;margin:0 0 2px 5px;}
+#editBox .form-group {margin-bottom:0;}
+#editBox .nameEdit {display:none;}
+#editBox .newUser .name {display:none;}
+#editBox .newUser .nameEdit {display:block;}
 
 #buttons .glyphicon-align-center::before{
     content:none;
@@ -542,6 +561,7 @@ textarea {
 /*Hiring Manager Dashboard Styling*/
 /******************************************************************************/
 
+/*View Applicant Information Section*/
 #DashboardHM #ViewApplicantInfo .container-fluid {
     padding-top: 10em;
     padding-bottom: 10em;
@@ -566,7 +586,7 @@ textarea {
     margin-left: auto;
 }
 
-#ApplicantInformationList .tile {
+#DashboardHM #ApplicantInformationList .tile {
     background-color: #f9f9f9;
     position: page;
     width: 23em;
@@ -578,99 +598,20 @@ textarea {
     opacity: .9;
 }
 
-#ApplicantInformationList .title {
+#DashboardHM #ApplicantInformationList .title {
     margin-top: 0px;
     text-align: center;
     color: #9b0505;
 }
 
-#ApplicantInformationList  .tile:hover {
+#DashboardHM #ApplicantInformationList  .tile:hover {
     box-shadow: 5px 0px 40px rgba(0,0,0, .2);
 }	
 	
-#ApplicantInformationList .tile .staticText span{
+#DashboardHM #ApplicantInformationList .tile .staticText span{
     text-align: center;
     font-weight: bold;
     font-size: 4em;
-}
-
-#DashboardHM #InterviewSection footer {
-    margin: 50px 0;
-}
-
-#DashboardHM .carousel-inner .item img, .carousel-inner .item a img {
-        width: 200%;
-        min-height: 800px;
-        margin: auto;
-    }
-
-#DashboardHM .container {
-    margin: 0px;
-    margin-right: 0px;
-    width: 100%;
-    padding: 0px;
-}
-
-#DashboardHM #InterviewSection .jumbotron {
-    position: absolute;
-    top: 10%;
-    left: 1.8%;
-    right: auto;
-    width: 96.666666666666%;
-    background: #6e1612;
-    padding: 1em;
-    text-align: center;
-    color: white;
-    opacity:.75;
-    margin-left: auto;
-
-}
-
-#DashboardHM #InterviewSection .carousel-tiles .tile {
-    background-color: #f9f9f9;
-    position: absolute;
-    width: 23em;
-    padding: 2em;
-    border: 1px solid black;
-    border-radius: 25px;
-    margin-top: 260px;
-    margin-left: 300px;
-    text-align: center;
-    opacity: .9;
-}
-
-#DashboardHM #InterviewSection .carousel-tiles .title {
-    margin-top: 0px;
-    text-align: center;
-    color: #9b0505;
-}
-
-#DashboardHM #InterviewSection .carousel-tiles .tile:hover {
-    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
-}	
-	
-#DashboardHM #InterviewSection .carousel-tiles .tile .staticText span{
-    text-align: center;
-    font-weight: bold;
-    font-size: 4em;
-}
-
-#DashboardHM #RequestPositions .container-fluid {
-    background-color: white;
-    background-image: url(Images/Job_Opportunities_Background.jpg);
-    background-repeat: no-repeat;
-    background-size: 200%;
-    min-height: 59em;
-    padding-top: 5em;
-}
-
-#DashboardHM #RequestPositions .jumbotron {
-    background: #6e1612;
-    padding: 1em;
-    text-align: center;
-    color: white;
-    opacity:.8;
-    margin-left: auto;
 }
 
 /*Applicant Information Absolute Div*/
@@ -692,24 +633,78 @@ textarea {
   height:72%;
 }
 
+/*Interview Section Styling*/
 
-#staffingExpert .editBox + .title {color:gray;font-style:normal;}
+#DashboardHM #InterviewSection .jumbotron {
+    background: #6e1612;
+    padding: 1em;
+    text-align: center;
+    color: white;
+    opacity:.8;
+    margin-left: auto;
 
-#management #List .item {margin-bottom:1em;padding-bottom:1em;border-bottom:2px solid lightgray;}
-#management #List .item form {display:none;}
-#management #List .item p {margin:0 0 0 5px;}
-#management #List .item p span {vertical-align:middle;}
-#management #List .item .btn {margin-top:.5em;}
-#management #List .item .btn-danger {margin:.5em .5em 0 5px;}
-#management #List .item .deactivate, #userManagement #userList .user .edit {float:left;}
-#management #List .item .name {background:#fff;padding:5px 0 0 4px;margin:0;}
-#management #List .item .userName {font-size:1.2em;font-weight:bold;}
+}
 
-#editBox {margin-left:15px;}
-#editBox h3 {margin:0 5px;}
-#editBox input[type=submit] {margin-top:10px;}
-#editBox label {text-align:left;margin:0 0 2px 5px;}
-#editBox .form-group {margin-bottom:0;}
-#editBox .nameEdit {display:none;}
-#editBox .newUser .name {display:none;}
-#editBox .newUser .nameEdit {display:block;}
+#DashboardHM #InterviewSection .container-fluid {
+    background-color: white;
+    background-image: url(Images/Interview_Background_0.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    min-height: 59em;
+    padding-top: 5em;
+}
+
+#DashboardHM #InterviewSection .container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2em;
+    opacity: .95;
+    max-height: 40em;
+    min-height: 40em;
+    overflow-y: auto;
+}
+
+#DashboardHM #InterviewSection .tile {
+    background-color: #f9f9f9;
+    position: page;
+    width: 15em;
+    padding: 1.5em;
+    border: 1px solid black;
+    border-radius: 25px;
+    margin: 25px;
+    text-align: center;
+}
+
+#DashboardHM #InterviewSection .title {
+    margin-top: 0px;
+    text-align: center;
+    color: #9b0505;
+    font-size: medium;
+}
+
+#DashboardHM #InterviewSection  .tile:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}	
+
+/*Request Positions Section Styling*/
+#DashboardHM #RequestPositions .container-fluid {
+    background-color: white;
+    background-image: url(Images/Job_Opportunities_Background.jpg);
+    background-repeat: no-repeat;
+    background-size: 200%;
+    min-height: 59em;
+    padding-top: 5em;
+}
+
+#DashboardHM #RequestPositions .jumbotron {
+    background: #6e1612;
+    padding: 1em;
+    text-align: center;
+    color: white;
+    opacity:.8;
+    margin-left: auto;
+}
+
+
+
+

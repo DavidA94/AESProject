@@ -15,7 +15,7 @@ namespace AES.Web.Models
 
         public string PositionReqNotes { get; set; }
 
-
+        public string ApplicantStatus { get; set; }
 
     }
 }

@@ -16,6 +16,8 @@
 }*@
 
 <div id="DashboardHM">
+
+    @* View Applicant Information Section *@
     <div id="ViewApplicantInfo">
         <div class="container-fluid">
             <div class="jumbotron col-md-offset-2">
@@ -27,68 +29,45 @@
         </div>
     </div>
 
+    @* Interview Section *@
     <div id="InterviewSection">
-        <div class="container">
-            <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                    <li data-target="#myCarousel" data-slide-to="3"></li>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-
-                    <div class="item active">
-                        <div class="jumbotron">
-                            <h1>Applicants Awaiting Interview</h1>
-                        </div>
-                        <div class="carousel-tiles">
-                            <div class="container-fluid">
-                              
-                            </div>
-                        </div>
-                        <img src="~/Content/Images/Interview_Background_3.jpg" alt="Interview" width="1000" height="665" />
-                    </div>
-
-                    <div class="item">
-                        <div class="jumbotron">
-                            <h1>Hired Applicants</h1>
-                        </div>
-                        <img src="~/Content/Images/Interview_Background_0.jpg" alt="Interview" width="1698" height="1131"></>
-                    </div>
-
-                    <div class="item">
-                        <div class="jumbotron">
-                            <h1>Applicants Awaiting Decision</h1>
-                        </div>
-                        <img src="~/Content/Images/Interview_Background_1.jpg" alt="Interview" width="1698" height="1131"></>
-                    </div>
-
-                    <div class="item">
-                        <div class="jumbotron">
-                            <h1>Applicants Not Accepted</h1>
-                        </div>
-                        <img src="~/Content/Images/Interview_Background_2.jpg" alt="Interview" width="1000" height="667"></>
-                    </div>
-
-                </div>
-
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+        <div class="container-fluid">
+            <div class="jumbotron col-md-offset-2">
+                <h1>Interview Section</h1>
             </div>
+
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#ApplicantsAwaitingInterview">Applicants Awaiting Interview</a></li>
+                    <li><a data-toggle="tab" href="#HiredApplicants">Hired Applicants</a></li>
+                    <li><a data-toggle="tab" href="#ApplicantsAwaitingDecision">Applicants Awaiting Decision</a></li>
+                    <li><a data-toggle="tab" href="#ApplicantsNotApproved">Applicants Not Approved</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="ApplicantsAwaitingInterview" class="tab-pane fade in active">
+                        <h3>Applicants Awaiting Interview</h3>
+                        @{Html.RenderAction("ApplicantsAwaitingInterview", "HiringManager");}
+                    </div>
+                    <div id="HiredApplicants" class="tab-pane fade">
+                        <h3>Hired Applicants</h3>
+                        @{Html.RenderAction("HiredApplicants", "HiringManager");}
+                    </div>
+                    <div id="ApplicantsAwaitingDecision" class="tab-pane fade">
+                        <h3>Applicants Awaiting Decision</h3>
+                        @{Html.RenderAction("ApplicantsAwaitingDecision", "HiringManager");}
+                    </div>
+                    <div id="ApplicantsNotApproved" class="tab-pane fade">
+                        <h3>Applicants Not Approved</h3>
+                        @{Html.RenderAction("ApplicantsNotAccepted", "HiringManager");}
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
+    @* Request Positions Section *@
     <div id="RequestPositions">
         <div class="container-fluid">
             <div class="jumbotron col-md-offset-2">
@@ -106,32 +85,3 @@
     <h1>Scroll Away</h1>
 
 </div>*@
-
-
-<div class="container">
-    <h2>Basic Modal Example</h2>
-    <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-</div>

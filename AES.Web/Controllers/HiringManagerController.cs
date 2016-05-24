@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
-    [AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HiringManager)]
+    //[AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HiringManager)]
     public class HiringManagerController : Controller
     {
         // GET: HiringManager
@@ -21,7 +21,9 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.WAITING_INTERVIEW);
+
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -44,7 +46,8 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.WAITING_INTERVIEW);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -55,10 +58,15 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.WAITING_INTERVIEW);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
+
+            //var x = FillInterviewList();
+
+            //return View(x);
         }
 
         public ActionResult HiredApplicants()
@@ -66,7 +74,32 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.APPROVED);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+
+            return View(ConvertedContract);
+        }
+
+        public ActionResult ApplicantsAwaitingDecision()
+        {
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            // ** Get the store ID from the database**********
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.INTERVIEW_COMPLETE);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+
+            return View(ConvertedContract);
+        }
+
+        public ActionResult ApplicantsNotAccepted()
+        {
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            // ** Get the store ID from the database**********
+            //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.DENIED);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -90,7 +123,7 @@ namespace AES.Web.Controllers
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
             // ** Get the store ID from the database**********
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
+            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(EmployeeUserManager.GetUser().StoreID, AppStatus.WAITING_INTERVIEW);
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
 
             return View(ConvertedContract);
@@ -172,6 +205,34 @@ namespace AES.Web.Controllers
                 },
 
                 new HiringManagerModel()
+                {
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                    ApplicantID = 3
+                },
+
+                new HiringManagerModel()
+                {
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                    ApplicantID = 3
+                },
+
+                 new HiringManagerModel()
+                {
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                    ApplicantID = 3
+                },
+
+                  new HiringManagerModel()
+                {
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                    ApplicantID = 3
+                },
+
+                   new HiringManagerModel()
                 {
                     FirstName = "Awesome",
                     LastName = "Fun",
