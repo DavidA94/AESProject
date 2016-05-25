@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
-    //[AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HiringManager)]
+    [AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HiringManager)]
     public class HiringManagerController : Controller
     {
         // GET: HiringManager
@@ -47,8 +47,8 @@ namespace AES.Web.Controllers
 
             // ** Get the store ID from the database**********
             //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.WAITING_INTERVIEW);
-            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+            ApplicantInfoContract[] ApplicantInformation = appSvc.GetApplicantsAwaiting(1, AppStatus.WAITING_INTERVIEW);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(ApplicantInformation);
 
             return View(ConvertedContract);
         }
@@ -59,8 +59,8 @@ namespace AES.Web.Controllers
 
             // ** Get the store ID from the database**********
             //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.WAITING_INTERVIEW);
-            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+            ApplicantInfoContract[] AppAwaitInter = appSvc.GetApplicantsAwaiting(1, AppStatus.WAITING_INTERVIEW);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(AppAwaitInter);
 
             return View(ConvertedContract);
 
@@ -75,8 +75,8 @@ namespace AES.Web.Controllers
 
             // ** Get the store ID from the database**********
             //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.APPROVED);
-            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+            ApplicantInfoContract[] HiredAppl = appSvc.GetApplicantsAwaiting(1, AppStatus.APPROVED);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(HiredAppl);
 
             return View(ConvertedContract);
         }
@@ -87,8 +87,8 @@ namespace AES.Web.Controllers
 
             // ** Get the store ID from the database**********
             //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.INTERVIEW_COMPLETE);
-            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+            ApplicantInfoContract[] ApplAwaitDec = appSvc.GetApplicantsAwaiting(1, AppStatus.INTERVIEW_COMPLETE);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(ApplAwaitDec);
 
             return View(ConvertedContract);
         }
@@ -99,8 +99,8 @@ namespace AES.Web.Controllers
 
             // ** Get the store ID from the database**********
             //ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaitingInterview(EmployeeUserManager.GetUser().StoreID);
-            ApplicantInfoContract[] InterviewApplicants = appSvc.GetApplicantsAwaiting(1, AppStatus.DENIED);
-            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(InterviewApplicants);
+            ApplicantInfoContract[] ApplNotAccepted = appSvc.GetApplicantsAwaiting(1, AppStatus.DENIED);
+            List<HiringManagerModel> ConvertedContract = ConvertContractToModel(ApplNotAccepted);
 
             return View(ConvertedContract);
         }
