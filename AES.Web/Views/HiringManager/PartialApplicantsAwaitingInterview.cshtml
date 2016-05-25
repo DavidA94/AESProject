@@ -1,0 +1,21 @@
+﻿@model AES.Web.Models.HiringManagerModel
+
+
+@* Tiles *@
+
+<div id="PartialApplicantsAwaitingInterview">
+    <div class="col-md-3">
+        <div class="tile">
+            <h3 class="title">@Model.FirstName @Model.LastName</h3>
+            <p>
+                @using (Html.BeginForm("FullApplicationCollapse", "HiringManager", FormMethod.Post))
+                {
+                    <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
+                    <button type="submit" class="btn btn-info btn-sm" value="BeginInterview">
+                        <i class="glyphicon glyphicon-user"></i> Begin Interview
+                    </button>
+                }
+            </p>
+        </div>
+    </div>
+</div>

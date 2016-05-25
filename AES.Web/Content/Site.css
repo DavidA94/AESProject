@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
     counter-reset: itemCounter;
 }
@@ -52,11 +52,16 @@ textarea {
 /*Custom styling for Hiring Specialist Dashboard*/
 /******************************************************************************/
 
+#DashHSLayout body {
+    padding-top: 50px;
+}
+
 #DashboardHS body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	line-height: 1.5em;
 	font-weight: 400;
+    padding-top: 50px;
 }
 
 #DashboardHS p, a, ul, li, button {
@@ -87,6 +92,7 @@ textarea {
     border: 1px solid black;
     border-radius: 25px;
     margin: 25px;
+    text-align: center;
 }
 
 #DashboardHS .title {
@@ -106,50 +112,50 @@ textarea {
 }
 
 /******************************************************************************/
-/*Call Page Styling*/
+/*Static Application Styling*/
 /******************************************************************************/
 
-#CallPage .jumbotron {
+#StaticApplicationTheme .jumbotron {
         background-color: #222222; /* Grey */
         color: darkslategray;
         /*padding: 100px 25px;*/
         padding: 3em 1.5em;
     }
 
-#CallPage .jumbotron h1 {
+#StaticApplicationTheme .jumbotron h1 {
         line-height: 1;
         color: cadetblue;
     }
 
-#CallPage .bg-grey {
+#StaticApplicationTheme .bg-grey {
         background-color: #f6f6f6;
     }
 
-#CallPage .bg-darkgrey{
+#StaticApplicationTheme .bg-darkgrey{
         background-color: #747474;
     }
 
-#CallPage .bg-white{
+#StaticApplicationTheme .bg-white{
     background-color: white;
 }
 
-#CallPage .container-fluid {
+#StaticApplicationTheme .container-fluid {
         /*padding: 60px 50px;*/
         padding: 4em 3em;
     }
 
-#CallPage .logo {
+#StaticApplicationTheme .logo {
         /*font-size: 200px;*/
         font-size: 8em;
     }
 
-#CallPage .col-sm-4 {
+#StaticApplicationTheme .col-sm-4 {
         text-align: center;
         /*margin: 25px 0;*/
         margin: auto;
     }
 
-#CallPage .navbar {
+#StaticApplicationTheme .navbar {
         margin-bottom: 0;
         z-index: 9999;
         border: 0;
@@ -161,27 +167,27 @@ textarea {
         font: Arial, Helvetica, sans-serif;
     }
 
-#CallPage .navbar li a, .navbar .navbar-brand {
+#StaticApplicationTheme .navbar li a, .navbar .navbar-brand {
         color: #fff;
     }
 
-#CallPage .navbar-nav li a:hover {
+#StaticApplicationTheme .navbar-nav li a:hover {
         color: #222222;
         background-color: #fff;
     }
 
-#CallPage .navbar-nav li.active a {
+#StaticApplicationTheme .navbar-nav li.active a {
         color: #222222;
         background-color: #fff;
 }
 
-#CallPage .navbar-default .navbar-toggle {
+#StaticApplicationTheme .navbar-default .navbar-toggle {
         border-color: transparent;
         color: #222222;
         background-color: #222222;
     }
 
-#CallPage{
+#StaticApplicationTheme{
         font-family: Arial, Helvetica, sans-serif;
 	    font-size: 1.5em;
 	    line-height: 1.3em;
@@ -190,7 +196,7 @@ textarea {
         background-color:#222222;
     }
 
-#CallPage h2 {
+#StaticApplicationTheme h2 {
     font-size: 1.5em;
     text-transform: uppercase;
     color: #303030;
@@ -198,9 +204,9 @@ textarea {
     margin-bottom: 1em;
     }
 
-#CallPage .slideanim {visibility:hidden;}
+#StaticApplicationTheme .slideanim {visibility:hidden;}
 
-#CallPage .slide {
+#StaticApplicationTheme .slide {
     /* The name of the animation */
     animation-name: slide;
     -webkit-animation-name: slide; 
@@ -211,24 +217,21 @@ textarea {
     visibility: visible; 
 }
 
-#CallPage .glyphicon-align-center::before{
+#StaticApplicationTheme .glyphicon-align-center::before{
     content:none;
 }
 
-#CallPage #backtotop{
+#StaticApplicationTheme #backtotop{
     text-align: center;
 }
 
-/*#CallPage .text-container {
-    background-color: white;
-    width: 100%;
-    padding: 20px;
-    border: 1px solid #9b0505;
-    border-radius: 20px;
-    margin: 0px;
-    height: 20px;
-    line-height: 0px;
-}*/
+#availability .container-fluid{
+    padding: 0em 0em 0em 3em;
+}
+
+#questionnaire .container-fluid{
+    padding: 0em 0em 0em 3em;
+}
 
 /* Go from 0% to 100% opacity (see-through) and specify the percentage from when to slide in the element along the Y-axis */
 @keyframes slide {
@@ -315,6 +318,7 @@ textarea {
 #staffingExpert .title img {float:left;margin-right:.5em;cursor:pointer;}
 #staffingExpert .title span {display:block;overflow:hidden;cursor:pointer;}
 #staffingExpert .editBox + .title {color:gray;font-style:normal;}
+#staffingExpert .editBox + .title {color:gray;font-style:normal;}
 
 #management #List .item {margin-bottom:1em;padding-bottom:1em;border-bottom:2px solid lightgray;}
 #management #List .item form {display:none;}
@@ -334,3 +338,373 @@ textarea {
 #editBox .nameEdit {display:none;}
 #editBox .newUser .name {display:none;}
 #editBox .newUser .nameEdit {display:block;}
+
+#buttons .glyphicon-align-center::before{
+    content:none;
+}
+
+#InterviewPage .container-fluid {
+    text-align: center;
+}
+
+#InterviewPage .panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";   
+    float: right;       
+    color: grey;
+}
+
+#InterviewPage .panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";   
+}
+
+/*Eliminating padding for text box in questionnare*/
+#qtextarea {
+    padding-left: 0px;
+}
+
+/******************************************************************************/
+/*Hiring Manager Dashboard Affix Styling*/
+/******************************************************************************/
+
+.affix {
+    top: 0;
+    width: 100%;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    background-color: #6e1612;
+    border-color: #6e1612;
+}
+
+.affix a {
+    color: white;
+    padding: 15px;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.affix-top a {
+    padding: 25px !important;
+}
+
+.affix + .container-fluid {
+    padding-top: 95px;
+}
+
+#DashHMLayout #Affix .container-fluid {
+    background-color: maroon;
+    background-image: url(Images/Gradient_Maroon_Background.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: white;
+    height: 50.5em;
+    padding: 3em;
+}
+
+#DashHMLayout #Affix h1 {
+    text-align: center;
+}
+
+#DashHMLayout #Affix .jumbotron {
+    background: transparent;
+    padding: 1em;
+}
+
+/******************************************************************************/
+/*Hiring Manager Dashboard Layout Styling*/
+/******************************************************************************/
+
+#DashHMLayout {
+    background-color: white;
+}
+
+#DashHMLayout body {
+    padding-top: 0px;
+}
+
+/*Logo in Hiring Manager Dashboard Affix*/
+#DashHMLayout img {
+    width: 20em;
+    height: 10em;
+}
+
+/*Logo in Hiring Manager Dashboard navbar*/
+#DashHMLayout .navbar-nav img {
+    width: 44px;
+    height: 22px;
+}
+
+#DashHMLayout .navbar {
+    border-radius: 0px;
+    /*Keeps the navbar always on top*/
+    z-index: 9999;
+    margin-bottom: 0px;
+}
+
+#DashHMLayout .navbar-inverse .navbar-nav li a {
+    color: #fff;
+}
+
+#DashHMLayout .navbar-inverse .navbar-nav li a:hover {
+     color: #222222;
+     background-color: #fff;
+}
+
+#DashHMLayout ul li .li-no-hover:hover {
+    background-color:transparent;
+    color:blue;
+}
+
+#DashHMLayout .navbar-nav li.active a {
+        color: #222222;
+        background-color: #fff;
+}
+
+/*Prevent a sudden jump when navbar transforms*/
+#DashHMLayout .nav-wrapper {
+    min-height: 5.3em;
+}
+
+/*Round button in affix to scroll down*/
+#DashHMLayout #Affix .btn-circle {
+    width: 70px;
+    height: 70px;
+    margin-top: 15px;
+    text-align: center;
+    vertical-align: middle;
+    position: center;
+    padding: 7px 16px;
+    border: 2px solid #fff;
+    border-radius: 100%!important;
+    font-size: 40px;
+    color: #fff;
+    background: 0 0;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+/*Align the round button in the center*/
+#DashHMLayout #Affix #circlebutton {
+    text-align: center;
+}
+
+#DashHMLayout #Affix .btn-circle:hover, .btn-circle:focus {
+    outline: 0;
+    color: #fff;
+    background: rgba(255,255,255,.1);
+}
+
+#DashHMLayout #Affix .btn-circle i.animated {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+}
+
+#DashHMLayout #Affix .btn-circle:hover i.animated {
+    -webkit-animation-name: pulse;
+    -moz-animation-name: pulse;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+}
+
+#DashHMLayout #Affix .affix-heading {
+    font-size: 100px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+@-webkit-keyframes pulse {    
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@-moz-keyframes pulse {    
+    0% {
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -moz-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    100% {
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+/******************************************************************************/
+/*Hiring Manager Dashboard Styling*/
+/******************************************************************************/
+
+/*View Applicant Information Section*/
+#DashboardHM #ViewApplicantInfo .container-fluid {
+    padding-top: 10em;
+    padding-bottom: 10em;
+}
+
+
+#DashboardHM #ViewApplicantInfo .container-fluid {
+    background-color: white;
+    background-image: url(Images/Application_Background.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    min-height: 800px;
+    padding-top: 6.5em;
+}
+
+#DashboardHM #ViewApplicantInfo .jumbotron {
+    background: #6e1612;
+    padding: 1em;
+    text-align: center;
+    color: white;
+    opacity:.8;
+    margin-left: auto;
+}
+
+#DashboardHM #ApplicantInformationList .tile {
+    background-color: #f9f9f9;
+    position: page;
+    width: 23em;
+    padding: 2em;
+    border: 1px solid black;
+    border-radius: 25px;
+    margin: 25px;
+    text-align: center;
+    opacity: .9;
+}
+
+#DashboardHM #ApplicantInformationList .title {
+    margin-top: 0px;
+    text-align: center;
+    color: #9b0505;
+}
+
+#DashboardHM #ApplicantInformationList  .tile:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}	
+	
+#DashboardHM #ApplicantInformationList .tile .staticText span{
+    text-align: center;
+    font-weight: bold;
+    font-size: 4em;
+}
+
+/*Applicant Information Absolute Div*/
+@media (min-width: 768px){
+  #AppInfoDiv {
+    position: absolute;
+    top: 72em;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow-y: auto; 
+    background: transparent;
+  }
+}
+
+#AppInfoDiv {
+  background-color: transparent;
+  text-align: center;
+  height:72%;
+}
+
+/*Interview Section Styling*/
+
+#DashboardHM #InterviewSection .jumbotron {
+    background: #6e1612;
+    padding: 1em;
+    text-align: center;
+    color: white;
+    opacity:.8;
+    margin-left: auto;
+
+}
+
+#DashboardHM #InterviewSection .container-fluid {
+    background-color: white;
+    background-image: url(Images/Interview_Background_0.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    min-height: 59em;
+    padding-top: 5em;
+}
+
+#DashboardHM #InterviewSection .container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2em;
+    opacity: .95;
+    max-height: 40em;
+    min-height: 40em;
+    overflow-y: auto;
+}
+
+#DashboardHM #InterviewSection .tile {
+    background-color: #f9f9f9;
+    position: page;
+    width: 15em;
+    padding: 1.5em;
+    border: 1px solid black;
+    border-radius: 25px;
+    margin: 25px;
+    text-align: center;
+}
+
+#DashboardHM #InterviewSection .title {
+    margin-top: 0px;
+    text-align: center;
+    color: #9b0505;
+    font-size: medium;
+}
+
+#DashboardHM #InterviewSection  .tile:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}	
+
+/*Request Positions Section Styling*/
+#DashboardHM #RequestPositions .container-fluid {
+    background-color: white;
+    background-image: url(Images/Job_Opportunities_Background.jpg);
+    background-repeat: no-repeat;
+    background-size: 200%;
+    min-height: 59em;
+    padding-top: 5em;
+}
+
+#DashboardHM #RequestPositions .jumbotron {
+    background: #6e1612;
+    padding: 1em;
+    text-align: center;
+    color: white;
+    opacity:.8;
+    margin-left: auto;
+}
+
+
+
+

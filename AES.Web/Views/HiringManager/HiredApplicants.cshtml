@@ -1,0 +1,16 @@
+﻿@using AES.Web.Models
+@model IEnumerable<HiringManagerModel>
+
+@{
+    ViewBag.Title = "HiredApplicants";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+<div id="HiredApplicants">
+    <div>
+        @foreach (HiringManagerModel HiredApplicants in Model)
+        {
+            Html.RenderPartial("PartialHiredApplicants", HiredApplicants);
+        }
+    </div>
+</div>

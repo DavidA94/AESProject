@@ -1,5 +1,7 @@
-﻿using AES.Shared.Contracts;
+﻿using AES.Shared;
+using AES.Shared.Contracts;
 using AES.Web.ApplicationService;
+using AES.Web.Authorization;
 using AES.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
+    //[AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HqHiringSpecialist)]
     public class HiringSpecialistController : Controller
     {
         HiringSpecialistModel hs = new HiringSpecialistModel();
@@ -91,6 +94,22 @@ namespace AES.Web.Controllers
                     FirstName = "Awesome",
                     LastName = "Fun",
                     ApplicantID = 2
+                },
+
+                new HiringSpecialistModel()
+                {
+                    ETA = new TimeSpan(11,11,11),
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                    ApplicantID = 3
+                },
+
+                new HiringSpecialistModel()
+                {
+                    ETA = new TimeSpan(11,11,11),
+                    FirstName = "Awesome",
+                    LastName = "Fun",
+                    ApplicantID = 4
                 }
             };
         }
@@ -101,10 +120,13 @@ namespace AES.Web.Controllers
 
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            if(!appSvc.CallApplicant(ApplicantID))
+            if (!appSvc.CallApplicant(ApplicantID))
             {
                 return RedirectToAction("DashboardHS");
             }
+
+            appSvc.CallApplicant(ApplicantID);
+
             ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.IN_CALL);
 
             FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);

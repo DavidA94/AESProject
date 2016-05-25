@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
-    [AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HiringManager)]
+    //[AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.StoreManager)]
     public class ManagerController : Controller
     {
         /// <summary>

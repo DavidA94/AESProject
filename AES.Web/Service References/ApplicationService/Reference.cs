@@ -266,11 +266,11 @@ namespace AES.Web.ApplicationService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingCalls", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingCallsResponse")]
         System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingCallsAsync(System.DateTime currentDateTime);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterview", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterviewResponse")]
-        AES.Shared.Contracts.ApplicantInfoContract[] GetApplicantsAwaitingInterview(int storeID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaiting", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingResponse")]
+        AES.Shared.Contracts.ApplicantInfoContract[] GetApplicantsAwaiting(int storeID, AES.Shared.AppStatus status);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterview", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingInterviewResponse")]
-        System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingInterviewAsync(int storeID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplicantsAwaiting", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicantsAwaitingResponse")]
+        System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingAsync(int storeID, AES.Shared.AppStatus status);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/GetApplication", ReplyAction="http://tempuri.org/IApplicationSvc/GetApplicationResponse")]
         AES.Web.ApplicationService.ApplicationInfoContract GetApplication(int userID, AES.Shared.AppStatus userAppStatus);
@@ -307,6 +307,18 @@ namespace AES.Web.ApplicationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SavePhoneInterview", ReplyAction="http://tempuri.org/IApplicationSvc/SavePhoneInterviewResponse")]
         System.Threading.Tasks.Task<bool> SavePhoneInterviewAsync(int applicantID, string notes, bool approved);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SaveInterview", ReplyAction="http://tempuri.org/IApplicationSvc/SaveInterviewResponse")]
+        bool SaveInterview(int applicantID, string notes, AES.Shared.AppStatus status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SaveInterview", ReplyAction="http://tempuri.org/IApplicationSvc/SaveInterviewResponse")]
+        System.Threading.Tasks.Task<bool> SaveInterviewAsync(int applicantID, string notes, AES.Shared.AppStatus status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatus", ReplyAction="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatusResponse")]
+        bool SetIntervieweeApplicantStatus(int applicantID, bool approved);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatus", ReplyAction="http://tempuri.org/IApplicationSvc/SetIntervieweeApplicantStatusResponse")]
+        System.Threading.Tasks.Task<bool> SetIntervieweeApplicantStatusAsync(int applicantID, bool approved);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IApplicationSvc/SubmitApplication", ReplyAction="http://tempuri.org/IApplicationSvc/SubmitApplicationResponse")]
         bool SubmitApplication(AES.Shared.Contracts.ApplicantInfoContract user);
@@ -358,12 +370,12 @@ namespace AES.Web.ApplicationService {
             return base.Channel.GetApplicantsAwaitingCallsAsync(currentDateTime);
         }
         
-        public AES.Shared.Contracts.ApplicantInfoContract[] GetApplicantsAwaitingInterview(int storeID) {
-            return base.Channel.GetApplicantsAwaitingInterview(storeID);
+        public AES.Shared.Contracts.ApplicantInfoContract[] GetApplicantsAwaiting(int storeID, AES.Shared.AppStatus status) {
+            return base.Channel.GetApplicantsAwaiting(storeID, status);
         }
         
-        public System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingInterviewAsync(int storeID) {
-            return base.Channel.GetApplicantsAwaitingInterviewAsync(storeID);
+        public System.Threading.Tasks.Task<AES.Shared.Contracts.ApplicantInfoContract[]> GetApplicantsAwaitingAsync(int storeID, AES.Shared.AppStatus status) {
+            return base.Channel.GetApplicantsAwaitingAsync(storeID, status);
         }
         
         public AES.Web.ApplicationService.ApplicationInfoContract GetApplication(int userID, AES.Shared.AppStatus userAppStatus) {
@@ -412,6 +424,22 @@ namespace AES.Web.ApplicationService {
         
         public System.Threading.Tasks.Task<bool> SavePhoneInterviewAsync(int applicantID, string notes, bool approved) {
             return base.Channel.SavePhoneInterviewAsync(applicantID, notes, approved);
+        }
+        
+        public bool SaveInterview(int applicantID, string notes, AES.Shared.AppStatus status) {
+            return base.Channel.SaveInterview(applicantID, notes, status);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SaveInterviewAsync(int applicantID, string notes, AES.Shared.AppStatus status) {
+            return base.Channel.SaveInterviewAsync(applicantID, notes, status);
+        }
+        
+        public bool SetIntervieweeApplicantStatus(int applicantID, bool approved) {
+            return base.Channel.SetIntervieweeApplicantStatus(applicantID, approved);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetIntervieweeApplicantStatusAsync(int applicantID, bool approved) {
+            return base.Channel.SetIntervieweeApplicantStatusAsync(applicantID, approved);
         }
         
         public bool SubmitApplication(AES.Shared.Contracts.ApplicantInfoContract user) {

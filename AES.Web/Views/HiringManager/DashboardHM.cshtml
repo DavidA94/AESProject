@@ -1,0 +1,87 @@
+﻿@*@model AES.Web.Models.HiringManagerModel*@
+
+@using AES.Web.Models
+@model IEnumerable<HiringManagerModel>
+
+@{
+    ViewBag.Title = "DashboardHM";
+    Layout = "~/Views/Shared/_LayoutDashHM.cshtml";
+}
+
+@*@using (Html.BeginForm("DashboardHM", "HiringManager", FormMethod.Post))
+{
+    <button type="submit" name="InterviewList" class="btn btn-info btn-lg" value="Applicant Interview List">
+        Applicant Interview List
+    </button>
+}*@
+
+<div id="DashboardHM">
+
+    @* View Applicant Information Section *@
+    <div id="ViewApplicantInfo">
+        <div class="container-fluid">
+            <div class="jumbotron col-md-offset-2">
+                <h1>Applicant Information</h1>
+            </div>
+            <div class="col-md-12" id="AppInfoDiv">
+                @{Html.RenderAction("ApplicantInformationList", "HiringManager");}
+            </div>
+        </div>
+    </div>
+
+    @* Interview Section *@
+    <div id="InterviewSection">
+        <div class="container-fluid">
+            <div class="jumbotron col-md-offset-2">
+                <h1>Interview Section</h1>
+            </div>
+
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#ApplicantsAwaitingInterview">Applicants Awaiting Interview</a></li>
+                    <li><a data-toggle="tab" href="#HiredApplicants">Hired Applicants</a></li>
+                    <li><a data-toggle="tab" href="#ApplicantsAwaitingDecision">Applicants Awaiting Decision</a></li>
+                    <li><a data-toggle="tab" href="#ApplicantsNotApproved">Applicants Not Approved</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="ApplicantsAwaitingInterview" class="tab-pane fade in active">
+                        <h3>Applicants Awaiting Interview</h3>
+                        @{Html.RenderAction("ApplicantsAwaitingInterview", "HiringManager");}
+                    </div>
+                    <div id="HiredApplicants" class="tab-pane fade">
+                        <h3>Hired Applicants</h3>
+                        @{Html.RenderAction("HiredApplicants", "HiringManager");}
+                    </div>
+                    <div id="ApplicantsAwaitingDecision" class="tab-pane fade">
+                        <h3>Applicants Awaiting Decision</h3>
+                        @{Html.RenderAction("ApplicantsAwaitingDecision", "HiringManager");}
+                    </div>
+                    <div id="ApplicantsNotApproved" class="tab-pane fade">
+                        <h3>Applicants Not Approved</h3>
+                        @{Html.RenderAction("ApplicantsNotAccepted", "HiringManager");}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @* Request Positions Section *@
+    <div id="RequestPositions">
+        <div class="container-fluid">
+            <div class="jumbotron col-md-offset-2">
+                <h1>Request Positions</h1>
+            </div>
+        </div>
+    </div>
+   
+
+</div>
+
+@*<div class="col-md-12" id="AppAwaitingIntDiv">
+    @{Html.RenderAction("ApplicantInformationList", "HiringManager");}
+    <h1>Scroll Away</h1>
+    <h1>Scroll Away</h1>
+
+</div>*@

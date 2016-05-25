@@ -43,7 +43,6 @@ namespace AES.Web.Authorization
 
                 // Actually sign the user in
                 HttpContext.Current.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { IsPersistent = false }, identity);
-
                 return true;
             }
 

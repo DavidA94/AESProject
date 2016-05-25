@@ -19,8 +19,11 @@ namespace AES.Web.Models
     {
         #region Data
 
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Display(Name = "Date of Birth")]
         public DateTime DOB { get; set; }
 
 

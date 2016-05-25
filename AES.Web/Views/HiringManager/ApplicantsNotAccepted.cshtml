@@ -1,0 +1,16 @@
+﻿@using AES.Web.Models
+@model IEnumerable<HiringManagerModel>
+
+@{
+    ViewBag.Title = "ApplicantsNotAccepted";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+<div id="ApplicantsNotAccepted">
+    <div>
+        @foreach (HiringManagerModel AppNotAccepted in Model)
+        {
+            Html.RenderPartial("PartialApplicantsNotAccepted", AppNotAccepted);
+        }
+    </div>
+</div>
