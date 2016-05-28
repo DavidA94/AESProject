@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AES.Web.JobbingService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,7 @@ namespace AES.Web.Models
         public string PositionReqNotes { get; set; }
 
         public string ApplicantStatus { get; set; }
+
 
     }
 }

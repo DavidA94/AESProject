@@ -9,10 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Reflection;
 
 namespace AES.Web.Controllers
 {
-    [AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HiringManager)]
+   
+    //[AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HiringManager)]
     public class HiringManagerController : Controller
     {
         // GET: HiringManager
@@ -30,16 +32,11 @@ namespace AES.Web.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult DashboardHM(string InterviewList)
-        {
-            if (InterviewList == "Applicant Interview List")
-            {
-                return RedirectToAction("InterviewList");
-            }
-
-            return View();
-        }
+        //[HttpPost]
+        //public ActionResult DashboardHM(string RequestNotes)
+        //{
+        //    return View();
+        //}
 
         public ActionResult ApplicantInformationList()
         {
@@ -51,6 +48,10 @@ namespace AES.Web.Controllers
             List<HiringManagerModel> ConvertedContract = ConvertContractToModel(ApplicantInformation);
 
             return View(ConvertedContract);
+
+            //var x = FillInterviewList();
+
+            //return View(x);
         }
 
         public ActionResult ApplicantsAwaitingInterview()
@@ -115,8 +116,8 @@ namespace AES.Web.Controllers
 
                 return View(ConvertedContract);
             }
-
         }
+
 
         public ActionResult InterviewList()
         {
@@ -156,7 +157,7 @@ namespace AES.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult FullApplicantInfo(int ApplicantID)
+        public ActionResult StaticApplicationHM(int ApplicantID)
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
@@ -170,9 +171,22 @@ namespace AES.Web.Controllers
 
 
         [HttpPost]
-        public ActionResult FullApplicationCollapse(int ApplicantID)
+        public ActionResult Interview(int ApplicantID, string ApplicantStatus, string InterviewNotes)
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            if (ApplicantStatus == "Hire")
+            {
+                appSvc.SaveInterview(ApplicantID, InterviewNotes, AppStatus.APPROVED);
+            }
+            else if (ApplicantStatus == "Deny")
+            {
+                appSvc.SaveInterview(ApplicantID, InterviewNotes, AppStatus.DENIED);
+            }
+            else if (ApplicantStatus == "DecideLater")
+            {
+                appSvc.SaveInterview(ApplicantID, InterviewNotes, AppStatus.INTERVIEW_COMPLETE);
+            }
 
             // ** Change this waiting call status to awaiting interview!
             ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_INTERVIEW);
@@ -184,6 +198,7 @@ namespace AES.Web.Controllers
 
             return View(ConvertedFullAppModel);
         }
+
 
         // Hardcoded HiringManagerViewModel
         public List<HiringManagerModel> FillInterviewList()

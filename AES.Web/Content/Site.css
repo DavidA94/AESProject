@@ -1,6 +1,6 @@
 ﻿body {
     /*padding-top: 50px;*/
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
     counter-reset: itemCounter;
 }
 
@@ -343,22 +343,6 @@ textarea {
     content:none;
 }
 
-#InterviewPage .container-fluid {
-    text-align: center;
-}
-
-#InterviewPage .panel-heading .accordion-toggle:after {
-    /* symbol for "opening" panels */
-    font-family: 'Glyphicons Halflings';
-    content: "\e114";   
-    float: right;       
-    color: grey;
-}
-
-#InterviewPage .panel-heading .accordion-toggle.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\e080";   
-}
 
 /*Eliminating padding for text box in questionnare*/
 #qtextarea {
@@ -366,7 +350,27 @@ textarea {
 }
 
 /******************************************************************************/
-/*Hiring Manager Dashboard Affix Styling*/
+/*Custom Background Styling*/
+/******************************************************************************/
+
+.bg-grey {
+        background-color: #f6f6f6;
+    }
+
+.bg-diag-grad{
+      background: red; /* For browsers that do not support gradients */
+      background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
+      background: linear-gradient(to bottom right, black, #6e1612); /* Standard syntax */
+    }
+
+.bg-white{
+    background-color: white;
+}
+
+/******************************************************************************/
+/*Affix Styling*/
 /******************************************************************************/
 
 .affix {
@@ -393,7 +397,7 @@ textarea {
     padding-top: 95px;
 }
 
-#DashHMLayout #Affix .container-fluid {
+#Affix .container-fluid {
     background-color: maroon;
     background-image: url(Images/Gradient_Maroon_Background.png);
     background-repeat: no-repeat;
@@ -403,72 +407,17 @@ textarea {
     padding: 3em;
 }
 
-#DashHMLayout #Affix h1 {
+#Affix h1 {
     text-align: center;
 }
 
-#DashHMLayout #Affix .jumbotron {
+#Affix .jumbotron {
     background: transparent;
     padding: 1em;
 }
 
-/******************************************************************************/
-/*Hiring Manager Dashboard Layout Styling*/
-/******************************************************************************/
-
-#DashHMLayout {
-    background-color: white;
-}
-
-#DashHMLayout body {
-    padding-top: 0px;
-}
-
-/*Logo in Hiring Manager Dashboard Affix*/
-#DashHMLayout img {
-    width: 20em;
-    height: 10em;
-}
-
-/*Logo in Hiring Manager Dashboard navbar*/
-#DashHMLayout .navbar-nav img {
-    width: 44px;
-    height: 22px;
-}
-
-#DashHMLayout .navbar {
-    border-radius: 0px;
-    /*Keeps the navbar always on top*/
-    z-index: 9999;
-    margin-bottom: 0px;
-}
-
-#DashHMLayout .navbar-inverse .navbar-nav li a {
-    color: #fff;
-}
-
-#DashHMLayout .navbar-inverse .navbar-nav li a:hover {
-     color: #222222;
-     background-color: #fff;
-}
-
-#DashHMLayout ul li .li-no-hover:hover {
-    background-color:transparent;
-    color:blue;
-}
-
-#DashHMLayout .navbar-nav li.active a {
-        color: #222222;
-        background-color: #fff;
-}
-
-/*Prevent a sudden jump when navbar transforms*/
-#DashHMLayout .nav-wrapper {
-    min-height: 5.3em;
-}
-
 /*Round button in affix to scroll down*/
-#DashHMLayout #Affix .btn-circle {
+#Affix .btn-circle {
     width: 70px;
     height: 70px;
     margin-top: 15px;
@@ -487,24 +436,24 @@ textarea {
 }
 
 /*Align the round button in the center*/
-#DashHMLayout #Affix #circlebutton {
+#Affix #circlebutton {
     text-align: center;
 }
 
-#DashHMLayout #Affix .btn-circle:hover, .btn-circle:focus {
+#Affix .btn-circle:hover, .btn-circle:focus {
     outline: 0;
     color: #fff;
     background: rgba(255,255,255,.1);
 }
 
-#DashHMLayout #Affix .btn-circle i.animated {
+#Affix .btn-circle i.animated {
     -webkit-transition-property: -webkit-transform;
     -webkit-transition-duration: 1s;
     -moz-transition-property: -moz-transform;
     -moz-transition-duration: 1s;
 }
 
-#DashHMLayout #Affix .btn-circle:hover i.animated {
+#Affix .btn-circle:hover i.animated {
     -webkit-animation-name: pulse;
     -moz-animation-name: pulse;
     -webkit-animation-duration: 1.5s;
@@ -515,12 +464,18 @@ textarea {
     -moz-animation-timing-function: linear;
 }
 
-#DashHMLayout #Affix .affix-heading {
+#Affix .affix-heading {
     font-size: 100px;
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 1px;
     text-align: center;
+}
+
+/*Logo in Hiring Manager Dashboard Affix*/
+#Affix img {
+    width: 20em;
+    height: 10em;
 }
 
 @-webkit-keyframes pulse {    
@@ -556,6 +511,62 @@ textarea {
         transform: scale(1);
     }
 }
+
+/******************************************************************************/
+/*Hiring Manager Dashboard Layout Styling*/
+/******************************************************************************/
+
+#DashHMLayout {
+    background-color: white;
+}
+
+#DashHMLayout body {
+    padding-top: 0px;
+}
+
+
+/******************************************************************************/
+/*Hiring Manager Dashboard Layout Styling*/
+/******************************************************************************/
+
+/*Logo in custom navbar*/
+#custom-navbar .navbar-nav img {
+    width: 44px;
+    height: 22px;
+}
+
+#custom-navbar .navbar {
+    border-radius: 0px;
+    /*Keeps the navbar always on top*/
+    z-index: 9999;
+    margin-bottom: 0px;
+}
+
+#custom-navbar .navbar-inverse .navbar-nav li a {
+    color: #fff;
+}
+
+#custom-navbar .navbar-inverse .navbar-nav li a:hover {
+     color: #222222;
+     background-color: #fff;
+}
+
+#custom-navbar ul li .li-no-hover:hover {
+    background-color:transparent;
+    color:blue;
+}
+
+#custom-navbar .navbar-nav li.active a {
+        color: #222222;
+        background-color: #fff;
+}
+
+/*Prevent a sudden jump when navbar transforms*/
+#custom-navbar .nav-wrapper {
+    min-height: 5.3em;
+}
+
+
 
 /******************************************************************************/
 /*Hiring Manager Dashboard Styling*/
@@ -705,6 +716,202 @@ textarea {
     margin-left: auto;
 }
 
+#RequestPositions #RequestNotes textarea {
+    width: 50%;
+    max-width: 90%;
+}
+
+/******************************************************************************/
+/*Title for all pages Styling*/
+/******************************************************************************/
+
+#Title .container-fluid {
+        padding: 4em 3em;
+        color: white;
+        border: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        border-bottom: 0px;
+    }
+
+#Title .jumbotron{
+        background-image: url(Images/Header_Background.jpg);
+    }
+
+#Title .jumbotron h1{
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        text-transform: uppercase;
+        text-shadow: -9px -4px 5px #232323;
+    }
+
+/******************************************************************************/
+/*Static Application for Hiring Manager Styling*/
+/******************************************************************************/
+
+#StaticApplicationHM #availability .container-fluid .form-group .container-fluid {
+        padding: 0 3em 0;
+        color: white;
+        border: 0px;
+        outline: 0px;
+        border-bottom: 0px;
+    }
+
+#StaticApplicationHM #questionnaire .container-fluid .form-group .container-fluid {
+        padding: 0 3em 0;
+        color: white;
+        border: 0px;
+        outline: 0px;
+    }
+
+#StaticApplicationHM #Title .container-fluid {
+        padding: 4em 3em;
+        color: white;
+        border: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        border-bottom: 0px;
+    }
+
+#StaticApplicationHM .container-fluid {
+        padding: 5em 10em;
+        color: white;
+        border-bottom: 1px solid white;
+    }
+
+#StaticApplicationHM h2 {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 1em;
+    }
+
+#StaticApplicationHM .logo {
+        font-size: 200px;
+        font-size: 8em;
+    }
+
+#StaticApplicationHM .col-sm-4 {
+        text-align: center;
+        margin: 25px 0;
+        margin: auto;
+    }
+
+#StaticApplicationHM{
+        font-family: Arial, Helvetica, sans-serif;
+	    font-size: 1.5em;
+	    line-height: 1.3em;
+	    font-weight: 400;
+        width: 100%;
+        background-color: black;
+    }
 
 
 
+#StaticApplicationHM .slideanim {
+    visibility:hidden;
+
+}
+
+#StaticApplicationHM .slide {
+     /*The name of the animation*/ 
+    animation-name: slide;
+    -webkit-animation-name: slide; 
+     /*The duration of the animation*/ 
+    animation-duration: 1s; 
+    -webkit-animation-duration: 1s;
+     /*Make the element visible*/ 
+    visibility: visible; 
+}
+
+#StaticApplicationHM #backtotop{
+    text-align: center;
+}
+
+/******************************************************************************/
+/*Interview Page Styling*/
+/******************************************************************************/
+
+#Interview {
+    background-color: black;
+}
+
+#Interview #Title .container-fluid {
+        padding: 4em 3em;
+        color: white;
+        border: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        border-bottom: 0px;
+    }
+
+#Interview #AccordianHeading .container-fluid h1 {
+    color: white;
+    text-align: left;
+}
+
+
+#Interview .container-fluid {
+    text-align: center;
+    padding: 4em 15em 0em 15em;
+}
+
+#Interview .panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";   
+    float: right;       
+    color: grey;
+}
+
+#Interview .panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";   
+}
+
+.accordion-container {
+	width: 50%;
+	/*margin: 0 0 20px;*/
+	/*clear: both;*/
+}
+.accordion-toggle {
+	/*position: relative;*/
+	display: block;
+	padding: 10px;
+	font-size: 1.5em;
+	font-weight: 300;
+	background: #999;
+	color: #fff;
+	text-decoration: none;
+}
+.accordion-toggle.open {
+	background: #333;
+	color: #fff;
+}
+.accordion-toggle:hover {
+	background: #666;
+}
+.accordion-toggle span.toggle-icon {
+	position: absolute;
+	top: 9px;
+	right: 20px;
+	font-size: 1.5em;
+}
+.accordion-content {
+	display: none;
+	padding: 20px;
+	overflow: auto;
+}
+.accordion-content img {
+	display: block;
+	float: left;
+	margin: 0 15px 10px 0;
+	max-width: 100%;
+	height: auto;
+}
+ 
+/* media query for mobile */
+@media (max-width: 767px) {
+	.accordion-content {
+		padding: 10px 0;
+		overflow: inherit;
+	}
+}

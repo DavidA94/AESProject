@@ -4,11 +4,11 @@
 @* Tiles *@
 
 <div id="PartialApplicantInformationList">
-    <div class="row col-md-4">
+    <div class="col-md-4">
         <div class="tile">
             <h3 class="title">@Model.FirstName @Model.LastName</h3>
             <p>
-                @using (Html.BeginForm("FullApplicantInfo", "HiringManager", FormMethod.Post))
+                @using (Html.BeginForm("StaticApplicationHM", "HiringManager", FormMethod.Post))
                 {
                     <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
                     <button type="submit" class="btn btn-info btn-lg" value="ViewInfo">

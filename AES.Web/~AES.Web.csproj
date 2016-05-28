@@ -263,11 +263,13 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\AESLogo.svg" />
+    <Content Include="Content\Images\AESLogo_White.svg" />
     <Content Include="Content\Images\aes_logo_trans.png" />
     <Content Include="Content\Images\aes_logo_white.png" />
     <Content Include="Content\Images\Application_Background.jpg" />
     <Content Include="Content\Images\Employment_WordCloud_Background.jpg" />
     <Content Include="Content\Images\Gradient_Maroon_Background.png" />
+    <Content Include="Content\Images\Header_Background.jpg" />
     <Content Include="Content\Images\Interview_Background_0.jpg" />
     <Content Include="Content\Images\Interview_Background_1.jpg" />
     <Content Include="Content\Images\Interview_Background_2.jpg" />
@@ -315,7 +317,7 @@
     <Content Include="Scripts\JobbingDashboard.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\CallPageSlideAnim.js" />
+    <Content Include="Scripts\SlideAnim.js" />
     <Content Include="Scripts\SmoothScroll.js" />
     <Content Include="Scripts\CountdownTimer.js" />
     <Content Include="Scripts\Management.js" />
@@ -527,23 +529,25 @@
     <Content Include="Views\IT\_StoreEdit.cshtml" />
     <Content Include="Views\HiringManager\DashboardHM.cshtml" />
     <Content Include="Views\Shared\_LayoutDashHM.cshtml" />
-    <Content Include="Views\HiringManager\FullApplicantInfo.cshtml" />
+    <Content Include="Views\HiringManager\StaticApplicationHM.cshtml" />
     <Content Include="Views\HiringManager\InterviewList.cshtml" />
     <Content Include="Views\HiringManager\PartialInterviewList.cshtml" />
-    <Content Include="Views\HiringManager\FullApplicationCollapse.cshtml" />
+    <Content Include="Views\HiringManager\Interview.cshtml" />
     <Content Include="Views\HiringManager\ApplicantInformationList.cshtml" />
     <Content Include="Views\HiringManager\PartialApplicantInformationList.cshtml" />
     <Content Include="Views\HiringManager\PartialApplicantsAwaitingInterview.cshtml" />
     <Content Include="Views\Shared\_LayoutEmpty.cshtml" />
     <Content Include="Views\HiringManager\ApplicantsAwaitingInterview.cshtml" />
     <Content Include="Views\HiringManager\RequestPositions.cshtml" />
-    <Content Include="Views\HiringManager\PartialRequestPositions.cshtml" />
     <Content Include="Views\HiringManager\HiredApplicants.cshtml" />
     <Content Include="Views\HiringManager\PartialHiredApplicants.cshtml" />
     <Content Include="Views\HiringManager\ApplicantsAwaitingDecision.cshtml" />
     <Content Include="Views\HiringManager\PartialApplicantsAwaitingDecision.cshtml" />
     <Content Include="Views\HiringManager\ApplicantsNotAccepted.cshtml" />
     <Content Include="Views\HiringManager\PartialApplicantsNotAccepted.cshtml" />
+    <Content Include="Views\HiringManager\PartialRequestPositions.cshtml" />
+    <Content Include="Views\HiringManager\_LayoutStaticAppHM.cshtml" />
+    <Content Include="Views\HiringManager\_LayoutInterview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">

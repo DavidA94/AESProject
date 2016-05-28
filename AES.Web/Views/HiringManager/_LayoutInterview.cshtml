@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>@ViewBag.Title - AES Inc.</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body id="InterviewLayout" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+    <div id="Affix">
+        <div class="container-fluid" id="BackToTop">
+            <div class="col-md-push-4">
+                <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
+            </div>
+
+            <div class="=col-md-12">
+                <h2 class="affix-heading">Hiring Manager</h2>
+            </div>
+
+            <div class="jumbotron">
+                <h1>Interview</h1>
+            </div>
+
+            <div id="circlebutton">
+                <a href="#Title" class="btn btn-circle">
+                    <i class="fa fa-angle-double-down animated"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="custom-navbar">
+        <div class="nav-wrapper">
+            <nav class="navbar navbar-inverse affix" data-spy="affix" data-offset-top="697">
+                <ul class="nav navbar-nav">
+
+                    <li id="navbarlogo" class="li-no-hover">
+                        <a href="#">
+                            <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
+                        </a>
+                    </li>
+                    <li class="li-no-hover"><a href="#BackToTop">Dashboard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/SmoothScroll.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+
