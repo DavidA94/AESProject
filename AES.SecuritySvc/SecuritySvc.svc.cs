@@ -228,6 +228,10 @@ namespace AES.SecuritySvc
 
                             // App Harbor Logic start
 
+                            if(smtp.PickupDirectoryLocation == "TestingEnvironment")
+                            {
+                                smtp.PickupDirectoryLocation = Directory.GetCurrentDirectory();
+                            }
                             loc = smtp.PickupDirectoryLocation;
 
                             // App Harbor logic end
