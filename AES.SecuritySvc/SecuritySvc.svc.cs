@@ -254,7 +254,7 @@ namespace AES.SecuritySvc
                 }
                 catch(Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Trace.WriteLine(ex.Message);
                     return false;
                 }
             }
