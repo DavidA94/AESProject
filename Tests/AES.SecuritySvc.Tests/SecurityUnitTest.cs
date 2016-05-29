@@ -5,6 +5,7 @@ using AES.Shared.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 
@@ -182,6 +183,14 @@ namespace AES.SecuritySvc.Tests
                 invalidPassEmployee.FirstName = "a@a.a";
                 Assert.IsFalse(s.CreateEmployee(invalidPassEmployee, "Passw0rd!"));
             }
+
+            // Clean up the users we created
+            using (var db = new AESDbContext())
+            {
+                db.EmployeeUsers.RemoveRange(db.EmployeeUsers.Where(e => e.FirstName == FIRSTNAME && e.LastName == LASTNAME));
+                db.SaveChanges();
+            }
+
         }
         
         [TestMethod]
@@ -195,8 +204,53 @@ namespace AES.SecuritySvc.Tests
                 Assert.IsNotNull(user);
 
                 var s = new SecuritySvc();
-                Assert.IsTrue(s.UpdateUserPassword(new EmployeeCredentialsContract() { Email = "employee@aes.com", Password = "password" }, "BrandNewPassword!"));
-                Assert.IsTrue(s.UpdateUserPassword(new EmployeeCredentialsContract() { Email = "employee@aes.com", Password = "BrandNewPassword!" }, "password"));
+                Assert.IsTrue(s.UpdateUserPassword(new EmployeeCredentialsContract() { Email = "employee@aes.com", Password = "Omicron" }, "BrandNewPassword!"));
+                Assert.IsTrue(s.UpdateUserPassword(new EmployeeCredentialsContract() { Email = "employee@aes.com", Password = "BrandNewPassword!" }, "Omicron"));
+            }
+        }
+
+        [TestMethod]
+        public void SecuritySvc_ForgotPassword()
+        {
+            using (var db = new AESDbContext())
+            {
+                // Get where the emails are being saved
+                var emailDir = Directory.GetCurrentDirectory();
+
+                // Ensure there are no emails in the directory
+                foreach (var file in (new DirectoryInfo(emailDir)).EnumerateFiles("*.eml"))
+                {
+                    File.Delete(file.FullName);
+                }
+
+                // Backup the hash/salt so we can restore them
+                var user = db.EmployeeUsers.FirstOrDefault(e => e.Email.ToLower() == "employee@aes.com");
+                var hash = user.PasswordHash.Clone() as byte[];
+                var salt = user.Salt.Clone() as byte[];
+
+                // Try to "forget" the password
+                var s = new SecuritySvc();
+                Assert.IsTrue(s.ForgotPassword(new EmployeeCredentialsContract() { Email = user.Email }));
+
+                // Ensure the hash and salt are different
+                using (var db2 = new AESDbContext())
+                {
+                    var user2 = db2.EmployeeUsers.FirstOrDefault(e => e.Email.ToLower() == "employee@aes.com");
+                    Assert.AreNotEqual(user2.PasswordHash, hash);
+                    Assert.AreNotEqual(user2.Salt, salt);
+
+                    // Revert the hash/salt
+                    user2.PasswordHash = hash;
+                    user2.Salt = salt;
+                    db2.SaveChanges();
+                }
+
+                var fileinfo = new FileInfo(new DirectoryInfo(emailDir).EnumerateFiles("*.eml").First().FullName);
+                var fileContents = File.ReadAllText(fileinfo.FullName);
+
+                // Ensure some of the email is there (assume the rest is good)
+                Assert.IsTrue(fileContents.Contains("<h3>Hello Employee User,</h3><p>We heard you needed to reset your"));
+                Assert.IsTrue(fileContents.Contains("log in. After logging in, you must create a new password.</p><p><"));
             }
         }
 

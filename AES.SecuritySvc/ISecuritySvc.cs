@@ -16,6 +16,12 @@ namespace AES.SecuritySvc
 
         [OperationContract]
         bool CreateEmployee(EmployeeUserContract employeeInfo, string password);
+
+        [OperationContract]
+        bool UpdateUserPassword(EmployeeCredentialsContract credentials, string newPassword);
+
+        [OperationContract]
+        bool ForgotPassword(EmployeeCredentialsContract user);
     }
     
 }

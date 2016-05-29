@@ -35,6 +35,7 @@ namespace AES.Web.Controllers
         /// Deactivates the given store
         /// </summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeactivateStore(StoreModel store)
         {
             string errorMessage = "";
@@ -73,6 +74,7 @@ namespace AES.Web.Controllers
         /// Creates a new store
         /// </summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult NewStore(StoreModel store)
         {
             string errorMessage = "";
@@ -98,6 +100,7 @@ namespace AES.Web.Controllers
         /// Updates the given store
         /// </summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveStore(StoreModel store)
         {
             string errorMessage = "";
@@ -139,6 +142,7 @@ namespace AES.Web.Controllers
         /// Deactivates the given user
         /// </summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeactivateUser(EmployeeUserModel e)
         {
             string errorMessage = "";
@@ -179,6 +183,7 @@ namespace AES.Web.Controllers
         /// Creates a new user
         /// </summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult NewUser(EmployeeUserModel e)
         {
             string errorMessage = "";
@@ -208,6 +213,7 @@ namespace AES.Web.Controllers
         /// Updates the given user
         /// </summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveUser(EmployeeUserModel e)
         {
             string errorMessage = "";

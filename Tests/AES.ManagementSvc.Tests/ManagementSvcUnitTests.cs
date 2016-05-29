@@ -29,18 +29,18 @@ namespace AES.ManagementSvc.Tests
 
             var users = m.GetUserList();
 
-            Assert.IsTrue(users.Length == 1);
+            // Ensure we get at least the seeded data back.
+            Assert.IsNotNull(users.FirstOrDefault(e => e.Email.ToLower() == "employee@aes.com"));
 
-            var user = users[0];
+            var user = users.FirstOrDefault(e => e.Email.ToLower() == "employee@aes.com");
 
             using (var db = new AESDbContext())
             {
-                var seededUser = db.EmployeeUsers.FirstOrDefault();
+                var seededUser = db.EmployeeUsers.FirstOrDefault(e => e.Email.ToLower() == "employee@aes.com");
 
                 Assert.AreEqual(user.Email, seededUser.Email);
                 Assert.AreEqual(user.FirstName, seededUser.FirstName);
                 Assert.AreEqual(user.LastName, seededUser.LastName);
-                Assert.AreEqual(user.MustResetPassword, seededUser.MustResetPassword);
                 Assert.AreEqual(user.Role, seededUser.Role);
                 Assert.AreEqual(user.StoreID, seededUser.StoreID);
             }

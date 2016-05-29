@@ -513,7 +513,6 @@
     </None>
     <Content Include="Views\Manager\Requests.cshtml" />
     <Content Include="Views\Manager\_RequestList.cshtml" />
-    <Content Include="Views\EmployeeLogin\Welcome.cshtml" />
     <Content Include="Views\Shared\_LayoutCallPage.cshtml" />
     <Content Include="Views\IT\Dashboard.cshtml" />
     <Content Include="Views\IT\Users.cshtml" />
@@ -543,6 +542,8 @@
     <Content Include="Views\HiringManager\PartialApplicantsAwaitingDecision.cshtml" />
     <Content Include="Views\HiringManager\ApplicantsNotAccepted.cshtml" />
     <Content Include="Views\HiringManager\PartialApplicantsNotAccepted.cshtml" />
+    <Content Include="Views\EmployeeLogin\ResetPassword.cshtml" />
+    <Content Include="Views\EmployeeLogin\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">

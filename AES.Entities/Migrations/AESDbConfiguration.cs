@@ -91,25 +91,29 @@ namespace AES.Entities.Migrations
 
             var tualatinJanitorOpening = new JobOpening
             {
-                Job = janitorJob
+                Job = janitorJob,
+                Positions = 1
             };
             tualatinJanitorOpening.Store = tualatinStore;
 
             var portlandJanitorOpening = new JobOpening
             {
-                Job = janitorJob
+                Job = janitorJob,
+                Positions = 1
             };
             portlandJanitorOpening.Store = portlandStore;
 
             var tualatinSalesOpening = new JobOpening
             {
-                    Job = salesAssociateJob
+                    Job = salesAssociateJob,
+                    Positions = 3
             };
             tualatinSalesOpening.Store = tualatinStore;
 
             var portlandSalesOpening = new JobOpening
             {
-                Job = salesAssociateJob
+                Job = salesAssociateJob,
+                Positions = 3
             };
             portlandSalesOpening.Store = portlandStore;
 
@@ -473,7 +477,7 @@ namespace AES.Entities.Migrations
             context.SaveChanges();
 
             var employeeSalt = Encryption.GetSalt();
-            var employeePass = "password";
+            var employeePass = "Omicron";
             var hashedEmployeePass = Encryption.ComputeHash(employeePass, new SHA256CryptoServiceProvider(), employeeSalt);
 
             var employeeUser = new EmployeeUser
@@ -482,14 +486,13 @@ namespace AES.Entities.Migrations
                 FirstName = "Employee",
                 LastName = "User",
                 MustResetPassword = false,
-                Role = EmployeeRole.HqHiringSpecialist,
+                Role = EmployeeRole.ITSpecialist,
                 PasswordHash = hashedEmployeePass,
                 Salt = employeeSalt,
                 StoreID = portlandStore.ID,
             };
 
             context.EmployeeUsers.AddOrUpdate(employeeUser);
-
             context.SaveChanges();
         }
     }

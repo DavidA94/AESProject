@@ -32,6 +32,7 @@ namespace AES.Web.Controllers
         /// <param name="notes">The notes to go into the response</param>
         /// <returns>Text depending if the request was successful. "success" is returned if it was</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SetRequest(int requestID, OpeningStatus status, string notes)
         {
             IOpeningSvc openSvc = new OpeningSvcClient();
