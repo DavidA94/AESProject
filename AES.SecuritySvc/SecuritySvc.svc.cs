@@ -208,9 +208,7 @@ namespace AES.SecuritySvc
                 dbUser.PasswordHash = passwordHash;
                 dbUser.Salt = salt;
                 dbUser.MustResetPassword = true;
-
-                string loc = "";
-
+                
                 try
                 {
                     if (db.SaveChanges() > 0)
@@ -232,7 +230,6 @@ namespace AES.SecuritySvc
                             {
                                 smtp.PickupDirectoryLocation = Directory.GetCurrentDirectory();
                             }
-                            loc = smtp.PickupDirectoryLocation;
 
                             // App Harbor logic end
 
@@ -267,7 +264,6 @@ namespace AES.SecuritySvc
                 catch(Exception ex)
                 {
                     Trace.WriteLine(ex.Message);
-                    Trace.WriteLine(loc);
                     return false;
                 }
             }
