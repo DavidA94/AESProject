@@ -209,6 +209,8 @@ namespace AES.SecuritySvc
                 dbUser.Salt = salt;
                 dbUser.MustResetPassword = true;
 
+                string loc = "";
+
                 try
                 {
                     if (db.SaveChanges() > 0)
@@ -223,6 +225,12 @@ namespace AES.SecuritySvc
                             smtp.PickupDirectoryLocation = smtp.PickupDirectoryLocation ?? Path.Combine(AppDomain.CurrentDomain.GetData("DataDirectory").ToString(), "Emails");
                             smtp.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
                             if(!Directory.Exists(smtp.PickupDirectoryLocation)) { Directory.CreateDirectory(smtp.PickupDirectoryLocation); }
+
+                            // App Harbor Logic start
+
+                            loc = smtp.PickupDirectoryLocation;
+
+                            // App Harbor logic end
 
                             smtp.EnableSsl = smtp.PickupDirectoryLocation == null; // Handles test/non-test varieties
 
@@ -255,6 +263,7 @@ namespace AES.SecuritySvc
                 catch(Exception ex)
                 {
                     Trace.WriteLine(ex.Message);
+                    Trace.WriteLine(loc);
                     return false;
                 }
             }
