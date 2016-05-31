@@ -8,10 +8,10 @@
         <div class="tile">
             <h3 class="title">@Model.FirstName @Model.LastName</h3>
             <p>
-                @using (Html.BeginForm("FullApplicationCollapse", "HiringManager", FormMethod.Post))
+                @using (Html.BeginForm("Interview", "HiringManager", FormMethod.Post))
                 {
                     <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
-                    <button type="submit" class="btn btn-info btn-sm" value="Decide">
+                    <button type="submit" name="ApplicantStatus" class="btn btn-info btn-sm" value="Decide">
                         <i class="glyphicon glyphicon-user"></i> Decide
                     </button>
                 }

@@ -26,5 +26,11 @@ namespace AES.Web.Controllers
 
             return View();
         }
+
+        public ActionResult HomePage()
+        {
+            return View();
+        }
+
     }
 }

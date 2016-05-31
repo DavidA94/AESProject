@@ -51,9 +51,15 @@ textarea {
 /******************************************************************************/
 /*Custom styling for Hiring Specialist Dashboard*/
 /******************************************************************************/
+#DashboardHS {
+    background-color: black;
+}
 
-#DashHSLayout body {
-    padding-top: 50px;
+#DashboardHS #body .container-fluid {
+    min-height: 30em;
+    padding-top: 5em;
+    padding-right: 10em;
+    padding-left: 10em;
 }
 
 #DashboardHS body {
@@ -62,6 +68,7 @@ textarea {
 	line-height: 1.5em;
 	font-weight: 400;
     padding-top: 50px;
+    background-color: black;
 }
 
 #DashboardHS p, a, ul, li, button {
@@ -89,7 +96,7 @@ textarea {
     background-color: #f9f9f9;
     width: 300px;
     padding: 25px;
-    border: 1px solid black;
+    border: 4px solid forestgreen;
     border-radius: 25px;
     margin: 25px;
     text-align: center;
@@ -102,7 +109,7 @@ textarea {
 }
 
 #DashboardHS .tile:hover {
-    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+    box-shadow: 10px 0px 40px 8px #086710;
 }	
 	
 #DashboardHS .tile .staticText span{
@@ -112,125 +119,94 @@ textarea {
 }
 
 /******************************************************************************/
-/*Static Application Styling*/
+/*Call Page Styling*/
 /******************************************************************************/
 
-#StaticApplicationTheme .jumbotron {
-        background-color: #222222; /* Grey */
-        color: darkslategray;
-        /*padding: 100px 25px;*/
-        padding: 3em 1.5em;
+#CallPage #availability .container-fluid .form-group .container-fluid {
+        padding: 0 3em 0;
+        color: white;
+        border: 0px;
+        outline: 0px;
+        border-bottom: 0px;
     }
 
-#StaticApplicationTheme .jumbotron h1 {
-        line-height: 1;
-        color: cadetblue;
+#CallPage #questionnaire .container-fluid .form-group .container-fluid {
+        padding: 0 3em 0;
+        color: white;
+        border: 0px;
+        outline: 0px;
     }
 
-#StaticApplicationTheme .bg-grey {
-        background-color: #f6f6f6;
+#CallPage #Title .container-fluid {
+        padding: 4em 3em;
+        color: white;
+        border: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        border-bottom: 0px;
     }
 
-#StaticApplicationTheme .bg-darkgrey{
-        background-color: #747474;
-    }
-
-#StaticApplicationTheme .bg-white{
-    background-color: white;
+#CallPage #buttons {
+    text-align: center;
 }
 
-#StaticApplicationTheme .container-fluid {
-        /*padding: 60px 50px;*/
-        padding: 4em 3em;
+#CallPage #buttons .container-fluid {
+    border-bottom: 0px;
+}
+
+#CallPage .container-fluid {
+        padding: 5em 10em;
+        color: white;
+        border-bottom: 1px solid white;
     }
 
-#StaticApplicationTheme .logo {
-        /*font-size: 200px;*/
+#CallPage h2 {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 1em;
+    }
+
+#CallPage .logo {
+        font-size: 200px;
         font-size: 8em;
     }
 
-#StaticApplicationTheme .col-sm-4 {
+#CallPage .col-sm-4 {
         text-align: center;
-        /*margin: 25px 0;*/
+        margin: 25px 0;
         margin: auto;
     }
 
-#StaticApplicationTheme .navbar {
-        margin-bottom: 0;
-        z-index: 9999;
-        border: 0;
-        font-size: .75em;
-        /*line-height: 1.42857143;*/
-        letter-spacing: .3em;
-        border-radius: 0;
-        background-color: #222222;
-        font: Arial, Helvetica, sans-serif;
-    }
-
-#StaticApplicationTheme .navbar li a, .navbar .navbar-brand {
-        color: #fff;
-    }
-
-#StaticApplicationTheme .navbar-nav li a:hover {
-        color: #222222;
-        background-color: #fff;
-    }
-
-#StaticApplicationTheme .navbar-nav li.active a {
-        color: #222222;
-        background-color: #fff;
-}
-
-#StaticApplicationTheme .navbar-default .navbar-toggle {
-        border-color: transparent;
-        color: #222222;
-        background-color: #222222;
-    }
-
-#StaticApplicationTheme{
+#CallPage{
         font-family: Arial, Helvetica, sans-serif;
 	    font-size: 1.5em;
 	    line-height: 1.3em;
 	    font-weight: 400;
         width: 100%;
-        background-color:#222222;
+        background-color: black;
     }
 
-#StaticApplicationTheme h2 {
-    font-size: 1.5em;
-    text-transform: uppercase;
-    color: #303030;
-    font-weight: 600;
-    margin-bottom: 1em;
-    }
 
-#StaticApplicationTheme .slideanim {visibility:hidden;}
 
-#StaticApplicationTheme .slide {
-    /* The name of the animation */
+#CallPage .slideanim {
+    visibility:hidden;
+
+}
+
+#CallPage .slide {
+     /*The name of the animation*/ 
     animation-name: slide;
     -webkit-animation-name: slide; 
-    /* The duration of the animation */
+     /*The duration of the animation*/ 
     animation-duration: 1s; 
     -webkit-animation-duration: 1s;
-    /* Make the element visible */
+     /*Make the element visible*/ 
     visibility: visible; 
 }
 
-#StaticApplicationTheme .glyphicon-align-center::before{
-    content:none;
-}
-
-#StaticApplicationTheme #backtotop{
+#CallPage #backtotop{
     text-align: center;
-}
-
-#availability .container-fluid{
-    padding: 0em 0em 0em 3em;
-}
-
-#questionnaire .container-fluid{
-    padding: 0em 0em 0em 3em;
 }
 
 /* Go from 0% to 100% opacity (see-through) and specify the percentage from when to slide in the element along the Y-axis */
@@ -403,7 +379,7 @@ textarea {
     background-repeat: no-repeat;
     background-size: 100%;
     color: white;
-    height: 50.5em;
+    height: 52em;
     padding: 3em;
 }
 
@@ -602,7 +578,7 @@ textarea {
     position: page;
     width: 23em;
     padding: 2em;
-    border: 1px solid black;
+    border: 3px solid #14498c;
     border-radius: 25px;
     margin: 25px;
     text-align: center;
@@ -616,7 +592,7 @@ textarea {
 }
 
 #DashboardHM #ApplicantInformationList  .tile:hover {
-    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+    box-shadow: 10px 0px 40px 5px #14498c;
 }	
 	
 #DashboardHM #ApplicantInformationList .tile .staticText span{
@@ -675,17 +651,6 @@ textarea {
     overflow-y: auto;
 }
 
-#DashboardHM #InterviewSection .tile {
-    background-color: #f9f9f9;
-    position: page;
-    width: 15em;
-    padding: 1.5em;
-    border: 1px solid black;
-    border-radius: 25px;
-    margin: 25px;
-    text-align: center;
-}
-
 #DashboardHM #InterviewSection .title {
     margin-top: 0px;
     text-align: center;
@@ -693,8 +658,49 @@ textarea {
     font-size: medium;
 }
 
-#DashboardHM #InterviewSection  .tile:hover {
-    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+#DashboardHM #InterviewSection .tile {
+    background-color: #f9f9f9;
+    position: page;
+    width: 15em;
+    padding: 1.5em;
+    border: 2px solid #14498c;
+    border-radius: 25px;
+    margin: 25px;
+    text-align: center;
+}
+
+#DashboardHM #InterviewSection .tile:hover {
+    box-shadow: 5px 0px 40px 1px #14498c;
+}	
+
+#DashboardHM #InterviewSection #HiredApplicants .tile {
+    background-color: #f9f9f9;
+    position: page;
+    width: 15em;
+    padding: 1.5em;
+    border: 2px solid forestgreen;
+    border-radius: 25px;
+    margin: 25px;
+    text-align: center;
+}
+
+#DashboardHM #InterviewSection  #HiredApplicants .tile:hover {
+    box-shadow: 5px 0px 40px 1px #086710;
+}	
+
+#DashboardHM #InterviewSection #ApplicantsNotApproved .tile {
+    background-color: #f9f9f9;
+    position: page;
+    width: 15em;
+    padding: 1.5em;
+    border: 2px solid #9d0d0d;
+    border-radius: 25px;
+    margin: 25px;
+    text-align: center;
+}
+
+#DashboardHM #InterviewSection  #ApplicantsNotApproved .tile:hover {
+    box-shadow: 5px 0px 40px 1px #6e1612;
 }	
 
 /*Request Positions Section Styling*/
@@ -843,15 +849,20 @@ textarea {
         border-bottom: 0px;
     }
 
-#Interview #AccordianHeading .container-fluid h1 {
+#Interview #AccordianHeading h1 {
     color: white;
     text-align: left;
+    text-transform: uppercase;
+    font-weight: 400;
 }
 
 
 #Interview .container-fluid {
-    text-align: center;
     padding: 4em 15em 0em 15em;
+}
+
+#Interview #buttons {
+    text-align: center;
 }
 
 #Interview .panel-heading .accordion-toggle:after {
@@ -867,40 +878,65 @@ textarea {
     content: "\e080";   
 }
 
+#Interview .panel-default .panel-heading {
+    background-color: white;
+    border-color: white;
+}
+
+#Interview .panel-heading .panel-title a {
+    color: #6e1612;
+}
+
+#Interview .panel-heading .panel-title a:hover {
+    text-decoration: none;
+    background-color: #f6f6f6;
+}
+
+#Interview .panel-title a:focus {
+    text-decoration: none;
+}
+
 .accordion-container {
 	width: 50%;
 	/*margin: 0 0 20px;*/
 	/*clear: both;*/
 }
-.accordion-toggle {
+
+#Interview .accordion-toggle {
 	/*position: relative;*/
 	display: block;
 	padding: 10px;
 	font-size: 1.5em;
 	font-weight: 300;
-	background: #999;
-	color: #fff;
+	background: white;;
+	color: white;;
+    text-align: left;
 	text-decoration: none;
 }
-.accordion-toggle.open {
+
+#Interview .accordion-toggle.open {
 	background: #333;
 	color: #fff;
 }
-.accordion-toggle:hover {
-	background: #666;
+
+#Interview .accordion-toggle:hover {
+	background: black;
 }
-.accordion-toggle span.toggle-icon {
-	position: absolute;
+
+#Interview .accordion-toggle span.toggle-icon {
+	position: relative;
 	top: 9px;
 	right: 20px;
 	font-size: 1.5em;
 }
-.accordion-content {
+
+#Interview .accordion-content {
 	display: none;
 	padding: 20px;
 	overflow: auto;
 }
-.accordion-content img {
+
+#Interview .accordion-content img {
 	display: block;
 	float: left;
 	margin: 0 15px 10px 0;
@@ -910,8 +946,123 @@ textarea {
  
 /* media query for mobile */
 @media (max-width: 767px) {
-	.accordion-content {
+	#Interview .accordion-content {
 		padding: 10px 0;
 		overflow: inherit;
 	}
 }
+
+#Interview .panel-default #iavailablity .panel-body .form-group .container-fluid {
+        padding: 0 3em 0;
+        color: #6e1612;
+        border: 0px;
+        outline: 0px;
+        border-bottom: 0px;
+    }
+
+#Interview .panel-default #iavailablity .panel-body {
+    color: #6e1612;
+}
+
+#Interview .panel-default {
+    color: #6e1612;
+}
+
+#Interview .panel-default #iquestionnaire .panel-body .form-group .container-fluid {
+        padding: 0 3em 0;
+        color: #6e1612;
+        border: 0px;
+        outline: 0px;
+    }
+
+/******************************************************************************/
+/*Navbar with only Logo Layout Styling*/
+/******************************************************************************/
+
+#OnlyLogoLayout .navbar-header img {
+    width: 4em;
+    height: 4em;
+}
+
+#OnlyLogoLayout .navbar {
+    border-radius: 0px;
+}
+
+/******************************************************************************/
+/*Home Page Styling*/
+/******************************************************************************/
+#HomePage {
+    background-color: #151515;
+    width:100%;
+    min-height: 60em;
+}
+
+#HomePage img {
+    width: 45%;
+    min-height: 35em;
+    border: 5px solid black;
+    position: relative;
+    float: left;
+}
+
+#HomePage .animated img{
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+    -webkit-animation-name: slide;
+    -moz-animation-name: slide;
+    -webkit-animation-duration: 5s;
+    -moz-animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+}
+
+#Affix #circlebutton {
+    text-align: center;
+}
+
+#Affix .btn-circle:hover, .btn-circle:focus {
+    outline: 0;
+    color: #fff;
+    background: rgba(255,255,255,.1);
+}
+
+@-webkit-keyframes pulse {    
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        transform: translate3d()
+    }
+
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@-moz-keyframes pulse {    
+    0% {
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -moz-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    100% {
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+

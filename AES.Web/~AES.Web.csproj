@@ -437,8 +437,6 @@
     <Content Include="Views\Application\_Navigation.cshtml" />
     <Content Include="Views\EmployeeLogin\Login.cshtml" />
     <Content Include="Views\HiringSpecialist\DashboardHS.cshtml" />
-    <Content Include="Views\Shared\_LayoutDashHS.cshtml" />
-    <Content Include="Views\HiringSpecialist\PartialDashboardHS.cshtml" />
     <Content Include="Views\HiringSpecialist\CallPage.cshtml" />
     <None Include="Service References\SecurityService\SecuritySvc3.xsd">
       <SubType>Designer</SubType>
@@ -517,7 +515,7 @@
     <Content Include="Views\Manager\Requests.cshtml" />
     <Content Include="Views\Manager\_RequestList.cshtml" />
     <Content Include="Views\EmployeeLogin\Welcome.cshtml" />
-    <Content Include="Views\Shared\_LayoutCallPage.cshtml" />
+    <Content Include="Views\HiringSpecialist\_LayoutCallPage.cshtml" />
     <Content Include="Views\IT\Dashboard.cshtml" />
     <Content Include="Views\IT\Users.cshtml" />
     <Content Include="Views\IT\Stores.cshtml" />
@@ -530,8 +528,6 @@
     <Content Include="Views\HiringManager\DashboardHM.cshtml" />
     <Content Include="Views\Shared\_LayoutDashHM.cshtml" />
     <Content Include="Views\HiringManager\StaticApplicationHM.cshtml" />
-    <Content Include="Views\HiringManager\InterviewList.cshtml" />
-    <Content Include="Views\HiringManager\PartialInterviewList.cshtml" />
     <Content Include="Views\HiringManager\Interview.cshtml" />
     <Content Include="Views\HiringManager\ApplicantInformationList.cshtml" />
     <Content Include="Views\HiringManager\PartialApplicantInformationList.cshtml" />
@@ -548,6 +544,12 @@
     <Content Include="Views\HiringManager\PartialRequestPositions.cshtml" />
     <Content Include="Views\HiringManager\_LayoutStaticAppHM.cshtml" />
     <Content Include="Views\HiringManager\_LayoutInterview.cshtml" />
+    <Content Include="Views\HiringSpecialist\_LayoutDashHS.cshtml" />
+    <Content Include="Views\HiringSpecialist\ApplicantsAwaitingCall.cshtml" />
+    <Content Include="Views\HiringSpecialist\PartialApplicantsAwaitingCall.cshtml" />
+    <Content Include="Views\Shared\_LayoutNavbarOnlyLogo.cshtml" />
+    <Content Include="Views\Shared\_LayoutApplication.cshtml" />
+    <Content Include="Views\Home\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AES.Entities\AES.Entities.csproj">

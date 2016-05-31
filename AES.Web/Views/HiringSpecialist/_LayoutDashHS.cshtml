@@ -9,20 +9,20 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body id="StaticAppHMLayout" data-spy="scroll" data-target=".navbar" data-offset="60">
+<body id="DashHSLayout" data-spy="scroll" data-target=".navbar" data-offset="60">
 
     <div id="Affix">
-        <div class="container-fluid" id="BackToTop">
+        <div class="container-fluid" id="BackToTopDashHM">
             <div class="col-md-push-4">
                 <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
             </div>
 
             <div class="=col-md-12">
-                <h2 class="affix-heading">Hiring Manager</h2>
+                <h2 class="affix-heading">Dashboard</h2>
             </div>
 
             <div class="jumbotron">
-                <h1>Applicant Information</h1>
+                <h1>Hiring Specialist</h1>
             </div>
 
             <div id="circlebutton">
@@ -34,7 +34,6 @@
 
         </div>
     </div>
-    
     <div id="custom-navbar">
         <div class="nav-wrapper">
             <nav class="navbar navbar-inverse affix" data-spy="affix" data-offset-top="720">
@@ -45,19 +44,12 @@
                             <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
                         </a>
                     </li>
-                    <li><a href="#BackToTop">Dashboard</a></li>
-                    <li><a href="#profile">Profile</a></li>
-                    <li><a href="#availability">Availability</a></li>
-                    <li><a href="#workhistory">Work History</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#references">References</a></li>
-                    <li><a href="#questionnaire">Questionnaire</a></li>
-                    <li><a href="#notes">Notes</a></li>
+                    <li><a href="#BackToTopDashHS">Dashboard</a></li>
                 </ul>
             </nav>
         </div>
     </div>
-   
+
 
 
     @RenderBody()
@@ -66,7 +58,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/SmoothScroll.js")
-    @Scripts.Render("~/Scripts/SlideAnim.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
