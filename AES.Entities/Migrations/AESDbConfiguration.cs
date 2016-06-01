@@ -473,7 +473,7 @@ namespace AES.Entities.Migrations
             context.SaveChanges();
 
             var employeeSalt = Encryption.GetSalt();
-            var employeePass = "password";
+            var employeePass = "Omicron";
             var hashedEmployeePass = Encryption.ComputeHash(employeePass, new SHA256CryptoServiceProvider(), employeeSalt);
 
             var employeeUser = new EmployeeUser
@@ -482,7 +482,7 @@ namespace AES.Entities.Migrations
                 FirstName = "Employee",
                 LastName = "User",
                 MustResetPassword = false,
-                Role = EmployeeRole.HqHiringSpecialist,
+                Role = EmployeeRole.ITSpecialist,
                 PasswordHash = hashedEmployeePass,
                 Salt = employeeSalt,
                 StoreID = portlandStore.ID,
