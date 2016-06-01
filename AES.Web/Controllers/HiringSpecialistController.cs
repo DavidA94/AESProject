@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
-    //[AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HqHiringSpecialist)]
+    [AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HqHiringSpecialist)]
     public class HiringSpecialistController : Controller
     {
         HiringSpecialistModel hs = new HiringSpecialistModel();
@@ -27,7 +27,7 @@ namespace AES.Web.Controllers
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            if (ApplicantStatus == "Accept")
+            if (ApplicantStatus == "Approve")
             {
                 appSvc.SavePhoneInterview(ApplicantID, Notes, true);
             }

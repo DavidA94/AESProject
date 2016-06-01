@@ -26,7 +26,7 @@
             </div>
 
             <div id="circlebutton">
-                <a href="#Title" class="btn btn-circle">
+                <a data-smooth="true" href="#Title" class="btn btn-circle">
                     <i class="fa fa-angle-double-down animated"></i>
                 </a>
             </div>
@@ -44,8 +44,9 @@
                             <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
                         </a>
                     </li>
-                    <li><a href="#BackToTopDashHS">Dashboard</a></li>
+                    <li><a data-smooth="true" href="#BackToTopDashHS">Dashboard</a></li>
                 </ul>
+                @Html.Partial("_LogoutPartial")
             </nav>
         </div>
     </div>
