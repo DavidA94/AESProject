@@ -132,6 +132,8 @@ namespace AES.Web.Controllers
 
                 FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
 
+                ConvertedFullAppModel.ApplicantID = ApplicantID;
+
                 return View(ConvertedFullAppModel);
             }
         }
@@ -163,6 +165,8 @@ namespace AES.Web.Controllers
 
                 FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
 
+                ConvertedFullAppModel.ApplicantID = ApplicantID;
+
                 return View(ConvertedFullAppModel);
             }
             else
@@ -170,6 +174,8 @@ namespace AES.Web.Controllers
                 ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_INTERVIEW);
 
                 FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
+
+                ConvertedFullAppModel.ApplicantID = ApplicantID;
 
                 return View(ConvertedFullAppModel);
             }

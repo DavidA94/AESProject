@@ -473,7 +473,7 @@ namespace AES.ApplicationSvc
         public bool SaveInterview(int applicantID, string notes, AppStatus setStatus)
         {
             // If the status is not one of the 3 acceptable ones, return false
-            if((setStatus != AppStatus.INTERVIEW_COMPLETE) || (setStatus != AppStatus.APPROVED) || (setStatus != AppStatus.DENIED))
+            if((setStatus != AppStatus.INTERVIEW_COMPLETE) && (setStatus != AppStatus.APPROVED) && (setStatus != AppStatus.DENIED))
             {
                 return false;
             }
