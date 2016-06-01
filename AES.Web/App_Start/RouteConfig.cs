@@ -28,6 +28,18 @@ namespace AES.Web
             );
 
             routes.MapRoute(
+                name: "ForgotPassword",
+                url: "ForgotPassword",
+                defaults: new { controller = "EmployeeLogin", action = "ForgotPassword" }
+            );
+
+            routes.MapRoute(
+                name: "ResetPassword",
+                url: "ResetPassword",
+                defaults: new { controller = "EmployeeLogin", action = "ResetPassword" }
+            );
+
+            routes.MapRoute(
                 name: "AvailableJobs",
                 url: "AvailableJobs",
                 defaults: new { controller = "JobOpenings", action = "AvailableJobs" }

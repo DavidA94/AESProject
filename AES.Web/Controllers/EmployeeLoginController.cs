@@ -1,5 +1,8 @@
-﻿using AES.Web.Authorization;
+﻿using AES.Shared;
+using AES.Shared.Contracts;
+using AES.Web.Authorization;
 using AES.Web.Models;
+using AES.Web.SecurityService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +16,13 @@ namespace AES.Web.Controllers
         // GET: EmployeeLogin
         public ActionResult Login()
         {
+            ViewBag.returnUrl = HttpContext.Request.QueryString["ReturnUrl"];
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(EmployeeLoginModel user)
+        public ActionResult Login(EmployeeLoginModel user, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -26,18 +30,33 @@ namespace AES.Web.Controllers
                 return View(user);
             }
 
-            if (EmployeeUserManager.LoginUser(user))
+            var login = EmployeeUserManager.LoginUser(user);
+
+            if(login == LoginResult.MUST_RESET) {
+                TempData["resetEmail"] = user.Email;
+                return RedirectToActionPermanent("ResetPassword");
+            }
+            else if (login == LoginResult.GOOD)
             {
+                // If they tried to access somewhere else first, redirect to there
+                if(returnUrl != null)
+                {
+                    return Redirect(returnUrl);
+                }
+
+                // Otherwise, redirect based on their role
                 switch(EmployeeUserManager.GetEmployeeRole())
                 {
-                    case Shared.EmployeeRole.HqHiringSpecialist:
+                    case EmployeeRole.HqHiringSpecialist:
                         return RedirectToAction("DashboardHS", "HiringSpecialist");
-                    case Shared.EmployeeRole.HqQStaffingExpert:
+                    case EmployeeRole.HqQStaffingExpert:
                         return RedirectToAction("Dashboard", "Staffing");
-                    case Shared.EmployeeRole.StoreManager:
+                    case EmployeeRole.StoreManager:
                         return RedirectToAction("Requests", "Manager");
-                    case Shared.EmployeeRole.HiringManager:
+                    case EmployeeRole.HiringManager:
                         return RedirectToAction("DashboardHM", "HiringManager");
+                    case EmployeeRole.ITSpecialist:
+                        return RedirectToAction("Dashboard", "IT");
                     default:
                         return RedirectToAction("Login", "EmployeeLogin");
                 }
@@ -47,11 +66,68 @@ namespace AES.Web.Controllers
             return View(user);
         }
 
-        [AESAuthorize]
-        public ActionResult Welcome()
+        public ActionResult ResetPassword()
         {
-            return View(EmployeeUserManager.GetUser());
+            var e = new EmployeeLoginModel() { Email = TempData["resetEmail"].ToString() };
+
+            return View(e);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(EmployeeLoginModel e)
+        {
+            // Don't care about the password field
+            ModelState["Password"].Errors.Clear();
+
+            if (!ModelState.IsValid)
+            {
+                return View(e);
+            }
+
+            using (var s = new SecuritySvcClient())
+            {
+                if(s.UpdateUserPassword(new EmployeeCredentialsContract() { Email = e.Email, Password = e.OldPassword }, e.NewPassword))
+                {
+                    e.Password = e.NewPassword;
+                    return Login(e, null);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid information entered");
+                    return View(e);
+                }
+            }
+        }
+
+        public ActionResult ForgotPassword()
+        {
+            ViewBag.SuccessfulReset = false;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(EmployeeLoginModel e)
+        {
+            if (string.IsNullOrWhiteSpace(e.Email))
+            {
+                return View();
+            }
+
+            using (var s = new SecuritySvcClient())
+            {
+                if(s.ForgotPassword(new EmployeeCredentialsContract() { Email = e.Email }))
+                {
+                    ViewBag.SuccessfulReset = true;
+                    return View();
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid email entered");
+                    return View();
+                }
+            }
+        }
     }
 }

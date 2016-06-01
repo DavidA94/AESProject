@@ -32,6 +32,18 @@ namespace AES.Web.SecurityService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/CreateEmployee", ReplyAction="http://tempuri.org/ISecuritySvc/CreateEmployeeResponse")]
         System.Threading.Tasks.Task<bool> CreateEmployeeAsync(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/UpdateUserPassword", ReplyAction="http://tempuri.org/ISecuritySvc/UpdateUserPasswordResponse")]
+        bool UpdateUserPassword(AES.Shared.Contracts.EmployeeCredentialsContract credentials, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/UpdateUserPassword", ReplyAction="http://tempuri.org/ISecuritySvc/UpdateUserPasswordResponse")]
+        System.Threading.Tasks.Task<bool> UpdateUserPasswordAsync(AES.Shared.Contracts.EmployeeCredentialsContract credentials, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/ForgotPassword", ReplyAction="http://tempuri.org/ISecuritySvc/ForgotPasswordResponse")]
+        bool ForgotPassword(AES.Shared.Contracts.EmployeeCredentialsContract user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISecuritySvc/ForgotPassword", ReplyAction="http://tempuri.org/ISecuritySvc/ForgotPasswordResponse")]
+        System.Threading.Tasks.Task<bool> ForgotPasswordAsync(AES.Shared.Contracts.EmployeeCredentialsContract user);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -83,6 +95,22 @@ namespace AES.Web.SecurityService {
         
         public System.Threading.Tasks.Task<bool> CreateEmployeeAsync(AES.Shared.Contracts.EmployeeUserContract employeeInfo, string password) {
             return base.Channel.CreateEmployeeAsync(employeeInfo, password);
+        }
+        
+        public bool UpdateUserPassword(AES.Shared.Contracts.EmployeeCredentialsContract credentials, string newPassword) {
+            return base.Channel.UpdateUserPassword(credentials, newPassword);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateUserPasswordAsync(AES.Shared.Contracts.EmployeeCredentialsContract credentials, string newPassword) {
+            return base.Channel.UpdateUserPasswordAsync(credentials, newPassword);
+        }
+        
+        public bool ForgotPassword(AES.Shared.Contracts.EmployeeCredentialsContract user) {
+            return base.Channel.ForgotPassword(user);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ForgotPasswordAsync(AES.Shared.Contracts.EmployeeCredentialsContract user) {
+            return base.Channel.ForgotPasswordAsync(user);
         }
     }
 }

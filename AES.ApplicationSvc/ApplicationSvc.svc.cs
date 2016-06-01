@@ -115,7 +115,7 @@ namespace AES.ApplicationSvc
 
             using (var db = new AESDbContext())
             {
-                var apps = db.Applications.Where(a => a.Status == AppStatus.WAITING_INTERVIEW && a.StoreID == storeID);
+                var apps = db.Applications.Where(a => a.Status == status && a.StoreID == storeID);
 
                 foreach (var app in apps.Select(a => a.Applicant))
                 {

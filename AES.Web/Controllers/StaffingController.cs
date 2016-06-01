@@ -119,6 +119,7 @@ namespace AES.Web.Controllers
         /// </summary>
         /// <param name="job">The job to save/update</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveJob(JobModel job)
         {
             // If no job, error out
@@ -167,6 +168,7 @@ namespace AES.Web.Controllers
         /// </summary>
         /// <param name="postQuestion">The question to be created/updated</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveQuestion(QuestionnaireViewModel postQuestion)
         {
             // If not question was given, or if radio was chosen, but no option was selected, return an error

@@ -91,25 +91,29 @@ namespace AES.Entities.Migrations
 
             var tualatinJanitorOpening = new JobOpening
             {
-                Job = janitorJob
+                Job = janitorJob,
+                Positions = 1
             };
             tualatinJanitorOpening.Store = tualatinStore;
 
             var portlandJanitorOpening = new JobOpening
             {
-                Job = janitorJob
+                Job = janitorJob,
+                Positions = 1
             };
             portlandJanitorOpening.Store = portlandStore;
 
             var tualatinSalesOpening = new JobOpening
             {
-                    Job = salesAssociateJob
+                    Job = salesAssociateJob,
+                    Positions = 3
             };
             tualatinSalesOpening.Store = tualatinStore;
 
             var portlandSalesOpening = new JobOpening
             {
-                Job = salesAssociateJob
+                Job = salesAssociateJob,
+                Positions = 3
             };
             portlandSalesOpening.Store = portlandStore;
 
@@ -489,7 +493,6 @@ namespace AES.Entities.Migrations
             };
 
             context.EmployeeUsers.AddOrUpdate(employeeUser);
-
             context.SaveChanges();
         }
     }

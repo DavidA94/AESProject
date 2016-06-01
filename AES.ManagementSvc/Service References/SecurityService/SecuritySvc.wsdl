@@ -26,6 +26,18 @@
   <wsdl:message name="ISecuritySvc_CreateEmployee_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateEmployeeResponse" />
   </wsdl:message>
+  <wsdl:message name="ISecuritySvc_UpdateUserPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserPassword" />
+  </wsdl:message>
+  <wsdl:message name="ISecuritySvc_UpdateUserPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISecuritySvc_ForgotPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ForgotPassword" />
+  </wsdl:message>
+  <wsdl:message name="ISecuritySvc_ForgotPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ForgotPasswordResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISecuritySvc">
     <wsdl:operation name="ValidateUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ISecuritySvc/ValidateUser" message="tns:ISecuritySvc_ValidateUser_InputMessage" />
@@ -38,6 +50,14 @@
     <wsdl:operation name="CreateEmployee">
       <wsdl:input wsaw:Action="http://tempuri.org/ISecuritySvc/CreateEmployee" message="tns:ISecuritySvc_CreateEmployee_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISecuritySvc/CreateEmployeeResponse" message="tns:ISecuritySvc_CreateEmployee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISecuritySvc/UpdateUserPassword" message="tns:ISecuritySvc_UpdateUserPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISecuritySvc/UpdateUserPasswordResponse" message="tns:ISecuritySvc_UpdateUserPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISecuritySvc/ForgotPassword" message="tns:ISecuritySvc_ForgotPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISecuritySvc/ForgotPasswordResponse" message="tns:ISecuritySvc_ForgotPassword_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISecuritySvc" type="tns:ISecuritySvc">
@@ -62,6 +82,24 @@
     </wsdl:operation>
     <wsdl:operation name="CreateEmployee">
       <soap:operation soapAction="http://tempuri.org/ISecuritySvc/CreateEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <soap:operation soapAction="http://tempuri.org/ISecuritySvc/UpdateUserPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <soap:operation soapAction="http://tempuri.org/ISecuritySvc/ForgotPassword" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
