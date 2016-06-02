@@ -151,6 +151,7 @@ function rejectOpening(event) {
 
     // And send the decision
     sendDecision(formData, document.getElementById("SetRequestURL").innerHTML);
+    cancelReject();
 }
 
 /****************************************
@@ -242,6 +243,9 @@ function sendDecision(formData, url) {
         });
     };
 
+    // Add the anti-forgery token
+    formData.append("__RequestVerificationToken", document.getElementById("__RequestVerificationForm").__RequestVerificationToken.value);
+
     // Open a new POST request to the URL and send it.
     xmlhttp.open("POST", url, true);
     xmlhttp.send(formData);
@@ -264,6 +268,7 @@ function reloadApproved() {
         AjaxHelper(event, function (xmlhttp) {
             // Update the list with whatever we got back.
             document.getElementById("approvedRequests").innerHTML = xmlhttp.responseText;
+            addEvents();
         });
     };
 
@@ -284,6 +289,7 @@ function reloadDenied() {
     xmlhttp.onreadystatechange = function (event) {
         AjaxHelper(event, function (xmlhttp) {
             document.getElementById("rejectedRequests").innerHTML = xmlhttp.responseText;
+            addEvents();
         });
     };
 
@@ -303,6 +309,7 @@ function reloadPending() {
     xmlhttp.onreadystatechange = function(event){
         AjaxHelper(event, function(xmlhttp){
             document.getElementById("pendingRequests").innerHTML = xmlhttp.responseText;
+            addEvents();
         });
     };
 

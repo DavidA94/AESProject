@@ -4,6 +4,7 @@
     @using (Html.BeginForm("SaveQuestion", "Staffing", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
                             new { @class = "form-horizontal qForm", role = "form" }))
     {
+        @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.QuestionID);
 
         @* Question *@

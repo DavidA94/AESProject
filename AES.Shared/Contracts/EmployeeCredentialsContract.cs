@@ -14,6 +14,5 @@ namespace AES.Shared.Contracts
 
         [DataMember]
         public string Password { get; set; }
-
     }
 }

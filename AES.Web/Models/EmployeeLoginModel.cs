@@ -9,14 +9,6 @@ namespace AES.Web.Models
 {
     public class EmployeeLoginModel
     {
-        [StringLength(25)]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        [StringLength(28)]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-
         [StringLength(50)]
         [Required]
         [Display(Name = "Email")]
@@ -27,9 +19,17 @@ namespace AES.Web.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Employee Role")]
-        public EmployeeRole EmployeeRole { get; set; }
+        [StringLength(100)]
+        [Display(Name = "Old Password")]
+        public string OldPassword { get; set; }
 
-        public int StoreID { get; set; }
+        [StringLength(100, MinimumLength = 8)]
+        [Display(Name = "New Password")]
+        public string NewPassword { get; set; }
+
+        [StringLength(100)]
+        [Compare("NewPassword", ErrorMessage = "Password fields do not match.")]
+        [Display(Name = "Confirm Password")]
+        public string ConfirmNewPassword { get; set; }
     }
 }

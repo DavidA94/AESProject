@@ -11,6 +11,9 @@
     <div class="hidden" id="DeniedRequestsURL">@Url.Action("DeniedRequests")</div>
     <div class="hidden" id="PendingRequestsURL">@Url.Action("PendingRequests")</div>
     <div class="hidden" id="SetRequestURL">@Url.Action("SetRequest")</div>
+    <div class="hidden">
+        <form id="__RequestVerificationForm" action="#", method="post">@Html.AntiForgeryToken()</form>
+    </div>
     
     <div class="col-md-4">
         <h2>Pending Requests</h2>

@@ -4,7 +4,7 @@
     @using (Html.BeginForm("SaveJob", "Staffing", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
                                     new { @class = "form-horizontal jobForm", role = "form" }))
     {
-        @*@Html.HiddenFor(m => Model.JobID);*@
+        @Html.AntiForgeryToken()
         <input type="hidden" name="JobID" value="@Model.JobID" />
 
         @* Title *@

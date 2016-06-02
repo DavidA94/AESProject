@@ -11,13 +11,15 @@ using System.Web;
 
 namespace AES.Web.Authorization
 {
+    public enum LoginResult { GOOD, BAD, MUST_RESET }
+
     public class EmployeeUserManager
     {
         // http://stackoverflow.com/questions/31584506/how-to-implement-custom-authentication-in-asp-net-mvc-5
 
         private static ClaimsIdentity claimsidentity;
 
-        public static bool LoginUser(EmployeeLoginModel EmployeeUser)
+        public static LoginResult LoginUser(EmployeeLoginModel EmployeeUser)
         {
             var s = new SecurityService.SecuritySvcClient();
 
@@ -29,7 +31,7 @@ namespace AES.Web.Authorization
 
             s.Close();
 
-            if (valid != null)
+            if (valid != null && !valid.MustResetPassword)
             {
                 var identity = new ClaimsIdentity(
                     new[]
@@ -52,27 +54,29 @@ namespace AES.Web.Authorization
 
                 claimsidentity = identity;
 
-                return true;
+                return LoginResult.GOOD;
+            }
+            else if(valid != null)
+            {
+                return LoginResult.MUST_RESET;
             }
 
-            return false;
+            return LoginResult.BAD;
         }
 
-        public static EmployeeLoginModel GetUser()
+        public static EmployeeUserModel GetUser()
         {
             var claims = ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims;
 
             try {
-                var EmployeeUser = new EmployeeLoginModel()
+                return new EmployeeUserModel()
                 {
                     FirstName = claims.First(n => n.Type == ClaimTypes.Name).Value,
                     LastName = claims.First(n => n.Type == ClaimTypes.Name).Value,
                     Email = claims.First(n => n.Type == ClaimTypes.Email).Value,
-                    EmployeeRole = (EmployeeRole)Enum.Parse(typeof(EmployeeRole), claims.First(n => n.Type == ClaimTypes.Role).Value),
-                    StoreID = Convert.ToInt32(claims.First(n => n.Type == ClaimTypes.NameIdentifier).Value)
+                    Role = (EmployeeRole)Enum.Parse(typeof(EmployeeRole), claims.First(n => n.Type == ClaimTypes.Role).Value),
+                    StoreID = Convert.ToInt32(claims.First(n => n.Type == ClaimTypes.NameIdentifier).Value),
                 };
-
-                return EmployeeUser;
             }
             catch
             {

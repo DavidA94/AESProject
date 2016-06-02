@@ -119,7 +119,15 @@ namespace AES.ApplicationSvc
 
                 foreach (var app in apps.Select(a => a.Applicant))
                 {
-                    returnedApplicants.Add(ConvertTableToContract(app));
+                    var temp = ConvertTableToContract(app);
+
+                    // Add the SSN if they're waiting for an interview, or past the point, but not yet denied
+                    if ((int)status >= 4 && status != AppStatus.DENIED)
+                    {
+                        temp.SSN = app.SSN;
+                    }
+
+                    returnedApplicants.Add(temp);
                 }
             }
 
