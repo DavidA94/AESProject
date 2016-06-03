@@ -8,13 +8,6 @@
     Layout = "~/Views/Shared/_LayoutDashHM.cshtml";
 }
 
-@*@using (Html.BeginForm("DashboardHM", "HiringManager", FormMethod.Post))
-{
-    <button type="submit" name="InterviewList" class="btn btn-info btn-lg" value="Applicant Interview List">
-        Applicant Interview List
-    </button>
-}*@
-
 <div id="DashboardHM">
 
     @* View Applicant Information Section *@
@@ -23,7 +16,7 @@
             <div class="jumbotron col-md-offset-2">
                 <h1>Applicant Information</h1>
             </div>
-            <div class="col-md-12" id="AppInfoDiv">
+            <div id="AppInfoDiv">
                 @{Html.RenderAction("ApplicantInformationList", "HiringManager");}
             </div>
         </div>
@@ -73,15 +66,8 @@
             <div class="jumbotron col-md-offset-2">
                 <h1>Request Positions</h1>
             </div>
+            @*@{Html.RenderAction("RequestPositions", "HiringManager");}*@
         </div>
     </div>
-   
 
 </div>
-
-@*<div class="col-md-12" id="AppAwaitingIntDiv">
-    @{Html.RenderAction("ApplicantInformationList", "HiringManager");}
-    <h1>Scroll Away</h1>
-    <h1>Scroll Away</h1>
-
-</div>*@

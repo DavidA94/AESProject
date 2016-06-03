@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -17,7 +17,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("AES Inc.", "AvailableJobs", "JobOpenings", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="#">
+                    <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -33,19 +35,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <div class="navbar navbar-inverse navbar-fixed-bottom">
-                <div class="container">
-                    <div class="navbar-footer">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <p>&copy; @DateTime.Now.Year - AES</p>
-                    </div>
-                </div>
-            </div>
-            @*<p>&copy; @DateTime.Now.Year - AES</p>*@
+            <p>&copy; @DateTime.Now.Year - AES</p>
         </footer>
     </div>
 

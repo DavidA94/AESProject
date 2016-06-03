@@ -1,1 +1,13 @@
-﻿
+﻿@model AES.Web.Models.JobModel
+
+
+@*<div class="form-group">
+    @Html.LabelFor(m => m.Title, new { @class = "control-label  " })
+    @Html.DropDownListFor(m => m.Title, Model., new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.StoreName, "", new { @class = "text-danger" })
+</div>*@
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+    @Html.EnumDropDownListFor(m => m.Title, new { @class = "form-control" })
+</div>

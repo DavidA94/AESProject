@@ -2,43 +2,55 @@
 
 @{
     ViewBag.Title = "Interview";
-    Layout = "~/Views/Shared/_LayoutDashHM.cshtml";
+    Layout = "~/Views/HiringManager/_LayoutInterview.cshtml";
 }
 
-@using (Html.BeginForm("InterviewList", "HiringManager", FormMethod.Post))
+@using (Html.BeginForm("Interview", "HiringManager", FormMethod.Post))
 {
-    <div id="InterviewPage">
-        <div class="container-fluid bg-grey">
-            <h2>@Model.Profile.FirstName @Model.Profile.LastName Interview</h2>
-            <div id="buttons">
-                <div class="glyphicon-align-center">
-                    <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
-                    <button type="submit" name="ApplicantStatus" class="btn btn-success btn-lg" value="Hire">
-                        <i class="glyphicon glyphicon-ok"></i> Hire
-                    </button>
-                    <button type="submit" name="ApplicantStatus" class="btn btn-primary btn-lg" value="DecideLater">
-                        <i class="glyphicon glyphicon-remove"></i> Decide Later
-                    </button>
-                    <button type="submit" name="ApplicantStatus" class="btn btn-danger btn-lg" value="Deny">
-                        <i class="glyphicon glyphicon-ban-circle"></i> Deny
-                    </button>
+    <div id="Interview">
+
+        <div id="Title">
+            <div class="jumbotron text-center">
+                <div class="container-fluid">
+                    <div class="col-lg-12">
+                        <h1>@Model.Profile.FirstName @Model.Profile.LastName's Interview</h1>
+
+                        <div id="buttons">
+                            <div class="glyphicon-align-center">
+                                <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
+                                <button type="submit" name="ApplicantStatus" class="btn btn-success btn-lg" value="Hire">
+                                    <i class="glyphicon glyphicon-ok"></i> Hire
+                                </button>
+                                <button type="submit" name="ApplicantStatus" class="btn btn-primary btn-lg" value="DecideLater">
+                                    <i class="glyphicon glyphicon-remove"></i> Decide Later
+                                </button>
+                                <button type="submit" name="ApplicantStatus" class="btn btn-danger btn-lg" value="Deny">
+                                    <i class="glyphicon glyphicon-ban-circle"></i> Deny
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
 
 
-        <div class="container">
-            <h2>Application</h2>
+        <div class="container-fluid bg-diag-grad" >
+            <div id="AccordianHeading">
+                <h1><strong>Application</strong></h1>
+            </div>
+            
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
 
                     @*Profile*@
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#profile"> Profile</a>
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#iprofile"><strong>Profile</strong></a>
                         </h4>
                     </div>
-                    <div id="profile" class="panel-collapse collapse">
+                    <div id="iprofile" class="panel-collapse collapse">
                         <div class="panel-body">
                             @*First Name*@
                             <div class="form-group">
@@ -144,10 +156,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#availablity">Availablity</a>
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#iavailablity"><strong>Availablity</strong></a>
                         </h4>
                     </div>
-                    <div id="availablity" class="panel-collapse collapse">
+                    <div id="iavailablity" class="panel-collapse collapse">
                         <div class="panel-body">
                             @*Monday*@
                             <div class="form-group">
@@ -160,7 +172,7 @@
                                         @Model.Availibility.MondayStart
                                     </div>
                                     @Html.LabelFor(m => m.Availibility.MondayEnd, "To:", new { @class = "col-md-1 control-label" })
-                                    <div class="col-md-push-2">
+                                    <div class="col-md-2">
                                         @Model.Availibility.MondayEnd
                                     </div>
                                 </div>
@@ -177,7 +189,7 @@
                                         @Model.Availibility.TuesdayStart
                                     </div>
                                     @Html.LabelFor(m => m.Availibility.TuesdayEnd, "To:", new { @class = "col-md-1 control-label" })
-                                    <div class="col-md-push-2">
+                                    <div class="col-md-2">
                                         @Model.Availibility.TuesdayEnd
                                     </div>
                                 </div>
@@ -194,7 +206,7 @@
                                         @Model.Availibility.WednesdayStart
                                     </div>
                                     @Html.LabelFor(m => m.Availibility.WednesdayEnd, "To:", new { @class = "col-md-1 control-label" })
-                                    <div class="col-md-push-2">
+                                    <div class="col-md-2">
                                         @Model.Availibility.WednesdayEnd
                                     </div>
                                 </div>
@@ -211,7 +223,7 @@
                                         @Model.Availibility.ThursdayStart
                                     </div>
                                     @Html.LabelFor(m => m.Availibility.ThursdayEnd, "To:", new { @class = "col-md-1 control-label" })
-                                    <div class="col-md-push-2">
+                                    <div class="col-md-2">
                                         @Model.Availibility.ThursdayEnd
                                     </div>
                                 </div>
@@ -228,7 +240,7 @@
                                         @Model.Availibility.FridayStart
                                     </div>
                                     @Html.LabelFor(m => m.Availibility.FridayEnd, "To:", new { @class = "col-md-1 control-label" })
-                                    <div class="col-md-push-2">
+                                    <div class="col-md-2">
                                         @Model.Availibility.FridayEnd
                                     </div>
                                 </div>
@@ -245,7 +257,7 @@
                                         @Model.Availibility.SaturdayStart
                                     </div>
                                     @Html.LabelFor(m => m.Availibility.SaturdayEnd, "To:", new { @class = "col-md-1 control-label" })
-                                    <div class="col-md-push-2">
+                                    <div class="col-md-2">
                                         @Model.Availibility.SaturdayEnd
                                     </div>
                                 </div>
@@ -262,7 +274,7 @@
                                         @Model.Availibility.SundayStart
                                     </div>
                                     @Html.LabelFor(m => m.Availibility.SundayEnd, "To:", new { @class = "col-md-1 control-label" })
-                                    <div class="col-md-push-2">
+                                    <div class="col-md-2">
                                         @Model.Availibility.SundayEnd
                                     </div>
                                 </div>
@@ -275,10 +287,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#workhistory">Work History</a>
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#iworkhistory"><strong>Work History</strong></a>
                         </h4>
                     </div>
-                    <div id="workhistory" class="panel-collapse collapse">
+                    <div id="iworkhistory" class="panel-collapse collapse">
                         <div class="panel-body">
                             @foreach (var item in Model.WorkHistory)
                             {
@@ -401,10 +413,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#education">Education</a>
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#ieducation"><strong>Education</strong></a>
                         </h4>
                     </div>
-                    <div id="education" class="panel-collapse collapse">
+                    <div id="ieducation" class="panel-collapse collapse">
                         <div class="panel-body">
                             @foreach (var item in Model.Education)
                             {
@@ -487,10 +499,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#references">References</a>
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#ireferences"><strong>References</strong></a>
                         </h4>
                     </div>
-                    <div id="references" class="panel-collapse collapse">
+                    <div id="ireferences" class="panel-collapse collapse">
                         <div class="panel-body">
                             @foreach (var item in Model.References)
                             {
@@ -533,10 +545,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#questionnaire">Questionnaire</a>
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#iquestionnaire"><strong>Questionnaire</strong></a>
                         </h4>
                     </div>
-                    <div id="questionnaire" class="panel-collapse collapse">
+                    <div id="iquestionnaire" class="panel-collapse collapse">
                         <div class="panel-body">
                             @foreach (var item in Model.Questionnaire)
                             {
@@ -601,7 +613,7 @@
                                         <div class="container-fluid">
                                             @for (int i = 0; i < item.Options.Count; ++i)
                                             {
-                                                <div class="col-md-2">
+                                                <div class="col-md-4">
                                                     <strong>@item.Options[i]</strong>
                                                 </div>
                                                 <div class="col-md-push-2">
@@ -619,21 +631,23 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#notes">Notes By Hiring Specialist</a>
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#inotes"><strong>Notes By Hiring Specialist</strong></a>
                         </h4>
                     </div>
-                    <div id="notes" class="panel-collapse collapse">
+                    <div id="inotes" class="panel-collapse collapse">
                         <div class="panel-body">
-                            @Model.Notes
+                            <textarea class="form-control" rows="5" readonly="readonly">@Model.Notes</textarea>
                         </div>
                     </div>
                 </div>
 
-                <h2>Notes By Hiring Manager</h2>
+                <div id="AccordianHeading">
+                    <h1><strong>Notes By Hiring Manager</strong></h1>
+                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#noteshm">Interview Notes</a>
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#noteshm"><strong>Interview Notes</strong></a>
                         </h4>
                     </div>
                     <div id="noteshm" class="panel-collapse collapse">
@@ -644,9 +658,9 @@
                 </div>
 
                 <p></p>
-                <div class="container-fluid">
-                    <div id="buttons">
-                        <div class="glyphicon-align-center">
+                <div id="buttons">
+                    <div class="container-fluid">
+                        <div>
                             <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
                             <button type="submit" name="ApplicantStatus" class="btn btn-success btn-lg" value="Hire">
                                 <i class="glyphicon glyphicon-ok"></i> Hire

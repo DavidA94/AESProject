@@ -3,14 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - AES Inc.</title>
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,10 +17,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("AES Inc.", "AvailableJobs", "JobOpenings", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="#">
+                    <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
+                </a>
             </div>
             <div class="navbar-collapse collapse">
-                @*@Html.Partial("_LoginPartial")*@
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Profile", "UserProfile", "Application")</li>
+                    <li>@Html.ActionLink("Availability", "Availability", "Application")</li>
+                    <li>@Html.ActionLink("Work History", "WorkHistory", "Application")</li>
+                    <li>@Html.ActionLink("Education", "Education", "Application")</li>
+                    <li>@Html.ActionLink("References", "References", "Application")</li>
+                    <li>@Html.ActionLink("Questionaire", "Questionaire", "Application")</li>
+                </ul>
             </div>
         </div>
     </div>

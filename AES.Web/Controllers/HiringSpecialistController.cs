@@ -11,25 +11,15 @@ using System.Web.Mvc;
 
 namespace AES.Web.Controllers
 {
-    //[AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HqHiringSpecialist)]
+    [AESAuthorize(BadRedirectURL = "/EmployeeLogin", Role = EmployeeRole.HqHiringSpecialist)]
     public class HiringSpecialistController : Controller
     {
         HiringSpecialistModel hs = new HiringSpecialistModel();
 
         // GET: HiringSpecialist
-        [HttpGet]
         public ActionResult DashboardHS()
         {
-            //var x = FillHSData();
-
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
-
-            List<HiringSpecialistModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
-
-            return View(ConvertedContract);
-
-            //return View(x);
+            return View();
         }
 
         [HttpPost]
@@ -37,7 +27,7 @@ namespace AES.Web.Controllers
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
 
-            if (ApplicantStatus == "Accept")
+            if (ApplicantStatus == "Approve")
             {
                 appSvc.SavePhoneInterview(ApplicantID, Notes, true);
             }
@@ -57,22 +47,37 @@ namespace AES.Web.Controllers
             return View(ConvertedContract);
         }
 
-        private List<HiringSpecialistModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> ApplicantInfo)
+        public ActionResult ApplicantsAwaitingCall()
         {
-            var RetAppInfo = new List<HiringSpecialistModel>();
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+            ApplicantInfoContract[] CallingApplicants = appSvc.GetApplicantsAwaitingCalls(DateTime.Now);
 
-            foreach (var AppInfo in ApplicantInfo)
+            List<HiringSpecialistModel> ConvertedContract = ConvertContractToModel(CallingApplicants);
+
+            return View(ConvertedContract);
+        }
+
+        [HttpPost]
+        public ActionResult CallPage(int ApplicantID)
+        {
+
+            IApplicationSvc appSvc = new ApplicationSvcClient();
+
+            if (!appSvc.CallApplicant(ApplicantID))
             {
-                RetAppInfo.Add(new HiringSpecialistModel()
-                {
-                    FirstName = AppInfo.FirstName,
-                    LastName = AppInfo.LastName,
-                    ETA = AppInfo.UserInfo.EndCallTime,
-                    ApplicantID = (int)AppInfo.UserID
-                });
+                return RedirectToAction("DashboardHS");
             }
 
-            return RetAppInfo;
+            appSvc.CallApplicant(ApplicantID);
+           
+            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.IN_CALL);
+
+            FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
+
+            //Keep track of the applicant ID for apply or deny buttons
+            ConvertedFullAppModel.ApplicantID = ApplicantID;
+
+            return View(ConvertedFullAppModel);
         }
 
         // Hardcoded HiringSpecialistViewModel
@@ -114,27 +119,22 @@ namespace AES.Web.Controllers
             };
         }
 
-        [HttpPost]
-        public ActionResult CallPage(int ApplicantID)
+        private List<HiringSpecialistModel> ConvertContractToModel(IEnumerable<ApplicantInfoContract> ApplicantInfo)
         {
+            var RetAppInfo = new List<HiringSpecialistModel>();
 
-            IApplicationSvc appSvc = new ApplicationSvcClient();
-
-            if (!appSvc.CallApplicant(ApplicantID))
+            foreach (var AppInfo in ApplicantInfo)
             {
-                return RedirectToAction("DashboardHS");
+                RetAppInfo.Add(new HiringSpecialistModel()
+                {
+                    FirstName = AppInfo.FirstName,
+                    LastName = AppInfo.LastName,
+                    ETA = AppInfo.UserInfo.EndCallTime,
+                    ApplicantID = (int)AppInfo.UserID
+                });
             }
 
-            appSvc.CallApplicant(ApplicantID);
-
-            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.IN_CALL);
-
-            FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
-
-            //Keep track of the applicant ID for apply or deny buttons
-            ConvertedFullAppModel.ApplicantID = ApplicantID;
-
-            return View(ConvertedFullAppModel);
+            return RetAppInfo;
         }
 
         public FullApplicationModel ConvertAppContractToModel(ApplicationInfoContract app)
