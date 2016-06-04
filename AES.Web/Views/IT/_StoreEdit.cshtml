@@ -4,7 +4,7 @@
     {
         @Html.AntiForgeryToken()
         <div>
-            @Html.HiddenFor(m => m.StoreID);
+            @Html.HiddenFor(m => m.StoreID)
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Name, new { @class = "control-label  " })
