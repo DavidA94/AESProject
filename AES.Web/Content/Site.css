@@ -2,6 +2,7 @@
     /*padding-top: 50px;*/
     /*padding-bottom: 20px;*/
     counter-reset: itemCounter;
+    min-width: 1024px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -273,7 +274,7 @@ textarea {
     color: gray;
 }
 #jobRequests .container-fluid {padding: 10em;}
-#jobRequests .container {background-color: white;padding: 3em;color: white;min-height: 35em;border-radius: 25px;}
+#jobRequests .container {background-color: white;padding: 3em;color: black;min-height: 35em;border-radius: 25px;}
 #jobRequests .container-fluid h2 {color: black;text-align: center;}
 #jobRequests label {color: gray;}
 #jobRequests textarea {max-width: 100%;}
