@@ -240,13 +240,43 @@ textarea {
 #availableJobs .h3 {margin:0;}
 #cancelCover {position:fixed;top:0;right:0;bottom:0;left:0;z-index:5;background:rgba(255, 255, 255, .5);}
 
+#LayoutIT .container-fluid h2 {color: white;}
+
+#LayoutIT .container-fluid h3 {color: black; font-weight:500; font-size: 2.5em;}
+
+#LayoutIT label {color: gray;}
+#LayoutIT textarea {max-width: 100%;}
+#LayoutIT .container-fluid {padding: 10em;}
+#LayoutIT .container {background-color: white;padding: 3em;color: white;min-height: 35em;border-radius: 25px;}
+
+#ITDashboard .opening .shortDesc {
+    color: black;
+}
+#ITDashboard .container h4 {
+    color: gray;
+}
+
+
+#ITDashboard h3 {color: black;text-align: center;}
 #ITDashboard {width:450px;margin:auto;overflow:hidden;}
 #ITDashboard > a {display:block;width:200px;height:200px;background:#ededed;float:left;border:1px solid #ababab;padding:10px;text-align:center;color:#555;}
 #ITDashboard > a:first-child {margin-right:50px;}
-#ITDashboard > a:hover {color:inherit;border-color:#777;}
+#ITDashboard > a:hover {color:#6e1612;border-color:#6e1612;}
 #ITDashboard a div {font-size:120px;line-height:120px;padding-top:10px;}
 #ITDashboard a p {font-weight:bold;line-height:20px;}
 
+#DashSMLayout .container-fluid h2 {color: white;}
+#jobRequests .opening .shortDesc {
+    color: black;
+}
+#jobRequests .container h4 {
+    color: gray;
+}
+#jobRequests .container-fluid {padding: 10em;}
+#jobRequests .container {background-color: white;padding: 3em;color: white;min-height: 35em;border-radius: 25px;}
+#jobRequests .container-fluid h2 {color: black;text-align: center;}
+#jobRequests label {color: gray;}
+#jobRequests textarea {max-width: 100%;}
 #jobRequests #approvedRequests .accept {display:none;}
 #jobRequests #rejectedRequests .reject {display:none;}
 #jobRequests .opening {position:relative;padding-bottom:1em;border-bottom:2px solid lightgray;}
@@ -266,6 +296,12 @@ textarea {
 #jobRequests .opening .responseNotes:not(:empty)::before {content:url('/Content/Images/comment.png');position:absolute;left:0px;margin-top:2px;}
 #jobRequests .opening .shortDesc {display:none;position:absolute;background:#fcffd8;border:1px solid #cbc8a3;z-index:10;padding:.5em;margin:-10px 0;}
 
+#DashSELayout .container-fluid h2 {color: white;}
+#staffingExpert .container-fluid {padding: 10em;}
+#staffingExpert .container {background-color: white;padding: 3em;color: white;min-height: 35em;border-radius: 25px;}
+#staffingExpert .container-fluid h2 {color: black;text-align: center;text-transform: uppercase;}
+#staffingExpert label {color: gray;}
+#staffingExpert textarea {max-width: 100%;}
 #staffingExpert {clear:both;overflow:hidden;}
 #staffingExpert #editBox .editBox {display:block;}
 #staffingExpert #editBox .editBox input[type=radio], #staffingExpert #editBox .editBox input[type=checkbox] {margin:10px 0;}
@@ -296,6 +332,9 @@ textarea {
 #staffingExpert .editBox + .title {color:gray;font-style:normal;}
 #staffingExpert .editBox + .title {color:gray;font-style:normal;}
 
+#management {
+    color: #6e1612;
+}
 #management #List .item {margin-bottom:1em;padding-bottom:1em;border-bottom:2px solid lightgray;}
 #management #List .item form {display:none;}
 #management #List .item p {margin:0 0 0 5px;}
@@ -446,6 +485,7 @@ textarea {
     font-weight: 700;
     letter-spacing: 1px;
     text-align: center;
+    color: white;
 }
 
 /*Logo in Hiring Manager Dashboard Affix*/
@@ -518,6 +558,9 @@ textarea {
     margin-bottom: 0px;
 }
 
+#custom-navbar .navbar-right {
+    margin-right: 0px;
+}
 #custom-navbar .navbar-inverse .navbar-nav li a {
     color: #fff;
 }
@@ -991,55 +1034,119 @@ textarea {
 /******************************************************************************/
 /*Home Page Styling*/
 /******************************************************************************/
-#HomePage {
-    background-color: #151515;
-    width:100%;
-    min-height: 60em;
+
+#HomePage .box {
+  width: 300px; height: 300px;
+  position: relative;
 }
 
-#HomePage img {
-    width: 45%;
-    min-height: 35em;
-    border: 5px solid black;
-    position: relative;
-    float: left;
+#HomePage .ribbon {
+  position: absolute;
+  left: -10px; top: -10px;
+  z-index: 1;
+  overflow: hidden;
+  width: 320px; height: 320px;
+  text-align: right;
+  opacity: .9;
 }
 
-#HomePage .animated img{
+#HomePage .ribbon span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 50px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  width: 450px;
+  display: block;
+  background: #79A70A;
+  background: linear-gradient(#F70505 0%, #5C1A1A 100%);
+  box-shadow: 0 3px 10px -5px black;
+  position: absolute;
+  top: 70px; left: -110px;
+}
+#HomePage .ribbon span img {
+    width: 100px;
+    height: 100px;
+}
+
+#HomePage .ribbon span::before {
+  content: "";
+  position: absolute; left: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid #5C1A1A;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #5C1A1A;
+}
+
+#HomePage .ribbon span::after {
+  content: "";
+  position: absolute; right: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #5C1A1A;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #5C1A1A;
+}
+
+#HomePage .btn-custom {
+    padding: .5em 1.5em .5em 1.5em;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 50px;
+    border-radius: 25px;
+    opacity: .9;
+    margin-top: 6.5em;
+    background-color: hsl(0, 69%, 18%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ce2525", endColorstr="#4d0e0e");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#ce2525), to(#4d0e0e));
+    background-image: -moz-linear-gradient(top, #ce2525, #4d0e0e);
+    background-image: -ms-linear-gradient(top, #ce2525, #4d0e0e);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ce2525), color-stop(100%, #4d0e0e));
+    background-image: -webkit-linear-gradient(top, #ce2525, #4d0e0e);
+    background-image: -o-linear-gradient(top, #ce2525, #4d0e0e);
+    background-image: linear-gradient(#ce2525, #4d0e0e);
+    border-color: #4d0e0e #4d0e0e hsl(0, 69%, 10.5%);
+    color: #fff !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.49);
+    -webkit-font-smoothing: antialiased;
+}
+
+#HomePage .btn-custom:focus {
+    outline: 0px;
+    text-decoration: none;
+}
+
+#HomePage .animated button {
     -webkit-transition-property: -webkit-transform;
     -webkit-transition-duration: 1s;
     -moz-transition-property: -moz-transform;
     -moz-transition-duration: 1s;
-    -webkit-animation-name: slide;
-    -moz-animation-name: slide;
-    -webkit-animation-duration: 5s;
-    -moz-animation-duration: 5s;
+    -webkit-animation-name: pulse;
+    -moz-animation-name: pulse;
+    -webkit-animation-duration: 4s;
+    -moz-animation-duration: 4s;
     -webkit-animation-iteration-count: infinite;
     -moz-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
     -moz-animation-timing-function: linear;
 }
 
-#Affix #circlebutton {
-    text-align: center;
-}
-
-#Affix .btn-circle:hover, .btn-circle:focus {
-    outline: 0;
-    color: #fff;
-    background: rgba(255,255,255,.1);
-}
-
 @-webkit-keyframes pulse {    
     0% {
         -webkit-transform: scale(1);
         transform: scale(1);
-        transform: translate3d()
     }
 
     50% {
-        -webkit-transform: scale(1.2);
-        transform: scale(1.2);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
     }
 
     100% {
@@ -1048,15 +1155,15 @@ textarea {
     }
 }
 
-@-moz-keyframes pulse {    
+@-moz-keyframes pulse {
     0% {
         -moz-transform: scale(1);
         transform: scale(1);
     }
 
     50% {
-        -moz-transform: scale(1.2);
-        transform: scale(1.2);
+        -moz-transform: scale(1.1);
+        transform: scale(1.1);
     }
 
     100% {
@@ -1066,3 +1173,27 @@ textarea {
 }
 
 
+#background_cycler {
+    padding:0;
+    margin:0;
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+    
+
+}
+#background_cycler img{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    z-index:1;
+    min-height: 57.1em;
+
+}
+#background_cycler img.active{
+    z-index:3;
+
+}
