@@ -1,35 +1,40 @@
 ﻿@{
-    ViewBag.Title = "Dashboard";
-    Layout = "~/Views/Shared/_LayoutNavbarOnlyLogo.cshtml";
+    ViewBag.Title = "DashboardSE";
+    Layout = "~/Views/Staffing/_LayoutDashSE.cshtml";
 }
-
-<h2>Dashboard</h2>
 
 <div id="staffingExpert">
 
-    <div id="AddJobQuestionLinkURL" class="hidden">@Url.Action("AddJobQuestionLink")</div>
-    <div id="GetJobTemplateURL" class="hidden">@Url.Action("GetJobTemplate")</div>
-    <div id="GetListOfQuestionsURL" class="hidden">@Url.Action("GetListOfQuestions")</div>
-    <div id="GetQuestionTemplateURL" class="hidden">@Url.Action("GetQuestionTemplate")</div>
-    <div id="QuestionListURL" class="hidden">@Url.Action("QuestionList")</div>
-    <div id="RemoveJobQuestionLinkURL" class="hidden">@Url.Action("RemoveJobQuestionLink")</div>
+    <div id="containerStart" class="container-fluid bg-diag-grad">
+        <div class="container">
+            <h2><strong>Title of Somekind</strong></h2>
+            <div id="AddJobQuestionLinkURL" class="hidden">@Url.Action("AddJobQuestionLink")</div>
+            <div id="GetJobTemplateURL" class="hidden">@Url.Action("GetJobTemplate")</div>
+            <div id="GetListOfQuestionsURL" class="hidden">@Url.Action("GetListOfQuestions")</div>
+            <div id="GetQuestionTemplateURL" class="hidden">@Url.Action("GetQuestionTemplate")</div>
+            <div id="QuestionListURL" class="hidden">@Url.Action("QuestionList")</div>
+            <div id="RemoveJobQuestionLinkURL" class="hidden">@Url.Action("RemoveJobQuestionLink")</div>
 
-    <div class="col-md-3 pull-left">
-        <div id="JobList">
-            @{ Html.RenderAction("JobList", "Staffing"); }
+            <div class="col-md-3 pull-left">
+                <div id="JobList">
+                    @{ Html.RenderAction("JobList", "Staffing"); }
+                </div>
+                <div class="btn btn-default full-btn" id="addJob">Add New Job</div>
+            </div>
+
+            <div class="col-md-4 pull-left">
+                <i id="noJobSelected">Select job to see questions</i>
+                <div id="QuestionList" class="col-md-12"></div>
+
+                <div class="col-md-5 btn btn-default" id="addNewQ">Add New Question</div>
+                <div class="col-md-6 col-md-offset-1 btn btn-default" id="addExistingQ">Add Existing Question</div>
+            </div>
+
+            <div id="editBox" class="col-md-5 pull-left"></div>
         </div>
-        <div class="btn btn-default full-btn" id="addJob">Add New Job</div>
-    </div>
-
-    <div class="col-md-4 pull-left">
-        <i id="noJobSelected">Select job to see questions</i>
-        <div id="QuestionList" class="col-md-12"></div>
         
-        <div class="col-md-5 btn btn-default" id="addNewQ">Add New Question</div>
-        <div class="col-md-6 col-md-offset-1 btn btn-default" id="addExistingQ">Add Existing Question</div>
     </div>
 
-    <div id="editBox" class="col-md-5 pull-left"></div>
 
 </div>
 

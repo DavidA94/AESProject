@@ -3,16 +3,35 @@
     Layout = "../Shared/_LayoutEmpty.cshtml";
 }
 
-<div id="HomePage">
-    <div class="animated">
-        <img src="~/Content/Images/Application_Background.jpg"/>
-    </div>
+<div id="background_cycler">
 
-    <div id="img2">
+    <script type="text/javascript">
+        $('#background_cycler').hide();//hide the background while the images load, ready to fade in later
+    </script>
 
-    </div>
-    <div id="BeginButton">
-
-    </div>
+    <img class="active" src="~/Content/Images/HomeBackground_0.jpg" alt="" />
+    <img src="~/Content/Images/HomeBackground_1.jpg" alt="" />
+    <img src="~/Content/Images/HomeBackground_2.jpg" alt="" />
+    <img src="~/Content/Images/HomeBackground_3.jpg" alt="" />
 </div>
 
+<div id="HomePage">
+    <div id="BeginButton">
+        <div class="col-md-12 text-center animated">
+            @using (Html.BeginForm("HomePage", "Home", FormMethod.Post))
+            {
+            <button type="submit" name="BeginButton" class="btn btn-custom" value="True">Begin</button>
+            }
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="ribbon"><span><img src="~/Content/Images/AESLogo_White.svg" /></span></div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/BackgroundFade.js")
+}
