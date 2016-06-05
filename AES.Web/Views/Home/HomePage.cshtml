@@ -5,24 +5,27 @@
 
 <div id="background_cycler">
 
-    <script type="text/javascript">
-        $('#background_cycler').hide();//hide the background while the images load, ready to fade in later
-    </script>
+    @*<script type="text/javascript">
+            $('#background_cycler').hide();//hide the background while the images load, ready to fade in later
+        </script>*@
 
-    <img class="active" src="~/Content/Images/HomeBackground_0.jpg" alt="" />
-    <img src="~/Content/Images/HomeBackground_1.jpg" alt="" />
-    <img src="~/Content/Images/HomeBackground_2.jpg" alt="" />
-    <img src="~/Content/Images/HomeBackground_3.jpg" alt="" />
+    @*<img src="~/Content/Images/HomeBackground_0.jpg" id="cycle_img0" alt="" />
+        <img src="~/Content/Images/HomeBackground_1.jpg" id="cycle_img1" alt="" />
+        <img src="~/Content/Images/HomeBackground_2.jpg" id="cycle_img2" alt="" />
+        <img src="~/Content/Images/HomeBackground_3.jpg" id="cycle_img3" alt="" />*@
+
+    <div id="cycle_img0"></div>
+    <div id="cycle_img1"></div>
+    <div id="cycle_img2"></div>
+    <div id="cycle_img3"></div>
 </div>
 
 <div id="HomePage">
     <div id="BeginButton">
-        <div class="col-md-12 text-center animated">
-            @using (Html.BeginForm("HomePage", "Home", FormMethod.Post))
+        @using (Html.BeginForm("HomePage", "Home", FormMethod.Post))
             {
             <button type="submit" name="BeginButton" class="btn btn-custom" value="True">Begin</button>
-            }
-        </div>
+        }
     </div>
 
     <div class="box">
@@ -33,5 +36,5 @@
 
 
 @section Scripts {
-    @Scripts.Render("~/Scripts/BackgroundFade.js")
+    @*@Scripts.Render("~/Scripts/BackgroundFade.js"*@
 }

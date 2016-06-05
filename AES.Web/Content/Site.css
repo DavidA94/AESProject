@@ -1036,6 +1036,8 @@ textarea {
 /*Home Page Styling*/
 /******************************************************************************/
 
+#HomePage {position:absolute;top:0;right:0;bottom:0;left:0;}
+
 #HomePage .box {
   width: 300px; height: 300px;
   position: relative;
@@ -1094,22 +1096,21 @@ textarea {
 }
 
 #HomePage .btn-custom {
-    padding: .5em 1.5em .5em 1.5em;
+    width:350px;
+    height:126px;
     border: 0 none;
-    font-weight: 700;
+    font-weight: bold;
     letter-spacing: 3px;
     text-transform: uppercase;
     font-size: 50px;
     border-radius: 25px;
-    opacity: .9;
-    margin-top: 6.5em;
+    opacity: .95;
+    margin:-63px 0 0 -175px;
+    margin-top:-63px;
     background-color: hsl(0, 69%, 18%) !important;
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ce2525", endColorstr="#4d0e0e");
-    background-image: -khtml-gradient(linear, left top, left bottom, from(#ce2525), to(#4d0e0e));
     background-image: -moz-linear-gradient(top, #ce2525, #4d0e0e);
-    background-image: -ms-linear-gradient(top, #ce2525, #4d0e0e);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ce2525), color-stop(100%, #4d0e0e));
     background-image: -webkit-linear-gradient(top, #ce2525, #4d0e0e);
     background-image: -o-linear-gradient(top, #ce2525, #4d0e0e);
     background-image: linear-gradient(#ce2525, #4d0e0e);
@@ -1117,6 +1118,9 @@ textarea {
     color: #fff !important;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.49);
     -webkit-font-smoothing: antialiased;
+    position:absolute;
+    top:50%;
+    left:50%;
 }
 
 #HomePage .btn-custom:focus {
@@ -1124,55 +1128,11 @@ textarea {
     text-decoration: none;
 }
 
-#HomePage .animated button {
-    -webkit-transition-property: -webkit-transform;
-    -webkit-transition-duration: 1s;
-    -moz-transition-property: -moz-transform;
-    -moz-transition-duration: 1s;
-    -webkit-animation-name: pulse;
-    -moz-animation-name: pulse;
-    -webkit-animation-duration: 4s;
-    -moz-animation-duration: 4s;
-    -webkit-animation-iteration-count: infinite;
-    -moz-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    -moz-animation-timing-function: linear;
+#HomePage button {
+    animation: pulse 5s linear 0s infinite normal;
+    -moz-animation: pulse 5s linear 0s infinite normal;
+    -webkit-animation: pulse 3s linear 0s infinite normal;
 }
-
-@-webkit-keyframes pulse {    
-    0% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-
-    50% {
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
-    }
-
-    100% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-}
-
-@-moz-keyframes pulse {
-    0% {
-        -moz-transform: scale(1);
-        transform: scale(1);
-    }
-
-    50% {
-        -moz-transform: scale(1.1);
-        transform: scale(1.1);
-    }
-
-    100% {
-        -moz-transform: scale(1);
-        transform: scale(1);
-    }
-}
-
 
 #background_cycler {
     padding:0;
@@ -1180,21 +1140,73 @@ textarea {
     width:100%;
     position:fixed;
     top:0;
+    right:0;
+    bottom:0;
     left:0;
-    z-index:-1;
-    
-
 }
-#background_cycler img{
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    z-index:1;
-    min-height: 57.1em;
 
+#background_cycler div {position:absolute;top:0;right:0;bottom:0;left:0;background-size:cover;opacity:0;}
+
+#background_cycler #cycle_img0{
+    background-image:url('/Content/Images/HomeBackground_0.jpg');
+    animation: cycler 28s linear 0s infinite normal;
+    -moz-animation: cycler 28s linear 0s infinite normal;
+    -webkit-animation: cycler 28s linear 0s infinite normal;
 }
-#background_cycler img.active{
-    z-index:3;
+#background_cycler #cycle_img1{
+    background-image:url('/Content/Images/HomeBackground_1.jpg');
+    animation: cycler 28s linear 7s infinite normal;
+    -moz-animation: cycler 28s linear 7s infinite normal;
+    -webkit-animation:  cycler 28s linear 7s infinite normal;
+}
+#background_cycler #cycle_img2{
+    background-image:url('/Content/Images/HomeBackground_2.jpg');
+    animation: cycler 28s linear 14s infinite normal;
+    -moz-animation: cycler 28s linear 14s infinite normal;
+    -webkit-animation: cycler 28s linear 14s infinite normal;
+}
+#background_cycler #cycle_img3{
+    background-image:url('/Content/Images/HomeBackground_3.jpg');
+    animation: cycler 28s linear 21s infinite normal;
+    -moz-animation: cycler 28s linear 21s infinite normal;
+    -webkit-animation: cycler 28s linear 21s infinite normal;
+}
 
+@keyframes pulse {
+    0% {box-shadow:0 0 10px white;}
+    50% {box-shadow:0 0 30px white;}
+    100% {box-shadow:0 0 10px white;}
+}
+
+@-webkit-keyframes pulse {    
+    0% {box-shadow:0 0 10px white;}
+    50% {box-shadow:0 0 30px white;}
+    100% {box-shadow:0 0 10px white;}
+}
+
+@-moz-keyframes pulse {
+    0% {box-shadow:0 0 10px white;}
+    50% {box-shadow:0 0 30px white;}
+    100% {box-shadow:0 0 10px white;}
+}
+
+@keyframes cycler{
+    0% {opacity:0;}
+    5% {opacity:1;}
+    25% {opacity:1;}
+    30% {opacity:0;}
+}
+
+@-moz-keyframes cycler{
+    0% {opacity:0;}
+    5% {opacity:1;}
+    25% {opacity:1;}
+    30% {opacity:0;}
+}
+
+@-webkit-keyframes cycler{
+    0% {opacity:0;}
+    5% {opacity:1;}
+    25% {opacity:1;}
+    30% {opacity:0;}
 }
