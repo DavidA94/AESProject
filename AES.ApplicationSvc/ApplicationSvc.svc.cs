@@ -578,6 +578,19 @@ namespace AES.ApplicationSvc
                     //app.Applicant = db.ApplicantUsers.Where(a => a.userID == applicantID).FirstOrDefault();
                     app.Status = setStatus;
                     changes += 1;
+
+                    if(setStatus == AppStatus.APPROVED)
+                    {
+                        try
+                        {
+                            app.Job.Openings.FirstOrDefault(o => o.StoreID == app.StoreID).Positions--;
+                        }
+                        catch
+                        {
+                            // Can't approve if there's no opening for the given store
+                            return false;
+                        }
+                    }
                 }
 
                 if (changes == 0)
