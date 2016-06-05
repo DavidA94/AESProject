@@ -10,21 +10,11 @@ namespace AES.Web.Controllers
     {
         public ActionResult HomePage()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult HomePage(string BeginButton)
-        {
-            if (BeginButton == "True")
+            if(HttpContext.Request.QueryString["store"] == null)
             {
-                return RedirectToAction("Login", "ApplicantLogin");
+                return RedirectPermanent(Request.Url.AbsolutePath + "?store=1");
             }
-
             return View();
         }
-
-
-
     }
 }

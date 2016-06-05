@@ -26,11 +26,11 @@
                         id = "i" + Model.QuestionID.ToString() + i.ToString();
                         if (Model.RadioOption == id)
                         {
-                            @Html.RadioButtonFor(m => m.RadioOption[Model.QuestionID], @id, new { @id = @id, @checked="checked" })
+                            <input type="radio" name="RadioOption[@Model.QuestionID]" id="@id" value="@id" checked="checked" />
                         }
                         else
                         {
-                            @Html.RadioButtonFor(m => m.RadioOption[Model.QuestionID], @id, new { @id = @id })
+                            <input type="radio" name="RadioOption[@Model.QuestionID]" id="@id" value="@id" />
                         }
                         <label for="@id">@Model.Options[i]</label>
                     }

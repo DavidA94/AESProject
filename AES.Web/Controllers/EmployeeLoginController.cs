@@ -16,6 +16,12 @@ namespace AES.Web.Controllers
         // GET: EmployeeLogin
         public ActionResult Login()
         {
+            if (Request.IsAuthenticated)
+            {
+                EmployeeUserManager.Logout();
+                return RedirectToActionPermanent("Login");
+            }
+
             ViewBag.returnUrl = HttpContext.Request.QueryString["ReturnUrl"];
             return View();
         }
@@ -68,6 +74,13 @@ namespace AES.Web.Controllers
 
         public ActionResult ResetPassword()
         {
+            if(Request.IsAuthenticated)
+            {
+                EmployeeUserManager.Logout();
+                TempData["resetEmail"] = TempData["resetEmail"];
+                return RedirectToActionPermanent("ResetPassword");
+            }
+
             var e = new EmployeeLoginModel() { Email = TempData["resetEmail"].ToString() };
 
             return View(e);
@@ -102,6 +115,12 @@ namespace AES.Web.Controllers
 
         public ActionResult ForgotPassword()
         {
+            if(Request.IsAuthenticated)
+            {
+                EmployeeUserManager.Logout();
+                return RedirectToActionPermanent("ForgotPassword");
+            }
+
             ViewBag.SuccessfulReset = false;
             return View();
         }

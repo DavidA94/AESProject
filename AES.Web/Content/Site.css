@@ -57,7 +57,6 @@ textarea {
 }
 
 #DashboardHS #body .container-fluid {
-    min-height: 30em;
     padding-top: 5em;
     padding-right: 10em;
     padding-left: 10em;
@@ -261,7 +260,7 @@ textarea {
 #ITDashboard h3 {color: black;text-align: center;}
 #ITDashboard {width:450px;margin:auto;overflow:hidden;}
 #ITDashboard > a {display:block;width:200px;height:200px;background:#ededed;float:left;border:1px solid #ababab;padding:10px;text-align:center;color:#555;}
-#ITDashboard > a:first-child {margin-right:50px;}
+#ITDashboard > a:first-of-type {margin-right:50px;}
 #ITDashboard > a:hover {color:#6e1612;border-color:#6e1612;}
 #ITDashboard a div {font-size:120px;line-height:120px;padding-top:10px;}
 #ITDashboard a p {font-weight:bold;line-height:20px;}
@@ -414,12 +413,9 @@ textarea {
 }
 
 #Affix .container-fluid {
-    background-color: maroon;
-    background-image: url(Images/Gradient_Maroon_Background.png);
-    background-repeat: no-repeat;
-    background-size: 100%;
+    background: maroon url(Images/Gradient_Maroon_Background.png) no-repeat;
+    background-size: cover;
     color: white;
-    height: 52em;
     padding: 3em;
 }
 
@@ -681,7 +677,6 @@ textarea {
     background-image: url(Images/Interview_Background_0.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
-    min-height: 59em;
     padding-top: 5em;
 }
 
@@ -753,7 +748,6 @@ textarea {
     background-image: url(Images/Job_Opportunities_Background.jpg);
     background-repeat: no-repeat;
     background-size: 200%;
-    min-height: 59em;
     padding-top: 5em;
 }
 
@@ -1098,6 +1092,9 @@ textarea {
 #HomePage .btn-custom {
     width:350px;
     height:126px;
+    line-height:126px;
+    text-align:center;
+    text-decoration:none;
     border: 0 none;
     font-weight: bold;
     letter-spacing: 3px;

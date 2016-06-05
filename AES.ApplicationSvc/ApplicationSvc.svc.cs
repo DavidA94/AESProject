@@ -138,7 +138,8 @@ namespace AES.ApplicationSvc
         {
             var retApp = new ApplicationInfoContract()
             {
-                ApplicantID = userID
+                ApplicantID = userID,
+                UserInfo = new UserInfoContract()
             };
 
             using (var db = new AESDbContext())
@@ -148,7 +149,7 @@ namespace AES.ApplicationSvc
                 var submittedApp = db.Applications.Where(a => a.Applicant.userID == userID &&
                                                               a.Status != userAppStatus)
                                                               .OrderByDescending(a => a.Timestamp).FirstOrDefault();
-                if (applications != null)
+                if (applications != null && applications.Count() > 0)
                 {
                     foreach (var app in applications)
                     {

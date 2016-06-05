@@ -111,7 +111,7 @@ namespace AES.OpeningsSvc
             List<JobOpeningContract> returnedList = new List<JobOpeningContract>();
             using (var db = new AESDbContext())
             {
-                var gottenOpenings = db.JobOpenings.Where(o => o.Store.ID == StoreID && o.Status == status).ToList();
+                var gottenOpenings = db.JobOpenings.Where(o => o.Store.ID == StoreID && o.Status == status && o.Positions > 0).ToList();
                 foreach (var opening in gottenOpenings)
                 {
                     returnedList.Add(new JobOpeningContract(opening));

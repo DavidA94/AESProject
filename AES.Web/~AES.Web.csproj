@@ -318,7 +318,7 @@
     <Content Include="Properties\DataSources\AES.Shared.Contracts.StoreContract.datasource" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\commonScripts.js" />
-    <Content Include="Scripts\BackgroundFade.js" />
+    <Content Include="Scripts\ForceFullHeight.js" />
     <Content Include="Scripts\JobbingDashboard.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
