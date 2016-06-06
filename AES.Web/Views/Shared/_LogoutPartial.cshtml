@@ -1,5 +1,9 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    @Html.ActionLink("Log Out", "Login", "EmployeeLogin", null, new {@class = "nav navbar-nav navbar-right" })
+    <ul class="nav navbar-nav  navbar-right">
+        <li>
+            @Html.ActionLink("Log Out", "Login", "EmployeeLogin")
+        </li>
+    </ul>
 }

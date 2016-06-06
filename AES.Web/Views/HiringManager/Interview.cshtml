@@ -1,7 +1,7 @@
 ﻿@model AES.Web.Models.FullApplicationModel
 
 @{
-    ViewBag.Title = "Interview";
+    ViewBag.Title = string.Format("{0} {1}'s Interview", Model.Profile.FirstName, Model.Profile.LastName);
     Layout = "~/Views/HiringManager/_LayoutInterview.cshtml";
 }
 
