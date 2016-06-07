@@ -43,7 +43,7 @@
                             <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
                         </a>
                     </li>
-                    <li><a data-smooth="true" href="#BackToTop">Dashboard</a></li>
+                    <li>@Html.ActionLink("Dashboard", "DashboardHM", "HiringManager")</li>
                 </ul>
                 @Html.Partial("_LogoutPartial")
             </nav>
@@ -56,6 +56,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/SmoothScroll.js")
+    @Scripts.Render("~/Scripts/ForceFullHeight.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

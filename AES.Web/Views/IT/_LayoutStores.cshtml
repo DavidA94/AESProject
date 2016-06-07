@@ -12,7 +12,7 @@
 <body id="LayoutIT">
 
     <div id="Affix">
-        <div class="container-fluid" id="BackToTopDashIT">
+        <div class="container-fluid full-height" id="BackToTopDashIT">
             <div class="col-md-push-4">
                 <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
             </div>
@@ -37,7 +37,7 @@
 
     <div id="custom-navbar">
         <div class="nav-wrapper">
-            <nav class="navbar navbar-inverse affix" data-spy="affix" data-offset-top="720">
+            <nav id="NavOffset" class="navbar navbar-inverse affix" data-spy="affix" data-offset-top="720">
                 <ul class="nav navbar-nav">
 
                     <li id="navbarlogo" class="li-no-hover">
@@ -67,6 +67,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/SmoothScroll.js")
+    @Scripts.Render("~/Scripts/ForceFullHeight.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

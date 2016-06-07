@@ -8,31 +8,28 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    <div class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="#">
-                    <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
-                </a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Profile", "UserProfile", "Application")</li>
-                    <li>@Html.ActionLink("Availability", "Availability", "Application")</li>
-                    <li>@Html.ActionLink("Work History", "WorkHistory", "Application")</li>
-                    <li>@Html.ActionLink("Education", "Education", "Application")</li>
-                    <li>@Html.ActionLink("References", "References", "Application")</li>
-                    <li>@Html.ActionLink("Questionaire", "Questionaire", "Application")</li>
-                </ul>
+<body id="ApplicationLayout">
+        <div id="custom-navbar">
+            <div class="nav-wrapper">
+                <nav class="navbar navbar-inverse affix bg-diag-grad application-navbar" data-spy="affix">
+                    <ul class="nav navbar-nav" >
+                        <li id="navbarlogo">
+                            <a href="#">
+                                <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
+                            </a>
+                        </li>
+
+                        <li>@Html.ActionLink("Profile", "UserProfile", "Application")</li>
+                        <li>@Html.ActionLink("Availability", "Availability", "Application")</li>
+                        <li>@Html.ActionLink("Work History", "WorkHistory", "Application")</li>
+                        <li>@Html.ActionLink("Education", "Education", "Application")</li>
+                        <li>@Html.ActionLink("References", "References", "Application")</li>
+                        <li>@Html.ActionLink("Questionaire", "Questionaire", "Application")</li>
+                    </ul>
+                </nav>
             </div>
         </div>
-    </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />

@@ -47,7 +47,7 @@
                         <li><a data-smooth="true" href="#BackToTopDashHM">Dashboard</a></li>
                         <li><a data-smooth="true" href="#ViewApplicantInfo">View Applicant Info</a></li>
                         <li><a data-smooth="true" href="#InterviewSection">Interview Section</a></li>
-                        <li><a data-smooth="true" href="#RequestPositions">Request Positions</a></li>
+                        <li><a data-smooth="true" href="#RequestPositionsSection">Request Positions</a></li>
                     </ul>
                     @Html.Partial("_LogoutPartial")
                 </nav>
@@ -60,6 +60,7 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @Scripts.Render("~/Scripts/SmoothScroll.js")
+        @Scripts.Render("~/Scripts/ForceFullHeight.js")
         @RenderSection("scripts", required: false)
     </body>
 </html>

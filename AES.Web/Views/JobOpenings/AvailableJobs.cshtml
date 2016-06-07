@@ -28,9 +28,30 @@
                         <div class="no-overflow padLeft">
                             @* Display Job Title *@
                             <div class="h3">
-                                @Html.DisplayFor(m => m.ToArray()[i].Title)
+                                <!-- Trigger the modal with Title -->
+                                <a class="modal-link" data-toggle="modal" data-target="#LongDescModal">@Model.ToArray()[i].Title</a>
                                 @Html.HiddenFor(m => m.ToArray()[i].Title)
+
+                                <div class="modal fade" id="LongDescModal" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">@Model.ToArray()[i].Title</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>@Model.ToArray()[i].LongDesc</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                             <div>
                                 @Html.DisplayFor(m => m.ToArray()[i].ShortDesc)
                                 @Html.HiddenFor(m => m.ToArray()[i].ShortDesc)

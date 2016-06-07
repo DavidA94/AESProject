@@ -101,13 +101,13 @@ namespace AES.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult RequestPositions(string ReqNotes, int JobID, int NumOfPos )
+        public ActionResult RequestPositions(string RequestNotes, int JobID, int NumOfPos )
         {
             IOpeningSvc opnSvc = new OpeningSvcClient();
 
             JobOpeningContract OpeningContract = new JobOpeningContract()
             {
-                RequestNotes = ReqNotes,
+                RequestNotes = RequestNotes,
                 JobID = JobID,
                 Positions = NumOfPos,
                 StoreID = EmployeeUserManager.GetUser().StoreID
