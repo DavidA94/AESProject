@@ -1,15 +1,24 @@
 ﻿var head = document.getElementsByTagName('head')[0];
-
-var winHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
 var style = document.createElement("style");
 style.type = "text/css";
-style.innerHTML = ".container-fluid{min-height:" + winHeight + "px;}";
-
 head.appendChild(style);
 
+setTimeout(makeFullHeight, 1000);
 
-window.addEventListener('resize', function () {
-    var _winHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    style.innerHTML = "html body .container-fluid{min-height:" + _winHeight + "px;}";
-})
+window.addEventListener('resize', makeFullHeight);
+
+function makeFullHeight() {
+    var navBar = document.getElementById('NavOffset');
+
+    var winHeight = document.documentElement.clientHeight;
+    if (window.innerHeight && window.innerHeight > 0) {
+        winHeight = window.innerHeight;
+    }
+
+    var navHeight = navBar.clientHeight;
+    style.innerHTML = "html body .full-height{min-height:" + (winHeight - navHeight) + "px!important;}";
+
+    console.log(navHeight);
+
+    navBar.setAttribute('data-offset-top', winHeight);
+}

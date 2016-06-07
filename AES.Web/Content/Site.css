@@ -57,6 +57,7 @@ textarea {
 }
 
 #DashboardHS #body .container-fluid {
+    min-height: 30em;
     padding-top: 5em;
     padding-right: 10em;
     padding-left: 10em;
@@ -580,7 +581,7 @@ textarea {
 
 /*Prevent a sudden jump when navbar transforms*/
 #custom-navbar .nav-wrapper {
-    min-height: 5.3em;
+    min-height: 72px;
 }
 
 
@@ -750,6 +751,7 @@ textarea {
     background-repeat: no-repeat;
     background-size: 200%;
     padding-top: 5em;
+    min-height: 59em;
 }
 
 #DashboardHM #RequestPositions .jumbotron {
