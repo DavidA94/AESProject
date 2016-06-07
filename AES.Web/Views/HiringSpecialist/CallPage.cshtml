@@ -1,7 +1,7 @@
 ﻿@model AES.Web.Models.FullApplicationModel
 
 @{
-    ViewBag.Title = "CallPage";
+    ViewBag.Title = string.Format("{0} {1}'s Application", Model.Profile.FirstName, Model.Profile.LastName);
     Layout = "~/Views/HiringSpecialist/_LayoutCallPage.cshtml";
 }
 
@@ -414,7 +414,7 @@
                     <div class="form-group">
                         @Html.LabelFor(a => item.WorkedFrom, new { @class = "col-md-4 control-label" })
                         <div class="col-md-push-4">
-                            @item.WorkedFrom
+                            @Html.DisplayFor(m => item.WorkedFrom)
                         </div>
                     </div>
 
@@ -422,7 +422,7 @@
                     <div class="form-group">
                         @Html.LabelFor(a => item.WorkedTo, new { @class = "col-md-4 control-label" })
                         <div class="col-md-push-4">
-                            @item.WorkedTo
+                            @Html.DisplayFor(m => item.WorkedTo)
                         </div>
                     </div>
                 }
@@ -499,7 +499,7 @@
                     <div class="form-group">
                         @Html.LabelFor(a => item.Major, new { @class = "col-md-4 control-label" })
                         <div class="col-md-push-4">
-                            @item.Major
+                            @Html.DisplayFor(m => item.Major)
                         </div>
                     </div>
 
@@ -507,7 +507,7 @@
                     <div class="form-group">
                         @Html.LabelFor(a => item.Degree, new { @class = "col-md-4 control-label" })
                         <div class="col-md-push-4">
-                            @item.Degree
+                            @Html.DisplayFor(m => item.Degree)
                         </div>
                     </div>
 
@@ -607,7 +607,7 @@
                         </div>
 
                         //Short Answer
-                        <div class="form-group">
+                        <div class="form-group no-overflow">
                             @Html.LabelFor(a => item.ShortAnswer, "Answer", new { @class = "col-md-2 control-label" })
                             <div class="col-md-10" id="qtextarea">
                                 <textarea class="form-control" name="ShortAnswer" rows="4" readonly="readonly">@item.ShortAnswer</textarea>
@@ -618,7 +618,7 @@
                     if (item.Type.ToString() == "RADIO")
                     {
                         //Question
-                        <div class="form-group">
+                        <div class="form-group no-overflow">
                             @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
                             <div class="col-md-push-4">
                                 @item.Question
@@ -626,7 +626,7 @@
                         </div>
 
                         //Radio Answer
-                        <div class="form-group">
+                        <div class="form-group no-overflow">
                             @Html.LabelFor(a => item.Options, "Answer", new { @class = "col-md-2 control-label" })
                             <div class="col-md-push-4">
                                 @if (item.MC_Answers[0])
@@ -645,7 +645,7 @@
                     if (item.Type.ToString() == "CHECKBOX")
                     {
                         //Question
-                        <div class="form-group">
+                        <div class="form-group no-overflow">
                             @Html.LabelFor(a => item.Question, new { @class = "col-md-2 control-label" })
                             <div class="col-md-push-4">
                                 @item.Question
@@ -653,7 +653,7 @@
                         </div>
 
                         //Checkbox Answers
-                        <div class="form-group">
+                        <div class="form-group no-overflow">
                             @Html.LabelFor(a => item.MC_Answers, "Answers:", new { @class = "col-md-12 control-label" })
                             <div class="container-fluid">
                                 @for (int i = 0; i < item.Options.Count; ++i)
@@ -688,6 +688,8 @@
                     <span class="glyphicon glyphicon-comment logo"></span>
                 </div>
 
+                <div class="clearfix"></div>
+
                 <p></p>
                 <div id="buttons">
                     <div class="container-fluid col-md-12">
@@ -709,7 +711,7 @@
 
                 <div id="backtotop" class="container-fluid">
                     <div>
-                        <a href="#BackToTop" class="btn btn-info btn-lg" role="button">Back To Top</a>
+                        <a data-smooth="true" href="#BackToTop" class="btn btn-info btn-lg" role="button">Back To Top</a>
                     </div>
                 </div>
 

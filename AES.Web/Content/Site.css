@@ -57,6 +57,7 @@ textarea {
 }
 
 #DashboardHS #body .container-fluid {
+    min-height: 30em;
     padding-top: 5em;
     padding-right: 10em;
     padding-left: 10em;
@@ -312,7 +313,7 @@ textarea {
 #staffingExpert #editBox .editBox .typeRadio .multipleChoiceRadio {display:initial;}
 #staffingExpert #editing {font-style:italic;color:black;}
 #staffingExpert #JobList {overflow:hidden;padding:0;}
-#staffingExpert #noJobSelected {display:block;line-height:40px;text-align:center;}
+#staffingExpert #noJobSelected {display:block;line-height:40px;text-align:center;color:black;}
 #staffingExpert #noJobSelected + div + div + div {display:none;}
 #staffingExpert #noJobSelected[class] + div + div + div {display:block;}
 #staffingExpert #QuestionList {overflow:hidden;padding:0 0px;}
@@ -374,9 +375,9 @@ textarea {
 
 .bg-diag-grad{
       background: red; /* For browsers that do not support gradients */
-      background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
-      background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
-      background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
+      background: -webkit-linear-gradient(bottom right, black, #6e1612); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(to bottom right, black, #6e1612); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(bottom right, black, #6e1612); /* For Firefox 3.6 to 15 */
       background: linear-gradient(to bottom right, black, #6e1612); /* Standard syntax */
     }
 
@@ -417,6 +418,7 @@ textarea {
     background-size: cover;
     color: white;
     padding: 3em;
+    /*min-height: 52em !important;*/
 }
 
 #Affix h1 {
@@ -538,6 +540,7 @@ textarea {
 }
 
 
+
 /******************************************************************************/
 /*Hiring Manager Dashboard Layout Styling*/
 /******************************************************************************/
@@ -579,7 +582,7 @@ textarea {
 
 /*Prevent a sudden jump when navbar transforms*/
 #custom-navbar .nav-wrapper {
-    min-height: 5.3em;
+    min-height: 72px;
 }
 
 
@@ -593,7 +596,6 @@ textarea {
     padding-top: 10em;
     padding-bottom: 10em;
 }
-
 
 #DashboardHM #ViewApplicantInfo .container-fluid {
     background-color: white;
@@ -743,15 +745,16 @@ textarea {
 }	
 
 /*Request Positions Section Styling*/
-#DashboardHM #RequestPositions .container-fluid {
+#DashboardHM #RequestPositionsSection .container-fluid {
     background-color: white;
     background-image: url(Images/Job_Opportunities_Background.jpg);
     background-repeat: no-repeat;
     background-size: 200%;
     padding-top: 5em;
+    min-height: 59em;
 }
 
-#DashboardHM #RequestPositions .jumbotron {
+#DashboardHM #RequestPositionsSection .jumbotron {
     background: #6e1612;
     padding: 1em;
     text-align: center;
@@ -760,10 +763,85 @@ textarea {
     margin-left: auto;
 }
 
-#RequestPositions #RequestNotes textarea {
-    width: 50%;
+#RequestPositionsSection #RequestNotes textarea {
+    min-width: 50%;
     max-width: 90%;
 }
+
+#RequestPositions  input[type=radio]:checked + label {
+    color: khaki;
+}
+
+#RequestPositions label {
+    display: block;
+    color: white;
+}
+
+#RequestPositions .container {
+    border: 2px solid white;
+    width: 75%;
+    text-align: center;
+    padding: .5em;
+    background-color: #6e1612;
+    opacity: .9;
+}
+
+#RequestPositions input[type=radio] {
+    position: absolute;
+    left: -9999px;
+
+}
+
+.padding-left-zero {
+    padding-left: 0px;
+}
+
+.styled-textbox-sm { 
+    background: white; 
+    border: 1px double #DDD; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px #333; 
+    color: #666; 
+    outline: none; 
+    height:25px; 
+    width: 150px; 
+    padding-left: .5em;
+  } 
+
+.styled-textbox-md { 
+    background: white; 
+    border: 1px double #DDD; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px #333; 
+    color: #666; 
+    outline: none; 
+    height:25px; 
+    width: 225px; 
+    padding-left: .5em;
+  } 
+
+.styled-textbox-lg { 
+    background: white; 
+    border: 1px double #DDD; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px #333; 
+    color: #666; 
+    outline: none; 
+    height:25px; 
+    width: 350px; 
+    padding-left: .5em;
+  } 
+
+.styled-textarea { 
+    background: white; 
+    border: 1px double #DDD; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px #333; 
+    color: #666; 
+    outline: none; 
+    padding: 1em;
+  } 
+
 
 /******************************************************************************/
 /*Title for all pages Styling*/
@@ -1026,6 +1104,16 @@ textarea {
     border-radius: 0px;
 }
 
+.application-navbar {
+    padding-left: 8em;
+    padding-right: 5em;
+}
+
+.application-navbar li a {
+    letter-spacing: 1px;
+    padding-left: 2em;
+    padding-right: 2em;
+}
 /******************************************************************************/
 /*Home Page Styling*/
 /******************************************************************************/
@@ -1064,6 +1152,7 @@ textarea {
   position: absolute;
   top: 70px; left: -110px;
 }
+
 #HomePage .ribbon span img {
     width: 100px;
     height: 100px;
@@ -1125,10 +1214,10 @@ textarea {
     text-decoration: none;
 }
 
-#HomePage button {
-    animation: pulse 5s linear 0s infinite normal;
-    -moz-animation: pulse 5s linear 0s infinite normal;
-    -webkit-animation: pulse 3s linear 0s infinite normal;
+#HomePage .btn-custom {
+    animation: shadow-pulse 5s linear 0s infinite normal;
+    -moz-animation: shadow-pulse 5s linear 0s infinite normal;
+    -webkit-animation: shadow-pulse 3s linear 0s infinite normal;
 }
 
 #background_cycler {
@@ -1169,22 +1258,46 @@ textarea {
     -webkit-animation: cycler 28s linear 21s infinite normal;
 }
 
-@keyframes pulse {
-    0% {box-shadow:0 0 10px white;}
-    50% {box-shadow:0 0 30px white;}
-    100% {box-shadow:0 0 10px white;}
+@keyframes shadow-pulse {
+    0% {
+        box-shadow:0 0 50px 10px white;
+    }
+
+    50% {
+        box-shadow:0 0 10px white;
+    }
+
+    100% {
+        box-shadow:0 0 50px 10px white;
+    }
 }
 
-@-webkit-keyframes pulse {    
-    0% {box-shadow:0 0 10px white;}
-    50% {box-shadow:0 0 30px white;}
-    100% {box-shadow:0 0 10px white;}
+@-webkit-keyframes shadow-pulse {    
+    0% {
+        box-shadow:0 0 80px 30px white;
+    }
+
+    50% {
+        box-shadow:0 0 10px white;
+    }
+
+    100% {
+        box-shadow:0 0 80px 30px white;
+    }
 }
 
-@-moz-keyframes pulse {
-    0% {box-shadow:0 0 10px white;}
-    50% {box-shadow:0 0 30px white;}
-    100% {box-shadow:0 0 10px white;}
+@-moz-keyframes shadow-pulse {
+    0% {
+        box-shadow:0 0 80px 30px white;
+    }
+
+    50% {
+        box-shadow:0 0 10px white;
+    }
+
+    100% {
+        box-shadow:0 0 80px 30px white;
+    }
 }
 
 @keyframes cycler{
@@ -1206,4 +1319,78 @@ textarea {
     5% {opacity:1;}
     25% {opacity:1;}
     30% {opacity:0;}
+}
+
+@-webkit-keyframes hvr-back-pulse {
+  50% {
+    background-color: white;
+  }
+}
+
+@keyframes hvr-back-pulse {
+  50% {
+    background-color: #7a3835;
+  }
+}
+
+.hvr-back-pulse {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+
+.hvr-back-pulse:hover, .hvr-back-pulse:focus, .hvr-back-pulse:active {
+  -webkit-animation-name: hvr-back-pulse;
+  animation-name: hvr-back-pulse;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  background-color: #6e1612;
+  background-color: #6e1612;
+  color: white;
+}
+
+
+/* Round Corners */
+.hvr-round-corners {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: border-radius;
+  transition-property: border-radius;
+}
+.hvr-round-corners:hover, .hvr-round-corners:focus, .hvr-round-corners:active {
+  border-radius: 1.3em;
+}
+
+.modal-link {
+    color: black;
+}
+
+.modal-link:hover {
+    text-decoration: none;
+    color: #6e1612;
+    cursor: pointer;
 }

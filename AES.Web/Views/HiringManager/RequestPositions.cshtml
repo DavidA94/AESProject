@@ -6,68 +6,47 @@
     Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
 }
 
-@using (Html.BeginForm("DashboardHM", "HiringManager", FormMethod.Post))
+@using (Html.BeginForm("RequestPositions", "HiringManager", FormMethod.Post))
 {
     <div id="RequestPositions">
-        <div>
-            <div class="col-md-3">
-                <h3>Positions</h3>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                        Positions...
-                        <span class="caret"></span>
-                    </button>
+        <div class="col-md-3">
+            <h3><strong>Positions</strong></h3>
 
-                    <ul class="dropdown-menu">
-                        @foreach (JobModel jobs in Model)
-                        {
-                            <li><a href="#">@jobs.Title</a></li>
-                        }
-                    </ul>
+            @foreach (var jobs in Model.Select((value, i) => new { i, value }))
+            {
+                <div class="container hvr-round-corners hvr-back-pulse">
+                    <input type="radio" id="@jobs.i" name="JobID" value="@jobs.value.JobID" />
+                    <label for="@jobs.i">@jobs.value.Title</label>
                 </div>
-            </div>
-
-            <div class="col-md-9">
-                <h3>Notes</h3>
-                <div id="RequestNotes">
-                    <textarea class="form-control" name="RequestNotes" rows="10" id="notes"></textarea>
-                </div>
-            </div>
-
-            <div id="RequestButton" class="col-md-offset-8">
-                <button type="submit" class="btn btn-default">Submit Request</button>
-            </div>
-       
-
+            }
         </div>
+
+        <div class="col-md-9 padding-left-zero">
+            <h3><strong>Notes</strong></h3>
+            <div id="RequestNotes">
+                <textarea class="form-control styled-textarea" name="RequestNotes" rows="10" id="notes"></textarea>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <br />
+
+        <div class="col-md-offset-3">
+            <label  style="color:black;" for="NumOfPos">Number Of Positions</label>
+            <input class="textbox styled-textbox-sm" type="text" id="NumOfPos" name="NumOfPos" />
+        </div>
+
+
+        <div class="clearfix"></div>
+        <br />
+
+        <div id="RequestButton" class="col-md-offset-3">
+            <button type="submit" class="btn btn-default">Submit Request</button>
+        </div>
+
     </div>
 }
 
-@*@using (Html.BeginForm("DashboardHM", "HiringManager", FormMethod.Post))
-{
-    <div id="RequestPositions">
-            <div class="col-md-3">
-                <h3>Positions</h3>
-                @foreach (JobModel jobs in Model)
-                {
-                    Html.RenderPartial("PartialRequestPositions", jobs);
-                }
-
-            <div class="col-md-9">
-                <h3>Notes</h3>
-                <div id="RequestNotes">
-                    <textarea class="form-control" name="RequestNotes" rows="10" id="notes"></textarea>
-                </div>
-            </div>
-
-            <div id="RequestButton" class="col-md-offset-8">
-                <button type="submit" class="btn btn-default">Submit Request</button>
-            </div>
-
-
-        </div>
-    </div>
-}*@
 @section Scripts {
     @Scripts.Render("~/Scripts/commonscripts.js")
 }

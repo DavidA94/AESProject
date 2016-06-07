@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Reflection;
+using AES.Web.OpeningService;
 
 namespace AES.Web.Controllers
 {
@@ -22,12 +23,6 @@ namespace AES.Web.Controllers
         {
             return View();
 
-        }
-
-        [HttpPost]
-        public ActionResult DashboardHM(string RequestNotes)
-        {
-            return View();
         }
 
         public ActionResult ApplicantInformationList()
@@ -103,6 +98,24 @@ namespace AES.Web.Controllers
 
                 return View(ConvertedContract);
             }
+        }
+
+        [HttpPost]
+        public ActionResult RequestPositions(string RequestNotes, int JobID, int NumOfPos )
+        {
+            IOpeningSvc opnSvc = new OpeningSvcClient();
+
+            JobOpeningContract OpeningContract = new JobOpeningContract()
+            {
+                RequestNotes = RequestNotes,
+                JobID = JobID,
+                Positions = NumOfPos,
+                StoreID = EmployeeUserManager.GetUser().StoreID
+            };
+
+            opnSvc.RequestOpenings(EmployeeUserManager.GetUser().StoreID, OpeningContract, NumOfPos);
+
+            return RedirectToActionPermanent("DashboardHM");
         }
 
         [HttpPost]

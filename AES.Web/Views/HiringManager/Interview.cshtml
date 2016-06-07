@@ -1,7 +1,7 @@
 ﻿@model AES.Web.Models.FullApplicationModel
 
 @{
-    ViewBag.Title = "Interview";
+    ViewBag.Title = string.Format("{0} {1}'s Interview", Model.Profile.FirstName, Model.Profile.LastName);
     Layout = "~/Views/HiringManager/_LayoutInterview.cshtml";
 }
 
@@ -394,7 +394,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(a => item.WorkedFrom, new { @class = "col-md-4 control-label" })
                                     <div class="col-md-push-4">
-                                        @item.WorkedFrom
+                                        @Html.DisplayFor(m => item.WorkedFrom)
                                     </div>
                                 </div>
 
@@ -402,7 +402,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(a => item.WorkedTo, new { @class = "col-md-4 control-label" })
                                     <div class="col-md-push-4">
-                                        @item.WorkedTo
+                                        @Html.DisplayFor(m => item.WorkedTo)
                                     </div>
                                 </div>
                             }
@@ -472,7 +472,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(a => item.Major, new { @class = "col-md-4 control-label" })
                                     <div class="col-md-push-4">
-                                        @item.Major
+                                        @Html.DisplayFor(m => item.Major)
                                     </div>
                                 </div>
 
@@ -480,7 +480,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(a => item.Degree, new { @class = "col-md-4 control-label" })
                                     <div class="col-md-push-4">
-                                        @item.Degree
+                                        @Html.DisplayFor(m => item.Degree)
                                     </div>
                                 </div>
 
@@ -676,6 +676,7 @@
                 </div>
                 <p></p>
 
+                <hr/>
             </div>
         </div>
     </div>
