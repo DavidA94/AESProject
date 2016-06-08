@@ -31,6 +31,7 @@ textarea {
 }
 
 .padLeft {padding-left:1em;}
+.padTop {padding-top:1em;}
 .appTitle {padding:0 0 .5em .5em;}
 .no-overflow {overflow:hidden;}
 .bottom-spacing {margin-bottom:1em;}
@@ -39,9 +40,9 @@ textarea {
 .staticText span {font-weight:bold;}
 
 #list .enumItem + .enumItem h3 {margin-top:2em;}
-#list list.enumItem h3::after {
+#list .enumItem h3::after {
     counter-increment: itemCounter;
-    content:' ' counter(itemCounter);
+    content:" " counter(itemCounter);
 }
 
 .enumSectionHeader {position:relative;}
@@ -299,7 +300,7 @@ textarea {
 
 #DashSELayout .container-fluid h2 {color: white;}
 #staffingExpert .container-fluid {padding: 10em;}
-#staffingExpert .container {background-color: white;padding: 3em;color: white;min-height: 35em;border-radius: 25px;}
+#staffingExpert .container {background-color: white;padding: 3em;min-height: 35em;border-radius: 25px;}
 #staffingExpert .container-fluid h2 {color: black;text-align: center;text-transform: uppercase;}
 #staffingExpert label {color: gray;}
 #staffingExpert textarea {max-width: 100%;}
@@ -583,6 +584,7 @@ textarea {
 /*Prevent a sudden jump when navbar transforms*/
 #custom-navbar .nav-wrapper {
     min-height: 72px;
+    background:black;
 }
 
 
@@ -592,6 +594,8 @@ textarea {
 /******************************************************************************/
 
 /*View Applicant Information Section*/
+#DashboardHM #ViewApplicantInfo {position:relative;}
+
 #DashboardHM #ViewApplicantInfo .container-fluid {
     padding-top: 10em;
     padding-bottom: 10em;
@@ -601,7 +605,7 @@ textarea {
     background-color: white;
     background-image: url(Images/Application_Background.jpg);
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
     min-height: 800px;
     padding-top: 6.5em;
 }
@@ -647,7 +651,7 @@ textarea {
 @media (min-width: 768px){
   #AppInfoDiv {
     position: absolute;
-    top: 72em;
+    top: 250px;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -678,7 +682,7 @@ textarea {
     background-color: white;
     background-image: url(Images/Interview_Background_0.jpg);
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
     padding-top: 5em;
 }
 
@@ -749,7 +753,7 @@ textarea {
     background-color: white;
     background-image: url(Images/Job_Opportunities_Background.jpg);
     background-repeat: no-repeat;
-    background-size: 200%;
+    background-size: cover;
     padding-top: 5em;
     min-height: 59em;
 }
@@ -775,10 +779,11 @@ textarea {
 #RequestPositions label {
     display: block;
     color: white;
+    cursor:pointer;
 }
 
 #RequestPositions .container {
-    border: 2px solid white;
+    margin-bottom:4px;
     width: 75%;
     text-align: center;
     padding: .5em;
@@ -1394,3 +1399,5 @@ textarea {
     color: #6e1612;
     cursor: pointer;
 }
+
+

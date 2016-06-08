@@ -17,6 +17,8 @@ namespace AES.Web.Models
         public List<QuestionnaireViewModel> Questionnaire { get; set; }
 
         public int ApplicantID { get; set; }
-        public string Notes { get; set; }
+        public string InterviewNotes { get; set; }
+        public string ScreeningNotes { get; set; }
+        public string JobTitle { get; set; }
     }
 }

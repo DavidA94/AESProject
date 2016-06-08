@@ -10,10 +10,14 @@
                 @using (Html.BeginForm("CallPage", "HiringSpecialist", FormMethod.Post))
                 {
                     <input type="hidden" name="ApplicantID" value=@Model.ApplicantID />
-                    <button type="submit" class="btn btn-success btn-lg" value="Call">
-                        <i class="glyphicon glyphicon-earphone"></i> Call
-                    </button>
-                    <span class="staticText" id="eta">@Model.ETA</span>
+                    <div>
+                        <button type="submit" class="btn btn-success btn-lg" value="Call">
+                            <i class="glyphicon glyphicon-earphone"></i> Call
+                        </button>
+                    </div>
+                    <div class="padTop">
+                        <span class="staticText" id="eta"><b>Call Before:</b> @Model.ETA</span>
+                    </div>
                 }
             </p>
         </div>

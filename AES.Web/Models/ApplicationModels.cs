@@ -26,6 +26,8 @@ namespace AES.Web.Models
         [Display(Name = "Date of Birth")]
         public DateTime DOB { get; set; }
 
+        [Display(Name = "SSN")]
+        public string SSN { get; set; }
 
         [Display(Name = "Nickname")]
         [StringLength(25)]

@@ -3,7 +3,7 @@ var style = document.createElement("style");
 style.type = "text/css";
 head.appendChild(style);
 
-setTimeout(makeFullHeight, 1000);
+setTimeout(makeFullHeight, 300);
 
 window.addEventListener('resize', makeFullHeight);
 
@@ -17,8 +17,4 @@ function makeFullHeight() {
 
     var navHeight = navBar.clientHeight;
     style.innerHTML = "html body .full-height{min-height:" + (winHeight - navHeight) + "px!important;}";
-
-    console.log(navHeight);
-
-    navBar.setAttribute('data-offset-top', winHeight);
 }

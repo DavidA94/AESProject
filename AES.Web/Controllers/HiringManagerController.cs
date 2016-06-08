@@ -122,33 +122,35 @@ namespace AES.Web.Controllers
         public ActionResult StaticApplicationHM(int ApplicantID, string ApplicantStatus)
         {
             IApplicationSvc appSvc = new ApplicationSvcClient();
-            
+
+            AppStatus whatToGet;
+
             if (ApplicantStatus == "Hired")
             {
-                ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.APPROVED);
+                whatToGet = AppStatus.APPROVED;
 
-                FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
-
-                return View(ConvertedFullAppModel);
+                
             }
             else if (ApplicantStatus == "Denied")
             {
-                ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.DENIED);
-
-                FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
-
-                return View(ConvertedFullAppModel);
+                whatToGet = AppStatus.DENIED;
             }
             else
             {
-                ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, Shared.AppStatus.WAITING_INTERVIEW);
-
-                FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
-
-                ConvertedFullAppModel.ApplicantID = ApplicantID;
-
-                return View(ConvertedFullAppModel);
+                whatToGet = AppStatus.WAITING_INTERVIEW;
             }
+
+            ApplicationInfoContract App = appSvc.GetApplication(ApplicantID, whatToGet);
+
+            FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
+            ConvertedFullAppModel.ApplicantID = ApplicantID;
+
+            using (var oSvc = new OpeningSvcClient())
+            {
+                ConvertedFullAppModel.JobTitle = oSvc.GetJobName(App.AppliedJobs.FirstOrDefault()?.Item1 ?? -1);
+            }
+
+            return View(ConvertedFullAppModel);
         }
 
 
@@ -180,6 +182,11 @@ namespace AES.Web.Controllers
 
                 ConvertedFullAppModel.ApplicantID = ApplicantID;
 
+                using (var oSvc = new OpeningSvcClient())
+                {
+                    ConvertedFullAppModel.JobTitle = oSvc.GetJobName(App.AppliedJobs.FirstOrDefault()?.Item1 ?? -1);
+                }
+
                 return View(ConvertedFullAppModel);
             }
             else
@@ -189,6 +196,11 @@ namespace AES.Web.Controllers
                 FullApplicationModel ConvertedFullAppModel = ConvertAppContractToModel(App);
 
                 ConvertedFullAppModel.ApplicantID = ApplicantID;
+
+                using (var oSvc = new OpeningSvcClient())
+                {
+                    ConvertedFullAppModel.JobTitle = oSvc.GetJobName(App.AppliedJobs.FirstOrDefault()?.Item1 ?? -1);
+                }
 
                 return View(ConvertedFullAppModel);
             }
@@ -326,8 +338,11 @@ namespace AES.Web.Controllers
 
                 References = ConvertContractToModel(app.References),
 
-                Questionnaire = ConvertContractToModel(app.QA)
+                Questionnaire = ConvertContractToModel(app.QA),
 
+                InterviewNotes = app.InterviewNotes,
+                ScreeningNotes = app.ScreeningNotes,
+                
             };
         }
 

@@ -12,6 +12,7 @@
             <div class="container-fluid">
                 <div class="col-lg-12">
                     <h1>@Model.Profile.FirstName @Model.Profile.LastName's Information</h1>
+                    <h1>@Model.JobTitle</h1>
                 </div>
             </div>
         </div>
@@ -50,7 +51,7 @@
             </div>
 
             @*Nickname*@
-            <div class="form-group">
+            <div class="form-group no-overflow">
                 @Html.LabelFor(m => m.Profile.Nickname, new { @class = "col-md-2 control-label" })
                 <div class="col-md-push-4">
                     @Model.Profile.Nickname
@@ -58,7 +59,7 @@
             </div>
 
             @*Date of Birth*@
-            <div class="form-group">
+            <div class="form-group clearfix">
                 @Html.LabelFor(m => m.Profile.DOB, new { @class = "col-md-2 control-label" })
                 <div class="col-md-push-4">
                     @Model.Profile.DOB.ToString("MM-dd-yyyy")
@@ -654,13 +655,20 @@
         <div class="container-fluid bg-diag-grad">
             <div class="col-md-8">
                 <div class="form-group">
-                    <h2><strong>Notes:</strong></h2>
-                    <textarea class="form-control" name="Notes" rows="10" id="notes" readonly="readonly">@Model.Notes</textarea>
+                    <h2><strong>Screening Notes:</strong></h2>
+                    <textarea class="form-control" name="Notes" rows="10" id="notes" readonly="readonly">@Model.ScreeningNotes</textarea>
                 </div>
             </div>
 
             <div class="col-md-4 slideanim">
                 <span class="glyphicon glyphicon-comment logo"></span>
+            </div>
+
+            <div class="col-md-8">
+                <div class="form-group">
+                    <h2><strong>Interview Notes:</strong></h2>
+                    <textarea class="form-control" name="Notes" rows="10" id="notes" readonly="readonly">@Model.InterviewNotes</textarea>
+                </div>
             </div>
 
             <div class="clearfix"></div>

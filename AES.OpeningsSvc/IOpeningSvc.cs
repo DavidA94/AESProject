@@ -13,6 +13,9 @@ namespace AES.OpeningsSvc
         List<JobOpeningContract> GetApprovedOpenings(int StoreID);
 
         [OperationContract]
+        string GetJobName(int jobID);
+
+        [OperationContract]
         bool RequestOpenings(int StoreID, JobOpeningContract opening, int number = 1);
 
         [OperationContract]

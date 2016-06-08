@@ -12,7 +12,7 @@
 
 <div id="HomePage">
     <div id="BeginButton">
-        @Html.ActionLink("Begin", "AvailableJobs", "JobOpenings", null, new { @class = "btn-custom"})
+        @Html.ActionLink("Begin", "AvailableJobs", "JobOpenings", new { @store = Request.QueryString["store"] }, new { @class = "btn-custom"})
     </div>
 
     <div class="box">

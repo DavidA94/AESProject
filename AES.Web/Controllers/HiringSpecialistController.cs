@@ -3,6 +3,7 @@ using AES.Shared.Contracts;
 using AES.Web.ApplicationService;
 using AES.Web.Authorization;
 using AES.Web.Models;
+using AES.Web.OpeningService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +77,11 @@ namespace AES.Web.Controllers
 
             //Keep track of the applicant ID for apply or deny buttons
             ConvertedFullAppModel.ApplicantID = ApplicantID;
+
+            using (var oSvc = new OpeningSvcClient())
+            {
+                ConvertedFullAppModel.JobTitle = oSvc.GetJobName(App.AppliedJobs.FirstOrDefault()?.Item1 ?? -1);
+            }
 
             return View(ConvertedFullAppModel);
         }

@@ -21,6 +21,20 @@ namespace AES.OpeningsSvc
             return GetOpenings(StoreID, OpeningStatus.APPROVED);
         }
 
+        public string GetJobName(int jobID)
+        {
+            using (var db = new AESDbContext())
+            {
+                var job = db.Jobs.FirstOrDefault(j => j.JobID == jobID);
+                if(job == null)
+                {
+                    return "Invalid Job";
+                }
+
+                return job.Title;
+            }
+        }
+
         public List<JobOpeningContract> GetPendingOpenings(int StoreID)
         {
             return GetOpenings(StoreID, OpeningStatus.PENDING_APPROVAL);

@@ -165,6 +165,9 @@ namespace AES.ApplicationSvc
                         retApp.LastName = app.Applicant.LastName;
                         retApp.DOB = app.Applicant.DOB;
 
+                        retApp.ScreeningNotes = app.ScreeningNotes;
+                        retApp.InterviewNotes = app.InterviewNotes;
+
                         retApp.Availability = ConvertTableToContract(app.Applicant.Availability);
                         retApp.Educations = ConvertTableToContract(app.Applicant.EducationHistory).ToList();
                         retApp.Jobs = ConvertTableToContract(app.Applicant.EmploymentHistory).ToList();
@@ -488,7 +491,8 @@ namespace AES.ApplicationSvc
             }
 
             // Sets the applicant's status to one of the three, return false if they are not awaiting an interview
-            if (!SetApplicationStatus(applicantID, AppStatus.WAITING_INTERVIEW, setStatus))
+            if (!SetApplicationStatus(applicantID, AppStatus.WAITING_INTERVIEW, setStatus) &&
+                !SetApplicationStatus(applicantID, AppStatus.INTERVIEW_COMPLETE, setStatus))
             {
                 return false;
             }

@@ -81,7 +81,7 @@ namespace AES.Web.Controllers
                 return RedirectToActionPermanent("ResetPassword");
             }
 
-            var e = new EmployeeLoginModel() { Email = TempData["resetEmail"].ToString() };
+            var e = new EmployeeLoginModel() { Email = TempData["resetEmail"]?.ToString() };
 
             return View(e);
         }

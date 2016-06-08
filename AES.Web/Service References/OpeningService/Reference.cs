@@ -196,6 +196,12 @@ namespace AES.Web.OpeningService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOpeningSvc/GetApprovedOpenings", ReplyAction="http://tempuri.org/IOpeningSvc/GetApprovedOpeningsResponse")]
         System.Threading.Tasks.Task<AES.Web.OpeningService.JobOpeningContract[]> GetApprovedOpeningsAsync(int StoreID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOpeningSvc/GetJobName", ReplyAction="http://tempuri.org/IOpeningSvc/GetJobNameResponse")]
+        string GetJobName(int jobID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOpeningSvc/GetJobName", ReplyAction="http://tempuri.org/IOpeningSvc/GetJobNameResponse")]
+        System.Threading.Tasks.Task<string> GetJobNameAsync(int jobID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOpeningSvc/RequestOpenings", ReplyAction="http://tempuri.org/IOpeningSvc/RequestOpeningsResponse")]
         bool RequestOpenings(int StoreID, AES.Web.OpeningService.JobOpeningContract opening, int number);
         
@@ -260,6 +266,14 @@ namespace AES.Web.OpeningService {
         
         public System.Threading.Tasks.Task<AES.Web.OpeningService.JobOpeningContract[]> GetApprovedOpeningsAsync(int StoreID) {
             return base.Channel.GetApprovedOpeningsAsync(StoreID);
+        }
+        
+        public string GetJobName(int jobID) {
+            return base.Channel.GetJobName(jobID);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetJobNameAsync(int jobID) {
+            return base.Channel.GetJobNameAsync(jobID);
         }
         
         public bool RequestOpenings(int StoreID, AES.Web.OpeningService.JobOpeningContract opening, int number) {

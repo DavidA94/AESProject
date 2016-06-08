@@ -14,6 +14,7 @@ namespace AES.Web.Controllers
             {
                 return RedirectPermanent(Request.Url.AbsolutePath + "?store=1");
             }
+
             return View();
         }
     }

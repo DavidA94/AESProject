@@ -25,7 +25,7 @@ namespace AES.Web.Controllers
             using (var JobOpenings = new OpeningSvcClient())
             {
                 // Get the query string, or use 1 by default
-                string storeID = Request.QueryString["StoreID"] ?? "1";
+                string storeID = Request.QueryString["store"] ?? "1";
 
                 // Get all the openings for the given store
                 JobOpeningContract[] getOpening = JobOpenings.GetApprovedOpenings(Convert.ToInt32(storeID));

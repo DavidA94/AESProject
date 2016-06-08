@@ -9,26 +9,24 @@
 
 </head>
 <body id="ApplicationLayout">
-        <div id="custom-navbar">
-            <div class="nav-wrapper">
-                <nav class="navbar navbar-inverse affix bg-diag-grad application-navbar" data-spy="affix">
-                    <ul class="nav navbar-nav" >
-                        <li id="navbarlogo">
-                            <a href="#">
-                                <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
-                            </a>
-                        </li>
+    <div id="custom-navbar">
+        <nav class="navbar navbar-inverse affix bg-diag-grad application-navbar" data-spy="affix">
+            <ul class="nav navbar-nav">
+                <li id="navbarlogo">
+                    <a href="#">
+                        <img src="~/Content/Images/AESLogo_White.svg" alt="AES Logo">
+                    </a>
+                </li>
 
-                        <li>@Html.ActionLink("Profile", "UserProfile", "Application")</li>
-                        <li>@Html.ActionLink("Availability", "Availability", "Application")</li>
-                        <li>@Html.ActionLink("Work History", "WorkHistory", "Application")</li>
-                        <li>@Html.ActionLink("Education", "Education", "Application")</li>
-                        <li>@Html.ActionLink("References", "References", "Application")</li>
-                        <li>@Html.ActionLink("Questionaire", "Questionaire", "Application")</li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+                <li>@Html.ActionLink("Profile", "UserProfile", "Application")</li>
+                <li>@Html.ActionLink("Availability", "Availability", "Application")</li>
+                <li>@Html.ActionLink("Work History", "WorkHistory", "Application")</li>
+                <li>@Html.ActionLink("Education", "Education", "Application")</li>
+                <li>@Html.ActionLink("References", "References", "Application")</li>
+                <li>@Html.ActionLink("Questionaire", "Questionaire", "Application")</li>
+            </ul>
+        </nav>
+    </div>
 
     <div class="container body-content">
         @RenderBody()
